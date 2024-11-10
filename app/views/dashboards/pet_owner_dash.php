@@ -8,8 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$conn = connectDatabase();
-
 // Fetch user details
 $user_id = $_SESSION['user_id'];
 $table = $_SESSION['table'];

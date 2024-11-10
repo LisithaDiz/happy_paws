@@ -11,20 +11,47 @@ $user_role = $_POST["user-type"];
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="assests/happy-paws-logo.png">
+    <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="signup.css">
-    <link rel="stylesheet" href="components/nav.css">
-    <link rel="stylesheet" href="components/footer.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/signup.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
 
 </head>
 <body>
     <?php include ('components/nav.php'); ?>
-    <div class="signup-container" >
         <div class="signup-box">
-            <h2>Sign Up as a <?php echo ucfirst($user_role); ?></h2>
+            <?php if ($user_role == 'petOwner'){?>
+                <h2>Sign Up as a Pet Owner</h2>
+            <?php } if ($user_role == 'veterinary'){?>
+                <h2>Sign Up as a Veterinary Surgeon</h2>
+            <?php }if ($user_role == 'petCareCenter'){?>
+                    <h2>Sign Up as a Pet Care Center</h2>
+            <?php }if ($user_role == 'petSitter'){?>
+                    <h2>Sign Up as a  Pet Sitter</h2>
+            <?php }if ($user_role == 'pharmacy'){?>
+                    <h2>Sign Up as a Pharmacy</h2>
+            <?php } ?>
+            <div class="card">
+                <?php if ($user_role == 'petOwner'){?>
+                    <img src="<?=ROOT?>/assets/images/prof/pet_owner_prof.jpg" alt="Pet Owner">
+                    <p>Pet Owner</p>
+                <?php } if ($user_role == 'veterinary'){?>
+                    <img src="<?=ROOT?>/assets/images/prof/vet_prof.webp" alt="Veterinary Surgeon">
+                    <p>Veterinary Surgeon</p>
+                <?php }if ($user_role == 'petCareCenter'){?>
+                    <img src="<?=ROOT?>/assets/images/prof/pet_care_center_prof.png" alt="Pet Care Center">
+                    <p>Pet Care Center</p>
+                <?php }if ($user_role == 'petSitter'){?>
+                    <img src="<?=ROOT?>/assets/images/prof/pet_sitter_prof.png" alt="Pet Sitter">
+                    <p>Pet Sitter</p>
+                <?php }if ($user_role == 'pharmacy'){?>
+                    <img src="<?=ROOT?>/assets/images/prof/pharmacy_prof.jpg" alt="Pharmacy">
+                    <p>Pharmacy</p>
+                <?php } ?>
+            </div>
 
             <form action="signup_process.php" method="POST" enctype="multipart/form-data">
                 <div class="input-group">
@@ -172,13 +199,13 @@ $user_role = $_POST["user-type"];
 
                 <label for="confirm_password">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
-
+                
                 <p id="error-message" style="color: red; display: none;">Passwords do not match!</p>
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
-    </div>
+  
     <script>
         document.getElementById('signupForm').addEventListener('submit', function(event) {
         var password = document.getElementById('password').value;

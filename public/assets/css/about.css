@@ -6,7 +6,7 @@ body {
     color: #333;
     background-size: cover;
     transition: background-image 1s ease-in-out;
-    background-image: url('assests/wall/17.jpg');
+    background-image: url('../../assets/images/wall/17.jpg');
     position: relative;
     background-attachment: fixed;
     

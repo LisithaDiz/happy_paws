@@ -30,7 +30,6 @@
         <li><a href="#">Veterinary Care</a></li>
         <li><a href="#">Pet Sitting</a></li>
         <li><a href="#">Pharmacy</a></li>
-        <li><a href="#">Pet Training</a></li>
         <li><a href="#">Pet Boarding</a></li>
       </ul>
     </div>
