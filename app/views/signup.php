@@ -22,26 +22,9 @@ $user_role = $_POST["user-type"];
 </head>
 <body>
     <?php include ('components/nav.php'); ?>
+    <div class="signup-container" >
         <div class="signup-box">
             <h2>Sign Up as a <?php echo ucfirst($user_role); ?></h2>
-            <div class="card">
-                <?php if ($user_role == 'petOwner'){?>
-                    <img src="assests/prof/pet_owner_prof.jpg" alt="Pet Owner">
-                    <p>Pet Owner</p>
-                <?php } if ($user_role == 'veterinary'){?>
-                    <img src="assests/prof/vet_prof.webp" alt="Veterinary Surgeon">
-                    <p>Veterinary Surgeon</p>
-                <?php }if ($user_role == 'petCareCenter'){?>
-                    <img src="assests/prof/pet_care_center_prof.png" alt="Pet Care Center">
-                    <p>Pet Care Center</p>
-                <?php }if ($user_role == 'petSitter'){?>
-                    <img src="assests/prof/pet_sitter_prof.png" alt="Pet Sitter">
-                    <p>Pet Sitter</p>
-                <?php }if ($user_role == 'pharmacy'){?>
-                    <img src="assests/prof/pharmacy_prof.jpg" alt="Pharmacy">
-                    <p>Pharmacy</p>
-                <?php } ?>
-            </div>
 
             <form action="signup_process.php" method="POST" enctype="multipart/form-data">
                 <div class="input-group">
@@ -195,7 +178,7 @@ $user_role = $_POST["user-type"];
                 <button type="submit">Sign Up</button>
             </form>
         </div>
-  
+    </div>
     <script>
         document.getElementById('signupForm').addEventListener('submit', function(event) {
         var password = document.getElementById('password').value;
