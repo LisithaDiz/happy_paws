@@ -44,7 +44,7 @@
                     <div class="card">
                         <h3>Appoinment Requests</h3>
                         <p>6 Requests received.</p>
-                        <a href="<?=ROOT?>/vet/view-patients" class="btn-dashboard">View received sequests</a>
+                        <a href="<?=ROOT?>/vet/view-patients" class="btn-dashboard">View received requests</a>
                     </div>
                     <div class="card">
                         <h3>Prescriptions</h3>

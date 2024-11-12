@@ -9,7 +9,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 	
-	define('ROOT', 'http://localhost/happy/public');
+	define('ROOT', 'http://localhost/happy_paws/public');
 
 }else
 {
