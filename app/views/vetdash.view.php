@@ -2,7 +2,6 @@
 <html>
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
-    <title>Happy Paws - Your All-In-One Pet Care Solution</title>
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetdash.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
