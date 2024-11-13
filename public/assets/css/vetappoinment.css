@@ -86,6 +86,7 @@
 .overview-cards {
     display: flex;
     gap: 20px;
+    
 }
 
 
@@ -100,6 +101,8 @@
     flex-direction: column;
     justify-content: space-between;
     transition: all 0.3s ease; /* Smooth transition for hover effect */
+    
+    
 }
 
 .card:hover {
@@ -158,34 +161,24 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Buttons container */
 .popup-buttons {
     margin-top: 20px;
 }
 
-/* Accept and Decline buttons */
-.popup .btn-accept, .popup .btn-decline {
-    background-color: #4caf50;
-    color: #fff;
+.btn-completed{
+    background-color: #fae3e3;
+    color: rgb(0, 0, 0);
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
-    margin: 0 10px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
-.popup .btn-decline {
-    background-color: #f44336;
+.btn-completed:hover {
+    background-color: #f5c6cb;
 }
 
-.popup .btn-accept:hover {
-    background-color: #65d16a; /* Green hover for accept */
-    
-}
-
-.popup .btn-decline:hover{
-    background-color: #e36e6c; /* Red hover for decline */
-}
 
 
 
