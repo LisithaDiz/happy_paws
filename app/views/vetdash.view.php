@@ -18,7 +18,7 @@
             <h3>Vet Dashboard</h3>
             <ul>
                 <li><a href="<?=ROOT?>/vet/profile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vet/confirmed-appointments">Upcoming Appointments</a></li>
+                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
                 <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
                 <li><a href="<?=ROOT?>/vet/view-patients">View Pets</a></li>
                 <li><a href="<?=ROOT?>/vet/prescriptions">Prescriptions</a></li>
@@ -29,7 +29,7 @@
         <!-- Main content area -->
         <div class="main-content">
             <h1>Welcome, Dr. [Vet Name]!</h1>
-            <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, patient records, prescriptions, and more.</p>
+            <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, pets records, prescriptions, and more.</p>
 
             <!-- Dashboard Overview Section -->
             <section class="dashboard-overview">
@@ -38,7 +38,7 @@
                     <div class="card">
                         <h3>Upcoming Appointments</h3>
                         <p>3 appointments scheduled for today.</p>
-                        <a href="<?=ROOT?>/vet/received-appointments" class="btn-dashboard">View upcoming appoinments</a>
+                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">View upcoming appoinments</a>
                     </div>
                     <div class="card">
                         <h3>Appoinment Requests</h3>
