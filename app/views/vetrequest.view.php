@@ -15,11 +15,12 @@
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
-            <h3>Vet Dashboard</h3>
+            
             <ul>
-                <li><a href="<?=ROOT?>/vet/profile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vet/confirmed-appointments">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vet/received-appointments">Appointment Requests</a></li>    
+                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
+                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
                 <li><a href="<?=ROOT?>/vet/view-patients">View Pets</a></li>
                 <li><a href="<?=ROOT?>/vet/prescriptions">Prescriptions</a></li>
                 <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>

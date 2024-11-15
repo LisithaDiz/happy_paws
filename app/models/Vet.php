@@ -9,12 +9,21 @@ class Vet
 	
 	use Model;
 
-	protected $table = 'pet_owner';
+	protected $table = 'veterinary_surgeon';
 
 	protected $allowedColumns = [
 
+		'username',
 		'email',
-		'password',
+		'license_number', 
+		'first_name', 
+		'last_name', 
+		'age', 
+		'gender', 
+		'district', 
+		'city', 
+		'contact_number', 
+		'years_of_experience'
 	];
 
 	public function validate($data)
@@ -47,4 +56,28 @@ class Vet
 
 		return false;
 	}
+
+	public static function getVetData() {
+        // Placeholder data (you would query the database here)
+        return [
+            'username' => 'johndoe',
+            'email' => 'johndoe@example.com',
+            'password' => '********',
+            'createdDate' => '2024-11-12',
+            'licenseNo' => '123456',
+            'firstName' => 'John',
+            'lastName' => 'Doe',
+            'age' => 35,
+            'gender' => 'Male',
+            'district' => 'Downtown',
+            'city' => 'Metropolis',
+            'contactNo' => '+123456789',
+            'yearsOfExperience' => 10,
+            'profilePicture' => 'assets/images/default-profile-picture.webp'
+        ];
+    }
+	
 }
+
+    
+
