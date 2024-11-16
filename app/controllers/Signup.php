@@ -10,7 +10,7 @@ class Signup
     }
     
     
-    // Load the view and pass the user role ..
+ 
     public function index()
     {
         

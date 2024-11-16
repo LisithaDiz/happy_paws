@@ -71,7 +71,7 @@ Trait Model
 
 	public function insert($data)
 	{
-		
+		echo "--------insert works------- ";
 		/** remove unwanted data **/
 		if(!empty($this->allowedColumns))
 		{
@@ -87,6 +87,7 @@ Trait Model
 		$keys = array_keys($data);
 
 		$query = "insert into $this->table (".implode(",", $keys).") values (:".implode(",:", $keys).")";
+		echo $query;
 		$this->query($query, $data);
 
 		return false;
