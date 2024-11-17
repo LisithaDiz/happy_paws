@@ -1,0 +1,133 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 3s ease-in-out;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+#hero {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 5;
+    backdrop-filter: blur(20px);
+    height: fit-content;
+    top: 50%; 
+}
+
+.hero-content h1 {
+    font-size: 2.5em;
+    margin: 0.5em 0;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+.hero-image {
+    margin-top: 20px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+}
+.signup-button {
+
+    padding: 10px 20px;
+    background-color:#d8544c;
+    color: #fff;
+    border-radius: 5px;
+    position: absolute; 
+    right:4%; /* Aligns the button to the right side */
+    top: 50%; 
+    transform: translateY(-50%); /* Adjusts for proper vertical centering */
+}
+
+.signup-button:hover {
+    color: black;
+}
+
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+    #hero {
+        flex-direction: column;
+        justify-content: right;
+        text-align: left;
+        backdrop-filter: blur(100px);
+    } */
+
+    
+
+    .hero-content {
+        padding-right: 20px;
+    } 
+
+     .hero-image {
+        padding-left: 20px;
+    }
+}
+/* Card Section */
+#services {
+    display: flex;
+    margin: 50px 0;
+    width:100%;
+    gap: 50px;
+    height:fit-content;
+
+}
+
+.card {
+    width: 30%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    
+}
+
+.card-content {
+    padding: 15px;
+    background-color: white;
+    text-align: center;
+    color: #d8544c;
+    
+    
+}
+
+.card h2 {
+    margin: 15px 0 10px;
+    font-size: 24px;
+}
+
+.card p {
+    font-size: 16px;
+    color: black;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
