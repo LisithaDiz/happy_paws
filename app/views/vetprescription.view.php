@@ -20,8 +20,8 @@
                 <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
                 <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
                 <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vet/view-patients">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vet/prescriptions">Prescriptions</a></li>
+                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
                 <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
             </ul>
         </div>
@@ -34,7 +34,7 @@
                     <!-- Prescription List -->
                     <div class="prescription-card" id="prescription1">
                         <div class="pet-info">
-                            <img src="path_to_pet_photo.jpg" alt="Buddy" class="pet-photo">
+                            <img src="<?=ROOT?>/assets/images/background3.jpeg" alt="Buddy" class="pet-photo">
                             <div>
                                 <h3>Buddy</h3>
                                 <p>Age: 2 years</p>
@@ -45,7 +45,7 @@
 
                     <div class="prescription-card" id="prescription2">
                         <div class="pet-info">
-                            <img src="path_to_pet_photo2.jpg" alt="Bella" class="pet-photo">
+                            <img src="<?=ROOT?>/assets/images/background2.jpeg" alt="Bella" class="pet-photo">
                             <div>
                                 <h3>Bella</h3>
                                 <p>Age: 3 years</p>

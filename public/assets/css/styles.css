@@ -4,8 +4,7 @@ body {
     font-family: Arial, sans-serif;
     color: white;
     background-size: cover;
-    background-position: center;
-    transition: background-image 3s ease-in-out;
+    background-color: rgb(247, 195, 197);
 }
 
 a {

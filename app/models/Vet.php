@@ -4,7 +4,7 @@
 /**
  * User class
  */
-class Vet
+class Vet 
 {
 	
 	use Model;
@@ -14,48 +14,75 @@ class Vet
 	protected $allowedColumns = [
 
 		'username',
-		'email',
-		'license_number', 
-		'first_name', 
-		'last_name', 
+		'password',
+		'license_no', 
+		'f_name', 
+		'l_name', 
 		'age', 
 		'gender', 
 		'district', 
 		'city', 
-		'contact_number', 
-		'years_of_experience'
+		'street', 
+		'contact_no', 
+		'years_exp'
 	];
 
-	public function validate($data)
+	public function getFirstVetDetails()    
 	{
-		$this->errors = [];
+		// Define the SQL query
+		$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
+						veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
+						veterinary_surgeon.age, veterinary_surgeon.gender, 
+						veterinary_surgeon.district, veterinary_surgeon.city, 
+						veterinary_surgeon.contact_no, 
+						veterinary_surgeon.years_exp
+				FROM user
+				JOIN veterinary_surgeon 
+				ON user.user_id = veterinary_surgeon.user_id 
+				LIMIT 1";
 
-		if(empty($data['email']))
-		{
-			$this->errors['email'] = "Email is required";
-		}else
-		if(!filter_var($data['email'],FILTER_VALIDATE_EMAIL))
-		{
-			$this->errors['email'] = "Email is not valid";
-		}
-		
-		if(empty($data['password']))
-		{
-			$this->errors['password'] = "Password is required";
-		}
-		
-		if(empty($data['terms']))
-		{
-			$this->errors['terms'] = "Please accept the terms and conditions";
-		}
+		// Execute the query and store the result
+		$result = $this->query($query);
 
-		if(empty($this->errors))
-		{
-			return true;
-		}
-
-		return false;
+		// Return the result
+		return $result;
 	}
+
+
+
+
+
+
+		public function validate($data)
+		{
+			$this->errors = [];
+
+			if(empty($data['email']))
+			{
+				$this->errors['email'] = "Email is required";
+			}else
+			if(!filter_var($data['email'],FILTER_VALIDATE_EMAIL))
+			{
+				$this->errors['email'] = "Email is not valid";
+			}
+			
+			if(empty($data['password']))
+			{
+				$this->errors['password'] = "Password is required";
+			}
+			
+			if(empty($data['terms']))
+			{
+				$this->errors['terms'] = "Please accept the terms and conditions";
+			}
+
+			if(empty($this->errors))
+			{
+				return true;
+			}
+
+			return false;
+		}
 
 	public static function getVetData() {
         // Placeholder data (you would query the database here)

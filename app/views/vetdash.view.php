@@ -20,8 +20,8 @@
                 <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
                 <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
                 <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vet/view-patients">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vet/prescriptions">Prescriptions</a></li>
+                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
                 <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
             </ul>
         </div>
@@ -48,7 +48,7 @@
                     <div class="card">
                         <h3>Prescriptions</h3>
                         <p>2 prescriptions to be filled today.</p>
-                        <a href="<?=ROOT?>/vet/prescriptions" class="btn-dashboard">View prescriptions</a>
+                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">View prescriptions</a>
                     </div>
                 </div>
             </section>

@@ -90,6 +90,13 @@
 }
 
 
+.profile-picture-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align both the profile picture and button */
+    gap: 10px; /* Add spacing between profile picture and button */
+}
+
 /* Profile Picture */
 .profile-picture {
     flex-shrink: 0;
@@ -126,6 +133,7 @@
     font-size: 16px;
     color: #000000;
     line-height: 1.6;
+    padding-bottom: 20px;
 }
 
 .profile-details .detail-label {
@@ -143,6 +151,109 @@
     flex: 1;
     padding-left: 10px; /* Optional padding for spacing after colon */
 }
+
+.edit-profile-btn {
+    background-color: #fae3e3;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.edit-profile-btn:hover {
+    background-color: #f5c6cb;
+}
+
+/* Popup container styles */
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form styles */
+.update-form {
+    background-color: #fff; /* White background for the form */
+    border-radius: 8px;
+    padding: 20px 30px;
+    width: 400px;
+    text-align: left;
+    max-height: 80vh; /* Limit height to 80% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds form height */
+}
+
+/* Form title */
+.update-form h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+/* Form group container */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Label styles */
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Input and select styles */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button styles */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Popup visibility toggle */
+.popup.active {
+    display: flex;
+}
+
 
 
 

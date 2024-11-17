@@ -1,5 +1,3 @@
-
-/* Sidebar */
 .sidebar {
     color: #000000;
     top: 60px; /* Adjust this if navbar height is different */
@@ -11,7 +9,6 @@
     overflow-y: auto;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
-
 /* Sidebar content styling */
 .sidebar h3 {
     font-size: 18px;
@@ -19,16 +16,13 @@
     margin-bottom: 15px;
     text-align: center;
 }
-
 .sidebar ul {
     list-style: none;
     padding: 0;
 }
-
 .sidebar ul li {
     margin: 10px 0;
 }
-
 /* Style the sidebar links (buttons) */
 .sidebar ul li a {
     display: block;
@@ -44,7 +38,6 @@
     transition: all 0.3s ease-in-out;
     margin: 5px 0; /* Even spacing between buttons */
 }
-
 /* 3D button effect on hover */
 .sidebar ul li a:hover {
     background-color: #f5c6cb; /* Slightly darker pink on hover */
@@ -52,19 +45,12 @@
     transform: translateY(-2px); /* Slightly lift the button */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
-
-
-
-
 /* Dashboard container to display sidebar and main content side by side */
 .dashboard-container {
     display: flex;
     flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
     height: 100vh; /* Full viewport height */
 }
-
-
-
 .main-content{
     position: relative;
     max-width: 1000px;
@@ -78,142 +64,95 @@
     overflow-y: auto;  /* Enables vertical scrolling */
     max-height: 80vh;
 }
-
-
-
 .overview-cards {
     display: flex;
-    flex-wrap: wrap; /* Wraps cards to the next row if space is limited */
     gap: 20px;
+    
 }
-
-.prescription-card {
-    width: 90%;
-    background-color: rgba(255, 255, 255, 0.8);
+.card {
+    width: 90%; /* Makes the card take the full width */
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
     margin-bottom: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    
+    
 }
-
-.prescription-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+.card:hover {
+    transform: translateY(-5px); /* Elevates the card on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Slightly bigger shadow on hover */
 }
-
-.prescription-card .pet-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.prescription-card .pet-photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #fae3e3;
-}
-
-.prescription-card h3 {
+.card h3 {
     font-size: 1.6rem;
+    margin-bottom: 15px;
     color: #333;
     font-weight: bold;
+    flex-grow: 1; /* Allows title to grow and take available space */
 }
-
-.prescription-card p {
-    font-size: 1rem;
-    color: #666;
-}
-
-.prescription-card .btn-dashboard {
-    background-color: #fae3e3;
+.card .btn-dashboard {
+    background-color: #fae3e3;; /* Green color for a modern button */
     color: #000000;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
+    display: inline-block;
     transition: background-color 0.3s ease;
+    align-self: flex-end; /* Aligns button to the right */
+    margin-top: -25px; /* Moves the button up to align with the title */
 }
-
-.prescription-card .btn-dashboard:hover {
-    background-color: #f5c6cb;
+.card .btn-dashboard:hover {
+    background-color: #f5c6cb; /* Slightly darker green on hover */
 }
-
-/* Popup styles */
+/* Popup box styling */
 .popup {
-    display: none;
-    position: fixed; /* Fixed positioning for better UI alignment */
-    z-index: 1000;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 500px;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-}
-
-.popup-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.popup-content h2 {
-    font-size: 1.8rem;
-    color: #333;
-}
-
-.popup-content label {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #666;
-}
-
-.popup-content input,
-.popup-content select,
-.popup-content textarea {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to .main-content */
+    z-index: 1000; /* Ensure the popup is above all other content */
+    top: 50%; /* Center vertically inside main-content */
+    left: 50%; /* Center horizontally inside main-content */
+    transform: translate(-50%, -50%); /* Offset to perfectly center */
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
-
-.popup-content .btn-submit {
-    background-color: #fae3e3;
+/* Popup content box */
+.popup-content {
+    background-color: white;
+    padding: 20px;
     color: #000000;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-.popup-content .btn-submit:hover {
+.popup-buttons {
+    margin-top: 20px;
+}
+.btn-completed{
+    background-color: #fae3e3;
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.btn-completed:hover {
     background-color: #f5c6cb;
 }
 
-.popup-content .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-    color: #999;
-    cursor: pointer;
-}
 
-.popup-content .close-btn:hover {
-    color: #333;
-}
+
+
+
+
+
+

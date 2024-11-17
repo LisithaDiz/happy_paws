@@ -3,7 +3,7 @@
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetappoinment.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetappointment.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
 </head>
@@ -17,8 +17,8 @@
                 <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
                 <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
                 <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vet/view-patients">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vet/prescriptions">Prescriptions</a></li>
+                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
                 <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
             </ul>
         </div>
