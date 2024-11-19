@@ -64,8 +64,8 @@
     </div>
     
     <?php include ('components/footer.php'); ?>
-   
-    <script src="<?=ROOT?>/assets/js/script.js"></script>
+<!--    
+    <script src="<?=ROOT?>/assets/js/script.js"></script> -->
    
 </body>
 </html>

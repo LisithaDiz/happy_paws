@@ -109,8 +109,14 @@
                             <div class="colon">:</div>
                             <div class="detail-value"><?= htmlspecialchars($vet->years_exp) ?></div>
                         </div>
+
+                        <div class="delete-profile">
+                        <button id="deleteProfileBtn" class="delete-btn">Delete Profile</button>
+                    </div>
             
                     </div>
+                    
+
             </div>   
             <?php else: ?>
                 <p>No vet details found.</p>
@@ -162,6 +168,15 @@
 
                 </div>
 
+                <div id="deleteConfirmationPopup">
+                    <div class="popup-content">
+                        <h3>Are you sure you want to delete this profile?</h3>
+                        <button id="confirmDeleteBtn" class="confirm-btn">Yes, Delete</button>
+                        <button id="cancelDeleteBtn" class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
+
+
                 <script>
                     // JavaScript for Popup
                     document.addEventListener('DOMContentLoaded', () => {
@@ -178,6 +193,44 @@
                             }
                         });
                     });
+
+
+                    document.addEventListener('DOMContentLoaded', () => {
+                    const deleteBtn = document.getElementById('deleteProfileBtn');
+                    const popup = document.getElementById('deleteConfirmationPopup');
+                    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+                    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+
+                    // Show the popup when delete button is clicked
+                    deleteBtn.addEventListener('click', () => {
+                        popup.style.display = 'flex';
+                    });
+
+                    // Close the popup when cancel button is clicked
+                    cancelDeleteBtn.addEventListener('click', () => {
+                        popup.style.display = 'none';
+                    });
+
+                    // Handle delete confirmation
+                    confirmDeleteBtn.addEventListener('click', () => {
+                        popup.style.display = 'none';
+                        
+                        // Replace with actual delete logic (e.g., AJAX request)
+                        fetch(`<?= ROOT ?>/vet/delete?vet_id=2&user_id=3`, {
+                            method: 'DELETE',
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    alert('Profile deleted successfully!');
+                                    window.location.href = '<?= ROOT ?>/vetdash';
+                                } else {
+                                    alert('Failed to delete the profile.');
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+                });
+
                 </script>
 
 
@@ -187,8 +240,8 @@
     </div>
     
     <?php include ('components/footer.php'); ?>
-   
-    <script src="<?=ROOT?>/assets/js/script.js"></script>
+<!--    
+    <script src="<?=ROOT?>/assets/js/script.js"></script> -->
    
 </body>
 </html>

@@ -17,6 +17,7 @@ class VetProfile
 
    
 
+
     public function vetprofile()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -127,6 +128,22 @@ class VetProfile
             
             }
             return false;
+    }
+
+    public function deleteVet()
+    {
+        $vetid = 2;
+        $vetmodel = new Vet();
+
+        $vetmodel->delete($vetid,'vet_id');
+    }
+
+    public function deleteUser()
+    {
+        $userid = 3;
+        $usermodel = new User();
+
+        $usermodel->delete($userid,'vet_id');
     }
 
 
