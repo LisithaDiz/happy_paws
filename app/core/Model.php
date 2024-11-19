@@ -120,8 +120,15 @@ Trait Model
 
 		$data[$id_column] = $id;
 
-		$this->query($query, $data);
-		return false;
+		            // Stop execution to view the output
+
+		$result = $this->query($query, $data);
+
+		if ($result) {
+			return true; // Return true if update was successful
+		} else {
+			return false; // Return false if update failed
+		}
 
 	}
 

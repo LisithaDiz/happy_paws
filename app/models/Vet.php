@@ -4,7 +4,7 @@
 /**
  * User class
  */
-class Vet 
+class Vet  
 {
 	
 	use Model;
@@ -13,9 +13,6 @@ class Vet
 
 	protected $allowedColumns = [
 
-		'username',
-		'password',
-		'license_no', 
 		'f_name', 
 		'l_name', 
 		'age', 
@@ -49,6 +46,20 @@ class Vet
 	}
 
 
+
+	public function getById($id, $id_column = 'vet_id')
+	{
+		$sql = "SELECT * FROM veterinary_surgeon WHERE $id_column = :id";
+		$params = [':id' => $id];
+		$result = $this->query($sql, $params);  // Get result from query
+		// Check if query was successful
+		if ($result !== false) {
+			return $result[0];  // Return the first row if results are found
+		}
+	
+		return false;  // Return false if no result was found or query failed
+	}
+	
 
 
 
