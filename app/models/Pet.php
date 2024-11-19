@@ -96,5 +96,48 @@ class Pet {
             return false;
         }
     }
+
+    public function updatePet($pet_id, $data) {
+        try {
+            $con = $this->connect();
+            $query = "UPDATE " . $this->table . " 
+                      SET pet_name = :pet_name, 
+                          pet_type = :pet_type, 
+                          breed = :breed, 
+                          age = :age, 
+                          color = :color, 
+                          weight = :weight, 
+                          vaccinations = :vaccinations, 
+                          date_of_birth = :date_of_birth 
+                      WHERE pet_id = :pet_id";
+    
+            $stm = $con->prepare($query);
+    
+            // Bind the data values to the prepared statement
+            $stm->bindValue(':pet_name', trim($data['pet_name']), PDO::PARAM_STR);
+            $stm->bindValue(':pet_type', trim($data['pet_type']), PDO::PARAM_STR);
+            $stm->bindValue(':breed', trim($data['breed']), PDO::PARAM_STR);
+            $stm->bindValue(':age', intval($data['age']), PDO::PARAM_INT);
+            $stm->bindValue(':color', trim($data['color']), PDO::PARAM_STR);
+            $stm->bindValue(':weight', floatval($data['weight']), PDO::PARAM_STR);  // Correct binding for weight
+            $stm->bindValue(':vaccinations', trim($data['vaccinations']), PDO::PARAM_STR);
+            $stm->bindValue(':date_of_birth', trim($data['date_of_birth']), PDO::PARAM_STR);
+            $stm->bindValue(':pet_id', intval($pet_id), PDO::PARAM_INT);
+    
+            // Execute the query and return whether the update was successful
+            $result = $stm->execute();
+            return $result;
+        } catch (PDOException $e) {
+            error_log("Error updating pet: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    
+    
 }
+
+
+
+
 ?>

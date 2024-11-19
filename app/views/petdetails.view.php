@@ -59,7 +59,7 @@
                         ";
                     }
                     ?>
-                <a href="update_pet.php?pet_id=<?= $pet['pet_id'] ?>" class="update-btn">Update Pet Details</a>
+<a href="<?= ROOT ?>/PetUpdate/index?pet_id=<?= $pet['pet_id'] ?>&owner_id=<?= $pet['owner_id'] ?>" class="update-btn">Update Pet Details</a>
 
                 <form method="POST" action="<?= ROOT ?>/PetDetails/deletePet" onsubmit="return confirm('Are you sure you want to delete this pet?');">
                     <input type="hidden" name="pet_id" value="<?php echo $pet['pet_id'] ?? ''; ?>">
