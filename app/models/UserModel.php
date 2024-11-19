@@ -17,7 +17,6 @@ class UserModel
     {
         
         try {
-            if($this->validate($data)) {
 
                 // Insert into users table using Model's insert function
                 print_r($data);
@@ -62,6 +61,7 @@ class UserModel
                             $data['role'] = '4';
                             $roleModel->insert($data);
                             $careCenterModel = new CareCenterModel();
+                            print_r($data);
                             $careCenterModel->insert($data);
                             break;
                     
@@ -72,13 +72,10 @@ class UserModel
                             $pharmacyModel->insert($data);
                             break;
                     }
-                    
-                    
-
-                    
+                        
                     return true;
                 }
-            }
+            
             
             return false;
             
@@ -89,38 +86,71 @@ class UserModel
         }
     }
 
-  
+    public function authenticate($username, $password, $user_role)
+    {
+        $user = $this->first(['username' => $username]);
+        $user_id = $user->user_id;
+        $roleModel = new RoleModel();
+        $u_role =$roleModel->first(['user_id' => $user_id]);
+        
+        // show($u_role->role);
+        // show($user_role);
+
+        if($user_role != $u_role->role){
+            echo "role not found in user model";
+            return false;
+        }
+        if ($user) {
+            // Verify the password
+            // if (password_verify($password, $user->password)) {
+            //     return $user; // Authentication successful
+            // }
+            if ($password == $user->password) {
+                    return $user;
+            }
+        }
+        return false;
+    }
 
     public function validate($data)
     {
-        // $this->errors = [];
+        $this->errors = [];
 
-        // if(empty($data['username'])) {
-        //     $this->errors['username'] = "Username is required";
-        // }
+        // Check if username has provided
+        if (empty($data['username'])) {
+            $this->errors['username'] = "Username is required.";
+        }else {
+            // Check if username has already taken
+            $existingUsername = $this->where(['username' => $data['username']]);
+            if (!empty($existingUsername)) {
+                $this->errors['username'] = "Username is already taken.";
+            }
+        }
 
-        // if(empty($data['email'])) {
-        //     $this->errors['email'] = "Email is required";
-        // } else 
-        // if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        //     $this->errors['email'] = "Email is not valid";
-        // }
+        // Check if email has provided
+        if (empty($data['email'])) {
+            $this->errors['email'] = "Email is required.";
+        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->errors['email'] = "Email format is invalid.";
+        } else {
+            // Check if email has already registered
+            $existingEmail = $this->where(['email' => $data['email']]);
+            if (!empty($existingEmail)) {
+                $this->errors['email'] = "Email is already registered.Please log in using your account";
+            }
+        }
 
-        // // Check if email exists using Model's first function
-        // $user = $this->first(['email' => $data['email']]);
-        // if($user) {
-        //     $this->errors['email'] = "Email already exists";
-        // }
+        // Check if password has provided
+        if (empty($data['password'])) {
+            $this->errors['password'] = "Password is required.";
+        } 
 
-        // if(empty($data['password'])) {
-        //     $this->errors['password'] = "Password is required";
-        // }
+        // Return true if no errors, otherwise false
+        if (empty($this->errors)) {
+            return true;
+        }
 
-        // if(empty($this->errors)) {
-        //     return true;
-        // }
-
-        // return false;
-        return true;
+        return false;
     }
+    
 }

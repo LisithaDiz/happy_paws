@@ -1,12 +1,12 @@
 <?php
 
-class VetDash
+class VetDashboard
 {
     use Controller;
 
     public function index()
     {
-        $this->view('vetdash');
+        $this->view('vetdashboard');
     }
 }
 

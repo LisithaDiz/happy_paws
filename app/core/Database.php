@@ -15,7 +15,8 @@ Trait Database
 
 		$con = $this->connect();
 		$stm = $con->prepare($query);
-
+		print_r($data);
+		show($stm);
 		$check = $stm->execute($data);
 		if($check)
 		{

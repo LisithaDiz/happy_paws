@@ -14,7 +14,7 @@ class CareCenterModel
             'district',
             'city',
             'street',
-            'contact',
+            'contact_no',
             'certificate'
 	];
 

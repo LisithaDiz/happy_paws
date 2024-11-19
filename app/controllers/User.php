@@ -101,7 +101,108 @@ class User
                 echo "Something went wrong!";
             }
         } else {
-            $this->view('signup', $data);
+            $this->loadView($user_role);
         }
     }
-}
+    private function loadView($user_role) {
+        // Include the view and pass the user role to the view
+        require_once  $this->view('signup');
+    }
+    
+
+    public function login() {
+         
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            
+
+            $roleMapping = [
+                'petOwner'        => 1,
+                'veterinary'      => 2,
+                'petSitter'       => 3,
+                'petCareCenter'   => 4,
+                'pharmacy'        => 5,
+            ];
+
+            $user_role = trim($_POST['user_role']) ?? ''; // Assume the role is sent as a POST parameter
+           
+
+            // Validate and assign the user role
+            if (array_key_exists($user_role, $roleMapping)) {
+                $user_role = $roleMapping[$user_role];
+
+            } else {
+                
+                die("Invalid role provided.");
+            }
+            
+            $user = $this->userModel->authenticate($username,$password,$user_role); 
+            if($user)
+
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+                
+
+                $_SESSION['user_id'] = $user->user_id;
+                $_SESSION['user_role'] = $user_role; 
+                $_SESSION['user_status'] = $user->active_status;
+
+                if($_SESSION['user_status'] =='1'){
+
+                    switch ($user_role) {
+                        case 1:
+                            redirect('PetOwnerDashboard');
+                            break;
+                        case 2:
+                            redirect('VetDashboard');
+                            break;
+                        case 3:
+                            redirect('PetSitterDashboard');
+                            break;
+                        case 4:
+                            redirect('CareCenterDashboard');
+                            break;
+                        case 5:
+                            redirect('PharmacyDashboard');
+                            break;
+                        default:
+                            echo "user role not working in the controller";
+                            // redirect('unauthorized');
+
+                            break;
+                    }
+                }
+                else{
+                    // redirect('unauthorized');
+                }
+                
+                exit();
+            } else {
+               
+                echo "Invalid username or password.";
+                $this->view('user/login');
+            }
+
+    }
+       
+        
+   
+
+    public function logout() {
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(401); 
+            echo json_encode(['status' => 'error', 'message' => 'Not logged in']);
+            return;
+        }
+    
+        $_SESSION = array();
+        session_destroy();
+    
+        
+        http_response_code(200); 
+        echo json_encode(['status' => 'success', 'message' => 'Logged out successfully']);
+    }
+
+}    
