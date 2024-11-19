@@ -15,25 +15,47 @@ class VetProfile
         $this->view('vetprofile', ['vetDetails' => $vetDetails]);
     }
 
+   
+
     public function vetprofile()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->updateVetDetails(); // Call update logic for POST request
+            $vetUpdated = $this->updateVetDetails();
+            $userUpdated = $this->updateUserDetails();
+
+            if ($vetUpdated && $userUpdated) {
+                header("Location: " . ROOT . "/vetprofile");
+                exit;
+            } else {
+                echo "Failed to update some details.<br>";
+            }
         } else {
-            $this->loadView(); // Load the profile view for GET request
+            $this->loadView();
         }
     }
+
+
 
     public function loadView()
     {
         // Load data for the profile view
         $vetModel = new Vet();
-        $vetid = 1; // Replace with dynamic user ID
-        $vet = $vetModel->getById($vetid, 'vet_id'); // Example method to get vet details
+        $userModel = new User();
 
-        // Pass $vet data to the view
+        // Replace with dynamic IDs
+        $vetId = 1; 
+        $userId = 2;
+
+        // Get vet details
+        $vetDetails = $vetModel->getById($vetId, 'vet_id');
+
+        // Get user details
+        $userDetails = $userModel->getById($userId, 'user_id');
+
+        // Pass both vet and user data to the view
         require_once '../app/views/vetprofile.view.php';
     }
+
 
     public function __construct()
     {
@@ -44,6 +66,7 @@ class VetProfile
 
     public function updateVetDetails()
     {
+         
         // Check if the form is submitted via POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get the form data from the POST request
@@ -70,24 +93,21 @@ class VetProfile
             // After updating, you can redirect the user to the profile page or show a success message
             
             $result = $vetModel->update($vetid, $data, 'vet_id');
+            return $result;
+            
+            }
+            return false;
 
-            if ($result) {
-                // Redirect after a successful update
-                header("Location: " . ROOT . "/vetprofile");
-                exit;
-            } else {
-                echo "Failed to update vet details .";
-            }
-            }
     }
 
     public function updateUserDetails()
     {
+        
         // Check if the form is submitted via POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get the form data from the POST request
             $data = [
-                'username'      => $_POST['username'],
+                'username'      => trim($_POST['username']),
                 
             ];
 
@@ -97,21 +117,16 @@ class VetProfile
             // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
             $userid = 2;
             // Load the Vet model
-            $vetModel = new User(); // Use VetModel which extends the core Model
+            $userModel = new User(); // Use VetModel which extends the core Model
 
 
             // After updating, you can redirect the user to the profile page or show a success message
             
-            $result = $vetModel->update($userid, $data, 'user_id');
-
-            if ($result) {
-                // Redirect after a successful update
-                header("Location: " . ROOT . "/vetprofile");
-                exit;
-            } else {
-                echo "Failed to update user details.";
+            $result = $userModel->update($userid, $data, 'user_id');
+            return $result;
+            
             }
-            }
+            return false;
     }
 
 
