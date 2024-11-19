@@ -69,7 +69,7 @@
     position: relative;
     max-width: 1000px;
     margin: 100px auto 20px; /* Increased top margin to 50px */
-    padding: 20px;
+    padding: 25px;
     backdrop-filter: blur(40px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -169,4 +169,57 @@
     }
 }
 
+/* Style for the delete button in the main-content section */
+.delete-btn {
+    background-color: #f44336; /* Red color */
+    color: white;
+    border: none;
+    padding: 12px 25px; /* Adjust padding for a more uniform button size */
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 30px; /* Add spacing from the profile details */
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 200px; /* Limit the button width */
+    align-self: flex-start; /* Align the button to the left */
+}
 
+/* Hover effect */
+.delete-btn:hover {
+    background-color: #d32f2f;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px); /* Slight lift */
+}
+
+/* Adjustments for mobile view */
+@media (max-width: 600px) {
+    .delete-btn {
+        width: 100%; /* Ensure button is full-width on smaller screens */
+        max-width: 100%; /* Remove the max-width limit on smaller screens */
+    }
+}
+
+/* Update Button (Link) */
+.update-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    text-decoration: none; /* Remove underline */
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+}
+
+.update-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}

@@ -25,15 +25,28 @@
             <section class="dashboard-overview">
                 <h2>Your Lovely Pets</h2>
                 <div class="overview-cards">
-                    <?php
-                    include 'components/petCard.php';
+                <?php
+                    include 'components/petcard.php';
 
-                    renderPetCard("Pet 1", ROOT . "/assets/images/background1.jpeg", ROOT . "/petdetails");
-                    renderPetCard("Pet 2", ROOT . "/assets/images/background2.jpeg", ROOT . "/petdetails");
-                    renderPetCard("Pet 3", ROOT . "/assets/images/background3.jpeg", ROOT . "/petdetails");
-                    renderPetCard("Pet 4", ROOT . "/assets/images/background4.jpeg", ROOT . "/petdetails");
+                    // Check if there are pets and render them
+                    if (!empty($data['pets'])) {
+                        foreach ($data['pets'] as $pet) {
+                            renderPetCard(
+                                htmlspecialchars($pet['pet_name']),
+                                htmlspecialchars(ROOT) . "/assets/images/background1.jpeg",
+                                htmlspecialchars(ROOT) . "/petdetails?owner_id=1" . "&pet_id=" . htmlspecialchars($pet['pet_id'])
+                            );
+                        }
+                    } else {
+                        echo "<p>No pets found.</p>";
+                    }
 
-                    renderPetCard("Add New Pet", ROOT . "/assets/images/plus.jpg", ROOT . "/add-pet");
+                    // Option to add a new pet
+                    renderPetCard(
+                        "Add New Pet",
+                        htmlspecialchars(ROOT) . "/assets/images/plus.jpg",
+                        htmlspecialchars(ROOT) . "/add-pet"
+                    );
                     ?>
                 </div>
             </section>
