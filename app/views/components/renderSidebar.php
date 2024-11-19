@@ -22,24 +22,26 @@ $vet = [
     'Appointment Requests' => '/vetrequest',
     'View Pets' => '/vet/view-patients',
     'Prescriptions' => '/vetprescription',
-    'Settings' => '/vet/settings',
+    'Settings' => '/vetsettings',
 ];
 
 $petowner = [
     'Dashboard' => '/petownerdash',
     'My Profile' => '/petownerprofile',
     'Appointments' => '/petownerappointments',
-    'Pets' => '/petownerpets',
-    'Prescriptions' => '/petowner/prescriptions',
-    'Settings' => '/petowner/settings',
+    'Pets' => '/petownerdash',
+    'Prescriptions' => '/petownerprescriptions',
+    'Pet Guardians' => '/petownerguardians',
+    'Pharmacies' => '/pharmacysearch', 
+    'Settings' => '/petownersettings',
 ];
 
 $petsitter = [
     'Dashboard' => '/petsitterdash',
     'My Profile' => '/petsitterprofile',
-    'My Petsitting Jobs' => '/petsitter/jobs',
+    'My Petsitting Jobs' => '/petsitterjobs',
     'Available Pets' => '/petsitter/available-pets',
-    'Settings' => '/petsitter/settings',
+    'Settings' => '/petsittersettings',
 ];
 
 ?>

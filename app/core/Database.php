@@ -24,10 +24,16 @@ Trait Database
 			{
 				return $result;
 			}
-		}
 
-		return false;
+			return true;
+		}else{
+			var_dump($stm->errorInfo());
+			return false;
+		}
 	}
+
+
+
 
 	public function get_row($query, $data = [])
 	{
@@ -49,5 +55,4 @@ Trait Database
 	}
 	
 }
-
 
