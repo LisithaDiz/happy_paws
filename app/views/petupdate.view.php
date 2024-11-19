@@ -19,7 +19,7 @@
     <!-- Sidebar -->
     <?php
     include 'components/renderSidebar.php';
-    echo renderSidebar(ROOT, $vet);
+    echo renderSidebar(ROOT, $petowner);
     ?>
 
     <!-- Main Content -->
