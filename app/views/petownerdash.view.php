@@ -41,13 +41,12 @@
                         echo "<p>No pets found.</p>";
                     }
 
-                    // Option to add a new pet
-                    renderPetCard(
-                        "Add New Pet",
-                        htmlspecialchars(ROOT) . "/assets/images/plus.jpg",
-                        htmlspecialchars(ROOT) . "/add-pet"
-                    );
                     ?>
+                    <div class="card">
+                        <img src="<?= ROOT ?>/assets/images/plus.jpg" alt="Default Pet Image" class="pet-profile-pic">
+                        <h3>New Pet</h3>
+                        <a href="<?= htmlspecialchars(ROOT) ?>/petadd" class="btn-dashboard">Add New Pet</a>
+                    </div>
                 </div>
             </section>
         </div>

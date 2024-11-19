@@ -24,7 +24,7 @@
 
     <!-- Main Content -->
     <div class="main-content">
-    <form method="POST" action="<?= ROOT ?>/PetOwnerDash/createPet" class="form-container">
+    <form method="POST" action="<?= ROOT ?>/PetAdd/createPet" class="form-container">
     <h2 class="form-title">Add a New Pet</h2>
 
     <div class="form-group">
@@ -75,14 +75,10 @@
     <button type="submit" class="form-btn">Create Pet</button>
 </form>
 
-
     </div>
 </div>
-
 
     <!-- Footer -->
     <?php include('components/footer.php'); ?>
 
     <script src="<?=ROOT?>/assets/js/script.js"></script>
-</body>
-</html>
