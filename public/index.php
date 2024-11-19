@@ -18,7 +18,6 @@ $requestUri = $_SERVER['REQUEST_URI'];
 
 // Routing logic
 if ($requestUri === '/happy_paws/public/vetprofile') {
-    echo "page found";
     $controller = new VetProfile();
     $controller->vetprofile();
     

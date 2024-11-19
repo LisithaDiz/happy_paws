@@ -27,7 +27,6 @@ Trait Database
 
 			return true;
 		}else{
-			var_dump($stm->errorInfo());
 			return false;
 		}
 	}
@@ -55,5 +54,3 @@ Trait Database
 	}
 	
 }
-
-

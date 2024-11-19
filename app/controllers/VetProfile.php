@@ -35,6 +35,13 @@ class VetProfile
         require_once '../app/views/vetprofile.view.php';
     }
 
+    public function __construct()
+    {
+        //Output buffering prevents any direct output (e.g., echo, errors, warnings) 
+        //from being sent to the browser immediately. Instead, all output is stored in a buffer.
+        ob_start();
+    }
+
     public function updateVetDetails()
     {
         // Check if the form is submitted via POST
@@ -109,7 +116,3 @@ class VetProfile
 
 
 }
-
-
-
-

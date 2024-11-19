@@ -32,8 +32,6 @@
                 // Access the first element of the $vetDetails array
                 $vet = $vetDetails[0]; 
             ?>
-            
-            
             <div class="profile-content">
                     <div class="profile-picture-container">
                         <div class="profile-picture">
@@ -117,8 +115,6 @@
             <?php else: ?>
                 <p>No vet details found.</p>
             <?php endif; ?>
-
-
                 <!-- Popup structure -->
                 <div id="editProfilePopup" class="popup">
                     <form action="#" method="POST" class="update-form">
