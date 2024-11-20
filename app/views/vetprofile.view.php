@@ -193,44 +193,17 @@
                             }
                         });
                     });
-
-
+                    
                     document.addEventListener('DOMContentLoaded', () => {
-                    const deleteBtn = document.getElementById('deleteProfileBtn');
-                    const popup = document.getElementById('deleteConfirmationPopup');
-                    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-                    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+                        const deleteBtn = document.getElementById('deleteProfileBtn');
 
-                    // Show the popup when delete button is clicked
-                    deleteBtn.addEventListener('click', () => {
-                        popup.style.display = 'flex';
+                        deleteBtn.addEventListener('click', () => {
+                            if (confirm('Are you sure you want to delete this profile?')) {
+                                // Redirect to the delete route
+                                window.location.href = "<?= ROOT ?>/vet/delete";
+                            }
+                        });
                     });
-
-                    // Close the popup when cancel button is clicked
-                    cancelDeleteBtn.addEventListener('click', () => {
-                        popup.style.display = 'none';
-                    });
-
-                    // Handle delete confirmation
-                    confirmDeleteBtn.addEventListener('click', () => {
-                        popup.style.display = 'none';
-                        
-                        // Replace with actual delete logic (e.g., AJAX request)
-                        fetch(`<?= ROOT ?>/vet/delete?vet_id=2&user_id=3`, {
-                            method: 'DELETE',
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    alert('Profile deleted successfully!');
-                                    window.location.href = '<?= ROOT ?>/vetdash';
-                                } else {
-                                    alert('Failed to delete the profile.');
-                                }
-                            })
-                            .catch(error => console.error('Error:', error));
-                    });
-                });
-
                 </script>
 
 

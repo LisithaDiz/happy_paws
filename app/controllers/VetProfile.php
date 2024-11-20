@@ -131,20 +131,27 @@ class VetProfile
     }
 
     public function deleteVet()
-    {
-        $vetid = 2;
-        $vetmodel = new Vet();
+{
+    $vetId = 2;  // Hardcoded for now
 
-        $vetmodel->delete($vetid,'vet_id');
+    // Instantiate the Vet model
+    $vetModel = new Vet();
+
+    // Delete the vet record
+    $vetDeleted = $vetModel->delete($vetId, 'vet_id');
+
+    
+
+    if ($vetDeleted) {
+        echo "Profile deleted successfully.";
+        // Redirect after deletion
+        header("Location: " . ROOT . "/home");
+        exit();
+    } else {
+        echo "Failed to delete profile.";
     }
+}
 
-    public function deleteUser()
-    {
-        $userid = 3;
-        $usermodel = new User();
-
-        $usermodel->delete($userid,'vet_id');
-    }
 
 
 }

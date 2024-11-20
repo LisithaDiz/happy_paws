@@ -132,16 +132,28 @@ Trait Model
 
 	}
 
+	// public function delete($id, $id_column = 'id')
+	// {
+
+	// 	$data[$id_column] = $id;
+	// 	$query = "delete from $this->table where $id_column = :$id_column ";
+	// 	$this->query($query, $data);
+
+	// 	return false;
+
+	// }
+
 	public function delete($id, $id_column = 'id')
 	{
-
 		$data[$id_column] = $id;
-		$query = "delete from $this->table where $id_column = :$id_column ";
-		$this->query($query, $data);
+		$query = "DELETE FROM $this->table WHERE $id_column = :$id_column";
 
-		return false;
+		$result = $this->query($query, $data); // Execute the query
 
+		// Return true if the deletion was successful, otherwise false
+		return $result ? true : false;
 	}
+
 
 	
 }
