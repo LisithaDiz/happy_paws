@@ -19,7 +19,9 @@
     <div class="login-container">
         <div class="login-box">
             <h2>Login</h2>
-            <form action="login_process.php" method="POST">
+
+            <form action="user/login" method="POST">
+
                 <div class="input-group">
                     <input type="text" name="username" placeholder="Username" required>
                 </div>
@@ -27,8 +29,10 @@
                     <input type="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="input-group">
-                    <label for="selection">Login as:</label>
-                    <select id="selection" name="selection" required>
+
+                    <label for="user_role">Login as:</label>
+                    <select id="user_role" name="user_role" required>
+
                         <option value="" disabled selected>Select an option</option>
                         <option value="petOwner">Pet Owner</option>
                         <option value="veterinary">Veterinary Surgeon</option>

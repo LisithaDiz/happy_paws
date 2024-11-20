@@ -3,12 +3,14 @@
 if($_SERVER['SERVER_NAME'] == 'localhost')
 {
 	/** database config **/
-	define('DBNAME', 'happy_pawsdb');
+  define('DBNAME', 'happy_pawsdb');
+
 	define('DBHOST', 'localhost');
 	define('DBUSER', 'root');
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 	
+
 	define('ROOT', 'http://localhost/happy_paws/public');
 
 }else
@@ -23,6 +25,9 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('ROOT', 'https://www.yourwebsite.com');
 
 }
+
+
+define('ROOT_PATH', dirname(__DIR__));
 
 define('APP_NAME', "My Webiste");
 define('APP_DESC', "Best website on the planet");

@@ -96,5 +96,3 @@ window.onload = changeBackgroundImage;
 //     }
 // }
 
-
-

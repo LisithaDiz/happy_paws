@@ -7,7 +7,8 @@ class VetProfile
     public function index()
     {
         // Load the Vet model
-        $vetModel = new Vet();
+        $vetModel = new VetModel();
+
 
         // Fetch the first vet's details (you can modify this logic to fetch specific records later)
         $vetDetails = $vetModel->getFirstVetDetails();
@@ -40,8 +41,9 @@ class VetProfile
     public function loadView()
     {
         // Load data for the profile view
-        $vetModel = new Vet();
-        $userModel = new User();
+        $vetModel = new VetModel();
+        $userModel = new UserModel();
+
 
         // Replace with dynamic IDs
         $vetId = 1; 
@@ -88,7 +90,9 @@ class VetProfile
             // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
             $vetid = 1;
             // Load the Vet model
-            $vetModel = new Vet(); // Use VetModel which extends the core Model
+
+            $vetModel = new VetModel(); // Use VetModel which extends the core Model
+
 
 
             // After updating, you can redirect the user to the profile page or show a success message
@@ -118,7 +122,9 @@ class VetProfile
             // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
             $userid = 2;
             // Load the Vet model
-            $userModel = new User(); // Use VetModel which extends the core Model
+
+            $userModel = new UserModel(); // Use VetModel which extends the core Model
+
 
 
             // After updating, you can redirect the user to the profile page or show a success message
@@ -135,7 +141,9 @@ class VetProfile
     $vetId = 2;  // Hardcoded for now
 
     // Instantiate the Vet model
-    $vetModel = new Vet();
+
+    $vetModel = new VetModel();
+
 
     // Delete the vet record
     $vetDeleted = $vetModel->delete($vetId, 'vet_id');
