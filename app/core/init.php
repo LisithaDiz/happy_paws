@@ -2,6 +2,7 @@
 
 spl_autoload_register(function($classname){
 
+
 	$filename = "../app/models/".ucfirst($classname).".php";
 	if(file_exists($filename)){
 		echo "  model loading....";
@@ -11,6 +12,7 @@ spl_autoload_register(function($classname){
 		echo $filename;
 		echo "----init file not working------";
 	}
+
 });
 
 require 'config.php';
