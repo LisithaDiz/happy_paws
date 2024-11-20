@@ -11,10 +11,11 @@ class App
         //     // 'AdminProfile' => ['index'],
         // ],
         '1' => ['PetOwnerDashboard' => ['index']],
-        '2' => ['VetDashborad' => ['index']],
+        '2' => ['VetDashboard' => ['index']],
         '3' => ['PetSitterDashboard' => ['index']],
         '4' => ['CareCenterDashboard' => ['index']],
         '5' => ['PharmacyDashboard' => ['index']],
+        
     ];
 
     private $publicAccess = [

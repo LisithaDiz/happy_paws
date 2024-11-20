@@ -152,5 +152,18 @@ class UserModel
 
         return false;
     }
+    public function getById($id, $id_column = 'user_id')
+	{
+		$sql = "SELECT * FROM user WHERE $id_column = :id";
+		$params = [':id' => $id];
+		$result = $this->query($sql, $params);  // Get result from query
+		// Check if query was successful
+		if ($result !== false) {
+			return $result[0];  // Return the first row if results are found
+		}
+
+		return false;  // Return false if no result was found or query failed
+	}
+	
     
 }

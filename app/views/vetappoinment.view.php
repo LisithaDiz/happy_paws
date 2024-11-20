@@ -3,7 +3,7 @@
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetappoinment.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetappointment.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
 </head>
@@ -12,13 +12,13 @@
 
     <div class="dashboard-container">
         <div class="sidebar">
-            <h3>Vet Dashboard</h3>
             <ul>
-                <li><a href="<?=ROOT?>/vet/profile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vet/confirmed-appointments">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vet/received-appointments">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vet/view-patients">View Patients</a></li>
-                <li><a href="<?=ROOT?>/vet/prescriptions">Prescriptions</a></li>
+                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
+                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
+                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
                 <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
             </ul>
         </div>
@@ -68,8 +68,8 @@
     </div>
 
     <?php include ('components/footer.php'); ?>
-
-    <script src="<?=ROOT?>/assets/js/script.js"></script>
+<!-- 
+    <script src="<?=ROOT?>/assets/js/script.js"></script> -->
 
     <script>
         let currentAppointmentId = null;
