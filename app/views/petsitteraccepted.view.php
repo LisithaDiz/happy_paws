@@ -13,14 +13,12 @@
     <div class="dashboard-container">
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vetavailability">Update Availability</a></li>
-                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
+                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
+                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
+                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
             </ul>
         </div>
 
@@ -28,28 +26,31 @@
             <div class="overview-cards">
                 <div class="appoinement-requests">
                     <h1>Appointments</h1>
-                    
-                    <!-- Each card will have its own appointment details -->
-                    <div class="card" id="appointment1">
-                        <h3>Appointment 1</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '10:00 AM', 'appointment1')">View Details</button>
+                        <!-- Each card will have its own appointment details -->
+                        <div class="card" id="appointmentreq1">
+                        <h3>Accepted Request 1</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '2024-11-25', 'appointmentreq1')">View Details</button>
                     </div>
 
-                    <div class="card" id="appointment2">
-                        <h3>Appointment 2</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2:00 PM', 'appointment2')">View Details</button>
+                    <div class="card" id="appointmentreq2">
+                        <h3>Accepted Request 2</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2024-11-25', 'appointmentreq2')">View Details</button>
                     </div>
 
-                    <div class="card" id="appointment3">
-                        <h3>Appointment 3</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Charlie', '2024-11-22', '4:00 PM', 'appointment3')">View Details</button>
+                    <div class="card" id="appointmentreq3">
+                        <h3>Accepted Request 3</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Rex', '2024-11-22', '2024-11-25', 'appointmentreq3')">View Details</button>
                     </div>
 
-                    <div class="card" id="appointment4">
-                        <h3>Appointment 4</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '11:00 AM', 'appointment4')">View Details</button>
+                    <div class="card" id="appointmentreq4">
+                        <h3>Accepted Request 4</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '2024-11-29', 'appointmentreq4')">View Details</button>
                     </div>
 
+                    <div class="card" id="appointmentreq5">
+                        <h3>Accepted Request 5</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Liya', '2024-11-25', '2024-11-30', 'appointmentreq5')">View Details</button>
+                    </div>
 
                     <!-- Popup structure -->
                     <div id="appointmentPopup" class="popup">

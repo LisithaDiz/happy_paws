@@ -30,7 +30,7 @@
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>----------------------------Request to add medicine----------------------------</h1>
+            <h1>Request to add medicine</h1>
             <form action="/happy_paws/public/vet/medicine_request" method="POST">
                 <label for="medicine_name">Medicine Name:</label><br>
                 <input type="text" id="medicine_name" name="medicine_name" required><br><br>

@@ -14,25 +14,19 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vetavailability">Update Availability</a></li>
-                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
+                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
+                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
+                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
+            </ul>
             </ul>
         </div>
 
         <!-- Main content area -->
         <div class="main-content">
-            <?php 
-            if (isset($vetDetails) && !empty($vetDetails)):
-
-                // Access the first element of the $vetDetails array
-                $vet = $vetDetails[0]; 
-            ?>
+            
             <div class="profile-content">
                     <div class="profile-picture-container">
                         <div class="profile-picture">
@@ -48,67 +42,69 @@
                         <div class="detail-line">
                             <div class="detail-label">Username</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->username) ?></div>
+                            <div class="detail-value">KasunJayasinghe</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">Email</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->email) ?></div>
+                            <div class="detail-value">kasun@gmail.com</div>
                         </div>
 
-                        <div class="detail-line">
-                            <div class="detail-label">License No</div>
-                            <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->license_no) ?></div>
-                        </div>
+        
 
                         <div class="detail-line">
                             <div class="detail-label">First Name</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->f_name) ?></div>
+                            <div class="detail-value">Kasun</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">Last Name</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->l_name) ?></div>
+                            <div class="detail-value">Jayasinghe</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">Age</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->age) ?></div>
+                            <div class="detail-value">32</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">Gender</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->gender) ?></div>
+                            <div class="detail-value">M</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">District</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->district) ?></div>
+                            <div class="detail-value">Kaluthara</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">City</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->city) ?></div>
+                            <div class="detail-value">Wadduwa</div>
+                        </div>
+
+                        <div class="detail-line">
+                            <div class="detail-label">Street</div>
+                            <div class="colon">:</div>
+                            <div class="detail-value">Wijaya Street</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">Contact No</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->contact_no) ?></div>
+                            <div class="detail-value">0759883211</div>
                         </div>
 
                         <div class="detail-line">
                             <div class="detail-label">Years of Experience</div>
                             <div class="colon">:</div>
-                            <div class="detail-value"><?= htmlspecialchars($vet->years_exp) ?></div>
+                            <div class="detail-value">2</div>
                         </div>
 
                         <div class="delete-profile">
@@ -119,27 +115,25 @@
                     
 
             </div>   
-            <?php else: ?>
-                <p>No vet details found.</p>
-            <?php endif; ?>
+            
                 <!-- Popup structure -->
                 <div id="editProfilePopup" class="popup">
                     <form action="" method="POST" class="update-form">
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" value="<?= htmlspecialchars($vet->username) ?>" required>
+                            <input type="text" id="username" name="username" value="KasunJayasinghe" required>
                         </div>
                         <div class="form-group">
                             <label for="f_name">First Name:</label>
-                            <input type="text" id="f_name" name="f_name" value="<?= htmlspecialchars($vet->f_name) ?>" required>
+                            <input type="text" id="f_name" name="f_name" value="Kasun" required>
                         </div>
                         <div class="form-group">
                             <label for="l_name">Last Name:</label>
-                            <input type="text" id="l_name" name="l_name" value="<?= htmlspecialchars($vet->l_name) ?>" required>
+                            <input type="text" id="l_name" name="l_name" value="Jayasinghe" required>
                         </div>
                         <div class="form-group">
                             <label for="age">Age:</label>
-                            <input type="number" id="age" name="age" value="<?= htmlspecialchars($vet->age) ?>" required>
+                            <input type="number" id="age" name="age" value="32" required>
                         </div>
                         <div class="form-group">
                             <label for="gender">Gender:</label>
@@ -150,19 +144,19 @@
                         </div>
                         <div class="form-group">
                             <label for="district">District:</label>
-                            <input type="text" id="district" name="district" value="<?= htmlspecialchars($vet->district) ?>" required>
+                            <input type="text" id="district" name="district" value="Kaluthara" required>
                         </div>
                         <div class="form-group">
                             <label for="city">City:</label>
-                            <input type="text" id="city" name="city" value="<?= htmlspecialchars($vet->city) ?>" required>
+                            <input type="text" id="city" name="city" value="Wadduwa required>
                         </div>
                         <div class="form-group">
                             <label for="contact_no">Contact No:</label>
-                            <input type="text" id="contact_no" name="contact_no" value="<?= htmlspecialchars($vet->contact_no) ?>" required>
+                            <input type="text" id="contact_no" name="contact_no" value="0759883211" required>
                         </div>
                         <div class="form-group">
                             <label for="years_exp">Years of Experience:</label>
-                            <input type="number" id="years_exp" name="years_exp" value="<?= htmlspecialchars($vet->years_exp) ?>" required>
+                            <input type="number" id="years_exp" name="years_exp" value="2" required>
                         </div>
                         <button type="submit">Update</button>
                     </form>

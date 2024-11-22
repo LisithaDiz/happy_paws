@@ -17,54 +17,52 @@
         <div class="sidebar">
             
             <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vetavailability">Update Availability</a></li>
-                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
+                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
+                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
+                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
             </ul>
         </div>
 
         <div class="main-content">
             <div class="overview-cards">
                 <div class="appoinement-requests">
-                    <h1>Appoinment Requests</h1>
+                    <h1>Requests</h1>
                         <!-- Each card will have its own appointment details -->
                         <div class="card" id="appointmentreq1">
-                        <h3>Appointment Request 1</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '10:00 AM', 'appointmentreq1')">View Details</button>
+                        <h3>Request 1</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '2024-11-25', 'appointmentreq1')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq2">
-                        <h3>Appointment Request 2</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2:00 PM', 'appointmentreq2')">View Details</button>
+                        <h3>Request 2</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2024-11-25', 'appointmentreq2')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq3">
-                        <h3>Appointment Request 3</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Rex', '2024-11-22', '4:00 PM', 'appointmentreq3')">View Details</button>
+                        <h3>Request 3</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Rex', '2024-11-22', '2024-11-25', 'appointmentreq3')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq4">
-                        <h3>Appointment Request 4</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '11:00 AM', 'appointmentreq4')">View Details</button>
+                        <h3>Request 4</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '2024-11-29', 'appointmentreq4')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq5">
-                        <h3>Appointment Request 5</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Liya', '2024-11-25', '12:00 AM', 'appointmentreq5')">View Details</button>
+                        <h3>Request 5</h3>
+                        <button class="btn-dashboard" onclick="openPopup('Liya', '2024-11-25', '2024-11-30', 'appointmentreq5')">View Details</button>
                     </div>
 
                         <!-- Popup structure -->
                         <div id="appointmentPopup" class="popup">
                             <div class="popup-content">
-                                <h3>Appointment Details</h3>
+                                <h3>Booking Details</h3>
                                 <p><strong>Pet Name:</strong> <span id="petName">Max</span></p>
-                                <p><strong>Appointment Date:</strong> <span id="appointmentDate">2024-11-20</span></p>
-                                <p><strong>Time:</strong> <span id="appointmentTime">10:00 AM</span></p>
+                                <p><strong>From:</strong> <span id="from">2024-11-20</span></p>
+                                <p><strong>To:</strong> <span id="to">2024-11-20</span></p>
 
                             <div class="popup-buttons">
                                 <button class="btn-accept" >Accept</button>
@@ -89,10 +87,10 @@
         let currentAppointmentId = null;
 
         // Function to open the popup with dynamic details
-        function openPopup(petName, appointmentDate, appointmentTime, appointmentId) {
+        function openPopup(petName, from, to, appointmentId) {
             document.getElementById("petName").textContent = petName;
-            document.getElementById("appointmentDate").textContent = appointmentDate;
-            document.getElementById("appointmentTime").textContent = appointmentTime;
+            document.getElementById("from").textContent = from;
+            document.getElementById("to").textContent = to;
             document.getElementById("appointmentPopup").style.display = "flex";
 
             currentAppointmentId = appointmentId; // Set the correct current appointment ID

@@ -16,12 +16,12 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Accepted Requests</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">View Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Update Availability</a></li>
+                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
+                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
+                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
             </ul>
         </div>
 
@@ -38,12 +38,12 @@
                     <div class="card">
                         <h3>Accepted Requests</h3>
                         <p>3 accepted Requests</p>
-                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">View accepted requests</a>
+                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">Accepted requests</a>
                     </div>
                     <div class="card">
                         <h3>View Requests</h3>
                         <p>6 Requests received</p>
-                        <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">View received requests</a>
+                        <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">Received requests</a>
                     </div>
                     <div class="card">
                         <h3>Update Availability</h3>

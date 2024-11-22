@@ -39,17 +39,17 @@
                     <div class="card">
                         <h3>Upcoming Appointments</h3>
                         <p>3 appointments scheduled for today.</p>
-                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">View upcoming appoinments</a>
+                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">Appoinments</a>
                     </div>
                     <div class="card">
                         <h3>Appoinment Requests</h3>
                         <p>6 Requests received.</p>
-                        <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">View received requests</a>
+                        <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">Requests</a>
                     </div>
                     <div class="card">
                         <h3>Prescriptions</h3>
                         <p>2 prescriptions to be filled today.</p>
-                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">View prescriptions</a>
+                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">Prescriptions</a>
                     </div>
                 </div>
             </section>

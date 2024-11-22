@@ -30,7 +30,7 @@
 
         <!-- Main content area -->
         <div class="main-content">
-        <h1>-------------------------------Update Availability-------------------------------</h1>
+        <h1>Update Availability</h1>
             <form action="" method="POST">
                 <?php 
                 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

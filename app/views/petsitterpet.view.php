@@ -16,21 +16,19 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vetavailability">Update Availability</a></li>
-                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
+                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
+                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
+                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
             </ul>
         </div>
 
         <!-- Main content area -->
         <div class="main-content">
             <div class="overview-cards">
-                    <h1>Treated Pets</h1>
+                    <h1>Pet Details</h1>
                     
                     <!-- Prescription List -->
                     <div class="prescription-card" id="prescription1">
