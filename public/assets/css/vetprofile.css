@@ -65,21 +65,24 @@
 
 
 
+
 .main-content{
     position: relative;
     max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(20px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     animation: fadeIn 2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.3);
+    overflow-y: auto;  /* Enables vertical scrolling */
     max-height: 80vh;
     display: flex;
     align-items: flex-start;
     gap: 20px;
 }
+
 
 
 .profile-content {

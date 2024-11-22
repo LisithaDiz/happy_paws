@@ -23,7 +23,8 @@
                 <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
                 <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
                 <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
+                <li><a href="<?=ROOT?>/vetavailability">Update Availability</a></li>
+                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
             </ul>
         </div>
 

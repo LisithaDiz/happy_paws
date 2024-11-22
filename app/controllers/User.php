@@ -149,6 +149,7 @@ class User
                 $_SESSION['user_role'] = $user_role; 
                 $_SESSION['user_status'] = $user->active_status;
 
+                
                 if($_SESSION['user_status'] =='1'){
 
                     switch ($user_role) {

@@ -11,7 +11,7 @@ class VetProfile
 
 
         // Fetch the first vet's details (you can modify this logic to fetch specific records later)
-        $vetDetails = $vetModel->getFirstVetDetails();
+        $vetDetails = $vetModel->getVetDetails();
         // Pass the fetched data to the view
         $this->view('vetprofile', ['vetDetails' => $vetDetails]);
     }
@@ -44,16 +44,14 @@ class VetProfile
         $vetModel = new VetModel();
         $userModel = new UserModel();
 
-
-        // Replace with dynamic IDs
-        $vetId = 1; 
-        $userId = 2;
+        $userid = $_SESSION['user_id'];
+        
 
         // Get vet details
-        $vetDetails = $vetModel->getById($vetId, 'vet_id');
+        $vetDetails = $vetModel->getById($userid, 'user_id');
 
         // Get user details
-        $userDetails = $userModel->getById($userId, 'user_id');
+        $userDetails = $userModel->getById($userid, 'user_id');
 
         // Pass both vet and user data to the view
         require_once '../app/views/vetprofile.view.php';
@@ -88,16 +86,15 @@ class VetProfile
 
             // // Get the vet's ID, for example from the session or passed as a parameter
             // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
-            $vetid = 1;
+            // $vetid = 1;
             // Load the Vet model
+            $userid = $_SESSION['user_id'];
 
             $vetModel = new VetModel(); // Use VetModel which extends the core Model
 
-
-
             // After updating, you can redirect the user to the profile page or show a success message
             
-            $result = $vetModel->update($vetid, $data, 'vet_id');
+            $result = $vetModel->update($userid, $data, 'user_id');
             return $result;
             
             }
@@ -119,8 +116,8 @@ class VetProfile
             // You may want to validate the data here, e.g., check if required fields are filled
 
             // // Get the vet's ID, for example from the session or passed as a parameter
-            // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
-            $userid = 2;
+            $userid = $_SESSION['user_id']; // Assuming the user ID is stored in the session
+            // $userid = 2;
             // Load the Vet model
 
             $userModel = new UserModel(); // Use VetModel which extends the core Model
@@ -138,15 +135,15 @@ class VetProfile
 
     public function deleteVet()
 {
-    $vetId = 2;  // Hardcoded for now
-
+    
+    $userid = $_SESSION['user_id'];
     // Instantiate the Vet model
 
     $vetModel = new VetModel();
 
 
     // Delete the vet record
-    $vetDeleted = $vetModel->delete($vetId, 'vet_id');
+    $vetDeleted = $vetModel->delete($userid, 'user_id');
 
     
 

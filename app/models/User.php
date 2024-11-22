@@ -1,23 +1,158 @@
-<?php
+<?php 
 
-class User 
+class UserModel 
 {
-    use Controller;
-	use Model;
+    use Model;
 
-	protected $table = 'user';
+    protected $table = 'user';
+    protected $allowedColumns = [
+        'username',
+        'email',
+        'password',
+        
+    ];
 
-	protected $allowedColumns = [
-		'username'
-	];
 
-    private $userModel;
+    public function signup($data, $user_role) 
+    {
+        
+        try {
 
-    // public function __construct() {
-    //     $this->userModel = new User();
-    // }
+                // Insert into users table using Model's insert function
+                print_r($data);
+                $this->insert($data);
+                
+                // Get the inserted user to get their ID
+                $user = $this->first(['email' => $data['email']]);
+                $data['user_id'] = $user->user_id;
+                
+                // checking
+                // print_r($data);
+                $roleModel = new RoleModel();
+                
+                
+                if($user) {
+                    
+                    // Based on role, insert additional data
+                    
+                    switch($user_role) {
+                        case 'petOwner':
+                            $data['role'] = '1';
+                            $roleModel->insert($data);
+                            $petOwnerModel = new PetOwnerModel();
+                            $petOwnerModel->insert($data);
+                            break;
+                            
+                        case 'veterinary':
+                            $data['role'] = '2';
+                            $roleModel->insert($data);
+                            $vetModel = new VetModel();
+                            $vetModel->insert($data);
+                            break;
+                            
+                        case 'petSitter':
+                            $data['role'] = '3';
+                            $roleModel->insert($data);
+                            $petSitterModel = new PetSitterModel();
+                            $petSitterModel->insert($data);
+                            break;
+                            
+                        case 'petCareCenter':
+                            $data['role'] = '4';
+                            $roleModel->insert($data);
+                            $careCenterModel = new CareCenterModel();
+                            print_r($data);
+                            $careCenterModel->insert($data);
+                            break;
+                    
+                        case 'pharmacy':
+                            $data['role'] = '5';
+                            $roleModel->insert($data);
+                            $pharmacyModel = new PharmacyModel();
+                            $pharmacyModel->insert($data);
+                            break;
+                    }
+                        
+                    return true;
+                }
+            
+            
+            return false;
+            
+        } catch (Exception $e) {
+            $this->errors['signup'] = "Signup failed: " . $e->getMessage();
+            echo "----not working (user model)------";
+            return false;
+        }
+    }
 
-	public function getById($id, $id_column = 'user_id')
+    public function authenticate($username, $password, $user_role)
+    {
+        $user = $this->first(['username' => $username]);
+        $user_id = $user->user_id;
+        $roleModel = new RoleModel();
+        $u_role =$roleModel->first(['user_id' => $user_id]);
+        
+        // show($u_role->role);
+        // show($user_role);
+
+        if($user_role != $u_role->role){
+            echo "role not found in user model";
+            return false;
+        }
+        if ($user) {
+            // Verify the password
+            // if (password_verify($password, $user->password)) {
+            //     return $user; // Authentication successful
+            // }
+            if ($password == $user->password) {
+                    return $user;
+            }
+        }
+        return false;
+    }
+
+    public function validate($data)
+    {
+        $this->errors = [];
+
+        // Check if username has provided
+        if (empty($data['username'])) {
+            $this->errors['username'] = "Username is required.";
+        }else {
+            // Check if username has already taken
+            $existingUsername = $this->where(['username' => $data['username']]);
+            if (!empty($existingUsername)) {
+                $this->errors['username'] = "Username is already taken.";
+            }
+        }
+
+        // Check if email has provided
+        if (empty($data['email'])) {
+            $this->errors['email'] = "Email is required.";
+        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->errors['email'] = "Email format is invalid.";
+        } else {
+            // Check if email has already registered
+            $existingEmail = $this->where(['email' => $data['email']]);
+            if (!empty($existingEmail)) {
+                $this->errors['email'] = "Email is already registered.Please log in using your account";
+            }
+        }
+
+        // Check if password has provided
+        if (empty($data['password'])) {
+            $this->errors['password'] = "Password is required.";
+        } 
+
+        // Return true if no errors, otherwise false
+        if (empty($this->errors)) {
+            return true;
+        }
+
+        return false;
+    }
+    public function getById($id, $id_column = 'user_id')
 	{
 		$sql = "SELECT * FROM user WHERE $id_column = :id";
 		$params = [':id' => $id];
@@ -30,101 +165,5 @@ class User
 		return false;  // Return false if no result was found or query failed
 	}
 	
-    // public function signupProcess() {
-    //     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    //         echo "<script>
-    //                 alert('Something went wrong!');
-    //                 window.location.href = 'signup_role.php';
-    //             </script>";
-    //         exit();
-    //     }
-
-    //     $user_role = $_POST["user_role"];
-    //     $username = $_POST['username'];
-    //     $email = $_POST['email'];
-    //     $password = $_POST['password'];
-
-    //     $data = [
-    //         'username' => $username,
-    //         'email' => $email,
-    //         'password' => $password,
-    //     ];
-
-        
-
-    //     if ($user_role == 'veterinary') {
-    //         $data = array_merge($data, [
-    //             'f_tname' => $_POST['firstname'],
-    //             'l_name' => $_POST['lastname'],
-    //             'age' => $_POST['age'],
-    //             'gender' => $_POST['gender'],
-    //             'district' => $_POST['district'],
-    //             'city' => $_POST['city'],
-    //             'street' => $_POST['street'],
-    //             'contact_no' => $_POST['contact'],
-    //             'license_no' => $_POST['license'],
-    //             'certificate' => $_FILES['vet_certificate'],
-    //             'years_exp' => $_POST['years_exp'],
-    //         ]);
-    //     } elseif ($user_role == 'petSitter') {
-    //         $data = array_merge($data, [
-    //             'f_name' => $_POST['firstname'],
-    //             'l_name' => $_POST['lastname'],
-    //             'age' => $_POST['age'],
-    //             'gender' => $_POST['gender'],
-    //             'district' => $_POST['district'],
-    //             'city' => $_POST['city'],
-    //             'street' => $_POST['street'],
-    //             'contact_no' => $_POST['contact'],
-    //             'years_exp' => $_POST['years_exp'],
-    //         ]);
-    //     } elseif ($user_role == 'petOwner') {
-    //         $data = array_merge($data, [
-    //             'f_name' => $_POST['firstname'],
-    //             'l_name' => $_POST['lastname'],
-    //             'age' => $_POST['age'],
-    //             'district' => $_POST['district'],
-    //             'city' => $_POST['city'],
-    //             'street' => $_POST['street'],
-    //             'contact_no' => $_POST['contact'],
-    //             'num_pets' => $_POST['pets'],
-    //         ]);
-    //     } elseif ($user_role == 'petCareCenter') {
-    //         $data = array_merge($data,[
-    //             'name' => $_POST['name'],
-    //             'certificate' => $_FILES['certificate'],
-    //             'district' => $_POST['district'],
-    //             'city' => $_POST['city'],
-    //             'street' => $_POST['street'],
-    //             'contact_no' => $_POST['contact'],
-    //         ]);
-    //     } elseif ($user_role == 'pharmacy') {
-    //         $data = array_merge($data,[
-    //             'name' => $_POST['name'],
-    //             'certificate' => $_FILES['certificate'],
-    //             'district' => $_POST['district'],
-    //             'city' => $_POST['city'],
-    //             'street' => $_POST['street'],
-    //             'contact_no' => $_POST['contact'],
-    //         ]);
-    //     }
-
-    //     // to check data
-    //     // print_r($data);
-
-    //     if ($this->userModel->validate($data)) {
-
-    //         if ($this->userModel->signup($data, $user_role)) {
-    //             echo "Signup successful!";
-    //             redirect('login');
-    //         } else {
-    //             echo "Something went wrong!";
-    //         }
-    //     } else {
-    //         $this->view('signup', $data);
-    //     }
-    // }
-
-	
+    
 }
-

@@ -65,6 +65,7 @@ Trait Model
 		$data = array_merge($data, $data_not);
 		
 		$result = $this->query($query, $data);
+		
 		if($result)
 			return $result[0];
 

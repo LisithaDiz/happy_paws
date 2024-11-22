@@ -18,37 +18,37 @@
             <ul>
                 <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
                 <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
+                <li><a href="<?=ROOT?>/vetappoinment">Accepted Requests</a></li>
+                <li><a href="<?=ROOT?>/vetrequest">View Requests</a></li>    
                 <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
+                <li><a href="<?=ROOT?>/vetprescription">Update Availability</a></li>
             </ul>
         </div>
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>Welcome, Dr. [Vet Name]!</h1>
-            <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, pets records, prescriptions, and more.</p>
+        <h1>Welcome, [Pet Sitter Name]!</h1>
+        <p>We're excited to have you back. Your dashboard is your go-to place to manage pet care requests, track accepted bookings, update your availability, and provide top-notch care for pets in need.</p>
+
 
             <!-- Dashboard Overview Section -->
             <section class="dashboard-overview">
                 <h2>Overview</h2>
                 <div class="overview-cards">
                     <div class="card">
-                        <h3>Upcoming Appointments</h3>
-                        <p>3 appointments scheduled for today.</p>
-                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">View upcoming appoinments</a>
+                        <h3>Accepted Requests</h3>
+                        <p>3 accepted Requests</p>
+                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">View accepted requests</a>
                     </div>
                     <div class="card">
-                        <h3>Appoinment Requests</h3>
-                        <p>6 Requests received.</p>
+                        <h3>View Requests</h3>
+                        <p>6 Requests received</p>
                         <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">View received requests</a>
                     </div>
                     <div class="card">
-                        <h3>Prescriptions</h3>
-                        <p>2 prescriptions to be filled today.</p>
-                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">View prescriptions</a>
+                        <h3>Update Availability</h3>
+                        <p>Update Available Dates & Times</p>
+                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">Update</a>
                     </div>
                 </div>
             </section>

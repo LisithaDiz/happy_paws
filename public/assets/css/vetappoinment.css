@@ -179,6 +179,24 @@
     background-color: #f5c6cb;
 }
 
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f5c6cb; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fae3e3; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f5c6cb; /* Darker color on hover */
+}
+
 
 
 
