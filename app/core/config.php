@@ -9,12 +9,12 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 	
-	define('ROOT', 'http://localhost/happy/public');
+	define('ROOT', 'http://localhost/mywork/public');
 
 }else
 {
 	/** database config **/
-	define('DBNAME', 'happy_paws');
+	define('DBNAME', 'mywork');
 	define('DBHOST', 'localhost');
 	define('DBUSER', 'root');
 	define('DBPASS', '');

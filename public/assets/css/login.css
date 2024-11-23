@@ -3,41 +3,31 @@ body {
     font-family: Arial, sans-serif;
     background-image: url('../../assets/images/wall/2.jpg');
     background-size: cover;
-    color:black;
-    
-    
+    color: black;
 }
+
 .login-container {
-    
     display: flex;
     justify-content: center;
-    align-items: center;   
+    align-items: center;
     width: 400px; 
     margin: 100px auto; 
     padding: 30px; 
     border-radius: 5px;
     border: 2px solid #d8544c;
     position: relative;
-     
 }
 
-
 .login-box {
-
     padding: 20px;
     border-radius: 10px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     background-color: rgba(255, 255, 255, 0.3);
     text-align: center; 
-    
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
     box-sizing: border-box;
-    border: 2px solid white; */
+    border: 2px solid white; /* Corrected this line */
 }
-
 
 .login-box h2 {
     margin-bottom: 20px;
@@ -45,13 +35,11 @@ body {
     font-size: 28px;
 }
 
-
 .input-group {
     margin-bottom: 15px;
     font-weight: bold;
-    color:#333;
+    color: #333;
 }
-
 
 .input-group input[type="text"],
 .input-group input[type="password"],
@@ -62,12 +50,10 @@ select {
     border-radius: 5px; 
     font-size: 14px;
     box-sizing: border-box;
-    color:black;
-    
+    color: black;
 }
 
-
-.login-button{
+.login-button {
     width: 100%;
     padding: 10px;
     color: #ffffff; 
@@ -75,22 +61,20 @@ select {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #d8544c; /* Add a background color for better visibility */
 }
-
 
 .login-button:hover {
     color: black;
-    
+    background-color: #ffffff; /* Add hover effect for the button */
 }
-
 
 .register-link {
     margin-top: 15px;
 }
 
-
 .register-link p {
-    color:black; 
+    color: black; 
     font-size: 14px;
 }
 
@@ -101,6 +85,4 @@ select {
 
 .register-link a:hover {
     text-decoration: underline;
-
 }
-

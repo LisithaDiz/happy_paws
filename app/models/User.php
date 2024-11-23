@@ -1,107 +1,169 @@
 <?php 
 
-
-/**
- * User class
- */
-class User
+class UserModel 
 {
-	
-	use Model;
+    use Model;
 
-	protected $table = 'user';
-
-	protected $allowedColumns = [
-
-		'username',
-		'email',
-		'password',
-	];
-
-	public function signup()
-	{
-		echo("function signup");
-
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                echo("signup details post in");
-				$user_role = $_POST['user_role'];
-                $userData = [
-	
-                    'username' => htmlspecialchars(trim($_POST['username'])),
-                    'email' => filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL),
-                    'password' => htmlspecialchars(trim($_POST['password'])),
-                ];
+    protected $table = 'user';
+    protected $allowedColumns = [
+        'username',
+        'email',
+        'password',
         
-				if($user_role == 'petOwner')
-				{
+    ];
+
+
+    public function signup($data, $user_role) 
+    {
+        
+        try {
+
+                // Insert into users table using Model's insert function
+                print_r($data);
+                $this->insert($data);
                 
-					$petOwnerData = [
-						'user_id'=>
-						'f_name' => htmlspecialchars(trim($_POST['full-name'])),
-						'gender' => htmlspecialchars(trim($_POST['gender'])),
-						'dob' => htmlspecialchars(trim($_POST['dob'])),
-						'phone_number' => htmlspecialchars(trim($_POST['phone-number'])),
-						'street_address' => htmlspecialchars(trim($_POST['street-address'])),
-						'city' => htmlspecialchars(trim($_POST['city'])),
-						'district' => htmlspecialchars(trim($_POST['district'])),
-						'province' => htmlspecialchars(trim($_POST['province'])),
-						'payment_method' => htmlspecialchars(trim($_POST['payment-method'])) 
-                ];
-				}	
-        
-              
-                if ($this->userModel->validate($userData)) {
-                    echo("validate done");
+                // Get the inserted user to get their ID
+                $user = $this->first(['email' => $data['email']]);
+                $data['user_id'] = $user->user_id;
+                
+                // checking
+                // print_r($data);
+                $roleModel = new RoleModel();
+                
+                
+                if($user) {
                     
-                    $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-        
-                    if ($this->userModel->registerBuyer($userData, $buyerData)) {
-                        echo "Registration successful!";
-                        redirect('login');
-                    } else {
-                        echo "Something went wrong!";
+                    // Based on role, insert additional data
+                    
+                    switch($user_role) {
+                        case 'petOwner':
+                            $data['role'] = '1';
+                            $roleModel->insert($data);
+                            $petOwnerModel = new PetOwnerModel();
+                            $petOwnerModel->insert($data);
+                            break;
+                            
+                        case 'veterinary':
+                            $data['role'] = '2';
+                            $roleModel->insert($data);
+                            $vetModel = new VetModel();
+                            $vetModel->insert($data);
+                            break;
+                            
+                        case 'petSitter':
+                            $data['role'] = '3';
+                            $roleModel->insert($data);
+                            $petSitterModel = new PetSitterModel();
+                            $petSitterModel->insert($data);
+                            break;
+                            
+                        case 'petCareCenter':
+                            $data['role'] = '4';
+                            $roleModel->insert($data);
+                            $careCenterModel = new CareCenterModel();
+                            print_r($data);
+                            $careCenterModel->insert($data);
+                            break;
+                    
+                        case 'pharmacy':
+                            $data['role'] = '5';
+                            $roleModel->insert($data);
+                            $pharmacyModel = new PharmacyModel();
+                            $pharmacyModel->insert($data);
+                            break;
                     }
-                } else {
-                    echo("validate not done");
-                   
-                    $this->view('buyerRegister', $userData);
+                        
+                    return true;
                 }
-            } else {
-                echo("registerBuyer else");
-                $this->view('buyerRegister');
+            
+            
+            return false;
+            
+        } catch (Exception $e) {
+            $this->errors['signup'] = "Signup failed: " . $e->getMessage();
+            echo "----not working (user model)------";
+            return false;
+        }
+    }
+
+    public function authenticate($username, $password, $user_role)
+    {
+        $user = $this->first(['username' => $username]);
+        $user_id = $user->user_id;
+        $roleModel = new RoleModel();
+        $u_role =$roleModel->first(['user_id' => $user_id]);
+        
+        // show($u_role->role);
+        // show($user_role);
+
+        if($user_role != $u_role->role){
+            echo "role not found in user model";
+            return false;
+        }
+        if ($user) {
+            // Verify the password
+            // if (password_verify($password, $user->password)) {
+            //     return $user; // Authentication successful
+            // }
+            if ($password == $user->password) {
+                    return $user;
+            }
+        }
+        return false;
+    }
+
+    public function validate($data)
+    {
+        $this->errors = [];
+
+        // Check if username has provided
+        if (empty($data['username'])) {
+            $this->errors['username'] = "Username is required.";
+        }else {
+            // Check if username has already taken
+            $existingUsername = $this->where(['username' => $data['username']]);
+            if (!empty($existingUsername)) {
+                $this->errors['username'] = "Username is already taken.";
             }
         }
 
+        // Check if email has provided
+        if (empty($data['email'])) {
+            $this->errors['email'] = "Email is required.";
+        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->errors['email'] = "Email format is invalid.";
+        } else {
+            // Check if email has already registered
+            $existingEmail = $this->where(['email' => $data['email']]);
+            if (!empty($existingEmail)) {
+                $this->errors['email'] = "Email is already registered.Please log in using your account";
+            }
+        }
 
+        // Check if password has provided
+        if (empty($data['password'])) {
+            $this->errors['password'] = "Password is required.";
+        } 
 
-	}
+        // Return true if no errors, otherwise false
+        if (empty($this->errors)) {
+            return true;
+        }
 
-	private function validate($data)
+        return false;
+    }
+    public function getById($id, $id_column = 'user_id')
 	{
-		$this->errors = [];
-		if(empty($data['username']))
-		{
-			$this->errors['username']="Username is required"; 
-		}
-		if(empty($data['email']))
-		{
-			$this->errors['email'] = "Email is required";
-		}else
-		if(!filter_var($data['email'],FILTER_VALIDATE_EMAIL))
-		{
-			$this->errors['email'] = "Email is not valid";
-		}
-		
-		if(empty($data['password']))
-		{
-			$this->errors['password'] = "Password is required";
-		}
-		
-		if(empty($this->errors))
-		{
-			return true;
+		$sql = "SELECT * FROM user WHERE $id_column = :id";
+		$params = [':id' => $id];
+		$result = $this->query($sql, $params);  // Get result from query
+		// Check if query was successful
+		if ($result !== false) {
+			return $result[0];  // Return the first row if results are found
 		}
 
-		return false;
+		return false;  // Return false if no result was found or query failed
 	}
+	
+    
 }
