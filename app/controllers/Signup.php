@@ -10,6 +10,7 @@ class Signup
     }
     
     
+
     // Load the view and pass the user role ..
     public function index()
     {
@@ -18,7 +19,8 @@ class Signup
             header('Location: signup_role');
             exit();
         }
-        $user_role = $_POST['user-type'];
+        $user_role = $_POST['user_role'];
+
          // Load the view and pass the user role ..
         $this->loadView($user_role);
        

@@ -10,7 +10,9 @@ Trait Model
 	protected $limit 		= 10;
 	protected $offset 		= 0;
 	protected $order_type 	= "desc";
-	protected $order_column = "id";
+
+	protected $order_column = "user_id";
+
 	public $errors 		= [];
 
 	public function findAll()
@@ -71,7 +73,7 @@ Trait Model
 
 	public function insert($data)
 	{
-		
+
 		/** remove unwanted data **/
 		if(!empty($this->allowedColumns))
 		{
@@ -87,6 +89,7 @@ Trait Model
 		$keys = array_keys($data);
 
 		$query = "insert into $this->table (".implode(",", $keys).") values (:".implode(",:", $keys).")";
+
 		$this->query($query, $data);
 
 		return false;
@@ -120,21 +123,40 @@ Trait Model
 
 		$data[$id_column] = $id;
 
-		$this->query($query, $data);
-		return false;
+		            // Stop execution to view the output
+
+		$result = $this->query($query, $data);
+
+		if ($result) {
+			return true; // Return true if update was successful
+		} else {
+			return false; // Return false if update failed
+		}
 
 	}
+
+	// public function delete($id, $id_column = 'id')
+	// {
+
+	// 	$data[$id_column] = $id;
+	// 	$query = "delete from $this->table where $id_column = :$id_column ";
+	// 	$this->query($query, $data);
+
+	// 	return false;
+
+	// }
 
 	public function delete($id, $id_column = 'id')
 	{
-
 		$data[$id_column] = $id;
-		$query = "delete from $this->table where $id_column = :$id_column ";
-		$this->query($query, $data);
+		$query = "DELETE FROM $this->table WHERE $id_column = :$id_column";
 
-		return false;
+		$result = $this->query($query, $data); // Execute the query
 
+		// Return true if the deletion was successful, otherwise false
+		return $result ? true : false;
 	}
+
 
 	
 }
