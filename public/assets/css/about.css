@@ -1,57 +1,54 @@
 /* General Styles */
-
 body {
     margin: 0;
-    font-family: sans-serif;
-    color: #333;
+    font-family: 'Roboto', Arial, sans-serif; /* Professional and readable font */
+    color: #444; /* Darker gray for better contrast */
+    background-color: rgb(231, 177, 179); /* Retained your background color */
     background-size: cover;
-    transition: background-image 1s ease-in-out;
-    background-image: url('../../assets/images/wall/17.jpg');
-    position: relative;
     background-attachment: fixed;
-    
-   
 }
-
 
 /* About Page Styles */
 .about-container {
-   
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px;
     backdrop-filter: blur(5px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    animation: fadeIn 2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.85); /* Lightened for improved readability */
+    animation: fadeIn 1s ease-in-out;
 }
 
-
-
+/* Header Section */
 h1 {
     text-align: center;
-    margin-bottom: 20px;
-    color: white;
-    animation: fadeInDown 1s ease-in-out;
+    margin-bottom: 30px;
+    color: #222; /* Darker color for better visibility */
+    font-size: 36px;
+    font-weight: 600;
+    animation: fadeInDown 0.8s ease-in-out;
 }
 
+/* Paragraph Section */
 p {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     font-size: 18px;
-    color: black;
-    animation: fadeInDown 1s ease-in-out;
+    line-height: 1.8; /* Increased line height for readability */
+    color: #555;
+    animation: fadeInDown 0.8s ease-in-out;
 }
 
+/* Service Section */
 .service-section {
     display: flex;
+    flex-wrap: wrap; /* Responsive design for smaller screens */
     align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 40px;
     padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
     animation: slideIn 1s ease-in-out;
-
 }
 
 .service-section:last-child {
@@ -61,12 +58,19 @@ p {
 .service-description {
     flex: 1;
     padding: 20px;
-    text-align: center;
+    text-align: left; /* Align text to the left for professionalism */
 }
 
 .service-description h2 {
-    color: white;
-    font-size: 24px;
+    color: #222; /* Darker and consistent with the header */
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.service-description p {
+    font-size: 16px;
+    color: #555;
 }
 
 .service-image {
@@ -76,15 +80,11 @@ p {
 }
 
 .service-image img {
-    width: 80%;
-    max-width: 300px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 320px;
+    border-radius: 12px; /* Slightly larger border radius for modern look */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
-
-/* .service-section:nth-child(even) .service-image {
-    text-align: left;
-} */
 
 /* Animations */
 @keyframes fadeIn {
@@ -99,7 +99,7 @@ p {
 @keyframes fadeInDown {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-10px);
     }
     to {
         opacity: 1;
@@ -110,11 +110,23 @@ p {
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(-10px);
     }
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .service-section {
+        flex-direction: column; /* Stack content vertically on small screens */
+        text-align: center;
+    }
+
+    .service-description {
+        text-align: center;
     }
 }
 

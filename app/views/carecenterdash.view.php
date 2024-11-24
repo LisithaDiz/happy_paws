@@ -16,40 +16,36 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vetavailability">Update Availability</a></li>
-                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
+                <li><a href="<?=ROOT?>/carecenterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/carecenterpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/carecentercage">Maintain Cages</a></li>
+                <li><a href="<?=ROOT?>/carecenteravailability">Update Availability</a></li>
             </ul>
         </div>
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>Welcome, Dr. [Vet Name]!</h1>
-            <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, pets records, prescriptions, and more.</p>
+            <h1>Welcome, [Pet Care Center Name]!</h1>
+            <p>Your dashboard is designed to help you seamlessly manage your pet care center, monitor activities, and provide top-notch care for all pets.</p>
 
             <!-- Dashboard Overview Section -->
             <section class="dashboard-overview">
                 <h2>Overview</h2>
                 <div class="overview-cards">
                     <div class="card">
-                        <h3>Upcoming Appointments</h3>
-                        <p>3 appointments scheduled for today.</p>
-                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">Appoinments</a>
+                        <h3>View Pets</h3>
+                        <p>Check all pets currently at your center.</p>
+                        <a href="<?=ROOT?>/petcarecenter/viewpets" class="btn-dashboard">View Pets</a>
                     </div>
                     <div class="card">
-                        <h3>Appoinment Requests</h3>
-                        <p>6 Requests received.</p>
-                        <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">Requests</a>
+                        <h3>Maintain Cages</h3>
+                        <p>Track and update the condition of cages.</p>
+                        <a href="<?=ROOT?>/carecentercage" class="btn-dashboard">Maintain Cages</a>
                     </div>
                     <div class="card">
-                        <h3>Prescriptions</h3>
-                        <p>2 prescriptions to be filled today.</p>
-                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">Prescriptions</a>
+                        <h3>Update Availability</h3>
+                        <p>Set available dates and times for accepting new pets.</p>
+                        <a href="<?=ROOT?>/petcarecenter/availability" class="btn-dashboard">Update Availability</a>
                     </div>
                 </div>
             </section>
