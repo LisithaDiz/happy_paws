@@ -4,9 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-
 $user_role = $_POST["user_role"];
-
 
 ?>
 
@@ -56,7 +54,6 @@ $user_role = $_POST["user_role"];
             </div>
 
             <form action="<?= ROOT ?>/user/signupProcess" method="POST" enctype="multipart/form-data">
-
                 <div class="input-group">
                 <input type="hidden" name="user_role" value="<?php echo $user_role; ?>">
                 <!-- Common Fields -->

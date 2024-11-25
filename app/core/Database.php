@@ -15,15 +15,9 @@ Trait Database
 
 		$con = $this->connect();
 		$stm = $con->prepare($query);
-
 		//check
 		// print_r($data);
-<<<<<<< HEAD
 		//    var_dump($stm);
-=======
-		// show($stm);
-
->>>>>>> 0183fd1ef18e487236a95d335512ab343555c230
 		$check = $stm->execute($data);
 		if($check)
 		{
@@ -40,7 +34,6 @@ Trait Database
 
 		
 	}
-
 
 	public function get_row($query, $data = [])
 	{
@@ -60,5 +53,7 @@ Trait Database
 
 		return false;
 	}
-
+	
 }
+
+

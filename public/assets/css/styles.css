@@ -4,12 +4,8 @@ body {
     font-family: Arial, sans-serif;
     color: white;
     background-size: cover;
-
-/*     background-position: center;
-    transition: background-image 3s ease-in-out; */
-
-    background-color: rgb(231, 177, 179);
-
+    background-position: center;
+    transition: background-image 3s ease-in-out;
 }
 
 a {

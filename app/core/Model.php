@@ -9,14 +9,8 @@ Trait Model
 
 	protected $limit 		= 10;
 	protected $offset 		= 0;
-<<<<<<< HEAD
 	protected $order_type 	= "asc";
-=======
-	protected $order_type 	= "desc";
-
->>>>>>> 0183fd1ef18e487236a95d335512ab343555c230
 	protected $order_column = "user_id";
-
 	public $errors 		= [];
 
 	public function findAll()
@@ -81,13 +75,8 @@ Trait Model
 
 	public function insert($data)
 	{
-<<<<<<< HEAD
 		// echo "--------insert works------- ";
 		// remove unwanted data 
-=======
-
-		/** remove unwanted data **/
->>>>>>> 0183fd1ef18e487236a95d335512ab343555c230
 		if(!empty($this->allowedColumns))
 		{
 			foreach ($data as $key => $value) {
@@ -100,13 +89,10 @@ Trait Model
 		}
 
 		$keys = array_keys($data);
+		// print_r($data);
 
 		$query = "insert into $this->table (".implode(",", $keys).") values (:".implode(",:", $keys).")";
-<<<<<<< HEAD
 		// echo $query;
-=======
-
->>>>>>> 0183fd1ef18e487236a95d335512ab343555c230
 		$this->query($query, $data);
 
 		return false;
@@ -176,7 +162,6 @@ Trait Model
 		// Return true if the deletion was successful, otherwise false
 		return $result ? true : false;
 	}
-
 
 	
 }
