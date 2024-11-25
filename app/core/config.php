@@ -9,7 +9,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 	
-	define('ROOT', 'http://localhost/happy/public');
+	define('ROOT', 'http://localhost/final/public');
 
 }else
 {
@@ -24,6 +24,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 
 }
 
+define('ROOT_PATH', dirname(__DIR__));
 define('APP_NAME', "My Webiste");
 define('APP_DESC', "Best website on the planet");
 

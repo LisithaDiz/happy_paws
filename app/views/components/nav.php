@@ -5,11 +5,11 @@
             </a>
 
             <ul>
-                <li><a href="index.php">Home</a></l>
-                <li><a href="about">About</a></li>
-                <li><a href="services">Services</a></li>
-                <li><a href="contact">Contact</a></li>
-                <li><a href="login" class="login-button">Login</a></li>
+                <li><a href="<?=ROOT?>/index.php">Home</a></l>
+                <li><a href="<?=ROOT?>/about">About</a></li>
+                <li><a href="<?=ROOT?>services">Services</a></li>
+                <li><a href="<?=ROOT?>/contact">Contact</a></li>
+                <li><a href="<?=ROOT?>/login" class="login-button">Login</a></li>
             </ul>
 </nav>
 </header>
