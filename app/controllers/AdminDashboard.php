@@ -1,13 +1,12 @@
 <?php 
 
-class PetOwnerDashboard
+class AdminDashboard
 {
 	use Controller;
 
 	public function index()
 	{
-
-		$this->view('home');
+		$this->view('admindashboard');
 	}
 
 }

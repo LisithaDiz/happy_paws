@@ -133,11 +133,21 @@ class User
                 $user_role = $roleMapping[$user_role];
 
             } else {
-                
+                redirect('login');
                 die("Invalid role provided.");
             }
             
-            $user = $this->userModel->authenticate($username,$password,$user_role); 
+            $user = $this->userModel->authenticate($username,$password,$user_role);
+            
+            if (empty($user)) {
+                echo "<script>
+                        alert('Invalid username or password or user role.');
+                        window.location.href = '" . ROOT . "/login';
+                      </script>";
+                exit();
+            }
+            
+            
             if($user)
 
                 if (session_status() == PHP_SESSION_NONE) {
@@ -175,21 +185,18 @@ class User
                     }
                 }
                 else{
-                    // redirect('unauthorized');
+                     redirect('_404');
                 }
                 
                 exit();
             } else {
                
                 echo "Invalid username or password.";
-                $this->view('user/login');
+                $this->view('login');
             }
 
     }
-       
-        
-   
-
+    
     public function logout() {
         if (!isset($_SESSION['user_id'])) {
             http_response_code(401); 

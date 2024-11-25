@@ -16,7 +16,7 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/vetDashboard">Dashboard</a></li>
                 <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
                 <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
                 <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    

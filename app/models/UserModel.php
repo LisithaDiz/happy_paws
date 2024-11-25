@@ -19,7 +19,7 @@ class UserModel
         try {
 
                 // Insert into users table using Model's insert function
-                print_r($data);
+                // print_r($data);
                 $this->insert($data);
                 
                 // Get the inserted user to get their ID
@@ -61,7 +61,7 @@ class UserModel
                             $data['role'] = '4';
                             $roleModel->insert($data);
                             $careCenterModel = new CareCenterModel();
-                            print_r($data);
+                            // print_r($data);
                             $careCenterModel->insert($data);
                             break;
                     
@@ -89,6 +89,11 @@ class UserModel
     public function authenticate($username, $password, $user_role)
     {
         $user = $this->first(['username' => $username]);
+        if(empty($user)){
+            return false;
+        }
+        // var_dump($user);
+        
         $user_id = $user->user_id;
         $roleModel = new RoleModel();
         $u_role =$roleModel->first(['user_id' => $user_id]);

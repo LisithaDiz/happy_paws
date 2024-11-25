@@ -6,10 +6,11 @@ class App
     private $method     = 'index';
 
     private $roleAccess = [
-        // 'admin' => [
-        //     // 'AdminTasks' => ['index', 'manageUsers', 'viewReports'], 
-        //     // 'AdminProfile' => ['index'],
-        // ],
+        'admin' => ['AdminLogin' => ['index'],
+                    'AdminDashboard' => ['index'],
+                    'ManageMedicine' => ['index'],
+                    'Admin' =>['addMedicine','updateMedicine','deleteMedicine']
+                    ],
         '1' => ['PetOwnerDashboard' => ['index']],
         '2' => ['VetDashboard' => ['index']],
         '3' => ['PetSitterDashboard' => ['index']],
@@ -26,6 +27,8 @@ class App
         'Signup' => ['index'],
         'Login' => ['index'],
         'User' => ['login', 'signupProcess'],
+        'Adminlogin' => ['index','login'],
+        'Admin' =>['adminLogin']
     ];
 
     private function splitURL()
@@ -37,22 +40,35 @@ class App
     private function checkAccess($controller, $method)
     {
         //checking
-        // echo $_SESSION['user_role'] ; 
-        // echo   $_SESSION['user_status']; 
-        if (isset($_SESSION['user_role'], $_SESSION['user_status']) && $_SESSION['user_status'] == '1') {
-            $role =(string) $_SESSION['user_role'];
-            
-            // for debugging
-            // var_dump($_SESSION['user_role'], $_SESSION['user_status']);
-            // var_dump($role, $controller, $method);
-            
-            return true;
+        // var_dump($_SESSION['user_id']);
+        // var_dump($_SESSION['user_role']);
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
+            return false; 
         }
+
+        $role = $_SESSION['user_role'];
+        
+        // Check if the role exists in roleAccess
+        if (!isset($this->roleAccess[$role])) {
+            return false;
+        }
+        // show($method);
+        
+        // Check if the controller exists for this role
+        if (isset($this->roleAccess[$role][$controller])) {
+            // var_dump( in_array($method, $this->roleAccess[$role][$controller], true));
+            return in_array($method, $this->roleAccess[$role][$controller], true);
+            
+        }
+
         return false;
-    }
+     }
 
     private function isPublic($controller, $method)
-    {
+    {   //checking
+        // echo($controller);
+        // echo($method);
+        // var_dump(isset($this->publicAccess[$controller]));
         return isset($this->publicAccess[$controller]) && in_array($method, $this->publicAccess[$controller]);
     }
 
@@ -81,14 +97,17 @@ class App
                 unset($URL[1]);
             }
         }
+        // var_dump($this->isPublic($this->controller, $this->method));
+        // var_dump($this->checkAccess($this->controller, $this->method));
 
         /** Check Access **/
         if ($this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)) {
-            call_user_func_array([$controller, $this->method], $URL);
+                    call_user_func_array([$controller, $this->method], $URL);
+
         } else {
             echo "   Error...controller not loading (in app)";
             // Redirect to unauthorized access page or show an error
-            // header("Location: /unauthorized");
+            // redirect('_404');
             exit();
         }
     }

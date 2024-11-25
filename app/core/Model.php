@@ -9,7 +9,7 @@ Trait Model
 
 	protected $limit 		= 10;
 	protected $offset 		= 0;
-	protected $order_type 	= "desc";
+	protected $order_type 	= "asc";
 	protected $order_column = "user_id";
 	public $errors 		= [];
 
@@ -63,16 +63,20 @@ Trait Model
 		$data = array_merge($data, $data_not);
 		
 		$result = $this->query($query, $data);
-		if($result)
+		// var_dump($result[0]);
+		
+		// var_dump($result);
+		if($result){
 			return $result[0];
-
+		}
+		
 		return false;
 	}
 
 	public function insert($data)
 	{
-		echo "--------insert works------- ";
-		/** remove unwanted data **/
+		// echo "--------insert works------- ";
+		// remove unwanted data 
 		if(!empty($this->allowedColumns))
 		{
 			foreach ($data as $key => $value) {
@@ -88,7 +92,7 @@ Trait Model
 		// print_r($data);
 
 		$query = "insert into $this->table (".implode(",", $keys).") values (:".implode(",:", $keys).")";
-		echo $query;
+		// echo $query;
 		$this->query($query, $data);
 
 		return false;
@@ -97,9 +101,11 @@ Trait Model
 	public function update($id, $data, $id_column = 'id')
 	{
 
+		var_dump($id_column);
 		/** remove unwanted data **/
 		if(!empty($this->allowedColumns))
 		{
+			// print_r($data);
 			foreach ($data as $key => $value) {
 				
 				if(!in_array($key, $this->allowedColumns))
@@ -122,8 +128,9 @@ Trait Model
 
 		$data[$id_column] = $id;
 
-		            // Stop execution to view the output
+		            // Stop execution to view the outpu
 
+		// var_dump($query);
 		$result = $this->query($query, $data);
 
 		if ($result) {

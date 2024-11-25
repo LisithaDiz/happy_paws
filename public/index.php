@@ -26,7 +26,7 @@ if ($requestUri === '/happy/public/vetprofile') {
 
 } else {
     // Handle other routes or show a 404 error
-    echo "Page not found.";
+    // echo "Page not found.";hgjm  
 }
 
     
