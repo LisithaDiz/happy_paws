@@ -14,7 +14,8 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <ul>
-                 <li><a href="<?=ROOT?>/carecenterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/carecenterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/carecenterprofile">My Profile</a></li>
                 <li><a href="<?=ROOT?>/carecenterpet">View Pets</a></li>
                 <li><a href="<?=ROOT?>/carecentercage">Maintain Cages</a></li>
                 <li><a href="<?=ROOT?>/carecenteravailability">Update Availability</a></li>

@@ -14,12 +14,11 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
-                <!-- <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li> -->
-                <li><a href="<?=ROOT?>/petsitteraccepted">Upcoming Bookings</a></li>    
-                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
+                <li><a href="<?=ROOT?>/carecenterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/carecenterprofile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/carecenterpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/carecentercage">Maintain Cages</a></li>
+                <li><a href="<?=ROOT?>/carecenteravailability">Update Availability</a></li>
             </ul>
             </ul>
         </div>
@@ -65,17 +64,7 @@
                             <div class="detail-value">Jayasinghe</div>
                         </div>
 
-                        <div class="detail-line">
-                            <div class="detail-label">Age</div>
-                            <div class="colon">:</div>
-                            <div class="detail-value">32</div>
-                        </div>
-
-                        <div class="detail-line">
-                            <div class="detail-label">Gender</div>
-                            <div class="colon">:</div>
-                            <div class="detail-value">M</div>
-                        </div>
+                        
 
                         <div class="detail-line">
                             <div class="detail-label">District</div>
@@ -101,11 +90,6 @@
                             <div class="detail-value">0759883211</div>
                         </div>
 
-                        <div class="detail-line">
-                            <div class="detail-label">Years of Experience</div>
-                            <div class="colon">:</div>
-                            <div class="detail-value">2</div>
-                        </div>
 
                         <div class="delete-profile">
                         <button id="deleteProfileBtn" class="delete-btn">Delete Profile</button>

@@ -18,8 +18,8 @@
             <ul>
                 <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
                 <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
-                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
+                <!-- <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li> -->
+                <li><a href="<?=ROOT?>/petsitteraccepted">Upcoming Bookings</a></li>    
                 <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
                 <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
             </ul>
@@ -36,19 +36,20 @@
                 <h2>Overview</h2>
                 <div class="overview-cards">
                     <div class="card">
-                        <h3>Accepted Requests</h3>
-                        <p>3 accepted Requests</p>
-                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">Accepted requests</a>
+                        <h3>Upcoming Bookings</h3>
+                        <p>5 Upcoming bookings</p>
+                        <a href="<?=ROOT?>/petsitteraccepted" class="btn-dashboard">Accepted requests</a>
                     </div>
                     <div class="card">
-                        <h3>View Requests</h3>
-                        <p>6 Requests received</p>
-                        <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">Received requests</a>
+                        <h3>View Pets</h3>
+                        <p>Check all pets currently at your center.</p>
+                        <a href="<?=ROOT?>/petsitterpet" class="btn-dashboard">View Pets</a>
                     </div>
+                    
                     <div class="card">
                         <h3>Update Availability</h3>
                         <p>Update Available Dates & Times</p>
-                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">Update</a>
+                        <a href="<?=ROOT?>/petsitteravailability" class="btn-dashboard">Update</a>
                     </div>
                 </div>
             </section>

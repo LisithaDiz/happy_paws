@@ -17,6 +17,7 @@
         <div class="sidebar">
             <ul>
                 <li><a href="<?=ROOT?>/carecenterdash">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/carecenterprofile">My Profile</a></li>
                 <li><a href="<?=ROOT?>/carecenterpet">View Pets</a></li>
                 <li><a href="<?=ROOT?>/carecentercage">Maintain Cages</a></li>
                 <li><a href="<?=ROOT?>/carecenteravailability">Update Availability</a></li>
@@ -35,7 +36,7 @@
                     <div class="card">
                         <h3>View Pets</h3>
                         <p>Check all pets currently at your center.</p>
-                        <a href="<?=ROOT?>/petcarecenter/viewpets" class="btn-dashboard">View Pets</a>
+                        <a href="<?=ROOT?>/carecenterpet" class="btn-dashboard">View Pets</a>
                     </div>
                     <div class="card">
                         <h3>Maintain Cages</h3>
@@ -45,7 +46,7 @@
                     <div class="card">
                         <h3>Update Availability</h3>
                         <p>Set available dates and times for accepting new pets.</p>
-                        <a href="<?=ROOT?>/petcarecenter/availability" class="btn-dashboard">Update Availability</a>
+                        <a href="<?=ROOT?>/carecenteravailability" class="btn-dashboard">Update Availability</a>
                     </div>
                 </div>
             </section>

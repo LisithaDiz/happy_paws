@@ -15,8 +15,8 @@
             <ul>
                 <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
                 <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
-                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
+                <!-- <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li> -->
+                <li><a href="<?=ROOT?>/petsitteraccepted">Upcoming Bookings</a></li>    
                 <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
                 <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
             </ul>
@@ -25,30 +25,30 @@
         <div class="main-content">
             <div class="overview-cards">
                 <div class="appoinement-requests">
-                    <h1>Appointments</h1>
+                    <h1>Upcoming Bookings</h1>
                         <!-- Each card will have its own appointment details -->
                         <div class="card" id="appointmentreq1">
-                        <h3>Accepted Request 1</h3>
+                        <h3>Max</h3>
                         <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '2024-11-25', 'appointmentreq1')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq2">
-                        <h3>Accepted Request 2</h3>
+                        <h3>Bella</h3>
                         <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2024-11-25', 'appointmentreq2')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq3">
-                        <h3>Accepted Request 3</h3>
+                        <h3>Rex</h3>
                         <button class="btn-dashboard" onclick="openPopup('Rex', '2024-11-22', '2024-11-25', 'appointmentreq3')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq4">
-                        <h3>Accepted Request 4</h3>
+                        <h3>Luna</h3>
                         <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '2024-11-29', 'appointmentreq4')">View Details</button>
                     </div>
 
                     <div class="card" id="appointmentreq5">
-                        <h3>Accepted Request 5</h3>
+                        <h3>Liya</h3>
                         <button class="btn-dashboard" onclick="openPopup('Liya', '2024-11-25', '2024-11-30', 'appointmentreq5')">View Details</button>
                     </div>
 
