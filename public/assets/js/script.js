@@ -95,3 +95,4 @@ window.onload = changeBackgroundImage;
 //         document.getElementById('pharmacyFields').style.display = 'block';
 //     }
 // }
+
