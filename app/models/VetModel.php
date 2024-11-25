@@ -49,6 +49,35 @@ class VetModel
 
 
 
+	public function getVetDetails()    
+	{
+		$userid = $_SESSION['user_id'];
+
+		$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
+						veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
+						veterinary_surgeon.age, veterinary_surgeon.gender, 
+						veterinary_surgeon.district, veterinary_surgeon.city, 
+						veterinary_surgeon.contact_no, 
+						veterinary_surgeon.years_exp
+				FROM user
+				JOIN veterinary_surgeon 
+				ON user.user_id = veterinary_surgeon.user_id 
+				WHERE user.user_id = :userid";
+
+		// Bind the parameter to avoid SQL injection
+		$params = ['userid' => $userid];
+
+		// Execute the query and store the result
+		$result = $this->query($query, $params);
+
+		// Return the result
+		return $result;
+	}
+
+
+
+
+
 	public function getById($id, $id_column = 'vet_id')
 	{
 		$sql = "SELECT * FROM veterinary_surgeon WHERE $id_column = :id";
@@ -61,6 +90,22 @@ class VetModel
 	
 		return false;  // Return false if no result was found or query failed
 	}
+
+	public function addMedicineRequest( $medicineName, $note)
+    {
+        // Define the SQL query to insert the request into the medicine_request table
+        $query = "INSERT INTO medicine_request (medicine_name, note) 
+                  VALUES (:medicine_name, :note)";
+
+        // Bind the parameters and execute the query
+        $data = [
+            'medicine_name' => $medicineName,
+            'note' => $note
+        ];
+
+        // Execute the query and return the result
+        return $this->query($query, $data);
+    }
 	
 
 
@@ -97,24 +142,24 @@ class VetModel
 			return false;
 		}
 
-	public static function getVetData() {
-        // Placeholder data (you would query the database here)
-        return [
-            'username' => 'johndoe',
-            'email' => 'johndoe@example.com',
-            'password' => '********',
-            'createdDate' => '2024-11-12',
-            'licenseNo' => '123456',
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'age' => 35,
-            'gender' => 'Male',
-            'district' => 'Downtown',
-            'city' => 'Metropolis',
-            'contactNo' => '+123456789',
-            'yearsOfExperience' => 10,
-            'profilePicture' => 'assets/images/default-profile-picture.webp'
-        ];
-    }
+	// public static function getVetData() {
+    //     // Placeholder data (you would query the database here)
+    //     return [
+    //         'username' => 'johndoe',
+    //         'email' => 'johndoe@example.com',
+    //         'password' => '********',
+    //         'createdDate' => '2024-11-12',
+    //         'licenseNo' => '123456',
+    //         'firstName' => 'John',
+    //         'lastName' => 'Doe',
+    //         'age' => 35,
+    //         'gender' => 'Male',
+    //         'district' => 'Downtown',
+    //         'city' => 'Metropolis',
+    //         'contactNo' => '+123456789',
+    //         'yearsOfExperience' => 10,
+    //         'profilePicture' => 'assets/images/default-profile-picture.webp'
+    //     ];
+    // }
 	
 }

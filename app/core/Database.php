@@ -35,6 +35,7 @@ Trait Database
 		
 	}
 
+
 	public function get_row($query, $data = [])
 	{
 
@@ -53,7 +54,5 @@ Trait Database
 
 		return false;
 	}
-	
+
 }
-
-

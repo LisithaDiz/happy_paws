@@ -29,7 +29,7 @@
         <!-- Main content area -->
         <div class="main-content">
             <div class="overview-cards">
-                    <h1>-----------------------------------Treated Pets-----------------------------------</h1>
+                    <h1>Treated Pets</h1>
                     
                     <!-- Prescription List -->
                     <div class="prescription-card" id="prescription1">

@@ -26,7 +26,7 @@
         <div class="main-content">
             <div class="overview-cards">
                 <div class="appoinement-requests">
-                    <h1>-----------------------------------Appointments-----------------------------------</h1>
+                    <h1>Appointments</h1>
                     
                     <!-- Each card will have its own appointment details -->
                     <div class="card" id="appointment1">

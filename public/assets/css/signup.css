@@ -5,7 +5,7 @@ body {
     color: white;
     background-size: cover;
     background-position: center;
-    background-image: url(../../assets/images/wall/10.jpg);
+    background-color:rgb(231, 177, 179);
     transition: background-image 3s ease-in-out;
 }
 .signup-box {

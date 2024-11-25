@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="profile-details">
-                        <h1>------------------------My Profile------------------------</h1>
+                        <h1>My Profile</h1>
                         <!-- Display vet's details -->
                         <div class="detail-line">
                             <div class="detail-label">Username</div>
@@ -123,7 +123,7 @@
             <?php endif; ?>
                 <!-- Popup structure -->
                 <div id="editProfilePopup" class="popup">
-                    <form action="#" method="POST" class="update-form">
+                    <form action="" method="POST" class="update-form">
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <input type="text" id="username" name="username" value="<?= htmlspecialchars($vet->username) ?>" required>

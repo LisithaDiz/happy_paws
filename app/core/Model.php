@@ -9,8 +9,10 @@ Trait Model
 
 	protected $limit 		= 10;
 	protected $offset 		= 0;
-	protected $order_type 	= "asc";
+	protected $order_type 	= "desc";
+
 	protected $order_column = "user_id";
+
 	public $errors 		= [];
 
 	public function findAll()
@@ -75,8 +77,8 @@ Trait Model
 
 	public function insert($data)
 	{
-		// echo "--------insert works------- ";
-		// remove unwanted data 
+
+		/** remove unwanted data **/
 		if(!empty($this->allowedColumns))
 		{
 			foreach ($data as $key => $value) {
@@ -92,7 +94,6 @@ Trait Model
 		// print_r($data);
 
 		$query = "insert into $this->table (".implode(",", $keys).") values (:".implode(",:", $keys).")";
-		// echo $query;
 		$this->query($query, $data);
 
 		return false;
@@ -128,9 +129,8 @@ Trait Model
 
 		$data[$id_column] = $id;
 
-		            // Stop execution to view the outpu
+		            // Stop execution to view the output
 
-		// var_dump($query);
 		$result = $this->query($query, $data);
 
 		if ($result) {
@@ -162,6 +162,7 @@ Trait Model
 		// Return true if the deletion was successful, otherwise false
 		return $result ? true : false;
 	}
+
 
 	
 }

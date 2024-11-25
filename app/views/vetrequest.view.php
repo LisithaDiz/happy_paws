@@ -30,7 +30,7 @@
         <div class="main-content">
             <div class="overview-cards">
                 <div class="appoinement-requests">
-                    <h1>------------------------------Appoinment Requests------------------------------</h1>
+                    <h1>Appoinment Requests</h1>
                         <!-- Each card will have its own appointment details -->
                         <div class="card" id="appointmentreq1">
                         <h3>Appointment Request 1</h3>

@@ -10,7 +10,7 @@ body {
    font-family: Arial, sans-serif;
  
    min-height: 100vh;
-   background-image: url('../../assets/images/wall/11.jpg');
+   background-color: rgb(231, 177, 179);
    background-size: cover;
 }
 

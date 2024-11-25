@@ -4,7 +4,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+
 $user_role = $_POST["user_role"];
+
 
 ?>
 
