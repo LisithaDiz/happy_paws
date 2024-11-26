@@ -1,93 +1,75 @@
 <?php
 
-class Orders {
-    private $orderModel;
+class Orders
+{
     use Controller;
-    public function __construct() {
-        $this->orderModel = $this->model('OrderModel');
+
+    public function index()
+    {
+        $orders_data = [
+            'pending_orders' => [
+                [
+                    'order_id' => 'ORD-001',
+                    'customer_name' => 'John Smith',
+                    'pet_name' => 'Max',
+                    'pet_type' => 'Dog',
+                    'medicine' => 'Heartworm Prevention',
+                    'quantity' => 2,
+                    'total_price' => 45.99,
+                    'order_date' => '2024-03-15',
+                    'status' => 'pending'
+                ],
+                [
+                    'order_id' => 'ORD-002',
+                    'customer_name' => 'Sarah Johnson',
+                    'pet_name' => 'Luna',
+                    'pet_type' => 'Cat',
+                    'medicine' => 'Flea Treatment',
+                    'quantity' => 1,
+                    'total_price' => 29.99,
+                    'order_date' => '2024-03-15',
+                    'status' => 'pending'
+                ],
+            ],
+            'processed_orders' => [
+                [
+                    'order_id' => 'ORD-003',
+                    'customer_name' => 'Mike Wilson',
+                    'pet_name' => 'Rocky',
+                    'pet_type' => 'Dog',
+                    'medicine' => 'Joint Supplement',
+                    'quantity' => 3,
+                    'total_price' => 65.50,
+                    'order_date' => '2024-03-14',
+                    'status' => 'accepted',
+                    'processed_date' => '2024-03-14'
+                ],
+                [
+                    'order_id' => 'ORD-004',
+                    'customer_name' => 'Emily Brown',
+                    'pet_name' => 'Milo',
+                    'pet_type' => 'Cat',
+                    'medicine' => 'Antibiotics',
+                    'quantity' => 1,
+                    'total_price' => 35.00,
+                    'order_date' => '2024-03-13',
+                    'status' => 'declined',
+                    'processed_date' => '2024-03-13',
+                    'decline_reason' => 'Out of stock'
+                ],
+            ]
+        ];
+
+        $this->view('orders', [
+            'data' => $orders_data
+        ]);
     }
 
-    public function index() {
-        echo "index";
-        $_SESSION['user_type'] = 'pharmacy';  // or 'customer'
-        $_SESSION['pharmacy_ID'] = 123;
-        if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'pharmacy') {
-            echo "pharmacy";
-            $orders = $this->orderModel->getPharmacyOrders($_SESSION['pharmacy_ID']);
-        } else {
-            $orders = $this->orderModel->getUserOrders($_SESSION['owner_ID']);
-            // $orders = $this->orderModel->getUserOrders(123);
-
-
-        }
-        
-        $data = ['orders' => $orders];
-        $this->view('orders/index', $data);
-    }
-
-    public function create() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Add file validation
-            if (!isset($_FILES['prescription']) || $_FILES['prescription']['error'] !== UPLOAD_ERR_OK) {
-                // flash('order_error', 'Invalid prescription file');
-                redirect('orders/create');
-                return;
-            }
-
-            // Validate file type
-            $allowed = ['image/jpeg', 'image/png', 'application/pdf'];
-            if (!in_array($_FILES['prescription']['type'], $allowed)) {
-                // flash('order_error', 'Invalid file type. Please upload JPG, PNG or PDF');
-                redirect('orders/create');
-                return;
-            }
-
-            // Create upload directory if it doesn't exist
-            $uploadDir = 'uploads/prescriptions/';
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-
-            $prescription = $_FILES['prescription'];
-            $fileName = time() . '_' . htmlspecialchars($prescription['name']);
-            
-            move_uploaded_file($prescription['tmp_name'], 'uploads/prescriptions/' . $fileName);
-
-            $data = [
-                'user_id' => $_SESSION['user_id'],
-                'pharmacy_id' => $_POST['pharmacy_id'],
-                'medicine_type' => $_POST['medicine_type'],
-                'prescription' => $fileName
-            ];
-
-            if ($this->orderModel->createOrder($data)) {
-                // flash('order_success', 'Order submitted successfully');
-                redirect('orders');
-            }
-        }
-        
-        // Get pharmacies for dropdown
-        $pharmacies = $this->model('PharmacyModel')->getAllPharmacies();
-        $this->view('orders/create', ['pharmacies' => $pharmacies]);
-    }
-
-    public function updateStatus($order_ID, $medicine_type) {
-        // Add input validation
-        if (!is_numeric($order_ID) || empty($medicine_type)) {
-            // flash('order_error', 'Invalid order details');
-            redirect('orders');
-            return;
-        }
-        
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && 
-            isset($_SESSION['user_type']) && 
-            $_SESSION['user_type'] == 'pharmacy') {
-            
-            $status = $_POST['status'];
-            if ($this->orderModel->updateStatus($order_ID, $medicine_type, $status)) {
-                // flash('order_updated', 'Order status updated successfully');
-            }
-            redirect('orders');
-        }
+    public function updateStatus()
+    {
+        // In a real application, this would update the database
+        // For now, we'll just redirect back to the orders page
+        header("Location: " . ROOT . "/orders");
+        exit();
     }
 }

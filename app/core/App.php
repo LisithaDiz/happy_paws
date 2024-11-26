@@ -44,6 +44,9 @@ class App
 			}	
 		}
 
+		// Reindex the array
+		$URL = array_values($URL);
+		
 		call_user_func_array([$controller,$this->method], $URL);
 
 	}	

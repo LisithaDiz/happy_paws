@@ -32,13 +32,10 @@
                     <h2><?=htmlspecialchars($petSitter['name'])?></h2>
                     <p><i class="fas fa-map-marker-alt"></i> <?=htmlspecialchars($petSitter['location'])?></p>
                     
-                    <!-- Rating -->
+                    <!-- Rating and Reviews -->
                     <div class="rating">
-                        <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", $petSitter['rating']); ?></span></p>
-                        <?php 
-                            $sitterId = $petSitter['id'] ?? $petSitter['sitter_id'] ?? null;
-                        ?>
-                        <a href="<?php echo ROOT . '/petsitterreviews' . $sitterId; ?>" class="view-reviews-btn">
+                        <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", floor($petSitter['rating'])); ?></span></p>
+                        <a href="<?=ROOT?>/reviews/index/<?=$petSitter['sitter_id']?>" class="view-reviews-btn">
                             View Reviews
                         </a>
                     </div>
@@ -51,6 +48,7 @@
                         <p><strong>Experience:</strong> <?=htmlspecialchars($petSitter['experience'])?></p>
                         <p><strong>Availability:</strong> <?=htmlspecialchars($petSitter['availability'])?></p>
                         <p><strong>Price:</strong> <?=htmlspecialchars($petSitter['price'])?></p>
+                        <p><strong>Contact:</strong> <?=htmlspecialchars($petSitter['contact_no'])?></p>
                     </div>
                     
                     <!-- Services -->
@@ -59,12 +57,14 @@
                         <p><?=htmlspecialchars($petSitter['services'])?></p>
                     </div>
                     
-                    <button class="book-button">Book Now</button>
+                    <button class="book-button" onclick="location.href='<?=ROOT?>/booking/create/<?=$petSitter['sitter_id']?>'">
+                        Book Now
+                    </button>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p class="no-results">No results found.</p>
+        <p class="no-results">No pet sitters found matching your criteria.</p>
     <?php endif; ?>
     </div>
 

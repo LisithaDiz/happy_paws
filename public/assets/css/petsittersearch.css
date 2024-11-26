@@ -36,7 +36,7 @@ body {
     
     display: inline-block;
     padding: 8px 16px;
-    background-color: #da570b;
+    background-color: #ff766f;
     color: white;
     border-radius: 4px;
     text-decoration: none;
@@ -44,7 +44,7 @@ body {
 }
 
 .view-reviews-btn:hover {
-    background-color: #ec460a;
+    background-color: #ff4d44;
 }
 
 .book-button {

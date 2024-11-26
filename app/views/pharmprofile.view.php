@@ -15,12 +15,12 @@
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
-            <h3>Vet Dashboard</h3>
+            <h3>Pharmacy Dashboard</h3>
             <ul>
             <li><a href="<?=ROOT?>/pharmacy/profile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/inventory">Inventory</a></li>
+                <li><a href="<?=ROOT?>/revenue">Revenue</a></li>
                 <li><a href="<?=ROOT?>/orders">Orders</a></li>    
-                <li><a href="<?=ROOT?>/pharmacy/transactions">Transcation History</a></li>
+                <!-- <li><a href="<?=ROOT?>/pharmacy/transactions">Transcation History</a></li> -->
                 <li><a href="<?=ROOT?>/pharmacy/settings">Settings</a></li>
             </ul>
         </div>

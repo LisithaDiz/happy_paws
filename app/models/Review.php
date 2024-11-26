@@ -1,38 +1,86 @@
 <?php
-
 require_once '../app/core/Model.php';
+require_once '../app/core/Database.php';
 
-class Review {
+class Review
+{
     use Model;
 
     protected $table = 'sitter_reviews';
+    protected $allowedColumns = [
+        'owner_id',
+        'sitter_id',
+        'rating',
+        'comment'
+    ];
 
-    public function getReviewsBySitterId($sitter_id) {
-        $query = "SELECT r.*, o.f_name as owner_name 
-                 FROM sitter_reviews r 
-                 LEFT JOIN pet_owner o ON r.owner_id = o.owner_id 
+    // Get all reviews for a specific sitter
+    public function getSitterReviews($sitter_id)
+    {
+        $query = "SELECT r.*, 
+                 CONCAT(po.f_name, ' ', po.l_name) as owner_name,
+                 r.id,  -- Make sure to include the review ID
+                 r.created_at,
+                 r.rating,
+                 r.comment,
+                 r.owner_id
+                 FROM $this->table r 
+                 JOIN pet_owner po ON r.owner_id = po.owner_id 
                  WHERE r.sitter_id = :sitter_id 
-                 ORDER BY r.date_posted DESC 
-                 LIMIT 50";
+                 ORDER BY r.created_at DESC";
         
-        echo "Query executed with sitter_id: " . $sitter_id . "\n";
+        return $this->query($query, ['sitter_id' => $sitter_id]);
+    }
+
+    // Get sitter's name
+    public function getSitterName($sitter_id)
+    {
+        $query = "SELECT CONCAT(f_name, ' ', l_name) as sitter_name 
+                 FROM pet_sitter 
+                 WHERE sitter_id = :sitter_id";
         
-        $params = [
+        $result = $this->query($query, ['sitter_id' => $sitter_id]);
+        return $result ? $result[0]->sitter_name : 'Pet Sitter';
+    }
+
+    // Get a single review with owner details
+    public function getReview($id)
+    {
+        $query = "SELECT r.*, 
+                 CONCAT(po.f_name, ' ', po.l_name) as owner_name 
+                 FROM $this->table r 
+                 JOIN pet_owner po ON r.owner_id = po.owner_id 
+                 WHERE r.id = :id";
+        
+        $result = $this->query($query, ['id' => $id]);
+        return $result ? $result[0] : false;
+    }
+
+    // Check if user has already reviewed this sitter
+    public function hasUserReviewed($owner_id, $sitter_id)
+    {
+        return $this->first([
+            'owner_id' => $owner_id,
             'sitter_id' => $sitter_id
-        ];
+        ]);
+    }
 
+    public function update($id, $data)
+    {
+        $params = [];
+        $setClause = [];
+        
+        foreach($data as $key => $value) {
+            if(in_array($key, $this->allowedColumns)) {
+                $setClause[] = "$key = :$key";
+                $params[$key] = $value;
+            }
+        }
+        
+        $params['id'] = $id;
+        
+        $query = "UPDATE $this->table SET " . implode(', ', $setClause) . " WHERE id = :id";
+        
         return $this->query($query, $params);
-    }
-
-    public function insert($data) {
-        return $this->insert($this->table, $data);
-    }
-
-    public function update($id, $data) {
-        return $this->update($this->table, $id, $data, 'review_id');
-    }
-
-    public function delete($id) {
-        return $this->delete($this->table, $id, 'review_id');
     }
 }
