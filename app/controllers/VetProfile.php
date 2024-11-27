@@ -9,10 +9,11 @@ class VetProfile
         // Load the Vet model
         $vetModel = new VetModel();
 
+
         // Fetch the first vet's details (you can modify this logic to fetch specific records later)
-        $vetDetails = $vetModel->getFirstVetDetails();
+        $vetDetails = $vetModel->getVetDetails();
         // Pass the fetched data to the view
-        $this->view('VetProfile', ['vetDetails' => $vetDetails]);
+        $this->view('vetprofile', ['vetDetails' => $vetDetails]);
     }
 
    

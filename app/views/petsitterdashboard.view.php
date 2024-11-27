@@ -16,12 +16,12 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
-                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
-                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
+            <li><a href="<?=ROOT?>/PetSitterDashboard">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/PetSitterProfile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/PetSitterRequest">View Requests</a></li>
+                <li><a href="<?=ROOT?>/PetSitterAccepted">Accepted Requests</a></li>    
+                <li><a href="<?=ROOT?>/PetSitterPet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/PetSitterAvailability">Update Availability</a></li>
             </ul>
         </div>
 

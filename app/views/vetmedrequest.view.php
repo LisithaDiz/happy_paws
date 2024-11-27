@@ -16,15 +16,15 @@
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
-            <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vetavailability">Update Availability</a></li>
-                <li><a href="<?=ROOT?>/vetmedrequest">Request to Add Medicine</a></li>
+        <ul>
+                <li><a href="<?=ROOT?>/VetDashboard">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/VetProfile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/VetAppoinment">Upcoming Appointments</a></li>
+                <li><a href="<?=ROOT?>/VetRequest">Appointment Requests</a></li>    
+                <li><a href="<?=ROOT?>/VetTreatedPet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/VetPrescription">Prescriptions</a></li>
+                <li><a href="<?=ROOT?>/VetAvailability">Update Availability</a></li>
+                <li><a href="<?=ROOT?>/VetMedRequest">Request to Add Medicine</a></li>
             </ul>
         </div>
 

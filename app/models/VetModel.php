@@ -26,26 +26,26 @@ class VetModel
 		'years_exp'
 	];
 
-	public function getFirstVetDetails()    
-	{
-		// Define the SQL query
-		$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
-						veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
-						veterinary_surgeon.age, veterinary_surgeon.gender, 
-						veterinary_surgeon.district, veterinary_surgeon.city, 
-						veterinary_surgeon.contact_no, 
-						veterinary_surgeon.years_exp
-				FROM user
-				JOIN veterinary_surgeon 
-				ON user.user_id = veterinary_surgeon.user_id 
-				LIMIT 1";
+	// public function getFirstVetDetails()    
+	// {
+	// 	// Define the SQL query
+	// 	$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
+	// 					veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
+	// 					veterinary_surgeon.age, veterinary_surgeon.gender, 
+	// 					veterinary_surgeon.district, veterinary_surgeon.city, 
+	// 					veterinary_surgeon.contact_no, 
+	// 					veterinary_surgeon.years_exp
+	// 			FROM user
+	// 			JOIN veterinary_surgeon 
+	// 			ON user.user_id = veterinary_surgeon.user_id 
+	// 			LIMIT 1";
 
-		// Execute the query and store the result
-		$result = $this->query($query);
+	// 	// Execute the query and store the result
+	// 	$result = $this->query($query);
 
-		// Return the result
-		return $result;
-	}
+	// 	// Return the result
+	// 	return $result;
+	// }
 
 
 
@@ -73,10 +73,6 @@ class VetModel
 		// Return the result
 		return $result;
 	}
-
-
-
-
 
 	public function getById($id, $id_column = 'vet_id')
 	{

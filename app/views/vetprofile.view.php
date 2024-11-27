@@ -13,14 +13,15 @@
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
-            <ul>
-            <li><a href="<?=ROOT?>/VetDash">Dashboard</a></li>
+        <ul>
+                <li><a href="<?=ROOT?>/VetDashboard">Dashboard</a></li>
                 <li><a href="<?=ROOT?>/VetProfile">My Profile</a></li>
                 <li><a href="<?=ROOT?>/VetAppoinment">Upcoming Appointments</a></li>
                 <li><a href="<?=ROOT?>/VetRequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/VetTreatedpet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/VetTreatedPet">View Pets</a></li>
                 <li><a href="<?=ROOT?>/VetPrescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/VetSettings">Settings</a></li>
+                <li><a href="<?=ROOT?>/VetAvailability">Update Availability</a></li>
+                <li><a href="<?=ROOT?>/VetMedRequest">Request to Add Medicine</a></li>
             </ul>
         </div>
 
@@ -123,7 +124,7 @@
             <?php endif; ?>
                 <!-- Popup structure -->
                 <div id="editProfilePopup" class="popup">
-                    <form action="" method="POST" class="update-form">
+                    <form action="<?= ROOT ?>/VetProfile/updateVetDetails" method="POST" class="update-form">
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <input type="text" id="username" name="username" value="<?= htmlspecialchars($vet->username) ?>" required>

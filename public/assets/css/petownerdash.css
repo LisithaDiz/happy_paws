@@ -1,0 +1,153 @@
+/* Dashboard container to display sidebar and main content side by side */
+.dashboard-container {
+    display: flex;
+    flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
+    height: 100vh; /* Full viewport height */
+}
+
+.main-content {
+    max-width: 1000px;
+    margin: 100px auto 20px; /* Increased top margin to 50px */
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Dashboard Overview */
+.dashboard-overview {
+    margin-bottom: 30px;
+}
+
+.dashboard-overview h2 {
+    color: #d8544c;
+    margin-bottom: 20px;
+}
+
+/* Overview cards with horizontal scrolling */
+.overview-cards {
+    display: flex;
+    gap: 20px; /* Space between cards */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 10px; /* Add some padding for better visuals */
+    scrollbar-width: thin; /* Firefox scrollbar customization */
+}
+
+/* Custom scrollbar styles for WebKit browsers (Chrome, Edge, Safari) */
+.overview-cards::-webkit-scrollbar {
+    height: 6px; /* Height of the horizontal scrollbar */
+}
+
+.overview-cards::-webkit-scrollbar-thumb {
+    background: #d8544c; /* Scrollbar thumb color */
+    border-radius: 10px; /* Rounded edges for the thumb */
+}
+
+/* Overview cards with horizontal scrolling */
+.overview-cards {
+    display: flex;
+    gap: 20px; /* Space between cards */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 10px; /* Add some padding for better visuals */
+    scrollbar-width: thin; /* Firefox scrollbar customization */
+}
+
+/* Custom scrollbar styles for WebKit browsers (Chrome, Edge, Safari) */
+.overview-cards::-webkit-scrollbar {
+    height: 6px; /* Height of the horizontal scrollbar */
+}
+
+.overview-cards::-webkit-scrollbar-thumb {
+    background: red; /* Scrollbar thumb color */
+    border-radius: 10px; /* Rounded edges for the thumb */
+}
+
+
+/* Firefox scrollbar styles */
+.overview-cards {
+    scrollbar-color: red transparent; /* Thumb color (red), track color (transparent) */
+    scrollbar-width: thin; /* Thin scrollbar */
+}
+
+/* Firefox scrollbar styles */
+.overview-cards {
+    scrollbar-color: #d8544c #f0f0f0; /* Thumb color (red), track color (#f0f0f0) */
+    scrollbar-width: thin; /* Thin scrollbar */
+}
+
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 0 0 auto; /* Prevent cards from shrinking or growing */
+    width: 200px; /* Fixed card width for consistency */
+    text-align: center;
+}
+
+
+/* Pet profile picture inside card */
+.pet-profile-pic {
+    width: 80px; /* Size of the profile picture */
+    height: 80px; /* Maintain square dimensions */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Ensure the image is cropped correctly */
+    margin: 0 auto 15px; /* Center the image */
+    display: block;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.card .btn-dashboard {
+    background-color: #fae3e3;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card .btn-dashboard:hover {
+    background-color: #f5c6cb;
+}
+
+/* Contact Section */
+.contact {
+    margin-bottom: 30px;
+}
+
+.contact h2 {
+    color: #d8544c;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.contact a {
+    display: inline-block;
+    background-color: #fae3e3;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact a:hover {
+    background-color: #f5c6cb;
+}

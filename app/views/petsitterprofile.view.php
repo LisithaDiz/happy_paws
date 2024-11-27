@@ -14,12 +14,12 @@
         <!-- Sidebar for vet functionalities -->
         <div class="sidebar">
             <ul>
-                <li><a href="<?=ROOT?>/petsitterdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/petsitterprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/petsitterrequest">View Requests</a></li>
-                <li><a href="<?=ROOT?>/petsitteraccepted">Accepted Requests</a></li>    
-                <li><a href="<?=ROOT?>/petsitterpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/petsitteravailability">Update Availability</a></li>
+            <li><a href="<?=ROOT?>/PetSitterDashboard">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/PetSitterProfile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/PetSitterRequest">View Requests</a></li>
+                <li><a href="<?=ROOT?>/PetSitterAccepted">Accepted Requests</a></li>    
+                <li><a href="<?=ROOT?>/PetSitterPet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/PetSitterAvailability">Update Availability</a></li>
             </ul>
             </ul>
         </div>
@@ -138,8 +138,8 @@
                         <div class="form-group">
                             <label for="gender">Gender:</label>
                             <select id="gender" name="gender" required>
-                                <option value="M" <?= $vet->gender == 'M' ? 'selected' : '' ?>>Male</option>
-                                <option value="F" <?= $vet->gender == 'F' ? 'selected' : '' ?>>Female</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -148,7 +148,7 @@
                         </div>
                         <div class="form-group">
                             <label for="city">City:</label>
-                            <input type="text" id="city" name="city" value="Wadduwa required>
+                            <input type="text" id="city" name="city" value="Wadduwa" required>
                         </div>
                         <div class="form-group">
                             <label for="contact_no">Contact No:</label>

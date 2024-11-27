@@ -65,13 +65,10 @@ Trait Model
 		$data = array_merge($data, $data_not);
 		
 		$result = $this->query($query, $data);
-		// var_dump($result[0]);
 		
-		// var_dump($result);
-		if($result){
+		if($result)
 			return $result[0];
-		}
-		
+
 		return false;
 	}
 
@@ -91,9 +88,9 @@ Trait Model
 		}
 
 		$keys = array_keys($data);
-		// print_r($data);
 
 		$query = "insert into $this->table (".implode(",", $keys).") values (:".implode(",:", $keys).")";
+
 		$this->query($query, $data);
 
 		return false;
@@ -102,11 +99,9 @@ Trait Model
 	public function update($id, $data, $id_column = 'id')
 	{
 
-		var_dump($id_column);
 		/** remove unwanted data **/
 		if(!empty($this->allowedColumns))
 		{
-			// print_r($data);
 			foreach ($data as $key => $value) {
 				
 				if(!in_array($key, $this->allowedColumns))

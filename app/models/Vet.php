@@ -1,118 +1,66 @@
-<?php 
-
+<?php
 
 /**
- * User class
+ * Vet class
  */
-// class Vet  
-// {
-	
-// 	use Model;
+class Vet
+{
+    use Model;
 
-// 	protected $table = 'veterinary_surgeon';
+    protected $table = 'veterinary_surgeons'; // Update this to the appropriate table name for vets
 
-// 	protected $allowedColumns = [
+    protected $allowedColumns = [
+        'name',
+        'location',
+        'rating',
+    ];
 
-// 		'f_name', 
-// 		'l_name', 
-// 		'age', 
-// 		'gender', 
-// 		'district', 
-// 		'city', 
-// 		'street', 
-// 		'contact_no', 
-// 		'years_exp'
-// 	];
+    // Hardcoded sample data, replace with database fetch if connected
+    private $vetsData = [
+        ["name" => "Dr. Smith", "location" => "New York", "rating" => 5],
+        ["name" => "Dr. Williams", "location" => "Los Angeles", "rating" => 4],
+        ["name" => "Dr. Taylor", "location" => "Chicago", "rating" => 5],
+        // Add more as needed
+    ];
 
-// 	public function getVetDetails()    
-// 	{
-// 		// Define the SQL query
-// 		$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
-// 						veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
-// 						veterinary_surgeon.age, veterinary_surgeon.gender, 
-// 						veterinary_surgeon.district, veterinary_surgeon.city, 
-// 						veterinary_surgeon.contact_no, 
-// 						veterinary_surgeon.years_exp
-// 				FROM user
-// 				JOIN veterinary_surgeon 
-// 				ON user.user_id = veterinary_surgeon.user_id 
-// 				LIMIT 1";
+    /**
+     * Search for vets based on name and location
+     *
+     * @param string $name
+     * @param string $location
+     * @return array Filtered results
+     */
+    public function searchVets($name = '', $location = '')
+    {
+        // Filter vets data by name and location
+        $results = array_filter($this->vetsData, function ($vet) use ($name, $location) {
+            $matchesName = empty($name) || stripos($vet['name'], $name) !== false;
+            $matchesLocation = empty($location) || stripos($vet['location'], $location) !== false;
+            return $matchesName && $matchesLocation;
+        });
 
-// 		// Execute the query and store the result
-// 		$result = $this->query($query);
+        return $results;
+    }
 
-// 		// Return the result
-// 		return $result;
-// 	}
+    /**
+     * Validate user input data
+     */
+    public function validate($data)
+    {
+        $this->errors = [];
 
+        if (empty($data['name'])) {
+            $this->errors['name'] = "Name is required";
+        }
 
+        if (empty($data['location'])) {
+            $this->errors['location'] = "Location is required";
+        }
 
-// 	public function getById($id, $id_column = 'vet_id')
-// 	{
-// 		$sql = "SELECT * FROM veterinary_surgeon WHERE $id_column = :id";
-// 		$params = [':id' => $id];
-// 		$result = $this->query($sql, $params);  // Get result from query
-// 		// Check if query was successful
-// 		if ($result !== false) {
-// 			return $result[0];  // Return the first row if results are found
-// 		}
-	
-// 		return false;  // Return false if no result was found or query failed
-// 	}
-	
+        if (empty($this->errors)) {
+            return true;
+        }
 
-
-
-
-// 		public function validate($data)
-// 		{
-// 			$this->errors = [];
-
-// 			if(empty($data['email']))
-// 			{
-// 				$this->errors['email'] = "Email is required";
-// 			}else
-// 			if(!filter_var($data['email'],FILTER_VALIDATE_EMAIL))
-// 			{
-// 				$this->errors['email'] = "Email is not valid";
-// 			}
-			
-// 			if(empty($data['password']))
-// 			{
-// 				$this->errors['password'] = "Password is required";
-// 			}
-			
-// 			if(empty($data['terms']))
-// 			{
-// 				$this->errors['terms'] = "Please accept the terms and conditions";
-// 			}
-
-// 			if(empty($this->errors))
-// 			{
-// 				return true;
-// 			}
-
-// 			return false;
-// 		}
-
-// 	public static function getVetData() {
-//         // Placeholder data (you would query the database here)
-//         return [
-//             'username' => 'johndoe',
-//             'email' => 'johndoe@example.com',
-//             'password' => '********',
-//             'createdDate' => '2024-11-12',
-//             'licenseNo' => '123456',
-//             'firstName' => 'John',
-//             'lastName' => 'Doe',
-//             'age' => 35,
-//             'gender' => 'Male',
-//             'district' => 'Downtown',
-//             'city' => 'Metropolis',
-//             'contactNo' => '+123456789',
-//             'yearsOfExperience' => 10,
-//             'profilePicture' => 'assets/images/default-profile-picture.webp'
-//         ];
-//     }
-	
-// }
+        return false;
+    }
+}

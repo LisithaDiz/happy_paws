@@ -1,11 +1,11 @@
 <?php
 
-class PetSitterDash
+class PetSitterDashboard
 {
     use Controller;
 
     public function index()
     {
-        $this->view('petsitterdash');
+        $this->view('petsitterdashboard');
     }
 }

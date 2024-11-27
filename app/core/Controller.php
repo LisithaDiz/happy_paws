@@ -19,5 +19,18 @@ Trait Controller
 		}
 	}
 	
+	protected function model($model) {
+		// Assuming your models are in app/models directory
+		require_once '../app/models/' . $model . '.php';
+		return new $model();
+	}
+	
+	public function loadModel($modelName) {
+		if (file_exists("../app/models/" . $modelName . ".php")) {
+			require_once "../app/models/" . $modelName . ".php";
+			return new $modelName();
+		}
+		return false;
+	}
 
 }
