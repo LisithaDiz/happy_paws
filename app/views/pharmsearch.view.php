@@ -61,8 +61,9 @@
                         <p><?=htmlspecialchars($pharmacy['services'])?></p>
                     </div>
                     
-                    <button class="contact-button">Place Order</button>
-                </div>
+                    <button onclick="location.href='<?=ROOT?>/PetOwnerPlaceOrder'" class="book-button">Place Order</button>
+
+                    </div>
             </div>
         <?php endforeach; ?>
     <?php else: ?>

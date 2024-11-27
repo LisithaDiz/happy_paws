@@ -23,6 +23,7 @@ class App
                'PetOwnerSitterSelection' => ['index'],
                'Petcaresearch' => ['index'],
                'PharmSearch' => ['index'],
+               'PetOwnerPlaceOrder' => ['index'],
             ], 
 
         
