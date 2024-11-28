@@ -1,3 +1,19 @@
+
+
+<?php
+$pets = [
+    ['id' => 1, 'name' => 'Buddy'],
+    ['id' => 2, 'name' => 'Max'],
+    ['id' => 3, 'name' => 'Bella']
+];
+
+$prescriptions = [
+    ['id' => 101, 'title' => 'Buddy', 'date' => '2024-11-01'],
+    ['id' => 102, 'title' => 'Max', 'date' => '2024-11-15'],
+    ['id' => 103, 'title' => 'Bella', 'date' => '2024-11-20']
+];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,16 +43,33 @@
 
         <!-- Place Order Form -->
         <div class="place-order-container">
-            <form action="<?=ROOT?>/PlaceOrder" method="POST" class="place-order-form" enctype="multipart/form-data">
+            <form action="<?=ROOT?>/PlaceOrder" method="POST" class="place-order-form">
                 <!-- Target Pharmacy -->
-                <label for="pharmacy" class="form-label">Target Pharmacy:</label>
-                <input type="text" name="pharmacy" id="pharmacy" class="form-input" value="" readonly>
+                <!-- <label for="pharmacy" class="form-label">Target Pharmacy:</label>
+                <input type="text" name="pharmacy" id="pharmacy" class="form-input" value="" readonly> -->
 
-                <!-- Prescription Upload -->
-                <label for="prescription" class="form-label">Upload Prescription:</label>
-                <input type="file" name="prescription" id="prescription" class="form-input" accept=".pdf,.jpg,.jpeg,.png" required>
+                <!-- Select Pet -->
+                <label for="pet" class="form-label">Select Pet:</label>
+                <select name="pet" id="pet" class="form-select" required>
+                    <option value="" disabled selected>Select a pet</option>
+                    <?php foreach ($pets as $pet): ?>
+                        <option value="<?=htmlspecialchars($pet['id'])?>"><?=htmlspecialchars($pet['name'])?></option>
+                    <?php endforeach; ?>
+                </select>
 
-                <!-- Delivery or Pickup -->
+                <!-- Select Prescription -->
+                <label for="prescription" class="form-label">Select Prescription:</label>
+                <select name="prescription" id="prescription" class="form-select" required>
+    <option value="" disabled selected>Select a prescription</option>
+    <?php foreach ($prescriptions as $prescription): ?>
+        <option value="<?= htmlspecialchars($prescription['id']) ?>">
+            <?= htmlspecialchars($prescription['title']) ?> (<?= htmlspecialchars($prescription['date']) ?>)
+        </option>
+    <?php endforeach; ?>
+</select>
+
+
+                <!-- Delivery Method -->
                 <label for="delivery" class="form-label">Delivery Method:</label>
                 <select name="delivery" id="delivery" class="form-select" required>
                     <option value="" disabled selected>Select delivery method</option>
