@@ -9,8 +9,10 @@ Trait Model
 
 	protected $limit 		= 10;
 	protected $offset 		= 0;
-	protected $order_type 	= "asc";
+	protected $order_type 	= "desc";
+
 	protected $order_column = "user_id";
+
 	public $errors 		= [];
 
 	public function findAll()
@@ -63,20 +65,17 @@ Trait Model
 		$data = array_merge($data, $data_not);
 		
 		$result = $this->query($query, $data);
-		// var_dump($result[0]);
 		
-		// var_dump($result);
-		if($result){
+		if($result)
 			return $result[0];
-		}
-		
-		return false;
+		else
+			return false;
 	}
 
 	public function insert($data)
 	{
-		// echo "--------insert works------- ";
-		// remove unwanted data 
+
+		/** remove unwanted data **/
 		if(!empty($this->allowedColumns))
 		{
 			foreach ($data as $key => $value) {
@@ -89,23 +88,18 @@ Trait Model
 		}
 
 		$keys = array_keys($data);
-		// print_r($data);
 
 		$query = "insert into $this->table (".implode(",", $keys).") values (:".implode(",:", $keys).")";
-		// echo $query;
-		$this->query($query, $data);
 
-		return false;
+		return $this->query($query, $data);
 	}
 
-	public function update($id, $data, $id_column = 'id')
+	public function update($id, $data, $id_column = 'review_id')
 	{
-
-		var_dump($id_column);
+		
 		/** remove unwanted data **/
 		if(!empty($this->allowedColumns))
 		{
-			// print_r($data);
 			foreach ($data as $key => $value) {
 				
 				if(!in_array($key, $this->allowedColumns))
@@ -127,11 +121,14 @@ Trait Model
 		$query .= " where $id_column = :$id_column ";
 
 		$data[$id_column] = $id;
-
-		            // Stop execution to view the outpu
-
-		// var_dump($query);
+		var_dump($query);
+		var_dump($data);
+		            // Stop execution to view the output
+		
 		$result = $this->query($query, $data);
+		// var_dump($result);
+		
+
 
 		if ($result) {
 			return true; // Return true if update was successful
@@ -152,7 +149,7 @@ Trait Model
 
 	// }
 
-	public function delete($id, $id_column = 'id')
+	public function delete($id, $id_column = 'review_id')
 	{
 		$data[$id_column] = $id;
 		$query = "DELETE FROM $this->table WHERE $id_column = :$id_column";
@@ -163,5 +160,44 @@ Trait Model
 		return $result ? true : false;
 	}
 
-	
+	public function query_($query, $params = [])
+	{
+		try {
+			$stmt = $this->connect()->prepare($query);
+			
+			if (!$stmt) {
+				error_log("Database prepare failed for query: " . $query);
+				error_log("Error info: " . print_r($this->connect()->errorInfo(), true));
+				return [];
+			}
+
+			error_log("Executing query: " . $query);
+			error_log("With parameters: " . print_r($params, true));
+			
+			$check = $stmt->execute($params);
+			if (!$check) {
+				error_log("Query execution failed: " . print_r($stmt->errorInfo(), true));
+				return [];
+			}
+
+			// For SELECT queries
+			if (stripos($query, 'SELECT') === 0) {
+				$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+				if ($result === false) {
+					error_log("Fetch failed: " . print_r($stmt->errorInfo(), true));
+					return [];
+				}
+				return $result;
+			}
+			
+			// For INSERT, UPDATE, DELETE queries
+			return $stmt->rowCount() > 0;
+		} catch (PDOException $e) {
+			error_log("Database error: " . $e->getMessage());
+			error_log("Query: " . $query);
+			error_log("Parameters: " . print_r($params, true));
+			return [];
+		}
+	}
+
 }

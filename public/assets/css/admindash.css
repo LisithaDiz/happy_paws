@@ -1,32 +1,28 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff0f3;
+    color: #333;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    margin-top: 1000px;
+    display: flex;
+    min-height: 100vh;
+}
 
 /* Sidebar */
-body{
-
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-    font-family: Arial, sans-serif;
-}
-
-
 .sidebar {
-    color: #000000;
-    top: 60px; /* Adjust this if navbar height is different */
-    left: 0;
-    width: 250px; /* Width of the sidebar */
-    height: calc(100vh - 40px); /* Full height minus navbar and footer */
-    background-color: #f8d7da; /* Adjust color as needed */
+    width: 250px;
+    background-color: #fae3e3;
     padding: 20px;
-    overflow-y: auto;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Sidebar content styling */
-.sidebar h3 {
-    font-size: 18px;
-    color: #d8544c;
-    margin-bottom: 15px;
-    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .sidebar ul {
@@ -38,135 +34,183 @@ body{
     margin: 10px 0;
 }
 
-/* Style the sidebar links (buttons) */
 .sidebar ul li a {
     display: block;
-    width: 100%; /* Ensures all buttons are the same width */
-    padding: 12px 0; /* Adjust vertical padding for button height */
-    text-align: center; /* Center the text inside the button */
-    background-color: #fae3e3; /* Light pink background */
+    width: 100%;
+    padding: 12px 0;
+    text-align: center;
+    background-color: #f8d7da;
     color: #333;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for 3D effect */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
-    margin: 5px 0; /* Even spacing between buttons */
 }
 
-/* 3D button effect on hover */
 .sidebar ul li a:hover {
-    background-color: #f5c6cb; /* Slightly darker pink on hover */
-    color: #fff; /* White text on hover */
-    transform: translateY(-2px); /* Slightly lift the button */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #f5c6cb;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-
-
-
-/* Dashboard container to display sidebar and main content side by side */
-.dashboard-container {
-    display: flex;
-    flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
-    height: 100vh; /* Full viewport height */
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left:150px;
+    background-color: rgba(255, 240, 243, 0.5);
+    margin-top: 30000px;
+    height:1000px;
 }
 
-
-
-.main-content{
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    animation: fadeIn 2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Dashboard Overview */
-.dashboard-overview {
-    margin-bottom: 30px;
-}
-
-.dashboard-overview h2 {
+.dashboard-header h1 {
     color: #d8544c;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #f5c6cb;
+    padding-bottom: 10px;
 }
 
-.overview-cards {
-    display: flex;
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+}
+
+.stat-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.stat-content h3 {
+    color: #d8544c;
+    margin-bottom: 10px;
+}
+
+.stat-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #f5c6cb;
+    margin-bottom: 15px;
+}
+
+.stat-link {
+    display: inline-block;
+    background-color: #f5c6cb;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.stat-link:hover {
+    background-color: #d8544c;
+}
+
+/* Quick Actions */
+.dashboard-quick-actions {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
 
-.card {
-    background-color: #fff;
+.quick-action-card {
+    background-color: #fae3e3;
+    border-radius: 10px;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex: 1;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
-.card h3 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.card p {
-    margin-bottom: 20px;
-    color: #666;
-}
-
-.card .btn-dashboard {
-    background-color: #fae3e3;
-    color: #333;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.card .btn-dashboard:hover {
+.quick-action-card:hover {
     background-color: #f5c6cb;
+    transform: translateY(-5px);
 }
 
-
-
-/* Contact Section */
-.contact {
-    margin-bottom: 30px;
-}
-
-.contact h2 {
+.quick-action-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
     color: #d8544c;
-    margin-bottom: 20px;
 }
 
-.contact p {
-    margin-bottom: 20px;
-    color: #555;
-}
-
-.contact a {
-    display: inline-block;
-    background-color: #fae3e3;
+.quick-action-card h3 {
     color: #333;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.contact a:hover {
+.quick-action-card p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.quick-action-link {
+    display: inline-block;
     background-color: #f5c6cb;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
+.quick-action-link:hover {
+    background-color: #d8544c;
+}
 
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .stats-grid,
+    .quick-actions-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: static;
+        height: auto;
+    }
 
+    .main-content {
+        margin-left: 0;
+    }
+
+    .stats-grid,
+    .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid,
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 

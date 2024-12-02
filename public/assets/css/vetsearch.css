@@ -1,0 +1,130 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.search-heading {
+    color: #d8544c; /* Or use a specific shade like #FFA500 */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.search-bar {
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.search-button, .clear-button, .book-button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #f8929c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.book-button {
+    width: 30%;
+    margin: 0 auto;
+    display: block;
+}
+
+.search-button:hover, .clear-button:hover, .book-button:hover {
+    background-color: #d8544c;
+}
+
+.results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.vet-card {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: 90%;
+    min-height: 200px;
+    display: flex;
+    gap: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.vet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-color: #d8544c;
+}
+
+.results-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.results-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.results-container::-webkit-scrollbar-thumb {
+    background: #f8929c;
+    border-radius: 4px;
+}
+
+.results-container::-webkit-scrollbar-thumb:hover {
+    background: #d15b52;
+}
+
+.vet-image {
+    flex: 0 0 150px;
+}
+
+.vet-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.vet-info {
+    flex: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vet-info h2 {
+    margin: 0 0 10px 0;
+    color: black;
+    font-size: 20px !important;
+}
+
+.vet-info p {
+    margin: 5px 0;
+    color: black;
+    font-size: 14px !important;
+}
+
+.rating-stars {
+    color: #d8544c; /* Same color as the book button */
+    filter: hue-rotate(320deg); /* This helps adjust the star color */
+}

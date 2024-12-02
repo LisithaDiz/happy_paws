@@ -1,57 +1,267 @@
-header {
-    background-color: rgba(255, 255, 255, 1);
-    padding: 10px 0;
-    position: relative;
-    z-index: 10;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(to right, white, #f2d5d9);
-    font-family: Arial, sans-serif;
-    
-}
-
-nav {
+/* Navbar Container */
+header nav {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    top: 0;
+    animation: slideInFromTop 0.8s ease-in-out;
 }
 
-.logo img {
-    width: 100px;
+/* Logo */
+header nav .logo img {
+    height: 70px;
+    transition: transform 0.3s ease, rotate 0.5s ease;
+    animation: pulse 2s infinite;
 }
 
-nav ul {
-    display: flex;
-    gap: 20px;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    color: #000000;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #fa7570;
-}
-button, .login-button {
-    background-color: #d8544c; /* Common button color */
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
+/* Hamburger Menu */
+header nav .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-button:hover, .login-button:hover {
-    background-color: #da4a55; /* Hover color */
-    color: black;
+header nav .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    transition: transform 0.3s;
 }
+
+/* Navbar Links */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    margin-top: 15px;
+}
+
+header nav ul li {
+    position: relative;
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+}
+
+
+
+/* Staggered Animation for Links */
+header nav ul li:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+header nav ul li:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+header nav ul li:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+header nav ul li:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+header nav ul li:nth-child(5) {
+    animation-delay: 1s;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding: 5px;
+}
+
+/* Hover Effects with Animation */
+header nav ul li a:hover {
+    color: #d8544c;
+}
+
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 90%;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+header nav ul li a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Login Button */
+header nav .nav_login-button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: black;
+    background-color: transparent;
+    margin-top: -5px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+header nav .nav_login-button:hover {
+    color: #d8544c;
+}
+
+
+/* Responsive Design */
+
+
+@media (min-width: 769px) {
+    header nav .hamburger {
+        display: none;
+    }
+}
+
+/* Animations */
+@keyframes slideInFromTop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Navbar Container */
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    top: 0;
+    position: relative;
+    animation: slideInFromTop 0.8s ease-in-out;
+}
+
+/* Logo */
+header nav .logo img {
+    height: 70px;
+    transition: transform 0.3s ease, rotate 0.5s ease;
+    animation: pulse 2s infinite;
+}
+
+/* Hamburger Menu */
+header nav .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+header nav .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    transition: all 0.3s ease;
+}
+
+/* Hamburger Menu Animation */
+header nav .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+header nav .hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+header nav .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Navbar Links */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    margin-top: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header nav ul {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: left 0.3s ease;
+        z-index: 100;
+        margin-top: 0;
+    }
+
+    header nav ul.active {
+        left: 0;
+    }
+
+    header nav .hamburger {
+        display: flex;
+        z-index: 1000;
+    }
+
+    header nav ul li {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    header nav ul li.show {
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    header nav ul li:nth-child(1) { animation-delay: 0.1s; }
+    header nav ul li:nth-child(2) { animation-delay: 0.2s; }
+    header nav ul li:nth-child(3) { animation-delay: 0.3s; }
+    header nav ul li:nth-child(4) { animation-delay: 0.4s; }
+    header nav ul li:nth-child(5) { animation-delay: 0.5s; }
+}
+
+/* Existing styles remain the same... */

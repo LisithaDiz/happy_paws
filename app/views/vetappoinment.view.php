@@ -4,29 +4,21 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetappointment.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <title>Vet Appointment</title>
 </head>
 <body>
-    <?php include ('components/nav.php'); ?>
+    <?php include ('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-        <div class="sidebar">
-            <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
-            </ul>
-        </div>
+    <?php include ('components/sidebar3.php'); ?>
+
 
         <div class="main-content">
             <div class="overview-cards">
                 <div class="appoinement-requests">
-                    <h1>-----------------------------------Appointments-----------------------------------</h1>
+                    <h1>Appointments</h1>
                     
                     <!-- Each card will have its own appointment details -->
                     <div class="card" id="appointment1">

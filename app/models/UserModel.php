@@ -149,7 +149,7 @@ class UserModel
         if (empty($data['password'])) {
             $this->errors['password'] = "Password is required.";
         } 
-
+        return true;
         // Return true if no errors, otherwise false
         if (empty($this->errors)) {
             return true;

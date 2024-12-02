@@ -1,0 +1,270 @@
+/* Main Container Styles */
+.container {
+    
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-left: 400px;
+    margin-right: 100px;
+}
+
+.reviews-container {
+   
+    background: #ffc4c1;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    min-height: calc(100vh - 300px);
+}
+
+/* Heading Styles */
+.search-heading {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+/* 
+.search-heading h2{
+    color: #dc3545;
+    text-align: center;
+} */
+
+/* Login Prompt */
+.login-prompt {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.login-prompt a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Review Card Styles */
+.petsitter-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+
+.petsitter-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Review Header */
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-name {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+.rating-date {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.rating {
+    color: #ffd700;
+}
+
+.date {
+    color: #666;
+}
+
+/* Comment Section */
+.comment {
+    color: #2c3e50;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+select.search-bar {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
+}
+
+textarea.search-bar {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Button Styles */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.book-button, 
+.search-button, 
+.clear-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.book-button {
+    background-color: #fae3e3;
+    color: rgb(0, 0, 0);
+}
+
+
+
+.search-button {
+    background-color: #fae3e3;
+    color:black ;
+}
+
+.clear-button {
+    background-color: #ef384a;
+    color: rgb(255, 255, 255);
+}
+
+.book-button:hover {
+    background-color: #f5c6cb;
+    color: black;
+}
+
+.search-button:hover {
+    background-color: #f5c6cb;
+    color: black;
+}
+
+.clear-button:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+/* Review Actions */
+.review-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Empty State */
+.no-reviews {
+    text-align: center;
+    color: #666;
+    padding: 40px 20px;
+    font-size: 1.1em;
+}
+
+/* Add Review Container */
+.add-review-container {
+    margin-bottom: 30px;
+}
+
+/* Edit Review Container */
+.edit-review-container {
+    margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .reviews-container {
+        padding: 15px;
+    }
+
+    .review-header {
+        flex-direction: column;
+    }
+
+    .rating-date {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .book-button, 
+    .search-button, 
+    .clear-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .review-actions {
+        flex-direction: column;
+    }
+}
+
+/* Animation for new reviews */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.petsitter-card {
+    animation: fadeIn 0.5s ease-out;
+}

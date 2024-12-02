@@ -4,33 +4,37 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetrequest.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <title>Vet <title>
 
     
 
 </head>
 <body>
-    <?php include ('components/nav.php'); ?>
+    <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
+        <?php include ('components/sidebar3.php'); ?>
+
         <div class="sidebar">
             
-            <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
+        <ul>
+                <li><a href="<?=ROOT?>/VetDashboard">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/VetProfile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/VetAppoinment">Upcoming Appointments</a></li>
+                <li><a href="<?=ROOT?>/VetRequest">Appointment Requests</a></li>    
+                <li><a href="<?=ROOT?>/VetTreatedPet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/VetPrescription">Prescriptions</a></li>
+                <li><a href="<?=ROOT?>/VetAvailability">Update Availability</a></li>
+                <li><a href="<?=ROOT?>/VetMedRequest">Request to Add Medicine</a></li>
             </ul>
         </div>
 
         <div class="main-content">
             <div class="overview-cards">
                 <div class="appoinement-requests">
-                    <h1>------------------------------Appoinment Requests------------------------------</h1>
+                    <h1>Appoinment Requests</h1>
                         <!-- Each card will have its own appointment details -->
                         <div class="card" id="appointmentreq1">
                         <h3>Appointment Request 1</h3>

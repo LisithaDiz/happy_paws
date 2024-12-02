@@ -4,25 +4,16 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetprofile.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <title>My Profile</title>
 
 </head>
 <body>
-    <?php include ('components/nav.php'); ?>
+    <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <div class="sidebar">
-            <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
-            </ul>
-        </div>
+        <?php include ('components/sidebar3.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">
@@ -42,7 +33,7 @@
                     </div>
 
                     <div class="profile-details">
-                        <h1>------------------------My Profile------------------------</h1>
+                        <h1>My Profile</h1>
                         <!-- Display vet's details -->
                         <div class="detail-line">
                             <div class="detail-label">Username</div>
@@ -123,7 +114,7 @@
             <?php endif; ?>
                 <!-- Popup structure -->
                 <div id="editProfilePopup" class="popup">
-                    <form action="#" method="POST" class="update-form">
+                    <form action="<?= ROOT ?>/VetProfile/vetprofile" method="POST" class="update-form">
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <input type="text" id="username" name="username" value="<?= htmlspecialchars($vet->username) ?>" required>
@@ -200,7 +191,7 @@
                         deleteBtn.addEventListener('click', () => {
                             if (confirm('Are you sure you want to delete this profile?')) {
                                 // Redirect to the delete route
-                                window.location.href = "<?= ROOT ?>/vet/delete";
+                                window.location.href = "<?= ROOT ?>/vetProfile/deleteVet";
                             }
                         });
                     });

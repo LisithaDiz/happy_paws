@@ -19,3 +19,10 @@ require 'Database.php';
 require 'Model.php';
 require 'Controller.php';
 require 'App.php';
+
+// or wherever your routing is defined
+$routes = [
+    'reviews/add' => ['Reviews', 'add'],
+    'reviews/index/{id}' => ['Reviews', 'index'],
+    // ... other routes
+];

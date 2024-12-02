@@ -31,7 +31,6 @@ class MedicineModel
 
     public function updateMedicine($id, $data,$id_column)
     {
-       
         $this->update($id,$data,'med_id');
     }
 

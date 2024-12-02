@@ -1,0 +1,245 @@
+/* Modern Header */
+.modern-header {
+    background: linear-gradient(135deg, #ffffff, #ffd6d6);
+    padding: 12px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+   
+}
+
+.modern-nav {
+    
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    margin-bottom: 15px;    
+}
+
+/* Logo */
+.modern-logo {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.modern-logo img {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.modern-logo:hover img {
+    transform: scale(1.05);
+}
+
+/* Navigation Center - Changed to Right Alignment */
+.nav-center {
+    margin-top: 10px;
+    margin-left: auto; /* Push to right */
+    margin-right: 20px; /* Space between nav items and user profile */
+}
+
+#nav-menu {
+    margin-top: 10px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-link {
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 15px;
+}
+
+.nav-link:hover {
+    color: #d8544c;
+    background-color: rgba(216, 84, 76, 0.1);
+    transform: translateY(-2px);
+}
+
+/* User Profile */
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile {
+    position: relative;
+}
+
+.user-icon {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.user-icon:hover {
+    background-color: rgba(216, 84, 76, 0.1);
+}
+
+.user-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.user-icon img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    padding: 8px 0;
+    min-width: 220px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f8f9fa;
+    color: #d8544c;
+}
+
+.dropdown-menu i {
+    width: 20px;
+    text-align: center;
+    color: #666;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 8px 0;
+}
+
+.logout-link {
+    color: #d8544c !important;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 2px;
+    background-color: #333;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Updated Responsive Design */
+@media (max-width: 768px) {
+    .nav-center {
+        display: none;
+        margin-left: 0; /* Reset margin for mobile */
+    }
+
+    .modern-nav {
+        padding: 0 15px;
+    }
+
+    #nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 12px 20px;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .user-icon {
+        justify-content: center;
+    }
+}
+
+/* Animation for Hamburger Menu */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}

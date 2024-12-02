@@ -9,26 +9,74 @@ class App
         'admin' => ['AdminLogin' => ['index'],
                     'AdminDashboard' => ['index'],
                     'ManageMedicine' => ['index'],
-                    'Admin' =>['addMedicine','updateMedicine','deleteMedicine']
+                    'Admin' =>['addMedicine','updateMedicine','deleteMedicine'],
+                    'ManageCertificates' => ['index'],
+                    'ManageUsers' => ['index'],
+                    'ManageRequests' => ['index'],
+                    'ManageUserRequests' => ['index'],
+
                     ],
-        '1' => ['PetOwnerDashboard' => ['index']],
-        '2' => ['VetDashboard' => ['index']],
-        '3' => ['PetSitterDashboard' => ['index']],
-        '4' => ['CareCenterDashboard' => ['index']],
-        '5' => ['PharmacyDashboard' => ['index']],
+        '1' => ['PetOwnerDashboard' => ['index'], 
+               'PetDetails' => ['index', 'deletePet'], 
+               'PetUpdate' => ['index', 'updatePetDetails'],
+               'PetAdd' => ['index', 'createPet'],
+               'PetOwnerProfile' => ['index'],
+               'PetOwnerAppointments' => ['index'],
+               'VetSearch' => ['index'],
+               'PetOwnerGuardians' => ['index'],
+               'PetsitterSearch' => ['index'],
+               'PetOwnerSitterSelection' => ['index'],
+               'Petcaresearch' => ['index'],
+               'PharmSearch' => ['index'],
+               'Reviews' =>['index','edit','delete','add','insert'],
+               'PetOwnerPlaceOrder' =>['index'],
+               'PetOwnerDash'=>['index']
+            ], 
+
+        
+        '2' => ['VetDashboard' => ['index'],
+                'VetProfile'=> ['index','updateVetDetails','vetprofile','deleteVet'],
+                'VetAppoinment' => ['index'],
+                'VetRequest' => ['index'],
+                'VetTreatedPet' => ['index'],
+                'VetPrescription' => ['index'],
+                'VetAvailability' => ['index'],
+                'VetMedRequest' => ['index','addMedicineRequest'],
+                'VetSettings' => ['index']],
+
+        '3' => ['PetSitterDashboard' => ['index'],
+                'PetSitterProfile' => ['index'], 
+                'PetSitterAccepted' => ['index'], 
+                'PetSitterPet' => ['index'], 
+                'PetSitterAvailability' => ['index'], 
+                'PetSitterRequest' => ['index'], 
+            ], 
+
+        '4' => ['CareCenterDashboard' => ['index'],
+                 'CareCenterCage' => ['index'],
+                'CareCenterAvailability'=> ['index'],
+                ],
+        '5' => ['PharmacyDashboard' => ['index'],
+                'PharmProfile'=> ['index'],
+                'Revenue'=> ['index'],
+                'Orders'=> ['index'],
+                'Reviews'=> ['index'],
+            ],
         
     ];
 
     private $publicAccess = [
         'Home' => ['index'],
-        '-404' => ['index'],
+        '_404' => ['index'],
         'About' => ['index'],
         'Signup_role' => ['index'],
         'Signup' => ['index'],
         'Login' => ['index'],
-        'User' => ['login', 'signupProcess'],
+        'User' => ['login', 'signupProcess','logout'],
         'Adminlogin' => ['index','login'],
-        'Admin' =>['adminLogin']
+        'Admin' =>['adminLogin'],
+        'ContactUs' =>['index'],
+
     ];
 
     private function splitURL()
@@ -59,8 +107,8 @@ class App
             // var_dump( in_array($method, $this->roleAccess[$role][$controller], true));
             return in_array($method, $this->roleAccess[$role][$controller], true);
             
-        }
-
+        }    
+        
         return false;
      }
 
@@ -104,10 +152,11 @@ class App
         if ($this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)) {
                     call_user_func_array([$controller, $this->method], $URL);
 
+
         } else {
-            echo "   Error...controller not loading (in app)";
+            // echo "   Error...controller not loading (in app)";
             // Redirect to unauthorized access page or show an error
-            // redirect('_404');
+            redirect('_404');
             exit();
         }
     }

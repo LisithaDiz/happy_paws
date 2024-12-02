@@ -67,7 +67,8 @@
 
 .main-content{
     position: relative;
-    max-width: 1000px;
+    max-width: 800px;
+    width: 800px;
     margin: 20px auto;
     padding: 20px;
     backdrop-filter: blur(20px);
@@ -82,7 +83,10 @@
 
 
 
-
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 
 
@@ -94,7 +98,7 @@
 
 .prescription-card {
     align-items: center;
-    width: 90%; /* Makes the card take the full width */
+    width: 700px; /* Makes the card take the full width */
     background-color: rgba(255, 255, 255, 0.5);
     padding: 20px;
     border-radius: 12px;
@@ -135,9 +139,9 @@
     font-size: 1rem;
     color: #666;
 }
-
 .prescription-card .btn-dashboard {
     background-color: #fae3e3;
+    border-color: #fae3e3;
     color: #000000;
     padding: 10px 15px;
     border-radius: 5px;
@@ -149,5 +153,23 @@
 
 .prescription-card .btn-dashboard:hover {
     background-color: #f5c6cb;
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f5c6cb; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fae3e3; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f5c6cb; /* Darker color on hover */
 }
 

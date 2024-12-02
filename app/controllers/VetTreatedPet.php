@@ -6,6 +6,6 @@ class VetTreatedPet
 
     public function index()
     {
-        $this->view('vettreatedpet');
+        $this->view('VetTreatedpet');
     }
 }

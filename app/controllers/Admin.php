@@ -24,7 +24,7 @@ class Admin
             if (empty($user)) {
                 echo "<script>
                         alert('Invalid username or password.');
-                        window.location.href = '" . ROOT . "/login';
+                        window.location.href = '" . ROOT . "/adminlogin';
                       </script>";
                 exit();
             }
@@ -88,9 +88,10 @@ class Admin
             // show($id);
             $data = [
                 'med_name' => $_POST['med_name'],
-                'mmanageMedicineed_description' => $_POST['med_description']
+                'med_description' => $_POST['med_description'],
             ];
 
+            var_dump($data);
             $medicineModel = new MedicineModel();
             $medicineModel->updateMedicine($id, $data ,$id);
 

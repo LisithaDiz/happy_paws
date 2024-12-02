@@ -11,7 +11,7 @@ class ManageMedicine
 		// var_dump($medicine);
 
 		$data =['medicines' => $medicine];
-		$this->view('managemedicine',$data);
+		$this->view('managemedicines',$data);
 	}
 
 }

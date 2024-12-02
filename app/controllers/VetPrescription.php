@@ -6,6 +6,6 @@ class VetPrescription
 
     public function index()
     {
-        $this->view('vetprescription');
+        $this->view('VetPrescription');
     }
 }

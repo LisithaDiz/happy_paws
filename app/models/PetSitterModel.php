@@ -10,8 +10,8 @@ class PetSitterModel
 	protected $allowedColumns = [
 
 		    'user_id',
-            'firstname',
-            'lastname',
+            'f_name',
+            'l_name',
             'age',
             'gender',
             'district',

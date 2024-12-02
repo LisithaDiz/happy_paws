@@ -65,21 +65,33 @@
 
 
 
+
 .main-content{
     position: relative;
-    max-width: 1000px;
+    max-width: 800px;
+    width: 800px;
     margin: 20px auto;
     padding: 20px;
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(20px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     animation: fadeIn 2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0);
-    max-height: 80vh;
+    background-color: rgba(255, 255, 255, 0.3);
     display: flex;
     align-items: flex-start;
     gap: 20px;
+    overflow: visible; /* Ensures no clipping */
+    background-color: transparent; /* No background color */
+    backdrop-filter: none; /* No blur effect */
+    margin-top: 100px;
+
 }
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 
 
 .profile-content {
@@ -123,7 +135,8 @@
 .profile-details h1 {
     margin-bottom: 15px;
     font-size: 22px;
-    color: #ffffff;
+    color: #434343;
+
     font-weight: 600;
 }
 
@@ -131,20 +144,21 @@
 .profile-details .detail-line {
     display: flex;
     font-size: 16px;
-    color: #000000;
+    color: #434343;
     line-height: 1.6;
     padding-bottom: 15px;
 }
 
 .profile-details .detail-label {
     width: 200px; /* Fixed width for labels */
+
     font-weight: 600;
-    color: #ffffff;
+    color: #434343;
 }
 
 .profile-details .colon {
     padding-right: 40px; /* Space between colon and value */
-    color: #ffffff;
+    color: #434343;
 }
 
 .profile-details .detail-value {
@@ -226,7 +240,7 @@
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #007bff;
+    border-color: #fae3e3;
     outline: none;
 }
 
@@ -237,8 +251,8 @@ button[type="submit"] {
     padding: 12px;
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
+    color: #000000;
+    background-color: #fae3e3;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -246,12 +260,30 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #f5c6cb;
 }
 
 /* Popup visibility toggle */
 .popup.active {
     display: flex;
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f5c6cb; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fae3e3; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f5c6cb; /* Darker color on hover */
 }
 
 
@@ -282,7 +314,7 @@ button[type="submit"]:hover {
 
 /* Style for delete button */
 .delete-btn {
-    background-color: #e74c3c;
+    background-color: #ff7d6f;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -294,7 +326,7 @@ button[type="submit"]:hover {
 }
 
 .delete-btn:hover {
-    background-color: #c0392b;
+    background-color: #d86356;
     color: #ffffff;
 }
 
