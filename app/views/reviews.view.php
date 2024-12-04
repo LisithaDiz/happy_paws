@@ -44,8 +44,8 @@ echo "-->";
                             <textarea name="comment" required class="search-bar" style="min-height: 100px;"><?= htmlspecialchars($review->comment) ?></textarea>
                         </div>
                         <div class="button-group">
-                            <button type="submit" class="book-button">Update Review</button>
-                            <a href="<?= ROOT ?>/reviews/index/<?= $review->sitter_id ?>" class="search-button">Cancel</a>
+                            <button type="submit" class="button update-button">Update Review</button>
+                            <a href="<?= ROOT ?>/reviews/index/<?= $review->sitter_id ?>" class="button">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -86,7 +86,7 @@ echo "-->";
                                 <label>Comment:</label>
                                 <textarea name="comment" required class="search-bar" style="min-height: 100px;" placeholder="Write your review here..."></textarea>
                             </div>
-                            <button type="submit" name="submit_review" class="book-button">Submit Review</button>
+                            <button type="submit" name="submit_review" class="button submit-button">Submit Review</button>
                         </form>
                     </div>
                 <?php endif; ?>
@@ -110,9 +110,9 @@ echo "-->";
                                 </div>
                                 <?php if (isset($_SESSION['owner_id']) && $_SESSION['owner_id'] == $review->owner_id): ?>
                                     <div class="review-actions">
-                                        <a href="<?= ROOT ?>/reviews/edit/<?= $review->review_id ?>" class="search-button">Edit</a>
+                                        <a href="<?= ROOT ?>/reviews/edit/<?= $review->review_id ?>" class="button edit-button">Edit</a>
                                         <form method="POST" action="<?= ROOT ?>/reviews/delete/<?= $review->review_id ?>" style="display: inline;">
-                                            <button type="submit" class="clear-button" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
+                                            <button type="submit" class="button delete-button" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
                                         </form>
                                     </div>
                                 <?php endif; ?>

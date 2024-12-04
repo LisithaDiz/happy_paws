@@ -6,6 +6,8 @@
     padding: 20px;
     margin-left: 400px;
     margin-right: 100px;
+    padding-top: 120px;
+    margin-top: 6px;
 }
 
 .reviews-container {
@@ -119,76 +121,29 @@
 }
 
 .search-bar {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1em;
+    width: 100%; /* Set width */
+    padding: 12px; /* Padding for better spacing */
+    margin: 10px; /* Margin for spacing */
+    border: none; /* Remove border when not hovered */
+    border-radius: 5px; /* Rounded corners */
+    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Gradient background */
+    font-size: 16px; /* Font size */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    outline: none; /* Remove default outline */
 }
 
-select.search-bar {
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 1em;
+.search-bar:focus {
+    border: none; /* Remove border on focus */
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
+    background-color: #ffe6e6; /* Light background color on focus */
+    transform: scale(1.02); /* Slightly enlarge on focus */
 }
 
-textarea.search-bar {
-    resize: vertical;
-    min-height: 100px;
+.search-bar:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
 }
 
-/* Button Styles */
-.button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.book-button, 
-.search-button, 
-.clear-button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.book-button {
-    background-color: #fae3e3;
-    color: rgb(0, 0, 0);
-}
-
-
-
-.search-button {
-    background-color: #fae3e3;
-    color:black ;
-}
-
-.clear-button {
-    background-color: #ef384a;
-    color: rgb(255, 255, 255);
-}
-
-.book-button:hover {
-    background-color: #f5c6cb;
-    color: black;
-}
-
-.search-button:hover {
-    background-color: #f5c6cb;
-    color: black;
-}
-
-.clear-button:hover {
-    background-color: #c82333;
-    color: white;
-}
 
 /* Review Actions */
 .review-actions {
@@ -267,4 +222,75 @@ textarea.search-bar {
 
 .petsitter-card {
     animation: fadeIn 0.5s ease-out;
+}
+
+/* Common button styles for all buttons */
+.button {
+    padding: 10px 20px; /* Adjust padding for uniform size */
+    margin: 10px; /* Margin for spacing */
+    cursor: pointer; /* Pointer cursor on hover */
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Common gradient background */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+}
+
+.button:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-3px); /* Lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.button:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
+/* Specific styles for edit and delete buttons */
+.edit-button, .delete-button {
+    padding: 10px 20px; /* Ensure same padding for edit and delete buttons */
+}
+
+/* Specific styles for the update button */
+.update-button {
+    padding: 10px 20px; /* Ensure same padding for update button */
+}
+
+/* Specific styles for the submit button */
+.submit-button {
+    padding: 10px 20px; /* Ensure same padding for submit button */
+}
+
+/* Apply hover effects to specific buttons */
+.submit-button:hover {
+    background: linear-gradient(135deg, #388e3c, #2e7d32); /* Darker green on hover */
+}
+
+.delete-button:hover {
+    background: linear-gradient(135deg, #bb1111, #c62828); /* Darker red on hover */
+}
+
+/* Specific styles for the edit button */
+.edit-button {
+    background: linear-gradient(135deg, #ffeb3b, #fbc02d); /* Yellow gradient for edit */
+    color: black; /* Text color for better contrast */
+}
+
+/* Apply hover effects to the edit button */
+.edit-button:hover {
+    background: linear-gradient(135deg, #fbc02d, #f9a825); /* Darker yellow on hover */
+}
+
+/* Specific styles for the update button */
+.update-button {
+    background: linear-gradient(135deg, #2196f3, #1976d2); /* Blue gradient for update */
+    color: white; /* Text color for better contrast */
+}
+
+/* Apply hover effects to the update button */
+.update-button:hover {
+    background: linear-gradient(135deg, #1976d2, #1565c0); /* Darker blue on hover */
 }
