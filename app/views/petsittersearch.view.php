@@ -21,7 +21,7 @@
        
     <div class="search-container">
         <h1 class="search-heading">Search for Pet Sitters</h1>
-        <form action="<?=ROOT?>/PetsitterSearch" method="POST">
+        <form action="<?=ROOT?>/PetsitterSearch/index" method="POST">
             <input type="text" name="name" placeholder="Search by name" class="search-bar">
             <input type="text" name="location" placeholder="Search by location" class="search-bar">
             <button type="submit" name="search" class="search-button">Search</button>

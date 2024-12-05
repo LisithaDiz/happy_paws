@@ -7,40 +7,65 @@ body {
     color: #d8544c; /* Or use a specific shade like #FFA500 */
     font-size: 24px;
     margin-bottom: 20px;
+    margin-top: 100px;
 }
 
 .search-container {
     text-align: center;
     padding: 20px;
+    
 }
 
 .search-bar {
     width: 200px;
     padding: 10px;
     margin: 10px;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Gradient background */
+    font-size: 16px; /* Font size */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    outline: none; /* Remove default outline */
+    
+}
+
+.search-bar:focus {
+    border: none;
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
+    background-color: #ffe6e6; /* Light background color on focus */
+    transform: scale(1.02); /* Slightly enlarge on focus */
+}
+
+.search-bar:hover {
+    border: 2px solid #ff4d44;
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3); /* Deeper shadow on hover for 3D effect */
 }
 
 .search-button, .clear-button, .book-button {
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
-    background-color: #f8929c;
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Gradient background */
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.book-button {
-    width: 30%;
-    margin: 0 auto;
-    display: block;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
 }
 
 .search-button:hover, .clear-button:hover, .book-button:hover {
-    background-color: #d8544c;
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
 }
+
+.search-button:active, .clear-button:active, .book-button:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
 
 .results-container {
     display: flex;
@@ -59,7 +84,7 @@ body {
     padding: 20px;
     border: 1px solid #ddd;
     width: 90%;
-    min-height: 200px;
+    min-height: 250px;
     display: flex;
     gap: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -79,7 +104,7 @@ body {
 }
 
 .results-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #ffcacf;
     border-radius: 4px;
 }
 

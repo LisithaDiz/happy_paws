@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/PetOwnerAppointments" class="<?= ($currentPage == 'findvet') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/VetSearch" class="<?= ($currentPage == 'findvet') ? 'active' : '' ?>">
                     <i class="fas fa-user-md"></i>
                     <span>Find Vet</span>
                 </a>
