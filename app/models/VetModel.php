@@ -75,6 +75,29 @@ class VetModel
 		return $result;
 	}
 
+	public function getAppointmentDetails()
+	{
+		$userid= $_SESSION['user_id'];
+		
+
+		$query=" SELECT appointments.pet_id, appointments.startTime, appointments.endTime, pets.pet_name
+				FROM appointments
+				JOIN pets ON appointments.pet_id = pets.pet_id
+				JOIN veterinary_surgeon ON veterinary_surgeon.vet_id = appointments.vet_id
+				JOIN user ON user.user_id = veterinary_surgeon.user_id
+				WHERE user.user_id = :userid ";
+
+			
+
+		$params = ['userid'=> $userid];
+
+		$result = $this->query($query, $params);
+		var_dump($result);
+		
+		return $result;
+
+	}
+
 	public function getById($id, $id_column = 'vet_id')
 	{
 		$sql = "SELECT * FROM veterinary_surgeon WHERE $id_column = :id";

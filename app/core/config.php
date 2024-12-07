@@ -10,7 +10,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 	
-	define('ROOT', 'http://localhost/test/public');
+	define('ROOT', 'http://localhost/happy_paws/public');
 
 }else
 {
@@ -34,4 +34,4 @@ define('APP_NAME', "My Webiste");
 define('APP_DESC', "Best website on the planet");
 
 /** true means show errors **/
-define('DEBUG',false);
+define('DEBUG',true);

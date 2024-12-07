@@ -6,6 +6,10 @@ class VetAppoinment
 
     public function index()
     {
-        $this->view('VetAppoinment');
+        $vetModel = new vetModel;
+
+        $appointmentDetails = $vetModel->getAppointmentDetails();
+
+        $this->view('VetAppoinment', ['appointmentDetails' => $appointmentDetails]);
     }
 }

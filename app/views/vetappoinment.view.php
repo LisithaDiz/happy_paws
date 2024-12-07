@@ -16,30 +16,25 @@
 
 
         <div class="main-content">
+            
             <div class="overview-cards">
                 <div class="appoinement-requests">
                     <h1>Appointments</h1>
-                    
-                    <!-- Each card will have its own appointment details -->
-                    <div class="card" id="appointment1">
-                        <h3>Appointment 1</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '10:00 AM', 'appointment1')">View Details</button>
-                    </div>
 
-                    <div class="card" id="appointment2">
-                        <h3>Appointment 2</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2:00 PM', 'appointment2')">View Details</button>
-                    </div>
-
-                    <div class="card" id="appointment3">
-                        <h3>Appointment 3</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Charlie', '2024-11-22', '4:00 PM', 'appointment3')">View Details</button>
-                    </div>
-
-                    <div class="card" id="appointment4">
-                        <h3>Appointment 4</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '11:00 AM', 'appointment4')">View Details</button>
-                    </div>
+                    <?php if (isset($appointmentDetails) && !empty($appointmentDetails)):?>
+                        <?php foreach ($appointmentDetails as $appointment):?>
+                        <!-- Each card will have its own appointment details -->
+                        <div class="card" id="appointment<?= htmlspecialchars($appointment->pet_id) ?>">
+                            <h3>Appointment for <?= htmlspecialchars($appointment->pet_name) ?></h3>
+                            <button class="btn-dashboard" onclick="openPopup('<?= htmlspecialchars($appointment->pet_name) ?>' , 
+                            '<?= htmlspecialchars($appointment->startTime) ?>' , 
+                            '<?= htmlspecialchars($appointment->endTime) ?>' , 
+                            'appointment<?= htmlspecialchars($appointment->pet_id) ?>')">View Details</button>
+                        </div>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <p>No appointment details found.</p>
+                    <?php endif; ?>
 
 
                     <!-- Popup structure -->
@@ -47,8 +42,8 @@
                         <div class="popup-content">
                             <h3>Appointment Details</h3>
                             <p><strong>Pet Name:</strong> <span id="petName">Max</span></p>
-                            <p><strong>Appointment Date:</strong> <span id="appointmentDate">2024-11-20</span></p>
-                            <p><strong>Time:</strong> <span id="appointmentTime">10:00 AM</span></p>
+                            <p><strong>Appointment Date:</strong> <span id="startTime">2024-11-20</span></p>
+                            <p><strong>Time:</strong> <span id="endTime">10:00 AM</span></p>
                             
                             <!-- Completed button in the popup -->
                             <button class="btn-completed" onclick="completeAppointment()">Completed</button>
@@ -67,10 +62,10 @@
         let currentAppointmentId = null;
 
             // Function to open the popup with dynamic details
-            function openPopup(petName, appointmentDate, appointmentTime, appointmentId) {
+            function openPopup(petName, startTime, endTime, appointmentId) {
                 document.getElementById("petName").textContent = petName;
-                document.getElementById("appointmentDate").textContent = appointmentDate;
-                document.getElementById("appointmentTime").textContent = appointmentTime;
+                document.getElementById("startTime").textContent = startTime;
+                document.getElementById("endTime").textContent = endTime;
                 document.getElementById("appointmentPopup").style.display = "flex";
 
                 currentAppointmentId = appointmentId; // Set the correct current appointment ID
