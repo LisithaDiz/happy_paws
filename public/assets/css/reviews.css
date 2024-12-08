@@ -138,6 +138,27 @@
     box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
     background-color: #ffe6e6; /* Light background color on focus */
     transform: scale(1.02); /* Slightly enlarge on focus */
+    width: 100%; /* Set width */
+    padding: 12px; /* Padding for better spacing */
+    margin: 10px; /* Margin for spacing */
+    border: none; /* Remove border when not hovered */
+    border-radius: 5px; /* Rounded corners */
+    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Gradient background */
+    font-size: 16px; /* Font size */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    outline: none; /* Remove default outline */
+}
+
+.search-bar:focus {
+    border: none; /* Remove border on focus */
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
+    background-color: #ffe6e6; /* Light background color on focus */
+    transform: scale(1.02); /* Slightly enlarge on focus */
+}
+
+.search-bar:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
 }
 
 .search-bar:hover {

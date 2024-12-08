@@ -7,11 +7,13 @@ body {
     color: #d8544c; /* Or use a specific shade like #FFA500 */
     font-size: 24px;
     margin-bottom: 20px;
+    margin-top: 100px;
 }
 
 .search-container {
     text-align: center;
     padding: 20px;
+    
 }
 
 .search-bar {

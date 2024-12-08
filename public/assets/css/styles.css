@@ -253,15 +253,15 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #f5c6cb; /* Track color */
+    background-color: #ffffff; /* Track color */
     border-radius: 10px; /* Rounded corners */
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #fae3e3; /* Thumb color */
+    background-color: #fc9191; /* Thumb color */
     border-radius: 10px; /* Rounded corners */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #f5c6cb; /* Darker color on hover */
+    background-color: #f95b5b; /* Darker color on hover */
 }
