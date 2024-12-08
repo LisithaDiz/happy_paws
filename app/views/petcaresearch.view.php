@@ -41,8 +41,9 @@
                                 <p>Contact Number: <?php echo htmlspecialchars($petCareCenter['contact_number']); ?></p>
                                 <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", $petCareCenter['rating']); ?></span></p>
                                 <p>Services: <?php echo htmlspecialchars($petCareCenter['services']); ?></p>
+                                <button class="book-button">View Reviews</button>
                                 <button class="book-button">Book</button>
-                                <a href="/ReviewController/index/<?= $petCareCenter['id'] ?>" class="review-button">View Reviews</a>
+          
                             </div>
                         </div>
                     <?php endforeach; ?>

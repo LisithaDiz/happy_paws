@@ -161,14 +161,14 @@ body {
 }
 
 .view-reviews-btn {
-    padding: 5px 10px;
-    margin: 8px;
+    padding: 5px 15px;
+    margin: 12px;
     cursor: pointer;
     background: linear-gradient(135deg, #f8929c, #d8544c);
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 12px;
     transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-decoration: none; /* Remove underline for anchor tag */
