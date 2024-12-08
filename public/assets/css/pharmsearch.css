@@ -8,6 +8,7 @@ body {
     color: #d8544c;
     font-size: 24px;
     margin-bottom: 20px;
+    padding-top: 60px;
 }
 
 .search-container {
@@ -17,21 +18,53 @@ body {
 
 .search-bar {
     width: 200px;
-    padding: 10px;
+    padding: 12px;
     margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
 }
 
-.search-button, .clear-button, .contact-button {
+.search-bar:focus {
+    border: none;
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: #ffe6e6;
+    transform: scale(1.02);
+}
+
+.search-bar:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+.search-button, .clear-button, .book-button {
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
-    background-color: #f8929c;
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Gradient background */
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
 }
+
+.search-button:hover, .clear-button:hover, .book-button:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.search-button:active, .clear-button:active, .book-button:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
 
 .contact-button {
     width: 120px;
@@ -39,9 +72,7 @@ body {
     align-self: center;
 }
 
-.search-button:hover, .clear-button:hover, .contact-button:hover {
-    background-color: #d8544c;
-}
+
 
 .results-container {
     display: flex;
@@ -65,6 +96,11 @@ body {
     padding: 20px;
     width: 90%;
     gap: 20px;
+}
+
+.pharmacy-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(245, 69, 20, 0.2);
 }
 
 .pharmacy-image {
@@ -123,24 +159,18 @@ body {
     margin: 8px 0;
 }
 
-/* Scrollbar styling */
-.results-container::-webkit-scrollbar {
-    width: 10px;
-    display: block;
-}
-
 .results-container::-webkit-scrollbar-track {
-    background: #fae3e3;
-    border-radius: 10px;
+    background: #ffd5dd;
+    border-radius: 4px;
 }
 
 .results-container::-webkit-scrollbar-thumb {
-    background: #d8544c;
-    border-radius: 10px;
+    background: #f8929c;
+    border-radius: 4px;
 }
 
 .results-container::-webkit-scrollbar-thumb:hover {
-    background: #c13f37;
+    background: #f95b5b;
 }
 
 /* Responsive design */

@@ -18,7 +18,7 @@
     <?php include ('components/nav.php'); ?>
     
         <div class="dashboard-container">
-        <?php include ('components/sidebar3.php'); ?>
+        <?php include ('components/sidebar.php'); ?>
 
 
     <div class="search-container">
