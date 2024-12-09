@@ -40,8 +40,9 @@
                                 <p>Location: <?php echo htmlspecialchars($petCareCenter['city'] . ', ' . $petCareCenter['street']); ?></p>
                                 <p>Contact Number: <?php echo htmlspecialchars($petCareCenter['contact_number']); ?></p>
                                 <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", $petCareCenter['rating']); ?></span></p>
+                                <button class="view-reviews-btn">View Reviews</button>
                                 <p>Services: <?php echo htmlspecialchars($petCareCenter['services']); ?></p>
-                                <button class="book-button">View Reviews</button>
+                                
                                 <button class="book-button">Book</button>
           
                             </div>

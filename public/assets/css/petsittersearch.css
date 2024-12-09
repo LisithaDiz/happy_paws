@@ -65,7 +65,7 @@ body {
 
 .view-reviews-btn {
     display: inline-block;
-    padding: 8px 15px; /* Adjusted padding for better spacing */
+    padding: 2px 6px; /* Adjusted padding for a smaller button */
     background: linear-gradient(135deg, #ffb0b7, #ff4d44); /* Gradient background */
     color: white;
     border-radius: 5px;
@@ -73,6 +73,8 @@ body {
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    text-size-adjust: auto;
+    font-size: 10px; /* Smaller font size */
 }
 
 .view-reviews-btn:hover {
@@ -139,6 +141,8 @@ body {
     flex-direction: column;
     gap: 10px;
     padding: 15px;
+    align-items: center; /* Center text content horizontally */
+    text-align: center; /* Center text within the info section */
 }
 
 .petsitter-info h2 {

@@ -41,7 +41,7 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.search-button, .clear-button, .book-button, .view-reviews-btn {
+.search-button, .clear-button, .book-button {
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
@@ -60,13 +60,13 @@ body {
     display: block;
 }
 
-.search-button:hover, .clear-button:hover, .book-button:hover, .view-reviews-btn:hover {
+.search-button:hover, .clear-button:hover, .book-button:hover {
     background: linear-gradient(135deg, #d8544c, #ff4d44);
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.search-button:active, .clear-button:active, .book-button:active, .view-reviews-btn:active {
+.search-button:active, .clear-button:active, .book-button:active{
     transform: translateY(1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -161,8 +161,9 @@ body {
 }
 
 .view-reviews-btn {
-    padding: 5px 15px;
+    padding: 8px 15px;
     margin: 12px;
+    margin-top: 8px;
     cursor: pointer;
     background: linear-gradient(135deg, #f8929c, #d8544c);
     color: white;
