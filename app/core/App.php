@@ -36,7 +36,7 @@ class App
         
         '2' => ['VetDashboard' => ['index'],
                 'VetProfile'=> ['index','updateVetDetails','vetprofile','deleteVet'],
-                'VetAppoinment' => ['index','getAppointmentDetails'],
+                'VetAppoinment' => ['index','getAppointmentDetails','appointmentStatus'],
                 'VetRequest' => ['index'],
                 'VetTreatedPet' => ['index'],
                 'VetPrescription' => ['index'],
