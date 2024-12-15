@@ -29,6 +29,7 @@ class App
                'Petcaresearch' => ['index'],
                'PharmSearch' => ['index'],
                'Reviews' =>['index','edit','delete','add','insert'],
+               'Reviews2' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
                'PetOwnerDash'=>['index']
             ], 

@@ -28,6 +28,11 @@ class PetsitterSearch
             $petSitters = $this->petSitterModel->getAllSitters();
         }
 
+        // Ensure $petSitters is an array before using it in foreach
+        if (!is_array($petSitters)) {
+            $petSitters = []; // Default to an empty array if not valid
+        }
+
         // Format the data for display
         $formattedSitters = [];
         foreach ($petSitters as $sitter) {

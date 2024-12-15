@@ -41,7 +41,12 @@
                     <div class="vet-info">
                         <h2><?php echo htmlspecialchars($vet['name']); ?></h2>
                         <p>Location: <?php echo htmlspecialchars($vet['location']); ?></p>
-                        <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", $vet['rating']); ?></span></p>
+                        <?php if (isset($vet['rating'])): ?>
+                            <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", floor($vet['rating'])); ?></span></p>
+                        <?php else: ?>
+                            <p>Rating: Not available</p>
+                        <?php endif; ?>
+                        <button class="view-reviews-btn" onclick="location.href='<?=ROOT?>/reviews2/index/<?= $vet['vet_id'] ?>'">View Reviews</button>
                         <p>Related Pets: Dogs, Cats, Birds</p>
                         <a href="<?=ROOT?>/PetOwnerAppointments" class="book-button">Book</a>
                     </div>
