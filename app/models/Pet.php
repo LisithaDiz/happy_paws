@@ -162,7 +162,29 @@ class Pet {
         header("Location: " . ROOT . "/PetOwnerDash");
 
     }
+
+    public function treatedPetDetails()
+    {
+        echo"sssss";
+        $userid = $_SESSION['user_id'];
+        $query= "SELECT p.pet_id, p.pet_name, p.age, o.f_name, o.l_name
+                FROM pets p
+                JOIN pet_owner o ON p.owner_id = o.owner_id
+                JOIN appointments a ON p.pet_id = a.pet_id
+                JOIN veterinary_surgeon v ON v.vet_id = a.vet_id
+                JOIN user u ON u.user_id = v.user_id
+                WHERE u.user_id = :userid AND a.appointment_status = '1'";
+
+        $params = ['userid'=>$userid];
+
+        $result = $this->query($query,$params);
+
+        return $result;
+
+
+    }
     
+
     
     
 }

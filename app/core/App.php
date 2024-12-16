@@ -38,7 +38,7 @@ class App
                 'VetProfile'=> ['index','updateVetDetails','vetprofile','deleteVet'],
                 'VetAppoinment' => ['index','getAppointmentDetails','appointmentStatus'],
                 'VetRequest' => ['index'],
-                'VetTreatedPet' => ['index'],
+                'VetTreatedPet' => ['index','treatedPetDetails'],
                 'VetPrescription' => ['index'],
                 'VetAvailability' => ['index'],
                 'VetMedRequest' => ['index','addMedicineRequest'],
