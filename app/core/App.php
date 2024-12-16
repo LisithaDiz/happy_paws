@@ -26,10 +26,12 @@ class App
                'PetOwnerGuardians' => ['index'],
                'PetsitterSearch' => ['index'],
                'PetOwnerSitterSelection' => ['index'],
-               'Petcaresearch' => ['index'],
+               'PetcareSearch' => ['index'],
                'PharmSearch' => ['index'],
                'Reviews' =>['index','edit','delete','add','insert'],
                'Reviews2' =>['index','edit','delete','add','insert'],
+               'Reviews3' =>['index','edit','delete','add','insert'],
+               'Reviews4' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
                'PetOwnerDash'=>['index']
             ], 

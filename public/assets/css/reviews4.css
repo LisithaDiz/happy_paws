@@ -1,0 +1,271 @@
+/* Main Container Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-left: 400px;
+    margin-right: 100px;
+    padding-top: 90px;
+    margin-top: 6px;
+}
+
+.reviews-container {
+    background: #ffc4c1; /* Light red background */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    min-height: calc(100vh - 300px);
+}
+
+/* Heading Styles */
+.search-heading {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Login Prompt */
+.login-prompt {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.login-prompt a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Review Card Styles */
+.care_center-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+
+.care_center-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Review Header */
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-name {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+.rating-date {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.rating {
+    color: #ffd700; /* Gold color for rating stars */
+}
+
+.date {
+    color: #666;
+}
+
+/* Comment Section */
+.comment {
+    color: #2c3e50;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.search-bar {
+    width: 100%; /* Set width */
+    padding: 12px; /* Padding for better spacing */
+    margin: 10px; /* Margin for spacing */
+    border: none; /* Remove border when not hovered */
+    border-radius: 5px; /* Rounded corners */
+    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Gradient background */
+    font-size: 16px; /* Font size */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    outline: none; /* Remove default outline */
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
+    background-color: #ffe6e6; /* Light background color on focus */
+    transform: scale(1.02); /* Slightly enlarge on focus */
+}
+
+/* Review Actions */
+.review-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Empty State */
+.no-reviews {
+    text-align: center;
+    color: #666;
+    padding: 40px 20px;
+    font-size: 1.1em;
+}
+
+/* Add Review Container */
+.add-review-container {
+    margin-bottom: 30px;
+}
+
+/* Edit Review Container */
+.edit-review-container {
+    margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .reviews-container {
+        padding: 15px;
+    }
+
+    .review-header {
+        flex-direction: column;
+    }
+
+    .rating-date {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .vet-card {
+        margin-bottom: 20px;
+    }
+
+    .review-actions {
+        flex-direction: column;
+    }
+}
+
+/* Animation for new reviews */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.care_center-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Button Styles */
+.button {
+    padding: 12px 24px; /* Adjust padding for a more substantial button */
+    margin: 10px; /* Margin for spacing */
+    cursor: pointer; /* Pointer cursor on hover */
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Common gradient background */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 8px; /* More rounded corners */
+    font-size: 16px; /* Slightly larger font size */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced 3D effect */
+}
+
+.button:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-4px); /* Lift the button more on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.button:active {
+    transform: translateY(2px); /* Slightly lower the button on click */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
+/* Specific button styles */
+.update-button {
+    background: linear-gradient(135deg, #ffeb3b, #fbc02d); /* Yellow gradient for edit */
+    color: black; /* Text color for better contrast */
+}
+
+.update-button:hover {
+    background: linear-gradient(135deg, #fbc02d, #f9a825); /* Darker yellow on hover */
+}
+
+.submit-button {
+    background: linear-gradient(135deg, #388e3c, #2e7d32); /* Green gradient for submit */
+    color: white; /* Text color for better contrast */
+}
+
+.submit-button:hover {
+    background: linear-gradient(135deg, #2e7d32, #1b5e20); /* Darker green on hover */
+}
+
+.clear-button {
+    background: linear-gradient(135deg, #bb1111, #c62828); /* Red gradient for delete */
+    color: white; /* Text color */
+}
+
+.clear-button:hover {
+    background: linear-gradient(135deg, #c62828, #b71c1c); /* Darker red on hover */
+}
+
+.search-button {
+    background: linear-gradient(135deg, #2196f3, #1976d2); /* Blue gradient for search */
+    color: white; /* Text color for better contrast */
+}
+
+.search-button:hover {
+    background: linear-gradient(135deg, #1976d2, #1565c0); /* Darker blue on hover */
+}

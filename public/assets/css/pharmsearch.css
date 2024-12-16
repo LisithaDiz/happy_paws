@@ -120,6 +120,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: 10px;
     padding: 15px;
 }
@@ -195,4 +196,28 @@ footer{
 
 .dashboard-container {
      margin-top: 50px;
+}
+
+.view-reviews-btn {
+    padding: 5px 10px; /* Smaller padding for a smaller button */
+    margin: 10px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px; /* Smaller font size */
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+}
+
+.view-reviews-btn:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.view-reviews-btn:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
 }

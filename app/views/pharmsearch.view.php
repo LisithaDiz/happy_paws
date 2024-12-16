@@ -42,6 +42,7 @@
                     <!-- Rating -->
                     <div class="rating">
                         <p>Rating: <span class="rating-stars"><?=str_repeat("⭐", $pharmacy['rating'])?></span></p>
+                        <button class="view-reviews-btn" onclick="location.href='<?=ROOT?>/reviews3/index/<?= $pharmacy['pharmacy_id'] ?>'">View Reviews</button>
                     </div>
                     
                     <!-- Description -->
@@ -49,9 +50,7 @@
                     
                     <!-- Details -->
                     <div class="pharmacy-details">
-                        <p><strong>Experience:</strong> <?=htmlspecialchars($pharmacy['experience'])?></p>
-                        <p><strong>Opening Hours:</strong> <?=htmlspecialchars($pharmacy['opening_hours'])?></p>
-                        <p><strong>Contact:</strong> <?=htmlspecialchars($pharmacy['contact'])?></p>
+                        <p><strong>Contact:</strong> <?=htmlspecialchars($pharmacy['contact_no'])?></p>
                     </div>
                     
                     <!-- Services -->

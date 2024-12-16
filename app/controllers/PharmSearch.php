@@ -42,7 +42,9 @@ class PharmSearch
                 'location' => $pharmacy->location,
                 'rating' => 4.5, // You can add a ratings table later
                 'image' => 'default-petpharmacy.jpg',
-                'contact_no' => $pharmacy->contact_no
+                'contact_no' => $pharmacy->contact_no,
+                'services' => 'Pet medication and petfood',
+                'description' => 'We are providing all the medication products needed for your pets. We have wide range of medicines.' 
             ];
         }
 

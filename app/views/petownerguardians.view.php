@@ -28,7 +28,7 @@
                     <div class="card">
                         <img src="<?= ROOT ?>/assets/images/petcare_.jpg" alt="Default Pet Image" class="pet-profile-pic">
                         <h3>Find pet care center</h3>
-                        <a href="<?= htmlspecialchars(ROOT) ?>/Petcaresearch" class="btn-dashboard">Select</a>
+                        <a href="<?= htmlspecialchars(ROOT) ?>/PetcareSearch" class="btn-dashboard">Select</a>
                     </div>
                 </div>
             </section>
