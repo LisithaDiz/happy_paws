@@ -42,7 +42,16 @@
                     
                     <!-- Rating and Reviews -->
                     <div class="rating">
-                        <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", floor($petSitter['rating'])); ?></span></p>
+                        <p>Rating: <span class="rating-stars">
+                            <?php 
+                            $rating = $petSitter['rating'];
+                            echo str_repeat("⭐", floor($rating));
+                            if ($rating - floor($rating) >= 0.5) {
+                                echo "½";
+                            }
+                            ?></span>
+                            <span class="rating-number">(<?= number_format($rating, 1) ?>)</span>
+                        </p>
                         <a href="<?=ROOT?>/reviews/index/<?= $petSitter['sitter_id'] ?>" class="view-reviews-btn">View Reviews</a>
                     </div>
                     

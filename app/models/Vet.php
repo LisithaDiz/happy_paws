@@ -54,4 +54,18 @@ class Vet
         
         return $this->query($query, $params);
     }
+
+    public function getAverageRating($vet_id) {
+        $query = "SELECT AVG(rating) as avg_rating 
+                  FROM vet_reviews 
+                  WHERE vet_id = :vet_id";
+        
+        $result = $this->query($query, ['vet_id' => $vet_id]);
+        
+        if ($result && isset($result[0]->avg_rating)) {
+            return round($result[0]->avg_rating, 1); // Round to 1 decimal place
+        }
+        
+        return 0; // Default rating if no reviews
+    }
 }

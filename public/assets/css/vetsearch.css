@@ -89,7 +89,7 @@ body {
     padding: 20px;
     border: 1px solid #ddd;
     width: 90%;
-    min-height: 280px;
+    min-height: 300px;
     display: flex;
     gap: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -154,30 +154,53 @@ body {
     font-size: 14px !important;
 }
 
-.rating-stars {
-    color: #d8544c; /* Same color as the book button */
-    filter: hue-rotate(320deg); /* This helps adjust the star color */
+.rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
 }
+
+.rating p {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+}
+
+.rating-stars {
+    color: #d8544c;
+    filter: hue-rotate(320deg);
+}
+
+.rating-number {
+    color: #666;
+    font-size: 14px;
+}
+
 .view-reviews-btn {
-    padding: 5px 10px; /* Smaller padding for a smaller button */
-    margin: 10px;
+    padding: 8px 10px;
+    margin: 10px auto;
     cursor: pointer;
-    background: linear-gradient(135deg, #f8929c, #d8544c); /* Gradient background */
+    background: linear-gradient(135deg, #f8929c, #d8544c);
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 12px; /* Smaller font size */
-    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    font-size: 12px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: block;
+    text-align: center;
 }
 
 .view-reviews-btn:hover {
-    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
-    transform: translateY(-2px); /* Slightly lift the button on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+    background: linear-gradient(135deg, #d8544c, #ff4d44);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .view-reviews-btn:active {
-    transform: translateY(1px); /* Slightly lower the button on click */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

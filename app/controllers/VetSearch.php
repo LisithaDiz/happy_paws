@@ -33,6 +33,7 @@ class VetSearch
         // Format the data for display
         $formattedVets = [];
         foreach ($vets as $vet) {
+            $avgRating = $this->vetModel->getAverageRating($vet->vet_id);
             $formattedVets[] = [
                 'vet_id' => $vet->vet_id,
                 'name' => htmlspecialchars($vet->name),
@@ -40,6 +41,7 @@ class VetSearch
                 'street' => htmlspecialchars($vet->street),
                 'experience' => htmlspecialchars($vet->experience),
                 'contact_no' => htmlspecialchars($vet->contact_no),
+                'rating' => $avgRating
             ];
         }
 

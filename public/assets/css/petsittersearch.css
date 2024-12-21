@@ -239,3 +239,22 @@ body {
     margin: 8px 0;
 }
 
+.rating-number {
+    font-size: 14px;
+    color: #666;
+    margin-left: 5px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.rating p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+

@@ -53,4 +53,18 @@ class PetSitter
         
         return $this->query($query, $params);
     }
+
+    public function getAverageRating($sitter_id) {
+        $query = "SELECT AVG(rating) as avg_rating 
+                  FROM sitter_reviews 
+                  WHERE sitter_id = :sitter_id";
+        
+        $result = $this->query($query, ['sitter_id' => $sitter_id]);
+        
+        if ($result && isset($result[0]->avg_rating)) {
+            return round($result[0]->avg_rating, 1); // Round to 1 decimal place
+        }
+        
+        return 0; // Default rating if no reviews
+    }
 }
