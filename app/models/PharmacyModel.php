@@ -52,7 +52,19 @@ class PharmacyModel
         return $this->query($query, $params);
     }
 
-	
+	public function getAverageRating($pharmacy_id) {
+        $query = "SELECT AVG(rating) as avg_rating 
+                  FROM pharmacy_reviews 
+                  WHERE pharmacy_id = :pharmacy_id";
+        
+        $result = $this->query($query, ['pharmacy_id' => $pharmacy_id]);
+        
+        if ($result && isset($result[0]->avg_rating)) {
+            return round($result[0]->avg_rating, 1); // Round to 1 decimal place
+        }
+        
+        return 0; // Default rating if no reviews
+    }
 
 	
 }

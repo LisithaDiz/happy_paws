@@ -36,11 +36,12 @@ class PharmSearch
         // Format the data for display
         $formattedPharmacies = [];
         foreach ($pharmacies as $pharmacy) {
+            $avgRating = $this->pharmacyModel->getAverageRating($pharmacy->pharmacy_id);
             $formattedPharmacies[] = [
                 'pharmacy_id' => $pharmacy->pharmacy_id,
                 'name' => $pharmacy->name,
                 'location' => $pharmacy->location,
-                'rating' => 4.5, // You can add a ratings table later
+                'rating' => $avgRating,
                 'image' => 'default-petpharmacy.jpg',
                 'contact_no' => $pharmacy->contact_no,
                 'services' => 'Pet medication and petfood',

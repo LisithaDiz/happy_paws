@@ -39,11 +39,22 @@
                     <h2><?=htmlspecialchars($pharmacy['name'])?></h2>
                     <p><i class="fas fa-map-marker-alt"></i> <?=htmlspecialchars($pharmacy['location'])?></p>
                     
-                    <!-- Rating -->
-                    <div class="rating">
-                        <p>Rating: <span class="rating-stars"><?=str_repeat("⭐", $pharmacy['rating'])?></span></p>
-                        <button class="view-reviews-btn" onclick="location.href='<?=ROOT?>/reviews3/index/<?= $pharmacy['pharmacy_id'] ?>'">View Reviews</button>
-                    </div>
+                    <!-- Rating and Reviews -->
+                        <div class="rating">
+                            <p>Rating: 
+                                <span class="rating-stars">
+                                    <?php 
+                                    $rating = $pharmacy['rating'];
+                                    echo str_repeat("⭐", floor($rating));
+                                    if ($rating - floor($rating) >= 0.5) {
+                                        echo "½";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="rating-number">(<?= number_format($rating, 1) ?>)</span>
+                            </p>
+                            <button class="view-reviews-btn" onclick="location.href='<?=ROOT?>/reviews3/index/<?= $pharmacy['pharmacy_id'] ?>'">View Reviews</button>
+                        </div>
                     
                     <!-- Description -->
                     <p class="description"><?=htmlspecialchars($pharmacy['description'])?></p>
