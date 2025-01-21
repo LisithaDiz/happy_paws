@@ -32,26 +32,72 @@
 
 /* Style the sidebar links (buttons) */
 .sidebar ul li a {
-    display: block;
-    width: 100%; /* Ensures all buttons are the same width */
-    padding: 12px 0; /* Adjust vertical padding for button height */
-    text-align: center; /* Center the text inside the button */
-    background-color: #fae3e3; /* Light pink background */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 12px 20px; /* Added horizontal padding */
+    background-color: #fae3e3;
     color: #333;
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for 3D effect */
-    transition: all 0.3s ease-in-out;
-    margin: 5px 0; /* Even spacing between buttons */
+    font-weight: 600;
+    border-radius: 12px; /* Increased border radius */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 8px 0;
+    position: relative;
+    overflow: hidden;
 }
 
-/* 3D button effect on hover */
+/* Icon styling */
+.sidebar ul li a i {
+    font-size: 18px;
+    margin-right: 12px;
+    width: 24px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Text styling */
+.sidebar ul li a span {
+    font-size: 15px;
+}
+
+/* Active state styling */
+.sidebar ul li a.active {
+    background-color: #fbfbfb;
+    color: #d8544c;
+    transform: translateX(5px);
+    box-shadow: 0 6px 12px rgba(216, 84, 76, 0.15);
+}
+
+/* Hover effects */
 .sidebar ul li a:hover {
-    background-color: #f5c6cb; /* Slightly darker pink on hover */
-    color: #fff; /* White text on hover */
-    transform: translateY(-2px); /* Slightly lift the button */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #f3f3f3;
+    color: #d8544c;
+    transform: translateX(5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar ul li a:hover i {
+    transform: scale(1.1);
+}
+
+/* Add subtle gradient overlay on hover */
+.sidebar ul li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar ul li a:hover::before {
+    opacity: 1;
 }
 
 /* Active class for the sidebar */
@@ -119,4 +165,40 @@
     .dashboard-container {
         margin-left: 250px; /* Space for the sidebar */
     }
+}
+
+/* Sidebar footer styling */
+.sidebar-footer {
+    position: absolute;
+    bottom: 60px; /* Increased from 40px to move button higher */
+    left: 0;
+    width: 100%;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.sidebar-footer .logout-btn {
+    display: inline-block; /* Changed from block to inline-block for better centering */
+    width: 80%; /* Reduced width for better visual appearance */
+    padding: 12px 0;
+    text-align: center;
+    background-color: #fae3e3;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin: 0 auto; /* Center the button */
+}
+
+.sidebar-footer .logout-btn:hover {
+    background-color: #f5c6cb;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-footer .logout-btn i {
+    margin-right: 8px;
 }

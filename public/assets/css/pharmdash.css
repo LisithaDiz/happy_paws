@@ -60,6 +60,8 @@
     display: flex;
     flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
     height: 100vh; /* Full viewport height */
+    padding-top: 100px;
+    
 }
 
 
