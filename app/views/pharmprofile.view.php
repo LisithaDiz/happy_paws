@@ -14,16 +14,7 @@
     <?php include ('components/nav.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <div class="sidebar">
-            <h3>Pharmacy Dashboard</h3>
-            <ul>
-            <li><a href="<?=ROOT?>/PharmProfile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/Revenue">Revenue</a></li>
-                <li><a href="<?=ROOT?>/Orders">Orders</a></li>    
-                <!-- <li><a href="<?=ROOT?>/pharmacy/transactions">Transcation History</a></li> -->
-                <!-- <li><a href="<?=ROOT?>/pharmacy/settings">Settings</a></li> -->
-            </ul>
-        </div>
+        <?php include ('components/sidebar2.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">
