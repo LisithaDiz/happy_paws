@@ -35,27 +35,26 @@
     margin-left: 120px;
     margin-right: 100px;
     margin-top: 80px;
-    padding: 35px;
+    padding: 25px;
     background: linear-gradient(135deg, rgba(255, 159, 159, 0.95), rgba(255, 255, 255, 0.9));
     border-radius: 25px;
     box-shadow: 0 12px 32px rgba(248, 126, 118, 0.1);
     min-height: calc(100vh - 100px);
+    overflow-y: auto;
 }
 
 /* Welcome Section */
 .welcome-section {
     background: linear-gradient(135deg, #f8ebee 0%, #ffffff 100%);
-    padding: 40px;
-    border-radius: 20px;
-    margin-bottom: 35px;
-    color: #f87e76;
-    box-shadow: 0 8px 25px rgba(248, 126, 118, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
 .welcome-section h1 {
-    font-size: 2.4em;
-    margin-bottom: 10px;
+    font-size: 1.8em;
+    margin-bottom: 5px;
     color: #f87e76;
 }
 
@@ -69,19 +68,15 @@
 .stats-section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    margin-bottom: 35px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .stat-card {
-    background: linear-gradient(135deg, #fff, #f8f9fa);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(248, 126, 118, 0.15);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    transition: all 0.3s ease;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(248, 126, 118, 0.1);
 }
 
 .stat-card:hover {
@@ -115,54 +110,42 @@
     font-size: 0.85em;
 }
 
-/* Data Section */
+/* Table Section */
 .data-section {
-    margin-bottom: 35px;
-}
-
-.section-card {
     background: white;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(248, 126, 118, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: calc(100vh - 400px); /* Adjust this value as needed */
+    overflow-y: auto;
 }
 
-.section-card h2 {
-    color: #2d3748;
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-card h2 i {
-    color: #f87e76;
-}
-
-/* Table Styles */
 .table-responsive {
     overflow-x: auto;
+    margin-top: 15px;
 }
 
 .orders-table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
 }
 
 .orders-table th {
     background: #f8f9fa;
-    padding: 15px;
-    text-align: left;
-    color: #2d3748;
     font-weight: 600;
-    white-space: nowrap;
-}
-
-.orders-table td {
-    padding: 15px;
-    border-bottom: 1px solid #edf2f7;
-    vertical-align: middle;
+    color: #2d3748;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .orders-table tr:hover {
@@ -185,13 +168,15 @@
 
 /* Status Badge */
 .status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85em;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
     font-weight: 600;
+}
+
+.status-badge.pending {
+    background: #FEF3C7;
+    color: #92400E;
 }
 
 .status-badge.accepted {
@@ -207,20 +192,19 @@
 /* Action Buttons */
 .actions {
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
 
-.btn-accept, 
+.btn-accept,
 .btn-decline {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 8px 16px;
+    padding: 5px 10px;
     border: none;
     border-radius: 8px;
-    font-size: 0.9em;
-    font-weight: 600;
     cursor: pointer;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     transition: all 0.3s ease;
 }
 
@@ -251,10 +235,19 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
 }
 
 .modal-content {
@@ -263,11 +256,22 @@
     padding: 30px;
     width: 90%;
     max-width: 500px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transform: translateY(-50px);
+    box-shadow: 0 20px 40px rgba(248, 126, 118, 0.2);
+    margin: auto;
+    animation: modalSlideIn 0.3s forwards;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modal-content h2 {
@@ -284,19 +288,29 @@
 
 .close {
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 20px;
     font-size: 24px;
     color: #718096;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f8f9fa;
+    z-index: 1;
 }
 
 .close:hover {
-    color: #2d3748;
+    color: #f87e76;
+    background: #fff0f0;
+    transform: rotate(90deg);
 }
 
-/* Form Styles */
+/* Form Styles in Modal */
 .form-group {
     margin-bottom: 20px;
 }
@@ -311,11 +325,12 @@
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.95em;
     transition: all 0.3s ease;
+    background: #f8f9fa;
 }
 
 .form-group select:focus,
@@ -323,6 +338,7 @@
     border-color: #f87e76;
     outline: none;
     box-shadow: 0 0 0 3px rgba(248, 126, 118, 0.1);
+    background: white;
 }
 
 .form-actions {
@@ -339,7 +355,7 @@
     gap: 5px;
     padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.95em;
     font-weight: 600;
     cursor: pointer;
@@ -359,23 +375,56 @@
 .btn-cancel:hover,
 .btn-submit:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Headers */
+section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3em;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(216, 84, 76, 0.1);
+}
+
+/* Filters Section */
+.filter-select {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.85em;
+}
+
+/* Search Bar */
+.search-input {
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 0.85em;
 }
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .stats-section {
-        grid-template-columns: repeat(2, 1fr);
+    .main-content {
+        margin-left: 100px;
+        margin-right: 20px;
     }
 }
 
 @media (max-width: 768px) {
-    .main-content {
-        margin: 80px 20px 20px 20px;
-        padding: 20px;
-    }
-
     .stats-section {
         grid-template-columns: 1fr;
+    }
+
+    .main-content {
+        margin-left: 80px;
+        margin-right: 10px;
+        padding: 15px;
+    }
+
+    .data-section {
+        padding: 10px;
     }
 
     .welcome-section {
@@ -394,6 +443,13 @@
     .btn-decline {
         width: 100%;
         justify-content: center;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 }
 
@@ -464,31 +520,5 @@
     transition: all 0.3s ease;
     text-align: center;
     text-decoration: none;
-    font-size: 0.85em; /* Smaller font size */
-}
-
-/* Section Headers */
-section h2 {
-    color: #333;
-    margin-bottom: 20px; /* Reduced margin */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.3em; /* Smaller font size */
-    padding-bottom: 12px;
-    border-bottom: 2px solid rgba(216, 84, 76, 0.1);
-}
-
-/* Filters Section */
-.filter-select {
-    padding: 8px 12px; /* Reduced padding */
-    border-radius: 10px;
-    font-size: 0.85em; /* Smaller font size */
-}
-
-/* Search Bar */
-.search-input {
-    padding: 8px 15px; /* Reduced padding */
-    border-radius: 10px;
     font-size: 0.85em; /* Smaller font size */
 }

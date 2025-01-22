@@ -29,7 +29,7 @@
                     <i class="fas fa-clock"></i>
                     <div class="stat-info">
                         <p class="stat-label">Pending Orders</p>
-                        <h3 class="stat-value"><?= count($data['pending_orders']) ?></h3>
+                        <h3 class="stat-value"><?= number_format($data['order_stats']->pending_orders) ?></h3>
                         <p class="stat-period">Awaiting Action</p>
                     </div>
                 </div>
@@ -37,34 +37,26 @@
                 <div class="stat-card">
                     <i class="fas fa-check-circle"></i>
                     <div class="stat-info">
-                        <p class="stat-label">Processed Orders</p>
-                        <h3 class="stat-value"><?= count($data['processed_orders']) ?></h3>
-                        <p class="stat-period">Total Processed</p>
+                        <p class="stat-label">Accepted Orders</p>
+                        <h3 class="stat-value"><?= number_format($data['order_stats']->accepted_orders) ?></h3>
+                        <p class="stat-period">Total Accepted</p>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <i class="fas fa-chart-pie"></i>
+                    <i class="fas fa-dollar-sign"></i>
                     <div class="stat-info">
-                        <p class="stat-label">Acceptance Rate</p>
-                        <h3 class="stat-value">
-                            <?php 
-                                $total = count($data['processed_orders']);
-                                $accepted = count(array_filter($data['processed_orders'], function($order) {
-                                    return $order['status'] === 'accepted';
-                                }));
-                                echo $total > 0 ? round(($accepted / $total) * 100) : 0;
-                            ?>%
-                        </h3>
-                        <p class="stat-period">Overall Rate</p>
+                        <p class="stat-label">Total Revenue</p>
+                        <h3 class="stat-value">Rs. <?= number_format($data['order_stats']->total_revenue, 2) ?></h3>
+                        <p class="stat-period">All Time</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Pending Orders Section -->
+            <!-- Recent Orders Section -->
             <div class="data-section">
                 <div class="section-card">
-                    <h2><i class="fas fa-hourglass-half"></i> Pending Orders</h2>
+                    <h2><i class="fas fa-shopping-cart"></i> Recent Orders</h2>
                     <div class="table-responsive">
                         <table class="orders-table">
                             <thead>
@@ -75,76 +67,47 @@
                                     <th>Medicine</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
+                                    <th>Status</th>
                                     <th>Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($data['pending_orders'] as $order): ?>
-                                <tr>
-                                    <td>#<?= $order['order_id'] ?></td>
-                                    <td><?= $order['customer_name'] ?></td>
-                                    <td>
-                                        <span class="pet-name"><?= $order['pet_name'] ?></span>
-                                        <span class="pet-type"><?= $order['pet_type'] ?></span>
-                                    </td>
-                                    <td><?= $order['medicine'] ?></td>
-                                    <td><?= $order['quantity'] ?></td>
-                                    <td>Rs. <?= number_format($order['total_price'], 2) ?></td>
-                                    <td><?= date('M d, Y', strtotime($order['order_date'])) ?></td>
-                                    <td class="actions">
-                                        <button onclick="acceptOrder('<?= $order['order_id'] ?>')" class="btn-accept">
-                                            <i class="fas fa-check"></i> Accept
-                                        </button>
-                                        <button onclick="showDeclineModal('<?= $order['order_id'] ?>')" class="btn-decline">
-                                            <i class="fas fa-times"></i> Decline
-                                        </button>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Processed Orders Section -->
-            <div class="data-section">
-                <div class="section-card">
-                    <h2><i class="fas fa-check-double"></i> Processed Orders</h2>
-                    <div class="table-responsive">
-                        <table class="orders-table">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer</th>
-                                    <th>Pet Details</th>
-                                    <th>Medicine</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Processed Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($data['processed_orders'] as $order): ?>
-                                <tr>
-                                    <td>#<?= $order['order_id'] ?></td>
-                                    <td><?= $order['customer_name'] ?></td>
-                                    <td>
-                                        <span class="pet-name"><?= $order['pet_name'] ?></span>
-                                        <span class="pet-type"><?= $order['pet_type'] ?></span>
-                                    </td>
-                                    <td><?= $order['medicine'] ?></td>
-                                    <td>Rs. <?= number_format($order['total_price'], 2) ?></td>
-                                    <td>
-                                        <span class="status-badge <?= $order['status'] ?>">
-                                            <i class="fas fa-<?= $order['status'] === 'accepted' ? 'check' : 'times' ?>"></i>
-                                            <?= ucfirst($order['status']) ?>
-                                        </span>
-                                    </td>
-                                    <td><?= date('M d, Y', strtotime($order['processed_date'])) ?></td>
-                                </tr>
-                                <?php endforeach; ?>
+                                <?php if(!empty($data['recent_orders'])): ?>
+                                    <?php foreach($data['recent_orders'] as $order): ?>
+                                        <tr>
+                                            <td>#<?= $order->order_id ?></td>
+                                            <td><?= htmlspecialchars($order->customer_name) ?></td>
+                                            <td>
+                                                <span class="pet-name"><?= htmlspecialchars($order->pet_name) ?></span>
+                                                <span class="pet-type"><?= htmlspecialchars($order->pet_type) ?></span>
+                                            </td>
+                                            <td><?= htmlspecialchars($order->medicine) ?></td>
+                                            <td><?= $order->quantity ?></td>
+                                            <td>Rs. <?= number_format($order->total_price, 2) ?></td>
+                                            <td>
+                                                <span class="status-badge <?= $order->status ?>">
+                                                    <?= ucfirst($order->status) ?>
+                                                </span>
+                                            </td>
+                                            <td><?= date('M d, Y', strtotime($order->order_date)) ?></td>
+                                            <td class="actions">
+                                                <?php if($order->status === 'pending'): ?>
+                                                    <button onclick="acceptOrder('<?= $order->order_id ?>')" class="btn-accept">
+                                                        <i class="fas fa-check"></i> Accept
+                                                    </button>
+                                                    <button onclick="showDeclineModal('<?= $order->order_id ?>')" class="btn-decline">
+                                                        <i class="fas fa-times"></i> Decline
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="9" class="text-center">No orders found</td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

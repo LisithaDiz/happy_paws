@@ -1,14 +1,26 @@
 // Modal functionality
-const modal = document.getElementById('declineModal');
-const closeBtn = document.getElementsByClassName('close')[0];
-
 function showDeclineModal(orderId) {
-    modal.style.display = 'block';
-    document.getElementById('decline-order-id').value = orderId;
+    const modal = document.getElementById('declineModal');
+    const declineOrderId = document.getElementById('decline-order-id');
+    
+    modal.style.display = 'flex';
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    declineOrderId.value = orderId;
+    
+    // Prevent body scrolling when modal is open
+    document.body.style.overflow = 'hidden';
 }
 
 function closeDeclineModal() {
-    modal.style.display = 'none';
+    const modal = document.getElementById('declineModal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        // Re-enable body scrolling
+        document.body.style.overflow = 'auto';
+    }, 300);
 }
 
 function acceptOrder(orderId) {
@@ -20,10 +32,21 @@ function acceptOrder(orderId) {
 
 // Close modal when clicking outside
 window.onclick = function(event) {
-    if (event.target == modal) {
+    const modal = document.getElementById('declineModal');
+    if (event.target === modal) {
         closeDeclineModal();
     }
 }
+
+// Close modal when clicking X button
+document.querySelector('.close').addEventListener('click', function() {
+    closeDeclineModal();
+});
+
+// Prevent modal from closing when clicking inside modal content
+document.querySelector('.modal-content').addEventListener('click', function(event) {
+    event.stopPropagation();
+});
 
 // Close modal with escape key
 document.addEventListener('keydown', function(event) {
