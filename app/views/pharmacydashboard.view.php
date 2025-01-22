@@ -22,7 +22,7 @@
         <div class="main-content">
             <!-- Welcome Section -->
             <div class="welcome-section">
-                <h1>Welcome, <?php echo $pharmacy_name ?? 'Pharmacy'; ?>!</h1>
+                <h2>Welcome, <?php echo $pharmacy_name ?? 'Chathura'; ?>!</h2>
                 <p class="subtitle">Manage your pharmacy operations efficiently</p>
             </div>
 
@@ -46,14 +46,7 @@
                             <a href="<?=ROOT?>/orders" class="stat-link">Manage Orders</a>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <i class="fas fa-pills"></i>
-                        <div class="stat-info">
-                            <h3>Low Stock Items</h3>
-                            <p class="stat-value"><?php echo $low_stock_items ?? 0; ?></p>
-                            <a href="<?=ROOT?>/inventory" class="stat-link">Check Inventory</a>
-                        </div>
-                    </div>
+                   
                 </div>
             </section>
 
@@ -69,10 +62,7 @@
                         <i class="fas fa-file-medical"></i>
                         <span>New Order</span>
                     </a>
-                    <a href="<?=ROOT?>/inventory/update" class="action-btn">
-                        <i class="fas fa-sync"></i>
-                        <span>Update Stock</span>
-                    </a>
+                    
                     <a href="<?=ROOT?>/reports" class="action-btn">
                         <i class="fas fa-chart-bar"></i>
                         <span>Generate Report</span>

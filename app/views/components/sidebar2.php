@@ -1,4 +1,17 @@
 <div class="sidebar">
+    <!-- Add user profile section at top -->
+    <div class="sidebar-profile">
+        <div class="profile-image">
+            <img src="<?=ROOT?>/assets/images/prof/vet_prof.webp" alt="Profile">
+        </div>
+        <div class="profile-info">
+            <h4><?= $_SESSION['USER']->name ?? 'User' ?></h4>
+            <p><?= $_SESSION['USER']->email ?? 'email@example.com' ?></p>
+        </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
     <nav class="sidebar-nav">
         <ul>
             <li>
@@ -27,7 +40,12 @@
             </li>
         </ul>
     </nav>
+
     <div class="sidebar-footer">
+        <div class="user-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Online</span>
+        </div>
         <a href="<?=ROOT?>/logout" class="logout-btn">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>

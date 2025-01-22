@@ -14,12 +14,10 @@
 <body>
     <?php include ('components/nav2.php'); ?>
 
-<?php
-        include 'components/renderSidebar.php';
-        echo renderSidebar(ROOT, $petowner);
-        ?>
+
     </div>
     <div class="dashboard-container">
+    <?php include ('components/sidebar.php'); ?>
         <div class="search-container">
             <h1 class="search-heading">Search for Pet-Care Centers</h1>
             <form action="<?=ROOT?>/PetcareSearch/index" method="POST">

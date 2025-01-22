@@ -13,39 +13,47 @@
     margin-left: 120px;
     margin-right: 100px;
     margin-top: 80px;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 35px;
+    background: linear-gradient(135deg, rgba(255, 159, 159, 0.95), rgba(255, 255, 255, 0.9));
+    border-radius: 25px;
+    box-shadow: 0 12px 32px rgba(248, 126, 118, 0.1);
     min-height: calc(100vh - 100px);
     max-width: 1200px;
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
     left: 0;
+    border: 1px solid rgba(248, 126, 118, 0.15);
 }
 
 /* Welcome Section */
 .welcome-section {
-    background: linear-gradient(135deg, #fae3e3 0%, #f5c6cb 100%);
-    padding: 35px;
-    border-radius: 18px;
+    background: linear-gradient(135deg, #f8ebee 0%, #ffffff 100%);
+    padding: 40px;
+    border-radius: 20px;
     margin-bottom: 35px;
-    color: #333;
-    box-shadow: 0 6px 12px rgba(216, 84, 76, 0.1);
+    color: #f87e76;
+    box-shadow: 0 8px 25px rgba(248, 126, 118, 0.2);
     text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.welcome-section:hover {
+    transform: translateY(-5px);
 }
 
 .welcome-section h1 {
-    font-size: 2.2em;
-    margin-bottom: 12px;
-    color: #d8544c;
+    font-size: 2.4em;
+    margin-bottom: 15px;
+    color: #f87e76;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
-    font-size: 1.2em;
-    opacity: 0.9;
-    color: #666;
+    font-size: 1.3em;
+    opacity: 0.95;
+    color: rgba(11, 10, 10, 0.9);
 }
 
 /* Stats Section */
@@ -66,38 +74,66 @@
 }
 
 .stat-card {
-    background: #fff;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #fff, #f8f9fa);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(248, 126, 118, 0.15),
+                0 5px 15px rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(216, 84, 76, 0.1);
+    transition: all 0.3s ease;
+    border: none;
+    transform: translateY(0);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+    z-index: 1;
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(216, 84, 76, 0.15);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(248, 126, 118, 0.2),
+                0 15px 25px rgba(0, 0, 0, 0.1);
+    border-color: #f87e76;
 }
 
 .stat-card i {
-    font-size: 2em;
-    color: #d8544c;
-    margin-right: 20px;
+    font-size: 2.2em;
+    color: #f87e76;
+    margin-right: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 8px rgba(248, 126, 118, 0.3);
+}
+
+.stat-info {
+    position: relative;
+    z-index: 2;
 }
 
 .stat-info h3 {
     margin: 0;
-    font-size: 1.1em;
-    color: #666;
+    font-size: 1.2em;
+    color: #2d3748;
+    font-weight: 600;
 }
 
 .stat-value {
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
-    color: #333;
-    margin: 5px 0;
+    color: #f87e76;
+    margin: 8px 0;
+    text-shadow: 1px 1px 4px rgba(248, 126, 118, 0.2);
 }
 
 .stat-link {
@@ -124,22 +160,23 @@
 }
 
 .action-btn {
-    background: #fff;
+    background: linear-gradient(135deg, #fff, #f8f9fa);
     border: none;
-    padding: 20px;
-    border-radius: 16px;
+    padding: 25px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     text-decoration: none;
-    color: #333;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(216, 84, 76, 0.1);
+    color: #2d3748;
+    box-shadow: 0 10px 30px rgba(248, 126, 118, 0.15),
+                0 5px 15px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
+    transform: translateY(0);
 }
 
 .action-btn::before {
@@ -147,38 +184,34 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     height: 100%;
-    background: linear-gradient(135deg, rgba(250, 227, 227, 0.5), rgba(245, 198, 203, 0.5));
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+    z-index: 1;
 }
 
 .action-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(216, 84, 76, 0.15);
-    border-color: #d8544c;
-}
-
-.action-btn:hover::before {
-    opacity: 1;
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(248, 126, 118, 0.2),
+                0 15px 25px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #fff, #fff5f4);
 }
 
 .action-btn i {
-    font-size: 1.8em;
-    color: #d8544c;
-    transition: transform 0.3s ease;
-    z-index: 1;
+    font-size: 2em;
+    color: #f87e76;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 8px rgba(248, 126, 118, 0.3);
 }
 
 .action-btn span {
     font-weight: 600;
-    font-size: 1.1em;
-    z-index: 1;
-}
-
-.action-btn:hover i {
-    transform: scale(1.1);
+    font-size: 1.15em;
+    color: #2d3748;
+    position: relative;
+    z-index: 2;
 }
 
 /* Recent Activity */
@@ -242,18 +275,20 @@
 
 /* Section Headers */
 section h2 {
-    color: #333;
-    margin-bottom: 25px;
+    color: #2d3748;
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 1.5em;
+    gap: 15px;
+    font-size: 1.6em;
     padding-bottom: 15px;
-    border-bottom: 2px solid rgba(216, 84, 76, 0.1);
+    border-bottom: 2px solid rgba(248, 126, 118, 0.2);
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 section h2 i {
-    color: #d8544c;
+    color: #f87e76;
     font-size: 1.2em;
 }
 

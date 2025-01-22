@@ -1,5 +1,16 @@
 <div class="sidebar">
-    
+    <!-- Add user profile section at top -->
+    <div class="sidebar-profile">
+        <div class="profile-image">
+            <img src="<?=ROOT?>/assets/images/prof/vet_prof.webp" alt="Profile">
+        </div>
+        <div class="profile-info">
+            <h4><?= $_SESSION['USER']->name ?? 'User' ?></h4>
+            <p><?= $_SESSION['USER']->email ?? 'email@example.com' ?></p>
+        </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
 
     <nav class="sidebar-nav">
         <ul>
@@ -43,26 +54,17 @@
     </nav>
 
     <div class="sidebar-footer">
+        <div class="user-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Online</span>
+        </div>
         <a href="<?=ROOT?>/logout" class="logout-btn">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
         </a>
     </div>
 </div>
-    <!-- <div class="sidebar-footer">
-        <div class="user-info">
-            <img src="<?=ROOT?>/assets/images/avatar.jpg" alt="User Avatar" class="user-avatar">
-            <div class="user-details">
-                <span class="user-name"><?= $_SESSION['USER']->name ?? 'Guest' ?></span>
-                <span class="user-role">Pet Owner</span>
-            </div>
-        </div>
-        <a href="<?=ROOT?>/logout" class="logout-btn" title="Logout">
-            <i class="fas fa-sign-out-alt"></i>
-        </a>
-    </div> --> 
 
 <script src="<?=ROOT?>/assets/js/sidebar.js"></script>
 <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

@@ -221,3 +221,8 @@ footer{
     transform: translateY(1px); /* Slightly lower the button on click */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
 }
+
+.dashboard-container .sidebar a,
+.dashboard-container .sidebar span {
+    font-weight: 550;  /* or 400 */
+}

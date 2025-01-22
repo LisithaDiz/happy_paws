@@ -2,15 +2,185 @@
 .sidebar {
     margin-top: auto;
     position: fixed;
-    top: 100px; /* Adjust this if navbar height is different */
-    left: -250px; /* Initially hidden off-screen */
-    width: 250px; /* Width of the sidebar */
-    height: calc(100vh - 60px); /* Full height minus navbar */
-    background-color: #f8d7da; /* Adjust color as needed */
-    padding: 20px;
+    top: 100px;
+    left: -250px;
+    width: 250px;
+    height: calc(100vh - 60px);
+    background: linear-gradient(180deg, #fff5f5 0%, #fff 100%);
+    padding: 25px;
     overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease; /* Smooth transition for sliding in and out */
+    box-shadow: 3px 0 20px rgba(248, 126, 118, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-right: 1px solid rgba(248, 126, 118, 0.1);
+    padding-bottom: 100px;
+}
+
+/* Sidebar Profile Section */
+.sidebar-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.profile-image {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 8px;
+    border: 2px solid #fff;
+    box-shadow: 0 3px 12px rgba(248, 126, 118, 0.2);
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info h4 {
+    color: #2d3748;
+    font-size: 1em;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.profile-info p {
+    color: #718096;
+    font-size: 0.85em;
+    margin: 0;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: linear-gradient(to right, rgba(248, 126, 118, 0.1), rgba(248, 126, 118, 0.2), rgba(248, 126, 118, 0.1));
+    margin: 10px 0;
+}
+
+/* Enhanced Navigation Links */
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background: linear-gradient(to right, transparent 50%, rgba(248, 126, 118, 0.1) 50%);
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 8px 0;
+    position: relative;
+}
+
+.sidebar ul li a:hover {
+    background-position: 100% 0%;
+    color: #f87e76;
+    transform: translateX(8px);
+}
+
+.sidebar ul li a.active {
+    background: linear-gradient(135deg, #fff, #fff5f5);
+    color: #f87e76;
+    box-shadow: 0 4px 15px rgba(248, 126, 118, 0.15);
+    font-weight: 600;
+}
+
+.sidebar ul li a i {
+    font-size: 1.2em;
+    margin-right: 12px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar ul li a:hover i {
+    transform: scale(1.1);
+}
+
+/* User Status in Footer */
+.user-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(248, 126, 118, 0.1);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #68D391;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #fff;
+    animation: pulse 2s infinite;
+}
+
+.status-text {
+    color: #718096;
+    font-size: 0.9em;
+}
+
+/* Enhanced Logout Button - Combined styles */
+.sidebar-footer .logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 85%;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #f87e76, #ff9b94);
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px rgba(248, 126, 118, 0.2);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sidebar-footer .logout-btn:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(248, 126, 118, 0.3);
+    background: linear-gradient(135deg, #ff9b94, #f87e76);
+    color: #fff;
+}
+
+.sidebar-footer .logout-btn i {
+    font-size: 0.9em;
+    margin-right: 4px;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    position: absolute;
+    bottom: 55px;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff5f5);
+    padding-top: 10px;
+    text-align: center;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(104, 211, 145, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(104, 211, 145, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(104, 211, 145, 0);
+    }
 }
 
 /* Sidebar content styling */
@@ -27,7 +197,7 @@
 }
 
 .sidebar ul li {
-    margin: 10px 0;
+    margin: 4px 0;
 }
 
 /* Style the sidebar links (buttons) */
@@ -36,24 +206,24 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    padding: 12px 20px; /* Added horizontal padding */
+    padding: 10px 20px;
     background-color: #fae3e3;
     color: #333;
     text-decoration: none;
     font-weight: 600;
-    border-radius: 12px; /* Increased border radius */
+    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    margin: 8px 0;
+    margin: 6px 0;
     position: relative;
     overflow: hidden;
 }
 
 /* Icon styling */
 .sidebar ul li a i {
-    font-size: 18px;
+    font-size: 17px;
     margin-right: 12px;
-    width: 24px;
+    width: 22px;
     text-align: center;
     transition: transform 0.3s ease;
 }
@@ -102,7 +272,7 @@
 
 /* Active class for the sidebar */
 .sidebar.active {
-    left: 0; /* Bring the sidebar back into view */
+    left: 0;
 }
 
 /* Sidebar toggle button */
@@ -118,7 +288,7 @@
 
 /* Optional: Styling for the active state of the sidebar toggle button */
 #menu-icon.active {
-    color: #d8544c; /* Change color when active */
+    color: #d8544c;
 }
 
 /* Ensure the sidebar container is properly placed */
@@ -145,7 +315,7 @@
 
     /* Fix dashboard content to avoid overlap with navbar on mobile */
     .dashboard-container {
-        margin-left: 0; /* Avoid overlap with the sidebar */
+        margin-left: 0;
     }
 }
 
@@ -163,42 +333,28 @@
 
     /* Fix dashboard content to avoid overlap with sidebar on desktop */
     .dashboard-container {
-        margin-left: 250px; /* Space for the sidebar */
+        margin-left: 250px;
     }
 }
 
-/* Sidebar footer styling */
-.sidebar-footer {
-    position: absolute;
-    bottom: 60px; /* Increased from 40px to move button higher */
-    left: 0;
-    width: 100%;
-    padding: 0 40px;
-    text-align: center;
+/* Navigation Container - Adjust max-height */
+.sidebar-nav {
+    max-height: calc(100vh - 340px);
+    overflow-y: auto;
+    padding-bottom: 15px;
+    padding-top: 8px;
 }
 
-.sidebar-footer .logout-btn {
-    display: inline-block; /* Changed from block to inline-block for better centering */
-    width: 80%; /* Reduced width for better visual appearance */
-    padding: 12px 0;
-    text-align: center;
-    background-color: #fae3e3;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-    margin: 0 auto; /* Center the button */
+/* Ensure smooth scrolling */
+.sidebar-nav::-webkit-scrollbar {
+    width: 5px;
 }
 
-.sidebar-footer .logout-btn:hover {
-    background-color: #f5c6cb;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+.sidebar-nav::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.sidebar-footer .logout-btn i {
-    margin-right: 8px;
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(248, 126, 118, 0.2);
+    border-radius: 10px;
 }
