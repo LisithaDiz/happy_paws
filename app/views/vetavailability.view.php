@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetdash.css">
@@ -24,52 +26,77 @@
             text-align: center;
             border: 1px solid #ccc;
             border-radius: 5px;
-            cursor: pointer;
+            cursor: default;
             transition: background-color 0.3s ease;
         }
 
-        .calendar-day.available {
+        .calendar-day.clickable {
             background-color: #fae3e3;
             color: rgb(77, 77, 77);
+            cursor: pointer;
         }
 
-        .calendar-day.unavailable {
-            background-color: #c35b64;
-            color: #721c24;
-        }
-
-        .calendar-day.frozen {
-            background-color: #f0f0f0;
-            color: #aaa;
-            cursor: not-allowed;
-        }
-
-        .calendar-day.selected {
+        .calendar-day.clickable:hover {
             background-color: #f5c6cb;
-            color: #333;
         }
 
-        .time-slot-container {
-            margin-top: 20px;
+        /* Popup Styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .popup h2 {
+            margin-bottom: 10px;
+        }
+
+        .popup .time-slot {
+            display: block;
+            margin: 5px 0;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        .time-slot {
-            display: inline-block;
-            margin: 5px;
-            padding: 10px 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
             background-color: #fae3e3;
             color: rgb(77, 77, 77);
+            text-align: center;
         }
 
-        .time-slot-container h2 {
+        .popup .close-btn {
+            display: block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background: #c35b64;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 10px;
-            color: #333;
+        }
+
+        .calendar-header button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .calendar-header button:hover {
+            background-color: #f5c6cb;
         }
     </style>
 </head>
@@ -77,126 +104,117 @@
     <?php include('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-    <?php include ('components/sidebar3.php'); ?>
-    
+        <?php include('components/sidebar3.php'); ?>
 
-        <!-- Main content area -->
         <div class="main-content">
             <h1>Veterinary Surgeon Availability</h1>
-            <div class="calendar-controls">
-                <button class="btn" onclick="prevMonth()">Previous</button>
-                <span class="monthyear" id="monthYear"></span>
-                <button class="btn" onclick="nextMonth()">Next</button>
+            <div class="calendar-header">
+                <button onclick="changeMonth(-1)">Prev</button>
+                <h2 id="calendarTitle"></h2>
+                <button onclick="changeMonth(1)">Next</button>
             </div>
-            
-            <div class="calendar" id="calendar">
-                <!-- Calendar days will be dynamically generated here -->
-            </div>
-
-            <!-- Time slot container -->
-            <div id="timeSlotContainer" class="time-slot-container">
-                <!-- Time slots will be dynamically generated here -->
-            </div>
+            <div class="calendar" id="calendar"></div>
         </div>
+    </div>
+
+    <div id="availabilityPopup" class="popup">
+        <h2>Available Hours</h2>
+        <div id="timeSlots"></div>
+        <button class="close-btn" onclick="closePopup()">Close</button>
     </div>
 
     <?php include('components/footer.php'); ?>
 
     <script>
         let currentDate = new Date();
-        const unavailableDates = new Set(["2024-11-25", "2024-11-26"]); // Example unavailable dates
-        const frozenDates = new Set(["2024-11-27", "2024-11-28"]); // Example frozen dates
-
-        function generateTimeSlots(selectedDate) {
-            const timeSlotContainer = document.getElementById("timeSlotContainer");
-            timeSlotContainer.innerHTML = ""; // Clear previous time slots
-
-            const interval = 15; // Fixed 15-minute interval
-            const startTime = 8 * 60; // 8:00 AM in minutes
-            const endTime = 17 * 60; // 5:00 PM in minutes
-
-            const heading = document.createElement("h2");
-            heading.textContent = `Available Time Slots for ${selectedDate}`;
-            timeSlotContainer.appendChild(heading);
-
-            for (let time = startTime; time < endTime; time += interval) {
-                const hours = Math.floor(time / 60);
-                const minutes = time % 60;
-                const formattedTime = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
-                const nextTime = time + interval;
-                const nextHours = Math.floor(nextTime / 60);
-                const nextMinutes = nextTime % 60;
-                const formattedNextTime = `${String(nextHours).padStart(2, "0")}:${String(nextMinutes).padStart(2, "0")}`;
-
-                const slotElement = document.createElement("div");
-                slotElement.className = "time-slot";
-                slotElement.textContent = `${formattedTime} - ${formattedNextTime}`;
-                timeSlotContainer.appendChild(slotElement);
-            }
-        }
-
-        function handleDateClick(dayElement, date) {
-            // Highlight the selected date
-            const calendarDays = document.querySelectorAll(".calendar-day");
-            calendarDays.forEach((day) => day.classList.remove("selected"));
-            dayElement.classList.add("selected");
-
-            // Generate time slots for the selected date
-            generateTimeSlots(date);
-        }
 
         function generateCalendar() {
             const calendar = document.getElementById("calendar");
-            const monthYear = document.getElementById("monthYear");
-            calendar.innerHTML = ""; // Clear the calendar
+            calendar.innerHTML = "";
+
+            const today = new Date();
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
+            const firstDayOfMonth = new Date(year, month, 1);
+            const lastDayOfMonth = new Date(year, month + 1, 0);
+            const totalDays = lastDayOfMonth.getDate();
 
-            // Update month and year in header
-            monthYear.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${year}`;
+            // Calculate the last date for clickable days (7 days from today)
+            const lastClickableDate = new Date(today);
+            lastClickableDate.setDate(today.getDate() + 6);
 
-            // Get first and last days of the month
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            for (let i = 1; i <= totalDays; i++) {
+                const date = new Date(year, month, i);
+                const dateString = date.toISOString().split("T")[0];
 
-            // Add empty slots for the previous month
-            for (let i = 0; i < firstDay; i++) {
-                const emptyDay = document.createElement("div");
-                calendar.appendChild(emptyDay);
-            }
-
-            // Add days of the current month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const date = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
                 const dayElement = document.createElement("div");
                 dayElement.className = "calendar-day";
-                dayElement.textContent = day;
+                dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
 
-                if (frozenDates.has(date)) {
-                    dayElement.classList.add("frozen");
-                } else if (unavailableDates.has(date)) {
-                    dayElement.classList.add("unavailable");
-                } else {
-                    dayElement.classList.add("available");
-                    dayElement.onclick = () => handleDateClick(dayElement, date);
+                // Only add the "clickable" class for days within the next 7 days
+                if (date >= today && date <= lastClickableDate) {
+                    dayElement.classList.add("clickable");
+                    dayElement.onclick = () => showAvailabilityPopup(dateString);
+                }
+
+                // Ensure today is clickable
+                if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
+                    dayElement.classList.add("clickable");
+                    dayElement.onclick = () => showAvailabilityPopup(dateString);
                 }
 
                 calendar.appendChild(dayElement);
             }
+
+            document.getElementById("calendarTitle").textContent = `${currentDate.toLocaleString("en-US", { month: "long" })} ${currentDate.getFullYear()}`;
+
         }
 
-        function prevMonth() {
-            currentDate.setMonth(currentDate.getMonth() - 1);
+        function changeMonth(offset) {
+            currentDate.setMonth(currentDate.getMonth() + offset);
             generateCalendar();
         }
 
-        function nextMonth() {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            generateCalendar();
+        function showAvailabilityPopup(date) {
+            const popup = document.getElementById("availabilityPopup");
+            const timeSlotsContainer = document.getElementById("timeSlots");
+            timeSlotsContainer.innerHTML = "";
+
+            const availableHours = {
+                "Monday": ["09:00 AM - 11:00 AM", "02:00 PM - 04:00 PM"],
+                "Tuesday": ["10:00 AM - 12:00 PM", "03:00 PM - 05:00 PM"],
+                "Wednesday": ["08:00 AM - 10:00 AM", "01:00 PM - 03:00 PM"],
+                "Thursday": ["09:30 AM - 11:30 AM", "02:30 PM - 04:30 PM"],
+                "Friday": ["10:00 AM - 12:00 PM", "03:00 PM - 05:00 PM"],
+                "Saturday": ["08:00 AM - 10:00 AM", "01:00 PM - 03:00 PM"],
+                "Sunday": ["09:00 AM - 11:00 AM", "02:00 PM - 04:00 PM"]
+            };
+
+            const dayOfWeek = new Date(date).toLocaleString("en-US", { weekday: "long" });
+            const hours = availableHours[dayOfWeek] || [];
+
+            if (hours.length === 0) {
+                timeSlotsContainer.innerHTML = "<p>No available hours</p>";
+            } else {
+                hours.forEach(time => {
+                    const timeSlot = document.createElement("div");
+                    timeSlot.className = "time-slot";
+                    timeSlot.textContent = time;
+                    timeSlotsContainer.appendChild(timeSlot);
+                });
+            }
+
+            popup.style.display = "block";
         }
 
-        // Initialize calendar on page load
+        function closePopup() {
+            document.getElementById("availabilityPopup").style.display = "none";
+        }
+
         generateCalendar();
     </script>
 </body>
 </html>
+
+
+

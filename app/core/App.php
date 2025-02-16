@@ -42,7 +42,9 @@ class App
                 'VetPrescription' => ['index'],
                 'VetAvailability' => ['index'],
                 'VetMedRequest' => ['index','addMedicineRequest'],
-                'VetSettings' => ['index']],
+                'VetSettings' => ['index'],
+                'VetAvailableHours' => ['index','availableHours']
+        ],
 
         '3' => ['PetSitterDashboard' => ['index'],
                 'PetSitterProfile' => ['index'], 
