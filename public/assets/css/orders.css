@@ -140,7 +140,7 @@
 }
 
 .orders-table th {
-    background: #f8f9fa;
+    background: #fcb6b1;
     font-weight: 600;
     color: #2d3748;
     position: sticky;
@@ -240,13 +240,11 @@
     z-index: 9999;
     opacity: 0;
     transition: opacity 0.3s ease;
-    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .modal.show {
-    display: flex;
     opacity: 1;
 }
 

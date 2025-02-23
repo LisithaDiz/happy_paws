@@ -1,0 +1,241 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.welcome-section h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    color: #f87e76;
+}
+
+.welcome-section h1 i {
+    color: #3498db;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 1.1em;
+}
+
+/* Section Card */
+.section-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Container */
+.table-responsive {
+    margin: 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Table Styling */
+
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.orders-table th {
+    background: #fcb6b1;
+    font-weight: 600;
+    color: #2d3748;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.orders-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Pet Details Styling */
+.pet-name {
+    display: block;
+    color: #2d3748;
+    font-weight: 500;
+}
+
+.pet-type {
+    display: block;
+    color: #718096;
+    font-size: 0.9em;
+    margin-top: 2px;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.status-badge.pending {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.status-badge.accepted {
+    background: #C6F6D5;
+    color: #2F855A;
+}
+
+.status-badge.declined {
+    background: #FED7D7;
+    color: #C53030;
+}
+
+/* Action Button Adjustments */
+.view-details-btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    background-color: #75a6f6;
+}
+
+.view-details-btn:hover {
+    background-color: #427bf6;
+}
+
+/* Card Header Adjustments */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #edf2f7;
+    flex-direction: row; /* Keep it horizontal */
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    color: #1a202c;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Cell Specific Styles */
+.order-id {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.user-info, .pet-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pet-name {
+    font-weight: 600;
+    color: #2c3e50;
+    display: block;
+}
+
+.pet-type {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.date-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.time {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* Status Badge */
+.status-badge.accepted {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge.declined {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* No Orders Message */
+.no-data-message {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+}
+
+.no-data-message i {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #bdc3c7;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-content {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    .orders-table th, 
+    .orders-table td {
+        padding: 10px;
+    }
+} 

@@ -24,9 +24,24 @@ function closeDeclineModal() {
 }
 
 function acceptOrder(orderId) {
+    console.log('Accept Order function called with ID:', orderId);
     if (confirm('Are you sure you want to accept this order?')) {
-        // In a real application, this would make an AJAX call to the server
-        window.location.href = `${ROOT}/orders/updateStatus?order_id=${orderId}&action=accept`;
+        console.log('Sending request to:', `${ROOT}/orders/updateStatus?order_id=${orderId}&action=accept`);
+        fetch(`${ROOT}/orders/updateStatus?order_id=${orderId}&action=accept`, {
+            method: 'GET'
+        })
+        .then(response => {
+            console.log('Response received:', response);
+            return response.text();
+        })
+        .then(() => {
+            alert('Order has been accepted successfully!');
+            location.reload(); // Reload the page to show updated status
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to accept order. Please try again.');
+        });
     }
 }
 
@@ -53,4 +68,26 @@ document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeDeclineModal();
     }
+});
+
+// Handle decline form submission
+document.querySelector('#declineModal form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch(`${ROOT}/orders/updateStatus`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(() => {
+        alert('Order has been declined successfully!');
+        closeDeclineModal();
+        location.reload(); // Reload the page to show updated status
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to decline order. Please try again.');
+    });
 });

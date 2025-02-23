@@ -64,6 +64,7 @@ class App
                 'Revenue'=> ['index'],
                 'Orders'=> ['index'],
                 'Reviews'=> ['index'],
+                'OrderHistory'=> ['index'],
             ],
         
     ];

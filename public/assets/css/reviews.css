@@ -1,6 +1,5 @@
 /* Main Container Styles */
 .container {
-    
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -11,21 +10,22 @@
 }
 
 .reviews-container {
-   
-    background: #ffc4c1;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 159, 159, 0.95), rgba(255, 255, 255, 0.9)); /* Linear gradient background */
+    padding: 2rem; /* Increased padding for a more spacious feel */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
     margin: 20px 0;
     min-height: calc(100vh - 300px);
+    animation: fadeIn 0.6s ease-out; /* Animation for appearance */
+    margin-top: 55px;
 }
 
 /* Heading Styles */
 .search-heading {
-    color: #333;
+    color: #2c3e50; /* Darker color for better readability */
     margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 1.5rem; /* Decreased font size for smaller heading */
+    font-weight: 700; /* Bold font weight */
     text-align: center;
 }
 /* 
@@ -41,6 +41,7 @@
     background: #f8f9fa;
     border-radius: 8px;
     margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .login-prompt a {
@@ -55,16 +56,17 @@
 
 /* Review Card Styles */
 .petsitter-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    background: #f8f9fa; /* Light background for cards */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem; /* Padding for card content */
     margin-bottom: 20px;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s; /* Added box-shadow transition */
 }
 
 .petsitter-card:hover {
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 /* Review Header */
@@ -82,7 +84,8 @@
 .reviewer-name {
     margin: 0 0 5px 0;
     color: #2c3e50;
-    font-size: 1.1em;
+    font-size: 1.2em; /* Increased font size */
+    font-weight: 600; /* Bold font weight */
 }
 
 .rating-date {
@@ -121,50 +124,23 @@
 }
 
 .search-bar {
-    width: 100%; /* Set width */
-    padding: 12px; /* Padding for better spacing */
-    margin: 10px; /* Margin for spacing */
-    border: none; /* Remove border when not hovered */
-    border-radius: 5px; /* Rounded corners */
-    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Gradient background */
-    font-size: 16px; /* Font size */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
-    outline: none; /* Remove default outline */
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0; /* Adjusted margin */
+    border: 1px solid #ddd; /* Added border for better visibility */
+    border-radius: 5px;
+    background: #f8f9fa; /* Light background */
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    outline: none;
 }
 
 .search-bar:focus {
-    border: none; /* Remove border on focus */
-    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
-    background-color: #ffe6e6; /* Light background color on focus */
-    transform: scale(1.02); /* Slightly enlarge on focus */
-    width: 100%; /* Set width */
-    padding: 12px; /* Padding for better spacing */
-    margin: 10px; /* Margin for spacing */
-    border: none; /* Remove border when not hovered */
-    border-radius: 5px; /* Rounded corners */
-    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Gradient background */
-    font-size: 16px; /* Font size */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
-    outline: none; /* Remove default outline */
+    border-color: #f87e76; /* Highlight border on focus */
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff; /* Change background on focus */
 }
-
-.search-bar:focus {
-    border: none; /* Remove border on focus */
-    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
-    background-color: #ffe6e6; /* Light background color on focus */
-    transform: scale(1.02); /* Slightly enlarge on focus */
-}
-
-.search-bar:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
-}
-
-.search-bar:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
-}
-
 
 /* Review Actions */
 .review-actions {
@@ -245,6 +221,7 @@
     animation: fadeIn 0.5s ease-out;
 }
 
+/* Button Styles */
 .button {
     padding: 12px 24px; /* Adjust padding for a more substantial button */
     margin: 10px; /* Margin for spacing */

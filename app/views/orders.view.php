@@ -51,8 +51,18 @@
                         <p class="stat-period">All Time</p>
                     </div>
                 </div>
+
+                <div class="stat-card">
+                    <i class="fas fa-history"></i>
+                    <div class="stat-info">
+                        <p class="stat-label">Order History</p>
+                        <h3 class="stat-value">View all past orders</h3>
+                        <a href="<?=ROOT?>/OrderHistory" class="stat-link">View Details</a>
+                    </div>
+                </div>
             </div>
 
+            
             <!-- Recent Orders Section -->
             <div class="data-section">
                 <div class="section-card">
@@ -116,6 +126,8 @@
         </div>
     </div>
 
+    
+
     <!-- Decline Order Modal -->
     <div id="declineModal" class="modal">
         <div class="modal-content">
@@ -151,6 +163,9 @@
 
     <?php include ('components/footer.php'); ?>
     
+    <script>
+        const ROOT = '<?=ROOT?>';
+    </script>
     <script src="<?=ROOT?>/assets/js/orders.js"></script>
 </body>
 </html>
