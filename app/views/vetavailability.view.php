@@ -107,7 +107,8 @@
         <?php include('components/sidebar3.php'); ?>
 
         <div class="main-content">
-            <h1>Veterinary Surgeon Availability</h1>
+            <h1> Your Availability </h1>
+ 
             <div class="calendar-header">
                 <button onclick="changeMonth(-1)">Prev</button>
                 <h2 id="calendarTitle"></h2>
@@ -126,95 +127,85 @@
     <?php include('components/footer.php'); ?>
 
     <script>
-        let currentDate = new Date();
+    let vetAvailabilityDetails = <?= json_encode($vetAvailabilityDetails); ?>;
 
-        function generateCalendar() {
-            const calendar = document.getElementById("calendar");
-            calendar.innerHTML = "";
+    let currentDate = new Date();
 
-            const today = new Date();
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            const firstDayOfMonth = new Date(year, month, 1);
-            const lastDayOfMonth = new Date(year, month + 1, 0);
-            const totalDays = lastDayOfMonth.getDate();
+    function generateCalendar() {
+        const calendar = document.getElementById("calendar");
+        calendar.innerHTML = "";
 
-            // Calculate the last date for clickable days (7 days from today)
-            const lastClickableDate = new Date(today);
-            lastClickableDate.setDate(today.getDate() + 6);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const firstDayOfMonth = new Date(year, month, 1);
+        const lastDayOfMonth = new Date(year, month + 1, 0);
+        const totalDays = lastDayOfMonth.getDate();
+        const lastClickableDate = new Date(today);
+        lastClickableDate.setDate(today.getDate() + 6);
 
-            for (let i = 1; i <= totalDays; i++) {
-                const date = new Date(year, month, i);
-                const dateString = date.toISOString().split("T")[0];
+        for (let i = 1; i <= totalDays; i++) {
+            const date = new Date(year, month, i);
+            date.setHours(0, 0, 0, 0);
+            const dayElement = document.createElement("div");
+            dayElement.className = "calendar-day";
+            dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
 
-                const dayElement = document.createElement("div");
-                dayElement.className = "calendar-day";
-                dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
-
-                // Only add the "clickable" class for days within the next 7 days
-                if (date >= today && date <= lastClickableDate) {
-                    dayElement.classList.add("clickable");
-                    dayElement.onclick = () => showAvailabilityPopup(dateString);
-                }
-
-                // Ensure today is clickable
-                if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
-                    dayElement.classList.add("clickable");
-                    dayElement.onclick = () => showAvailabilityPopup(dateString);
-                }
-
-                calendar.appendChild(dayElement);
+            if (date.getTime() >= today.getTime() && date <= lastClickableDate) {
+                dayElement.classList.add("clickable");
+                dayElement.onclick = () => showAvailabilityPopup(date);
             }
 
-            document.getElementById("calendarTitle").textContent = `${currentDate.toLocaleString("en-US", { month: "long" })} ${currentDate.getFullYear()}`;
-
+            calendar.appendChild(dayElement);
         }
 
-        function changeMonth(offset) {
-            currentDate.setMonth(currentDate.getMonth() + offset);
-            generateCalendar();
-        }
+        document.getElementById("calendarTitle").textContent = `${currentDate.toLocaleString("en-US", { month: "long" })} ${currentDate.getFullYear()}`;
+    }
 
-        function showAvailabilityPopup(date) {
-            const popup = document.getElementById("availabilityPopup");
-            const timeSlotsContainer = document.getElementById("timeSlots");
-            timeSlotsContainer.innerHTML = "";
-
-            const availableHours = {
-                "Monday": ["09:00 AM - 11:00 AM", "02:00 PM - 04:00 PM"],
-                "Tuesday": ["10:00 AM - 12:00 PM", "03:00 PM - 05:00 PM"],
-                "Wednesday": ["08:00 AM - 10:00 AM", "01:00 PM - 03:00 PM"],
-                "Thursday": ["09:30 AM - 11:30 AM", "02:30 PM - 04:30 PM"],
-                "Friday": ["10:00 AM - 12:00 PM", "03:00 PM - 05:00 PM"],
-                "Saturday": ["08:00 AM - 10:00 AM", "01:00 PM - 03:00 PM"],
-                "Sunday": ["09:00 AM - 11:00 AM", "02:00 PM - 04:00 PM"]
-            };
-
-            const dayOfWeek = new Date(date).toLocaleString("en-US", { weekday: "long" });
-            const hours = availableHours[dayOfWeek] || [];
-
-            if (hours.length === 0) {
-                timeSlotsContainer.innerHTML = "<p>No available hours</p>";
-            } else {
-                hours.forEach(time => {
-                    const timeSlot = document.createElement("div");
-                    timeSlot.className = "time-slot";
-                    timeSlot.textContent = time;
-                    timeSlotsContainer.appendChild(timeSlot);
-                });
-            }
-
-            popup.style.display = "block";
-        }
-
-        function closePopup() {
-            document.getElementById("availabilityPopup").style.display = "none";
-        }
-
+    function changeMonth(offset) {
+        currentDate.setMonth(currentDate.getMonth() + offset);
         generateCalendar();
-    </script>
+    }
+
+    function showAvailabilityPopup(date) {
+        const popup = document.getElementById("availabilityPopup");
+        const timeSlotsContainer = document.getElementById("timeSlots");
+        timeSlotsContainer.innerHTML = "";
+
+        const selectedDay = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const hours = vetAvailabilityDetails.filter(slot => slot.day_of_week === selectedDay);
+
+        if (hours.length === 0) {
+            timeSlotsContainer.innerHTML = "<p>No available hours</p>";
+        } else {
+            hours.forEach(slot => {
+                const timeSlot = document.createElement("div");
+                timeSlot.className = "time-slot";
+                timeSlot.textContent = `${formatTime(slot.start_time)} - ${formatTime(slot.end_time)} (${slot.number_of_appointments} slots)`;
+                timeSlotsContainer.appendChild(timeSlot);
+            });
+        }
+
+        popup.style.display = "block";
+    }
+
+    function formatTime(timeString) {
+        const [hour, minute] = timeString.split(":").map(Number);
+        const period = hour >= 12 ? "PM" : "AM";
+        return `${hour % 12 || 12}:${minute.toString().padStart(2, '0')} ${period}`;
+    }
+
+    function closePopup() {
+        document.getElementById("availabilityPopup").style.display = "none";
+    }
+
+    generateCalendar();
+</script>
 </body>
 </html>
+
+
 
 
 

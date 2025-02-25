@@ -6,6 +6,14 @@ class VetAvailability
 
     public function index()
     {
-        $this->view('vetavailability');
+        $vetUpdateAvailableHours = new VetUpdateAvailableHoursModel;
+
+        $vetAvailabilityDetails = $vetUpdateAvailableHours->getAvailableHours();
+
+        $this->view('vetavailability', ['vetAvailabilityDetails'=> $vetAvailabilityDetails]);
+
     }
+
+
+    
 }

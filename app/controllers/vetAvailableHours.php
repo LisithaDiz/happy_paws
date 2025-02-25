@@ -42,12 +42,7 @@ class VetAvailableHours
     //         }
     //         return false;
     // }
-    public function getAvailableHours()
-    {
-        $vetUpdateAvailabilityModel = new VetUpdateAvailableHoursModel();
-        
-
-    }
+    
 
     public function availableHours()
     {
