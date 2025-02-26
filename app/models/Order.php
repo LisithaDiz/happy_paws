@@ -41,7 +41,8 @@ class Order
             po.quantity,
             po.total_price,
             po.processed_date,
-            po.status
+            po.status,
+            po.payment_status
         FROM pharmacy_orders po
         JOIN pet_owner pet_o ON po.owner_id = pet_o.owner_id
         JOIN pet p ON po.pet_id = p.pet_id
@@ -121,5 +122,15 @@ class Order
         ];
     }
 
-    
+    public function updatePaymentStatus($order_id, $payment_status)
+    {
+        $query = "UPDATE pharmacy_orders 
+                  SET payment_status = :payment_status 
+                  WHERE order_id = :order_id";
+                  
+        return $this->query($query, [
+            ':payment_status' => $payment_status,
+            ':order_id' => $order_id
+        ]);
+    }
 } 

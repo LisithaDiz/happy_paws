@@ -17,4 +17,17 @@ class OrderHistory
 
         $this->view('orderhistory', $data);
     }
+
+    public function updatePaymentStatus($order_id)
+    {
+        $order = new Order();
+        $result = $order->updatePaymentStatus($order_id, 'paid');
+        
+        header('Content-Type: application/json');
+        if ($result) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+    }
 }
