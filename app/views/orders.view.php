@@ -103,10 +103,10 @@
                                             <td><?= date('M d, Y', strtotime($order->order_date)) ?></td>
                                             <td class="actions">
                                                 <?php if($order->status === 'pending'): ?>
-                                                    <button onclick="acceptOrder('<?= $order->order_id ?>')" class="btn-accept">
+                                                    <button onclick="updateOrderStatus(<?= $order->order_id ?>, 'accepted')" class="accept-btn">
                                                         <i class="fas fa-check"></i> Accept
                                                     </button>
-                                                    <button onclick="showDeclineModal('<?= $order->order_id ?>')" class="btn-decline">
+                                                    <button onclick="updateOrderStatus(<?= $order->order_id ?>, 'declined')" class="decline-btn">
                                                         <i class="fas fa-times"></i> Decline
                                                     </button>
                                                 <?php endif; ?>
@@ -131,33 +131,22 @@
     <!-- Decline Order Modal -->
     <div id="declineModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeDeclineModal()">&times;</span>
             <h2><i class="fas fa-times-circle"></i> Decline Order</h2>
-            <form action="<?=ROOT?>/orders/updateStatus" method="POST">
-                <input type="hidden" id="decline-order-id" name="order_id">
+            <div class="decline-form">
                 <div class="form-group">
-                    <label for="decline-reason">Reason for declining:</label>
-                    <select id="decline-reason" name="decline_reason" required>
-                        <option value="">Select a reason</option>
-                        <option value="out_of_stock">Out of Stock</option>
-                        <option value="prescription_required">Prescription Required</option>
-                        <option value="invalid_order">Invalid Order</option>
-                        <option value="other">Other</option>
-                    </select>
+                    <label for="decline-reason">Reason for Declining:</label>
+                    <textarea id="decline-reason" rows="4" placeholder="Please enter the reason for declining this order..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="decline-notes">Additional Notes:</label>
-                    <textarea id="decline-notes" name="notes" rows="3"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-cancel" onclick="closeDeclineModal()">
+                <div class="button-group">
+                    <button onclick="closeDeclineModal()" class="cancel-btn">
                         <i class="fas fa-times"></i> Cancel
                     </button>
-                    <button type="submit" class="btn-submit">
-                        <i class="fas fa-check"></i> Confirm Decline
+                    <button onclick="submitDeclineReason()" class="submit-btn">
+                        <i class="fas fa-check"></i> Submit
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -166,6 +155,78 @@
     <script>
         const ROOT = '<?=ROOT?>';
     </script>
-    <script src="<?=ROOT?>/assets/js/orders.js"></script>
+    <script>
+    let currentOrderId = null;
+
+    function updateOrderStatus(orderId, status) {
+        if (status === 'declined') {
+            currentOrderId = orderId;
+            document.getElementById('declineModal').style.display = 'flex';
+            document.getElementById('decline-reason').value = ''; // Clear previous reason
+        } else {
+            sendStatusUpdate(orderId, status);
+        }
+    }
+
+    function closeDeclineModal() {
+        document.getElementById('declineModal').style.display = 'none';
+        currentOrderId = null;
+    }
+
+    function submitDeclineReason() {
+        const reason = document.getElementById('decline-reason').value.trim();
+        if (!reason) {
+            alert('Please provide a reason for declining the order.');
+            return;
+        }
+        sendStatusUpdate(currentOrderId, 'declined', reason);
+        closeDeclineModal();
+    }
+
+    function sendStatusUpdate(orderId, status, declineReason = null) {
+        const formData = new FormData();
+        formData.append('order_id', orderId);
+        formData.append('status', status);
+        if (declineReason) {
+            formData.append('decline_reason', declineReason);
+        }
+
+        fetch('<?=ROOT?>/orders/updateStatus', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text().then(text => {
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    console.error('Server response:', text);
+                    throw new Error('Invalid JSON response from server');
+                }
+            });
+        })
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert(data.message || 'Failed to update order status');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating the order status. Please try again.');
+        });
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('declineModal')) {
+            closeDeclineModal();
+        }
+    }
+    </script>
 </body>
 </html>

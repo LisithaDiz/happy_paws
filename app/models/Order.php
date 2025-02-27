@@ -6,6 +6,12 @@ class Order
 
     protected $table = 'pharmacy_orders';
 
+    private $last_error = null;
+
+    public function getLastError() {
+        return $this->last_error;
+    }
+
     public function getPendingOrders($pharmacy_id)
     {
         $query = "SELECT 
@@ -54,28 +60,43 @@ class Order
         return $this->query($query, [':pharmacy_id' => $pharmacy_id]);
     }
 
-    public function updateOrderStatus($order_id, $status, $reason = null, $notes = null)
+    public function updateOrderStatus($order_id, $status, $decline_reason = null)
     {
-        $data = [
-            'status' => $status,
-            'processed_date' => date('Y-m-d H:i:s'),
-            'order_id' => $order_id
-        ];
+        try {
+            $params = [
+                ':order_id' => $order_id,
+                ':status' => $status,
+                ':processed_date' => date('Y-m-d H:i:s')
+            ];
 
-        $sql = "UPDATE pharmacy_orders SET 
-                status = :status, 
-                processed_date = :processed_date";
+            $sql = "UPDATE pharmacy_orders 
+                    SET status = :status, 
+                        processed_date = :processed_date";
 
-        // Add decline reason and notes only if status is 'declined'
-        if ($status === 'declined') {
-            $sql .= ", decline_reason = :decline_reason, notes = :notes";
-            $data['decline_reason'] = $reason;
-            $data['notes'] = $notes;
+            if ($status === 'declined' && $decline_reason) {
+                $sql .= ", decline_reason = :decline_reason";
+                $params[':decline_reason'] = $decline_reason;
+            }
+
+            $sql .= " WHERE order_id = :order_id";
+
+            // Debug: Log the SQL query and parameters
+            error_log("Executing SQL: " . $sql);
+            error_log("Parameters: " . print_r($params, true));
+
+            $result = $this->query($sql, $params);
+            
+            if ($result === false) {
+                $this->last_error = "Database query failed";
+                return false;
+            }
+            
+            return true;
+        } catch (Exception $e) {
+            $this->last_error = $e->getMessage();
+            error_log("Error in updateOrderStatus: " . $e->getMessage());
+            return false;
         }
-
-        $sql .= " WHERE order_id = :order_id";
-
-        return $this->query($sql, $data);
     }
 
     public function getRecentOrders($pharmacy_id, $limit = 5)

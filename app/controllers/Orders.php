@@ -21,32 +21,50 @@ class Orders
 
     public function updateStatus()
     {
-        $order = new Order();
+        header('Content-Type: application/json');
         
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // For decline action
-            $order_id = $_POST['order_id'];
-            $reason = $_POST['decline_reason'];
-            $notes = $_POST['notes'];
-            
-            $result = $order->updateOrderStatus($order_id, 'declined', $reason, $notes);
-            if ($result) {
-                redirect('orders');
-            }
-        } else if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['order_id']) && isset($_GET['action'])) {
-            // For accept action
-            $order_id = $_GET['order_id'];
-            if ($_GET['action'] === 'accept') {
-                $result = $order->updateOrderStatus($order_id, 'accepted');
-                if ($result) {
-                    redirect('orders');
-                }
-            }
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+            return;
         }
 
-        
+        try {
+            $order = new Order();
+            
+            $order_id = $_POST['order_id'] ?? '';
+            $status = $_POST['status'] ?? '';
+            $decline_reason = $_POST['decline_reason'] ?? null;
 
-        // If we get here, something went wrong
-        redirect('orders');
+            // Validate inputs
+            if (empty($order_id) || empty($status)) {
+                echo json_encode([
+                    'success' => false, 
+                    'message' => 'Order ID and status are required'
+                ]);
+                return;
+            }
+
+            if ($status === 'declined' && empty($decline_reason)) {
+                echo json_encode(['success' => false, 'message' => 'Decline reason is required']);
+                return;
+            }
+
+            $result = $order->updateOrderStatus($order_id, $status, $decline_reason);
+            
+            if ($result) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode([
+                    'success' => false, 
+                    'message' => 'Failed to update order status'
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'success' => false, 
+                'message' => 'Error: ' . $e->getMessage()
+            ]);
+        }
+        exit;
     }
 }

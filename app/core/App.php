@@ -62,7 +62,7 @@ class App
         '5' => ['PharmacyDashboard' => ['index'],
                 'PharmProfile'=> ['index'],
                 'Revenue'=> ['index'],
-                'Orders'=> ['index'],
+                'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
                 'OrderHistory'=> ['index'],
             ],
