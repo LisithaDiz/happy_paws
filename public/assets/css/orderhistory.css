@@ -1,0 +1,623 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.welcome-section h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    color: #f87e76;
+}
+
+.welcome-section h1 i {
+    color: #3498db;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 1.1em;
+}
+
+/* Section Card */
+.section-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Container */
+.table-responsive {
+    margin: 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Table Styling */
+
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.orders-table th {
+    background: #fcb6b1;
+    font-weight: 600;
+    color: #2d3748;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.orders-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Pet Details Styling */
+.pet-name {
+    display: block;
+    color: #2d3748;
+    font-weight: 500;
+}
+
+.pet-type {
+    display: block;
+    color: #718096;
+    font-size: 0.9em;
+    margin-top: 2px;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.status-badge.pending {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.status-badge.accepted {
+    background: #C6F6D5;
+    color: #2F855A;
+}
+
+.status-badge.declined {
+    background: #FED7D7;
+    color: #C53030;
+}
+
+/* Action Button Adjustments */
+.view-details-btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    background-color: #75a6f6;
+}
+
+.view-details-btn:hover {
+    background-color: #427bf6;
+}
+
+/* Card Header Adjustments */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #edf2f7;
+    flex-direction: row; /* Keep it horizontal */
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    color: #1a202c;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Cell Specific Styles */
+.order-id {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.user-info, .pet-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pet-name {
+    font-weight: 600;
+    color: #2c3e50;
+    display: block;
+}
+
+.pet-type {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.date-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.time {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* Status Badge */
+.status-badge.accepted {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge.declined {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* No Orders Message */
+.no-data-message {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+}
+
+.no-data-message i {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #bdc3c7;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-content {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    .orders-table th, 
+    .orders-table td {
+        padding: 10px;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #666;
+    font-weight: 500;
+}
+
+.payment-badge {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* Payment Status Styles */
+.payment-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+}
+
+.payment-status.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.payment-status.paid {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.mark-paid-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.mark-paid-btn:hover {
+    background-color: #218838;
+}
+
+.paid-badge {
+    color: #28a745;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Actions Cell */
+.actions-cell {
+    min-width: 150px; /* Ensure enough space for the toggle */
+}
+
+/* Toggle Switch Styles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 140px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff3cd;
+    border: 2px solid #ffeeba;
+    transition: .4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #856404;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 2px;
+    background-color: #ffeeba;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(104px);
+    background-color: #28a745;
+}
+
+.toggle-slider .status-text {
+    position: relative;
+    z-index: 1;
+    transition: .4s;
+}
+
+.toggle-slider .pending-text,
+.toggle-slider .paid-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    transition: .4s;
+}
+
+.toggle-slider .pending-text {
+    opacity: 1;
+}
+
+.toggle-slider .paid-text {
+    opacity: 0;
+}
+
+.toggle-switch input:checked + .toggle-slider .pending-text {
+    opacity: 0;
+}
+
+.toggle-switch input:checked + .toggle-slider .paid-text {
+    opacity: 1;
+}
+
+/* Disabled state */
+.toggle-switch input:disabled + .toggle-slider {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+/* Bill Button Styles */
+.generate-bill-btn {
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.generate-bill-btn:hover {
+    background-color: #5f4dd1;
+}
+
+.bill-pending {
+    color: #856404;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* Bill Modal Styles */
+.bill-modal {
+    max-width: 600px;
+    padding: 30px;
+}
+
+.bill-content {
+    background: white;
+    padding: 20px;
+}
+
+.bill-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bill-logo {
+    height: 60px;
+    width: auto;
+}
+
+.bill-info {
+    margin-bottom: 30px;
+}
+
+.bill-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.bill-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.bill-table th,
+.bill-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.bill-table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.bill-table tfoot {
+    font-weight: bold;
+}
+
+.bill-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-info {
+    font-size: 0.9em;
+}
+
+.print-bill-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.print-bill-btn:hover {
+    background-color: #218838;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .bill-content,
+    .bill-content * {
+        visibility: visible;
+    }
+    .bill-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .print-bill-btn {
+        display: none;
+    }
+}
+
+/* Order Details Modal Styles */
+.decline-reason {
+    color: #dc3545;
+    font-style: italic;
+}
+
+#decline-reason-row {
+    background-color: #fff8f8;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row .label {
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.modal-content h2 {
+    color: #2d3748;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-content h2 i {
+    color: #4299e1;
+} 

@@ -28,14 +28,20 @@ class PetsitterSearch
             $petSitters = $this->petSitterModel->getAllSitters();
         }
 
+        // Ensure $petSitters is an array before using it in foreach
+        if (!is_array($petSitters)) {
+            $petSitters = []; // Default to an empty array if not valid
+        }
+
         // Format the data for display
         $formattedSitters = [];
         foreach ($petSitters as $sitter) {
+            $avgRating = $this->petSitterModel->getAverageRating($sitter->sitter_id);
             $formattedSitters[] = [
                 'sitter_id' => $sitter->sitter_id,
                 'name' => $sitter->name,
                 'location' => $sitter->location,
-                'rating' => 4.5, // You can add a ratings table later
+                'rating' => $avgRating, 
                 'image' => 'default-petsitter.jpg',
                 'description' => 'Professional pet sitter with ' . $sitter->experience . ' years of experience.',
                 'experience' => $sitter->experience . ' years',

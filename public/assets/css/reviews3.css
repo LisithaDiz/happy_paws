@@ -10,29 +10,22 @@
 }
 
 .reviews-container {
-    background: linear-gradient(135deg, rgba(255, 159, 159, 0.95), rgba(255, 255, 255, 0.9)); /* Linear gradient background */
-    padding: 2rem; /* Increased padding for a more spacious feel */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background: linear-gradient(135deg, rgba(255, 159, 159, 0.95), rgba(255, 255, 255, 0.9));
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     margin: 20px 0;
     min-height: calc(100vh - 300px);
-    animation: fadeIn 0.6s ease-out; /* Animation for appearance */
-    margin-top: 55px;
 }
 
 /* Heading Styles */
 .search-heading {
-    color: #2c3e50; /* Darker color for better readability */
+    color: #333;
     margin-bottom: 20px;
-    font-size: 1.5rem; /* Decreased font size for smaller heading */
-    font-weight: 700; /* Bold font weight */
+    font-size: 24px;
+    font-weight: 600;
     text-align: center;
 }
-/* 
-.search-heading h2{
-    color: #dc3545;
-    text-align: center;
-} */
 
 /* Login Prompt */
 .login-prompt {
@@ -41,7 +34,6 @@
     background: #f8f9fa;
     border-radius: 8px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .login-prompt a {
@@ -55,18 +47,17 @@
 }
 
 /* Review Card Styles */
-.petsitter-card {
-    background: #f8f9fa; /* Light background for cards */
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem; /* Padding for card content */
+.pharmacy-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     margin-bottom: 20px;
-    transition: transform 0.2s, box-shadow 0.2s; /* Added box-shadow transition */
+    transition: transform 0.2s;
 }
 
-.petsitter-card:hover {
+.pharmacy-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 /* Review Header */
@@ -84,8 +75,7 @@
 .reviewer-name {
     margin: 0 0 5px 0;
     color: #2c3e50;
-    font-size: 1.2em; /* Increased font size */
-    font-weight: 600; /* Bold font weight */
+    font-size: 1.1em;
 }
 
 .rating-date {
@@ -97,7 +87,7 @@
 }
 
 .rating {
-    color: #ffd700;
+    color: #ffd700; /* Gold color for rating stars */
 }
 
 .date {
@@ -124,22 +114,22 @@
 }
 
 .search-bar {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0; /* Adjusted margin */
-    border: 1px solid #ddd; /* Added border for better visibility */
-    border-radius: 5px;
-    background: #f8f9fa; /* Light background */
-    font-size: 16px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    outline: none;
+    width: 100%; /* Set width */
+    padding: 12px; /* Padding for better spacing */
+    margin: 10px; /* Margin for spacing */
+    border: none; /* Remove border when not hovered */
+    border-radius: 5px; /* Rounded corners */
+    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Gradient background */
+    font-size: 16px; /* Font size */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    outline: none; /* Remove default outline */
 }
 
 .search-bar:focus {
-    border-color: #f87e76; /* Highlight border on focus */
-    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
-    background-color: #ffffff; /* Change background on focus */
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on focus */
+    background-color: #ffe6e6; /* Light background color on focus */
+    transform: scale(1.02); /* Slightly enlarge on focus */
 }
 
 /* Review Actions */
@@ -193,11 +183,8 @@
         flex-direction: column;
     }
 
-    .book-button, 
-    .search-button, 
-    .clear-button {
-        width: 100%;
-        text-align: center;
+    .vet-card {
+        margin-bottom: 20px;
     }
 
     .review-actions {
@@ -217,7 +204,7 @@
     }
 }
 
-.petsitter-card {
+.pharmacy-card {
     animation: fadeIn 0.5s ease-out;
 }
 

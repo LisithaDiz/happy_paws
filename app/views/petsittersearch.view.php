@@ -5,23 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/petsittersearch.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
 
     <title>Pet Sitter Search</title>
 </head>
 <body>
-    <?php include ('components/nav.php'); ?>
-    <?php
-        include 'components/renderSidebar.php';
-        echo renderSidebar(ROOT, $petowner);
-        ?>
+    <?php include ('components/nav2.php'); ?>
+    
 <div class="dashboard-container">
-       
+    <?php include ('components/sidebar.php'); ?>   
     <div class="search-container">
         <h1 class="search-heading">Search for Pet Sitters</h1>
-        <form action="<?=ROOT?>/PetsitterSearch" method="POST">
+        <form action="<?=ROOT?>/PetsitterSearch/index" method="POST">
             <input type="text" name="name" placeholder="Search by name" class="search-bar">
             <input type="text" name="location" placeholder="Search by location" class="search-bar">
             <button type="submit" name="search" class="search-button">Search</button>
@@ -42,7 +39,16 @@
                     
                     <!-- Rating and Reviews -->
                     <div class="rating">
-                        <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", floor($petSitter['rating'])); ?></span></p>
+                        <p>Rating: <span class="rating-stars">
+                            <?php 
+                            $rating = $petSitter['rating'];
+                            echo str_repeat("⭐", floor($rating));
+                            if ($rating - floor($rating) >= 0.5) {
+                                echo "½";
+                            }
+                            ?></span>
+                            <span class="rating-number">(<?= number_format($rating, 1) ?>)</span>
+                        </p>
                         <a href="<?=ROOT?>/reviews/index/<?= $petSitter['sitter_id'] ?>" class="view-reviews-btn">View Reviews</a>
                     </div>
                     

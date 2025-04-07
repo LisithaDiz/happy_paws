@@ -26,9 +26,12 @@ class App
                'PetOwnerGuardians' => ['index'],
                'PetsitterSearch' => ['index'],
                'PetOwnerSitterSelection' => ['index'],
-               'Petcaresearch' => ['index'],
+               'PetcareSearch' => ['index'],
                'PharmSearch' => ['index'],
                'Reviews' =>['index','edit','delete','add','insert'],
+               'Reviews2' =>['index','edit','delete','add','insert'],
+               'Reviews3' =>['index','edit','delete','add','insert'],
+               'Reviews4' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
                'PetOwnerDash'=>['index']
             ], 
@@ -61,8 +64,9 @@ class App
         '5' => ['PharmacyDashboard' => ['index'],
                 'PharmProfile'=> ['index'],
                 'Revenue'=> ['index'],
-                'Orders'=> ['index'],
+                'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
+                'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
             ],
         
     ];

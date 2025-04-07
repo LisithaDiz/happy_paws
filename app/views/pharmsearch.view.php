@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/pharmsearch.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
     <title>Pharmacy Search</title>
@@ -39,19 +39,29 @@
                     <h2><?=htmlspecialchars($pharmacy['name'])?></h2>
                     <p><i class="fas fa-map-marker-alt"></i> <?=htmlspecialchars($pharmacy['location'])?></p>
                     
-                    <!-- Rating -->
-                    <div class="rating">
-                        <p>Rating: <span class="rating-stars"><?=str_repeat("⭐", $pharmacy['rating'])?></span></p>
-                    </div>
+                    <!-- Rating and Reviews -->
+                        <div class="rating">
+                            <p>Rating: 
+                                <span class="rating-stars">
+                                    <?php 
+                                    $rating = $pharmacy['rating'];
+                                    echo str_repeat("⭐", floor($rating));
+                                    if ($rating - floor($rating) >= 0.5) {
+                                        echo "½";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="rating-number">(<?= number_format($rating, 1) ?>)</span>
+                            </p>
+                            <button class="view-reviews-btn" onclick="location.href='<?=ROOT?>/reviews3/index/<?= $pharmacy['pharmacy_id'] ?>'">View Reviews</button>
+                        </div>
                     
                     <!-- Description -->
                     <p class="description"><?=htmlspecialchars($pharmacy['description'])?></p>
                     
                     <!-- Details -->
                     <div class="pharmacy-details">
-                        <p><strong>Experience:</strong> <?=htmlspecialchars($pharmacy['experience'])?></p>
-                        <p><strong>Opening Hours:</strong> <?=htmlspecialchars($pharmacy['opening_hours'])?></p>
-                        <p><strong>Contact:</strong> <?=htmlspecialchars($pharmacy['contact'])?></p>
+                        <p><strong>Contact:</strong> <?=htmlspecialchars($pharmacy['contact_no'])?></p>
                     </div>
                     
                     <!-- Services -->

@@ -1,5 +1,8 @@
 <?php
 
+require_once '../app/core/Model.php';
+require_once '../app/core/Database.php';
+
 /**
  * Vet class
  */
@@ -7,60 +10,62 @@ class Vet
 {
     use Model;
 
-    protected $table = 'veterinary_surgeons'; // Update this to the appropriate table name for vets
+    protected $table = 'veterinary_surgeon';
 
-    protected $allowedColumns = [
-        'name',
-        'location',
-        'rating',
-    ];
-
-    // Hardcoded sample data, replace with database fetch if connected
-    private $vetsData = [
-        ["name" => "Dr. Smith", "location" => "New York", "rating" => 5],
-        ["name" => "Dr. Williams", "location" => "Los Angeles", "rating" => 4],
-        ["name" => "Dr. Taylor", "location" => "Chicago", "rating" => 5],
-        // Add more as needed
-    ];
-
-    /**
-     * Search for vets based on name and location
-     *
-     * @param string $name
-     * @param string $location
-     * @return array Filtered results
-     */
-    public function searchVets($name = '', $location = '')
+    public function getAllVets()
     {
-        // Filter vets data by name and location
-        $results = array_filter($this->vetsData, function ($vet) use ($name, $location) {
-            $matchesName = empty($name) || stripos($vet['name'], $name) !== false;
-            $matchesLocation = empty($location) || stripos($vet['location'], $location) !== false;
-            return $matchesName && $matchesLocation;
-        });
-
-        return $results;
+        $query = "SELECT 
+                    vet_id,
+                    CONCAT(f_name, ' ', l_name) as name,
+                    CONCAT(district, ', ', city) as location,
+                    street,
+                    years_exp as experience,
+                    contact_no
+                 FROM $this->table 
+                 ORDER BY name ASC";
+        
+        return $this->query($query);
     }
 
-    /**
-     * Validate user input data
-     */
-    public function validate($data)
+    public function searchVets($name = '', $location = '')
     {
-        $this->errors = [];
+        $params = [];
+        $query = "SELECT 
+                    vet_id,
+                    CONCAT(f_name, ' ', l_name) as name,
+                    CONCAT(district, ', ', city) as location,
+                    street,
+                    years_exp as experience,
+                    contact_no
+                 FROM $this->table 
+                 WHERE 1=1";
 
-        if (empty($data['name'])) {
-            $this->errors['name'] = "Name is required";
+        if (!empty($name)) {
+            $query .= " AND (LOWER(f_name) LIKE :name OR LOWER(l_name) LIKE :name)";
+            $params['name'] = '%' . strtolower($name) . '%';
         }
 
-        if (empty($data['location'])) {
-            $this->errors['location'] = "Location is required";
+        if (!empty($location)) {
+            $query .= " AND (LOWER(district) LIKE :location OR LOWER(city) LIKE :location)";
+            $params['location'] = '%' . strtolower($location) . '%';
         }
 
-        if (empty($this->errors)) {
-            return true;
-        }
+        $query .= " ORDER BY name ASC";
+        
+        return $this->query($query, $params);
+    }
 
-        return false;
+    public function getAverageRating($vet_id) {
+        $query = "SELECT AVG(rating) as avg_rating 
+                  FROM vet_reviews 
+                  WHERE vet_id = :vet_id";
+        
+        $result = $this->query($query, ['vet_id' => $vet_id]);
+        
+        if ($result && isset($result[0]->avg_rating)) {
+            return round($result[0]->avg_rating, 1); // Round to 1 decimal place
+        }
+        
+        return 0; // Default rating if no reviews
     }
 }

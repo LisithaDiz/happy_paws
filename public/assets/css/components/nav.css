@@ -74,7 +74,7 @@ header nav ul li:nth-child(5) {
 
 header nav ul li a {
     text-decoration: none;
-    color: black;
+    color: #450000;
     font-size: 1rem;
     font-weight: 600;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -96,7 +96,7 @@ header nav ul li a::after {
     top: 90%;
     width: 0;
     height: 2px;
-    background: black;
+    background: #450000;
     transition: width 0.3s ease, left 0.3s ease;
 }
 

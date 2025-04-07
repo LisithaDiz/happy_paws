@@ -33,6 +33,12 @@
             </li>
         </ul>
     </nav>
+    <div class="sidebar-footer">
+        <a href="<?=ROOT?>/logout" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
 </div>
 
 <script src="<?=ROOT?>/assets/js/sidebar.js"></script>

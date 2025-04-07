@@ -12,49 +12,87 @@ body {
 .search-container {
     text-align: center;
     padding: 20px;
+    margin-top: 120px;
 }
 
 .search-bar {
     width: 200px;
-    padding: 10px;
+    padding: 12px;
+    padding: 12px;
     margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.search-bar:focus {
+    border: none;
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: #ffe6e6;
+    transform: scale(1.02);
+}
+
+.search-bar:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .search-button, .clear-button, .book-button {
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
-    background-color: #f8929c;
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Gradient background */
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+}
+
+.search-button:hover, .clear-button:hover, .book-button:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.search-button:active, .clear-button:active, .book-button:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
 }
 
 .view-reviews-btn {
-    
     display: inline-block;
-    padding: 8px 16px;
-    background-color: #ff766f;
+    padding: 2px 6px; /* Adjusted padding for a smaller button */
+    background: linear-gradient(135deg, #ffb0b7, #ff4d44); /* Gradient background */
     color: white;
-    border-radius: 4px;
-    text-decoration: none;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    text-size-adjust: auto;
+    font-size: 10px; /* Smaller font size */
 }
 
 .view-reviews-btn:hover {
-    background-color: #ff4d44;
+    background: linear-gradient(135deg, #ff4d44, #ff2a2a); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.view-reviews-btn:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
 }
 
 .book-button {
     width: 30%;
     margin: 0 auto;
     display: block;
-}
-
-.search-button:hover, .clear-button:hover, .book-button:hover {
-    background-color: #d8544c;
 }
 
 .results-container {
@@ -80,6 +118,11 @@ body {
     gap: 20px;
 }
 
+.petsitter-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(245, 69, 20, 0.2);
+}
+
 .petsitter-image {
     width: 200px;
     min-width: 200px; /* Prevent image from shrinking */
@@ -99,6 +142,8 @@ body {
     flex-direction: column;
     gap: 10px;
     padding: 15px;
+    align-items: center; /* Center text content horizontally */
+    text-align: center; /* Center text within the info section */
 }
 
 .petsitter-info h2 {
@@ -134,7 +179,7 @@ body {
 }
 
 .results-container::-webkit-scrollbar-thumb:hover {
-    background: #c13f37;
+    background: #f95b5b;
 }
 
 .services {
@@ -193,5 +238,24 @@ body {
 
 .rating, .description {
     margin: 8px 0;
+}
+
+.rating-number {
+    font-size: 14px;
+    color: #666;
+    margin-left: 5px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.rating p {
+    display: flex;
+    align-items: center;
+    margin: 0;
 }
 

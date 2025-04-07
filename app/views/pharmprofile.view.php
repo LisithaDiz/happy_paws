@@ -3,27 +3,18 @@
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetprofile.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/pharmprofile.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
 
     
 
 </head>
 <body>
-    <?php include ('components/nav.php'); ?>
+    <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <div class="sidebar">
-            <h3>Pharmacy Dashboard</h3>
-            <ul>
-            <li><a href="<?=ROOT?>/PharmProfile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/Revenue">Revenue</a></li>
-                <li><a href="<?=ROOT?>/Orders">Orders</a></li>    
-                <!-- <li><a href="<?=ROOT?>/pharmacy/transactions">Transcation History</a></li> -->
-                <!-- <li><a href="<?=ROOT?>/pharmacy/settings">Settings</a></li> -->
-            </ul>
-        </div>
+        <?php include ('components/sidebar2.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">

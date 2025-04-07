@@ -1,8 +1,8 @@
 <?php
 // Debug output
 echo "<!-- Debug Info:\n";
-echo "sitter_id: " . (isset($sitter_id) ? $sitter_id : 'not set') . "\n";
-echo "sitter_name: " . (isset($sitter_name) ? $sitter_name : 'not set') . "\n";
+echo "pharmacy_id: " . (isset($pharmacy_id) ? $pharmacy_id : 'not set') . "\n";
+echo "pharmacy_name: " . (isset($pharmacy_name) ? $pharmacy_name : 'not set') . "\n";
 echo "reviews count: " . (isset($reviews) ? count($reviews) : 'not set') . "\n";
 echo "-->";
 ?>
@@ -13,11 +13,11 @@ echo "-->";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
-    <title>Pet Sitter Reviews</title>
+    <title>Pharmacy Reviews</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/footer.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/reviews.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/reviews3.css">
 </head>
 <body>
     <?php include 'components/nav2.php'; ?>
@@ -26,9 +26,9 @@ echo "-->";
         <div class="reviews-container">
             <?php if (isset($is_editing) && isset($review)): ?>
                 <!-- Edit Review Form -->
-                <h3 class="search-heading">Edit Review for <?= htmlspecialchars($sitter_name) ?></h3>
-                <div class="edit-review-container petsitter-card">
-                    <form method="POST" action="<?= ROOT ?>/reviews/edit/<?= $review->review_id ?>">
+                <h3 class="search-heading">Edit Review for <?= htmlspecialchars($pharmacy_name) ?></h3>
+                <div class="edit-review-container pharmacy-card">
+                    <form method="POST" action="<?= ROOT ?>/reviews3/edit/<?= $review->review_id ?>">
                         <div class="form-group">
                             <label>Rating:</label>
                             <select name="rating" required class="search-bar">
@@ -45,13 +45,13 @@ echo "-->";
                         </div>
                         <div class="button-group">
                             <button type="submit" class="button update-button">Update Review</button>
-                            <a href="<?= ROOT ?>/reviews/index/<?= $review->sitter_id ?>" class="button search-button">Cancel</a>
+                            <a href="<?= ROOT ?>/reviews3/index/<?= $review->pharmacy_id ?>" class="button search-button">Cancel</a>
                         </div>
                     </form>
                 </div>
             <?php else: ?>
                 <h2 class="search-heading">
-                    Reviews for <?= isset($sitter_name) && $sitter_name ? htmlspecialchars($sitter_name) : 'Pet Sitter' ?>
+                    Reviews for <?= isset($pharmacy_name) && $pharmacy_name ? htmlspecialchars($pharmacy_name) : 'Pharmacy' ?>
                     <?php if (isset($error)): ?>
                         <div class="error-message"><?= htmlspecialchars($error) ?></div>
                     <?php endif; ?>
@@ -60,20 +60,20 @@ echo "-->";
                     <p class="login-prompt">Please <a href="<?= ROOT ?>/login">login</a> to leave a review</p>
                 <?php elseif (!isset($has_reviewed) || !$has_reviewed): ?>
                     <!-- Add New Review Section -->
-                    <div class="add-review-container petsitter-card">
+                    <div class="add-review-container pharmacy-card">
                         <?php
                         echo "<!-- Debug: \n";
-                        echo "sitter_id: " . (isset($sitter_id) ? $sitter_id : 'not set') . "\n";
+                        echo "pharmacy_id: " . (isset($pharmacy_id) ? $pharmacy_id : 'not set') . "\n";
                         echo "owner_id: " . (isset($_SESSION['owner_id']) ? $_SESSION['owner_id'] : 'not set') . "\n";
                         echo "-->";
                         ?>
 
-                        <form method="POST" action="<?= ROOT ?>/reviews/add" onsubmit="return validateForm()">
+                        <form method="POST" action="<?= ROOT ?>/reviews3/add" onsubmit="return validateForm()">
                             <?php if(isset($error)): ?>
                                 <div class="error-message"><?= htmlspecialchars($error) ?></div>
                             <?php endif; ?>
                             
-                            <input type="hidden" name="sitter_id" value="<?= htmlspecialchars($sitter_id) ?>">
+                            <input type="hidden" name="pharmacy_id" value="<?= htmlspecialchars($pharmacy_id) ?>">
                             <div class="form-group">
                                 <label>Rating:</label>
                                 <select name="rating" required class="search-bar">
@@ -95,7 +95,7 @@ echo "-->";
                 <div class="results-container">
                     <?php if (!empty($reviews)): ?>
                         <?php foreach ($reviews as $review): ?>
-                            <div class="petsitter-card">
+                            <div class="pharmacy-card">
                                 <div class="review-header">
                                     <div class="reviewer-info">
                                         <h3 class="reviewer-name"><?= htmlspecialchars($review->owner_name) ?></h3>
@@ -110,8 +110,8 @@ echo "-->";
                                 </div>
                                 <?php if (isset($_SESSION['owner_id']) && $_SESSION['owner_id'] == $review->owner_id): ?>
                                     <div class="review-actions">
-                                        <a href="<?= ROOT ?>/reviews/edit/<?= $review->review_id ?>" class="button search-button">Edit</a>
-                                        <form method="POST" action="<?= ROOT ?>/reviews/delete/<?= $review->review_id ?>" style="display: inline;">
+                                        <a href="<?= ROOT ?>/reviews3/edit/<?= $review->review_id ?>" class="button search-button">Edit</a>
+                                        <form method="POST" action="<?= ROOT ?>/reviews3/delete/<?= $review->review_id ?>" style="display: inline;">
                                             <button type="submit" class="button clear-button" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
                                         </form>
                                     </div>
@@ -119,8 +119,8 @@ echo "-->";
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="petsitter-card">
-                            <p class="no-reviews">No reviews yet for this pet sitter. Be the first to review!</p>
+                        <div class="pharmacy-card">
+                            <p class="no-reviews">No reviews yet for this veterinarian. Be the first to review!</p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -133,15 +133,15 @@ echo "-->";
     function validateForm() {
         var comment = document.querySelector('textarea[name="comment"]').value;
         var rating = document.querySelector('select[name="rating"]').value;
-        var sitterId = document.querySelector('input[name="sitter_id"]').value;
+        var vetId = document.querySelector('input[name="pharmacy_id"]').value;
         
         console.log('Form submission:', {
             comment: comment,
             rating: rating,
-            sitterId: sitterId
+            pharmacyId: pharmacyId
         });
         
-        if (!comment || !rating || !sitterId) {
+        if (!comment || !rating || !pharmacyId) {
             alert('Please fill in all fields');
             return false;
         }

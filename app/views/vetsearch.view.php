@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetsearch.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <title>Search Vets</title>
     <link rel="stylesheet" href="../css/vetsearch.css">
 </head>
 <body>
 
-    <?php include ('components/nav.php'); ?>
+    <?php include ('components/nav2.php'); ?>
     
         <div class="dashboard-container">
-        <?php include ('components/sidebar3.php'); ?>
+        <?php include ('components/sidebar.php'); ?>
 
 
     <div class="search-container">
@@ -41,7 +41,24 @@
                     <div class="vet-info">
                         <h2><?php echo htmlspecialchars($vet['name']); ?></h2>
                         <p>Location: <?php echo htmlspecialchars($vet['location']); ?></p>
-                        <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", $vet['rating']); ?></span></p>
+                        
+                        <!-- Rating and Reviews -->
+                        <div class="rating">
+                            <p>Rating: 
+                                <span class="rating-stars">
+                                    <?php 
+                                    $rating = $vet['rating'];
+                                    echo str_repeat("⭐", floor($rating));
+                                    if ($rating - floor($rating) >= 0.5) {
+                                        echo "½";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="rating-number">(<?= number_format($rating, 1) ?>)</span>
+                            </p>
+                            <button class="view-reviews-btn" onclick="location.href='<?=ROOT?>/reviews2/index/<?= $vet['vet_id'] ?>'">View Reviews</button>
+                        </div>
+                        
                         <p>Related Pets: Dogs, Cats, Birds</p>
                         <a href="<?=ROOT?>/PetOwnerAppointments" class="book-button">Book</a>
                     </div>
