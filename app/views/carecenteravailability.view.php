@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/petsitteravailability.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
+
 
     
 
@@ -14,15 +16,8 @@
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
-        <!-- Sidebar for vet functionalities -->
-        <div class="sidebar">
-            <ul>
-                <li><a href="<?=ROOT?>/carecenterdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/carecenterpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/carecentercage">Maintain Cages</a></li>
-                <li><a href="<?=ROOT?>/carecenteravailability">Update Availability</a></li>
-            </ul>
-        </div>
+    <?php include ('components/sidebar5.php'); ?>
+
 
         <!-- Main content area -->
         <div class="main-content">

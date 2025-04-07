@@ -71,12 +71,12 @@ class Admin
                 'med_name' => $_POST['med_name'],
                 'med_description' => $_POST['med_description'],
             ];
-            // print_r($data);
+            print_r($data);
 
             $medicineModel = new MedicineModel();
             $medicineModel->insertMedicine($data);
 
-            redirect('/manageMedicine');
+            redirect('/adminManageMedicine');
         }
     }
 
@@ -95,21 +95,21 @@ class Admin
             $medicineModel = new MedicineModel();
             $medicineModel->updateMedicine($id, $data ,$id);
 
-            redirect('/manageMedicine');
+            redirect('/adminManageMedicine');
 
         }
     }
 
     public function deleteMedicine()
     {
-        echo "in admin s delete fuction";
+        // echo "in admin s delete fuction";
         if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
             $id = $_POST['med_id'];
 
             $medicineModel = new MedicineModel();
             $medicineModel->deleteMedicine($id);
 
-            redirect('manageMedicine');
+            redirect('adminManageMedicine');
         }
     }
 }

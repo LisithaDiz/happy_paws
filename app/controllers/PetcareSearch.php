@@ -7,30 +7,32 @@ class Petcaresearch
     public function index()
     {
         // Initialize with default pet care centers
-        $petCareCenters = [
-            [
-                'name' => 'Happy Paws Care Center',
-                'location' => 'Colombo',
-                'rating' => 4.5,
-                'services' => 'Grooming, Boarding, Training',
-                'image' => 'default-petcare.jpg'
-            ],
-            [
-                'name' => 'Pawsome Care',
-                'location' => 'Kandy',
-                'rating' => 4.0,
-                'services' => 'Boarding, Day Care, Training',
-                'image' => 'default-petcare.jpg'
-            ],
-            [
-                'name' => 'Pet Paradise',
-                'location' => 'Galle',
-                'rating' => 4.8,
-                'services' => 'Grooming, Boarding, Pet Hotel',
-                'image' => 'default-petcare.jpg'
-            ],
-            // Add more dummy data as needed
-        ];
+        // $petCareCenters = [
+        //     [
+        //         'name' => 'Happy Paws Care Center',
+        //         'location' => 'Colombo',
+        //         'rating' => 4.5,
+        //         'services' => 'Grooming, Boarding, Training',
+        //         'image' => 'default-petcare.jpg'
+        //     ],
+        //     [
+        //         'name' => 'Pawsome Care',
+        //         'location' => 'Kandy',
+        //         'rating' => 4.0,
+        //         'services' => 'Boarding, Day Care, Training',
+        //         'image' => 'default-petcare.jpg'
+        //     ],
+        //     [
+        //         'name' => 'Pet Paradise',
+        //         'location' => 'Galle',
+        //         'rating' => 4.8,
+        //         'services' => 'Grooming, Boarding, Pet Hotel',
+        //         'image' => 'default-petcare.jpg'
+        //     ],
+        //     // Add more dummy data as needed
+        // ];
+        $careCenterController = new CareCenterModel(); 
+        $petCareCenters = $careCenterController->getSearchInfo();
 
         // Handle search functionality
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

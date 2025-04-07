@@ -21,27 +21,23 @@
             <div class="overview-cards">
                     <h1>Treated Pets</h1>
                     
-                    <!-- Prescription List -->
-                    <div class="prescription-card" id="prescription1">
-                        <div class="pet-info">
-                            <img src="<?=ROOT?>/assets/images/background3.jpeg" alt="Buddy" class="pet-photo">
-                            <div>
-                                <h3>Buddy</h3>
-                                <p>Age: 2 years</p>
+                    <?php if(isset($petDetails) && !empty($petDetails)):?>
+                        <?php foreach ($petDetails as $petDetail):?>
+                            <div class="prescription-card" id="prescription1">
+                                <div class="pet-info">
+                                    <img src="<?=ROOT?>/assets/images/background3.jpeg" alt="Buddy" class="pet-photo">
+                                    <div>
+                                        <h2>Pet Name: <?= htmlspecialchars($petDetail->pet_name) ?></h2>
+                                        <p>Owner Name: <?= htmlspecialchars($petDetail->f_name) ?> <?= htmlspecialchars($petDetail->l_name) ?></p>
+                                        <p>Age: <?= htmlspecialchars($petDetail->age) ?></p>
+                                    </div>
+                                </div>
+                                <button class="btn-dashboard" >View Pet</button>
                             </div>
-                        </div>
-                        <button class="btn-dashboard" >View Pet</button>
-                    </div>
-
-                    <div class="prescription-card" id="prescription2">
-                        <div class="pet-info">
-                            <img src="<?=ROOT?>/assets/images/background2.jpeg" alt="Bella" class="pet-photo">
-                            <div>
-                                <h3>Bella</h3>
-                                <p>Age: 3 years</p>
-                            </div>
-                        </div>
-                      <button class="btn-dashboard" >View Pet</button>
+                        <?php endforeach;?>
+                    <?php else:?>
+                        <h1>No pets treated yet.</h1>
+                    <?php endif;?>
 
                     </div>
                 </div>

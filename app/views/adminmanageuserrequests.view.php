@@ -33,32 +33,28 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <?php 
+                        if (!empty($med_requests)) {
+                        foreach ($med_requests as $med_req) { ?>
                             <tr>
-                                <td>MAR001</td>
-                                <td>Dr. Sathya Rodrigue</td>
-                                <td>Feline Allergy Relief</td>
-                                <td>New medicine for cat allergies</td>
-                                <td>2024-02-15</td>
-                                <td>Pending</td>
+                                <td><?= htmlspecialchars($med_req->med_request_id) ?></td>
+                                <td><?= htmlspecialchars($med_req->submitted_by ?? 'N/A') ?></td>
+                                <td><?= htmlspecialchars($med_req->medicine_name) ?></td>
+                                <td><?= htmlspecialchars($med_req->note) ?></td>
+                                <td><?= htmlspecialchars($med_req->date_submitted ?? 'N/A') ?></td>
+                                <td><?= $med_req->status == 1 ? 'Pending' : 'Processed' ?></td>
                                 <td class="action-buttons">
                                     <a href="<?=ROOT?>/ReviewMedicineRequest/MAR001" class="btn-view">Review</a><br/><br/>
                                     <a href="<?=ROOT?>/ApproveMedicineRequest/MAR001" class="btn-approve">Approve</a><br/><br/>
                                     <a href="<?=ROOT?>/RejectMedicineRequest/MAR001" class="btn-reject">Reject</a>
                                 </td>
                             </tr>
+                        <?php }
+                        } else { ?>
                             <tr>
-                                <td>MAR002</td>
-                                <td>Happy Paws Pharmacy</td>
-                                <td>Canine Joint Support Supplement</td>
-                                <td>New joint health supplement</td>
-                                <td>2024-02-20</td>
-                                <td>Pending</td>
-                                <td class="action-buttons">
-                                    <a href="<?=ROOT?>/ReviewMedicineRequest/MAR002" class="btn-view">Review</a><br/><br/>
-                                    <a href="<?=ROOT?>/ApproveMedicineRequest/MAR002" class="btn-approve">Approve</a><br/><br/>
-                                    <a href="<?=ROOT?>/RejectMedicineRequest/MAR002" class="btn-reject">Reject</a>
-                                </td>
+                                <td colspan="7">No medicine requests found.</td>
                             </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -105,6 +101,28 @@
                                     <a href="<?=ROOT?>/MarkContactRequestResolved/CU002" class="btn-resolve">Mark Resolved</a>
                                 </td>
                             </tr>
+                            <?php 
+                            if (!empty($med_requests)) {
+                            foreach ($contact_us_info as $contact_us) { ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($contact_us->id) ?></td>
+                                    <td><?= htmlspecialchars($contact_us->name ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($contact_us->email) ?></td>
+                                    <td><?= htmlspecialchars($contact_us->subject) ?></td>
+                                    <td><?= htmlspecialchars($contact_us->created_at ?? 'N/A') ?></td>
+                                    <td><?= $contact_us->status == 1 ? 'Pending' : 'Processed' ?></td>
+                                    <td class="action-buttons">
+                                        <a href="<" class="btn-view">Review</a><br/><br/>
+                                        <a href="<" class="btn-approve">Approve</a><br/><br/>
+                                        <a href="<" class="btn-reject">Reject</a>
+                                    </td>
+                                </tr>
+                            <?php }
+                            } else { ?>
+                                <tr>
+                                    <td colspan="7">No contact us submissions found.</td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

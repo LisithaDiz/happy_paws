@@ -217,4 +217,49 @@ class User
         }
     }
 
+    public function contactUs() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Trim the inputs
+            $name = trim($_POST['name']);
+            $email = trim($_POST['email']);
+            $subject = trim($_POST['subject']);
+            $message = trim($_POST['message']);
+            $user_id =  !empty($_SESSION['user_id']) ?$_SESSION['user_id'] :'0';
+            
+            $response = [];
+    
+            // Validation
+            if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+                $response['error'] = "All fields are required!";
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $response['error'] = "Invalid email format!";
+            } elseif (strlen($message) < 10) {
+                $response['error'] = "Message must be at least 10 characters!";
+            } else {
+                // Store in Database (Example)
+                $data = [
+                    'name' => $name,
+                    'email' => $email,
+                    'subject' => $subject,
+                    'message' => $message,
+                    'user_id' => $user_id
+                ];
+    
+                $contactModel = new ContactUsModel();
+                $saved = $contactModel->addContactUs($data);
+    
+                if ($saved) {
+                    $success = "Your message has been submitted!";
+                    $_POST = []; 
+                    $this->view('contactus', ['success' => $success]);
+                } else {
+                    $error = "Something went wrong. Please try again.";
+                    $this->view('contactus', ['error' => $error]);
+
+                }
+            }
+        }
+        
+}
+
 }    

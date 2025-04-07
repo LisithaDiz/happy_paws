@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/petsitter/profile" class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/careCenterProfile" class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
                     <i class="fas fa-user"></i>
                     <span>My Profile</span>
                 </a>
@@ -35,13 +35,13 @@
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/petsitter/availability" class="<?= ($currentPage == 'availability') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/careCenterAvailability" class="<?= ($currentPage == 'availability') ? 'active' : '' ?>">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Update Availability</span>
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/petsitter/cages" class="<?= ($currentPage == 'cages') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/careCenterCage" class="<?= ($currentPage == 'cages') ? 'active' : '' ?>">
                     <i class="fas fa-box-open"></i>
                     <span>Cage Management</span>
                 </a>

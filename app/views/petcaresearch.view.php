@@ -34,20 +34,28 @@
         <?php foreach ($petCareCenters as $petCareCenter): ?>
             <div class="petCareCenter-card">
                 <div class="petCareCenter-image">
-                    <img src="<?=ROOT?>/assets/images/default-petcare.jpg" alt="<?php echo htmlspecialchars($petCareCenter['name']); ?>">
+                    <?php
+                        $imageFile = $petCareCenter->image ?? '';
+                        $imagePath = !empty($imageFile) && file_exists("uploads/petcare/$imageFile")
+                                        ? ROOT . "/uploads/petcare/" . htmlspecialchars($imageFile)
+                                        : ROOT . "/assets/images/default-petcare.jpg";
+                    ?>
+                    <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($petCareCenter->name) ?>">
                 </div>
                 <div class="petCareCenter-info">
-                    <h2><?php echo htmlspecialchars($petCareCenter['name']); ?></h2>
-                    <p>Location: <?php echo htmlspecialchars($petCareCenter['location']); ?></p>
-                    <p>Rating: <span class="rating-stars"><?php echo str_repeat("⭐", $petCareCenter['rating']); ?></span></p>
-                    <p>Experienced in: Dogs, Cats, Birds</p>
-                    <p>Services: <?php echo htmlspecialchars($petCareCenter['services']); ?></p>
-                       
+                    <h2><?= htmlspecialchars($petCareCenter->name) ?></h2>
+                    <p>Location: <?= htmlspecialchars($petCareCenter->city) . ', ' . htmlspecialchars($petCareCenter->district) ?></p>
+                    <p>Contact No: <?= htmlspecialchars($petCareCenter->contact_no) ?></p>
+                    <!-- <p>Rating: <span class="rating-stars"><?= str_repeat("⭐", $petCareCenter->rating) ?></span></p> -->
+                    <!-- <p>Experienced in: Dogs, Cats, Birds</p> -->
+                    <p>Services: <?= htmlspecialchars($petCareCenter->services_offered) ?></p>
                     
                     <button class="book-button">Book</button>
                 </div>
             </div>
         <?php endforeach; ?>
+
+
     <?php else: ?>
         <p style="color: black;">No results found.</p>
     <?php endif; ?>

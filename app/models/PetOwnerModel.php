@@ -93,6 +93,17 @@ class PetOwnerModel
 			return false;
 		}
 
+		public function getAllInfo(){
+
+			$order_column = 'owner_id';
+			$query = "SELECT * 
+						FROM $this->table AS po
+						JOIN user AS u 
+						ON po.user_id = u.user_id
+						ORDER BY $order_column $this->order_type";
 	
+			return $this->query($query);
+	
+		}
 	
 }
