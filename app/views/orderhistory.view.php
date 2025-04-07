@@ -119,17 +119,10 @@
                                                     <?= ucfirst($order->payment_status) ?>
                                                 </span>
                                             </td>
-                                            <td class="actions-cell">
-                                                <label class="toggle-switch">
-                                                    <input type="checkbox" 
-                                                           onchange="markAsPaid(<?= $order->order_id ?>, this)"
-                                                           <?= $order->payment_status === 'paid' ? 'checked' : '' ?>
-                                                           <?= $order->payment_status === 'paid' ? 'disabled' : '' ?>>
-                                                    <span class="toggle-slider">
-                                                        <span class="pending-text">Mark as </span>
-                                                        <span class="paid-text">Paid ✓</span>
-                                                    </span>
-                                                </label>
+                                            <td>
+                                                <input type="checkbox" 
+                                                       onchange="markAsPaid(<?= $order->order_id ?>, this)" 
+                                                       <?= $order->payment_status === 'paid' ? 'checked disabled' : '' ?>>
                                             </td>
                                             <td class="bill-cell">
                                                 <?php if($order->payment_status === 'paid'): ?>
@@ -189,12 +182,12 @@
                     <span class="label">Status:</span>
                     <span id="modal-status" class="status-badge"></span>
                 </div>
-                <!-- Payment info for accepted orders -->
-                <div id="payment-info-row" class="detail-row">
+                <!-- Payment status (only for accepted orders) -->
+                <div id="payment-status-row" class="detail-row">
                     <span class="label">Payment Status:</span>
                     <span id="modal-payment-status" class="payment-status"></span>
                 </div>
-                <!-- Decline reason for declined orders -->
+                <!-- Decline reason (only for declined orders) -->
                 <div id="decline-reason-row" class="detail-row">
                     <span class="label">Reason for Decline:</span>
                     <span id="modal-decline-reason" class="decline-reason"></span>
@@ -281,18 +274,18 @@
             statusElement.textContent = orderData.status.charAt(0).toUpperCase() + orderData.status.slice(1);
             statusElement.className = "status-badge " + orderData.status;
 
-            // Handle payment info for accepted orders
-            const paymentInfoRow = document.getElementById("payment-info-row");
+            // Handle payment status visibility (only for accepted orders)
+            const paymentStatusRow = document.getElementById("payment-status-row");
             if (orderData.status === 'accepted') {
-                paymentInfoRow.style.display = 'flex';
+                paymentStatusRow.style.display = 'flex';
                 const paymentStatusElement = document.getElementById("modal-payment-status");
                 paymentStatusElement.textContent = orderData.paymentStatus.charAt(0).toUpperCase() + orderData.paymentStatus.slice(1);
                 paymentStatusElement.className = "payment-status " + orderData.paymentStatus;
             } else {
-                paymentInfoRow.style.display = 'none';
+                paymentStatusRow.style.display = 'none';
             }
 
-            // Handle decline reason for declined orders
+            // Handle decline reason visibility (only for declined orders)
             const declineReasonRow = document.getElementById("decline-reason-row");
             if (orderData.status === 'declined' && orderData.declineReason) {
                 declineReasonRow.style.display = 'flex';
@@ -311,49 +304,83 @@
 
         // Close modal when clicking outside
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            if (event.target == document.getElementById('orderDetailsModal')) {
+                document.getElementById('orderDetailsModal').style.display = "none";
             }
         }
 
         function markAsPaid(orderId, checkbox) {
             if (!checkbox.checked) {
-                return; // Don't proceed if unchecking
+                return;
             }
 
             if (confirm('Are you sure you want to mark this order as paid?')) {
-                // Send AJAX request to update payment status
-                fetch(`<?=ROOT?>/orderhistory/updatePaymentStatus/${orderId}`, {
+                // Show loading state
+                checkbox.disabled = true;
+
+                // Create FormData
+                const formData = new FormData();
+                formData.append('order_id', orderId);
+
+                fetch(`<?=ROOT?>/orderhistory/markAsPaid`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        payment_status: 'paid'
-                    })
+                    body: formData
                 })
-                .then(response => response.json())
+                .then(async response => {
+                    const text = await response.text();
+                    console.log('Raw server response:', text); // Debug log
+
+                    try {
+                        if (!text) {
+                            throw new Error('Empty response received');
+                        }
+                        
+                        const data = JSON.parse(text);
+                        
+                        if (!response.ok) {
+                            throw new Error(data.message || `HTTP error! status: ${response.status}`);
+                        }
+                        
+                        return data;
+                    } catch (e) {
+                        console.error('Response parsing error:', e);
+                        throw new Error(`Server response error: ${e.message}`);
+                    }
+                })
                 .then(data => {
                     if (data.success) {
-                        checkbox.disabled = true; // Disable the checkbox after successful payment
-                        // Optional: Show success message
+                        // Success state
+                        checkbox.disabled = true;
                         const row = checkbox.closest('tr');
+                        
+                        // Update payment status display
+                        const statusCell = row.querySelector('.payment-status');
+                        if (statusCell) {
+                            statusCell.textContent = 'Paid';
+                            statusCell.className = 'payment-status paid';
+                        }
+                        
+                        // Visual feedback
                         row.style.backgroundColor = '#f0fff4';
                         setTimeout(() => {
                             row.style.backgroundColor = '';
                         }, 1000);
+
+                        // Show success message
+                        alert('Payment status updated successfully');
                     } else {
-                        checkbox.checked = false; // Revert checkbox if failed
-                        alert('Failed to update payment status');
+                        throw new Error(data.message || 'Failed to update payment status');
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    checkbox.checked = false; // Revert checkbox if error
-                    alert('An error occurred while updating payment status');
+                    console.error('Error details:', error);
+                    // Reset checkbox state
+                    checkbox.checked = false;
+                    checkbox.disabled = false;
+                    alert('An error occurred while updating payment status: ' + error.message);
                 });
             } else {
-                checkbox.checked = false; // Revert checkbox if cancelled
+                checkbox.checked = false;
             }
         }
 

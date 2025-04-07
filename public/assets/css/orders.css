@@ -200,7 +200,7 @@
 .accept-btn, .decline-btn {
     padding: 6px 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
     font-weight: 500;
     font-size: 0.85rem;
@@ -208,33 +208,30 @@
     align-items: center;
     gap: 4px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     min-width: 85px;
     justify-content: center;
 }
 
 .accept-btn {
-    background: linear-gradient(145deg, #34d058, #28a745);
-    color: white;
-    border: 1px solid #28a745;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
 }
 
 .accept-btn:hover {
-    background: linear-gradient(145deg, #2fbf4f, #218838);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 5px rgba(40, 167, 69, 0.15);
+    background-color: #c8e6c9;
+    color: #1b5e20;
 }
 
 .decline-btn {
-    background: linear-gradient(145deg, #ff4d5e, #dc3545);
-    color: white;
-    border: 1px solid #dc3545;
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
 }
 
 .decline-btn:hover {
-    background: linear-gradient(145deg, #ff3545, #c82333);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 5px rgba(220, 53, 69, 0.15);
+    background-color: #ffcdd2;
+    color: #b71c1c;
 }
 
 /* Button icons */
@@ -244,8 +241,7 @@
 
 /* Active state */
 .accept-btn:active, .decline-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    transform: translateY(1px);
 }
 
 /* Disabled state */
@@ -255,21 +251,14 @@
     transform: none;
 }
 
-/* Hover animation */
-@keyframes buttonPulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.03);
-    }
-    100% {
-        transform: scale(1);
-    }
+/* Remove gradient and shadow effects to match badge style */
+.accept-btn, .decline-btn {
+    box-shadow: none;
 }
 
 .accept-btn:hover, .decline-btn:hover {
-    animation: buttonPulse 0.3s ease-in-out;
+    box-shadow: none;
+    animation: none;
 }
 
 /* Modal Styles */

@@ -64,7 +64,7 @@ class App
                 'Revenue'=> ['index'],
                 'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
-                'OrderHistory'=> ['index'],
+                'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
             ],
         
     ];

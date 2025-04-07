@@ -48,7 +48,8 @@ class Order
             po.total_price,
             po.processed_date,
             po.status,
-            po.payment_status
+            po.payment_status,
+            po.decline_reason
         FROM pharmacy_orders po
         JOIN pet_owner pet_o ON po.owner_id = pet_o.owner_id
         JOIN pet p ON po.pet_id = p.pet_id
@@ -143,15 +144,33 @@ class Order
         ];
     }
 
-    public function updatePaymentStatus($order_id, $payment_status)
+    public function updatePaymentStatus($order_id, $status)
     {
-        $query = "UPDATE pharmacy_orders 
-                  SET payment_status = :payment_status 
-                  WHERE order_id = :order_id";
-                  
-        return $this->query($query, [
-            ':payment_status' => $payment_status,
-            ':order_id' => $order_id
-        ]);
+        try {
+            $query = "UPDATE pharmacy_orders 
+                      SET payment_status = :status 
+                      WHERE order_id = :order_id";
+            
+            return $this->query($query, [
+                ':status' => $status,
+                ':order_id' => $order_id
+            ]);
+        } catch (Exception $e) {
+            error_log("Database error in updatePaymentStatus: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getOrderById($order_id)
+    {
+        try {
+            $query = "SELECT * FROM pharmacy_orders WHERE order_id = :order_id LIMIT 1";
+            $result = $this->query($query, [':order_id' => $order_id]);
+            
+            return $result ? $result[0] : null;
+        } catch (Exception $e) {
+            error_log("Database error in getOrderById: " . $e->getMessage());
+            return null;
+        }
     }
 } 
