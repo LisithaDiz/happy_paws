@@ -1,6 +1,6 @@
 <?php 
 
-class ManageMedicine
+class AdminManageMedicine
 {
 	use Controller;
 
@@ -11,7 +11,7 @@ class ManageMedicine
 		// var_dump($medicine);
 
 		$data =['medicines' => $medicine];
-		$this->view('managemedicines',$data);
+		$this->view('adminmanagemedicines',$data);
 	}
 
 }

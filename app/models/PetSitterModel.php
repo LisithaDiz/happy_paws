@@ -21,5 +21,15 @@ class PetSitterModel
             'years_exp'
 	];
 
+    public function getAllInfo(){
+
+		$order_column = 'sitter_id';
+    	$query = "SELECT * FROM $this->table AS ps
+              JOIN user AS u ON ps.user_id = u.user_id
+              ORDER BY $order_column $this->order_type";
+
+		return $this->query($query);
+
+	}
 	
 }

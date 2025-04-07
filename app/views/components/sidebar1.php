@@ -8,25 +8,25 @@
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/ManageMedicine" class="<?= ($currentPage == 'medicine') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/AdminManageMedicine" class="<?= ($currentPage == 'medicine') ? 'active' : '' ?>">
                     <i class="fas fa-pills"></i>
                     <span>Manage Medicine</span>
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/ManageCertificates" class="<?= ($currentPage == 'certificates') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/AdminManageCertificates" class="<?= ($currentPage == 'certificates') ? 'active' : '' ?>">
                     <i class="fas fa-certificate"></i>
                     <span>Manage Certificates</span>
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/ManageUsers" class="<?= ($currentPage == 'users') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/AdminManageUsers" class="<?= ($currentPage == 'users') ? 'active' : '' ?>">
                     <i class="fas fa-users"></i>
                     <span>Manage Users</span>
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/ManageUserRequests" class="<?= ($currentPage == 'user-requests') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/AdminManageUserRequests" class="<?= ($currentPage == 'user-requests') ? 'active' : '' ?>">
                     <i class="fas fa-user-clock"></i>
                     <span>User Requests</span>
                 </a>

@@ -196,5 +196,17 @@ class VetModel
     //         'profilePicture' => 'assets/images/default-profile-picture.webp'
     //     ];
     // }
+
+
+	public function getAllInfo(){
+
+		$order_column = 'vet_id';
+    	$query = "SELECT * FROM $this->table AS vet
+              JOIN user AS u ON vet.user_id = u.user_id
+              ORDER BY $order_column $this->order_type";
+
+		return $this->query($query);
+
+	}
 	
 }
