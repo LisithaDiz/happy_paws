@@ -99,7 +99,7 @@
                                     <th>Customer</th>
                                     <th>Medicine</th>
                                     <th>Total Amount</th>
-                                    <th>Order Date</th>
+                                    <th>Processed Date</th>
                                     <th>Payment Status</th>
                                     <th>Actions</th>
                                     <th>Bill</th>
@@ -108,6 +108,7 @@
                             <tbody>
                                 <?php if(!empty($data['orders'])): ?>
                                     <?php foreach($data['orders'] as $order): ?>
+                                        <?php if($order->status === 'accepted'): ?>
                                         <tr>
                                             <td>#<?= $order->order_id ?></td>
                                             <td><?= htmlspecialchars($order->customer_name) ?></td>
@@ -120,21 +121,22 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <input type="checkbox" 
-                                                       onchange="markAsPaid(<?= $order->order_id ?>, this)" 
-                                                       <?= $order->payment_status === 'paid' ? 'checked disabled' : '' ?>>
+                                                <button onclick="togglePaymentStatus(<?= $order->order_id ?>, this)" 
+                                                        class="toggle-payment-btn <?= $order->payment_status === 'paid' ? 'paid' : 'unpaid' ?>">
+                                                    <?= $order->payment_status === 'paid' ? 'Mark as Unpaid' : 'Mark as Paid' ?>
+                                                </button>
                                             </td>
                                             <td class="bill-cell">
                                                 <?php if($order->payment_status === 'paid'): ?>
-                                                    <button onclick="showBill(<?= htmlspecialchars(json_encode([
-                                                        'orderId' => $order->order_id,
-                                                        'customer' => $order->customer_name,
-                                                        'medicine' => $order->medicine,
-                                                        'quantity' => $order->quantity,
-                                                        'total' => $order->total_price,
-                                                        'date' => date('M d, Y', strtotime($order->processed_date)),
-                                                        'status' => $order->payment_status
-                                                    ])) ?>)" class="generate-bill-btn">
+                                                    <button onclick="showBill({
+                                                        orderId: '<?= $order->order_id ?>',
+                                                        customer: '<?= htmlspecialchars($order->customer_name) ?>',
+                                                        medicine: '<?= htmlspecialchars($order->medicine) ?>',
+                                                        quantity: '<?= $order->quantity ?>',
+                                                        total: '<?= number_format($order->total_price, 2) ?>',
+                                                        date: '<?= date('M d, Y', strtotime($order->processed_date)) ?>',
+                                                        status: '<?= $order->payment_status ?>'
+                                                    })" class="generate-bill-btn">
                                                         <i class="fas fa-file-invoice"></i> Generate Bill
                                                     </button>
                                                 <?php else: ?>
@@ -142,10 +144,11 @@
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="7" class="no-orders">No orders found.</td>
+                                        <td colspan="8" class="no-orders">No orders found.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -309,57 +312,44 @@
             }
         }
 
-        function markAsPaid(orderId, checkbox) {
-            if (!checkbox.checked) {
-                return;
-            }
+        function togglePaymentStatus(orderId, button) {
+            const isPaid = button.classList.contains('paid');
+            const newStatus = isPaid ? 'unpaid' : 'paid';
+            const confirmMessage = isPaid ? 'Are you sure you want to mark this order as unpaid?' : 'Are you sure you want to mark this order as paid?';
 
-            if (confirm('Are you sure you want to mark this order as paid?')) {
+            if (confirm(confirmMessage)) {
                 // Show loading state
-                checkbox.disabled = true;
+                button.disabled = true;
 
                 // Create FormData
                 const formData = new FormData();
                 formData.append('order_id', orderId);
 
-                fetch(`<?=ROOT?>/orderhistory/markAsPaid`, {
+                fetch(`<?=ROOT?>/orderhistory/togglePaymentStatus`, {
                     method: 'POST',
                     body: formData
                 })
-                .then(async response => {
-                    const text = await response.text();
-                    console.log('Raw server response:', text); // Debug log
-
-                    try {
-                        if (!text) {
-                            throw new Error('Empty response received');
-                        }
-                        
-                        const data = JSON.parse(text);
-                        
-                        if (!response.ok) {
-                            throw new Error(data.message || `HTTP error! status: ${response.status}`);
-                        }
-                        
-                        return data;
-                    } catch (e) {
-                        console.error('Response parsing error:', e);
-                        throw new Error(`Server response error: ${e.message}`);
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
+                    return response.json();
                 })
                 .then(data => {
                     if (data.success) {
-                        // Success state
-                        checkbox.disabled = true;
-                        const row = checkbox.closest('tr');
-                        
+                        // Toggle the button state
+                        button.classList.toggle('paid');
+                        button.classList.toggle('unpaid');
+                        button.textContent = newStatus === 'paid' ? 'Mark as Unpaid' : 'Mark as Paid';
+
                         // Update payment status display
+                        const row = button.closest('tr');
                         const statusCell = row.querySelector('.payment-status');
                         if (statusCell) {
-                            statusCell.textContent = 'Paid';
-                            statusCell.className = 'payment-status paid';
+                            statusCell.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+                            statusCell.className = 'payment-status ' + newStatus;
                         }
-                        
+
                         // Visual feedback
                         row.style.backgroundColor = '#f0fff4';
                         setTimeout(() => {
@@ -373,14 +363,11 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error details:', error);
-                    // Reset checkbox state
-                    checkbox.checked = false;
-                    checkbox.disabled = false;
+                    console.error('Error:', error);
+                    // Reset button state
+                    button.disabled = false;
                     alert('An error occurred while updating payment status: ' + error.message);
                 });
-            } else {
-                checkbox.checked = false;
             }
         }
 
