@@ -34,9 +34,15 @@
             <li>
                 <a href="<?=ROOT?>/vetAvailability" class="<?= ($currentPage == 'availability') ? 'active' : '' ?>">
                     <i class="fas fa-clock"></i>
-                    <span>Update Availability</span>
+                    <span>Upcoming Appointments</span>
                 </a>
             </li>
+            <!-- <li>
+                <a href="<?=ROOT?>/vetAvailableHours class="<?= ($currentPage == 'availablehours') ? 'active' : '' ?>">
+                    <i class="fas fa-clock"></i>
+                    <span>Update Availability</span>
+                </a>
+            </li> -->
             <li>
                 <a href="<?=ROOT?>/vetMedRequest" class="<?= ($currentPage == 'medicine-request') ? 'active' : '' ?>">
                     <i class="fas fa-capsules"></i>
