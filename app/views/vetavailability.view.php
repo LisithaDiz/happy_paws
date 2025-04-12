@@ -152,7 +152,7 @@
             dayElement.className = "calendar-day";
             dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
 
-            if (date.getTime() >= today.getTime() && date <= lastClickableDate) {
+             if (date.getTime() >= today.getTime() && date <= lastClickableDate) {
                 dayElement.classList.add("clickable");
                 dayElement.onclick = () => showAvailabilityPopup(date);
             }

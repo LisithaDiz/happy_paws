@@ -9,16 +9,17 @@ class VetAppointmentModel
 	
 	use Model;
 
-	protected $table = 'appointments';
+	protected $table = 'appointment';
 
 	protected $allowedColumns = [
 
 		'appointment_id',
-		'pet_id', 
-		'startTime', 
-		'endTime',
-		'appointment_status',
-		'vet_id'
+		'vet_id', 
+		'owner_id',
+		'avl_id',
+		'appointment_time', 
+		'appointment_date',
+		'appointment_status'
 	];
 
 	// public function getFirstVetDetails()    
@@ -45,33 +46,74 @@ class VetAppointmentModel
 
 
 
-	public function getAppointmentDetails()
+	public function appointmentDetailsOwnerView()
 	{
-		$userid = $_SESSION['user_id'];
+		$ownerid = $_SESSION['owner_id'];
 		
 
-		$query="SELECT appointments.appointment_id,appointments.pet_id, appointments.startTime, appointments.endTime, pets.pet_name
-				FROM appointments
-				JOIN pets ON appointments.pet_id = pets.pet_id
-				JOIN veterinary_surgeon ON veterinary_surgeon.vet_id = appointments.vet_id
-				JOIN user ON user.user_id = veterinary_surgeon.user_id
-				WHERE user.user_id = :userid  AND appointment_status = '0'";
+		$query="SELECT * FROM appointment a
+				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id
+				WHERE a.owner_id = :ownerid  AND a.appointment_status = '0'";
 
 			
-
-		$params = ['userid'=> $userid];
+		
+		$params = ['ownerid'=> $ownerid];// key name must match the :ownerid in query
 
 		$result = $this->query($query, $params);
 		
+		
 		return $result;
 
+	}
+
+	public function cancelAppointmentUpdate($appointment_id)
+	{
+		// Step 1: Update appointment status to '2' (Cancelled)
+		$updatestatus = "UPDATE appointment
+						SET appointment_status = 2
+						WHERE appointment_id = :appointment_id";
+
+		$this->query($updatestatus, ['appointment_id' => $appointment_id]);
+
+		// Step 2: Retrieve avl_id from the appointment
+		$getavlid = "SELECT * FROM appointment WHERE appointment_id = :appointment_id";
+
+		$appointment = $this->query($getavlid, ['appointment_id' => $appointment_id]);
+
+		if (!empty($appointment)) {
+			$avl_id = $appointment[0]->avl_id;  // Fetch from first row
+
+			// Step 3: Update slots in vet_availability
+			$updateslots = "UPDATE vet_availability
+							SET booked_slots = booked_slots - 1,
+								available_slots = available_slots + 1
+							WHERE avl_id = :avl_id";
+
+			$this->query($updateslots, ['avl_id' => $avl_id]);
+
+			return true;
+		} else {
+			return false; // No appointment found
+		}
+	}
+
+
+	
+	public function cancelledAppoinmentsOwnerView()
+	{
+		$ownerid=$_SESSION['owner_id'];
+		$query = "SELECT * FROM appointment  a
+				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id
+				WHERE a.owner_id = :ownerid AND a.appointment_status = 2";
+
+		$result = $this->query($query,['ownerid'=> $ownerid]);
+		
+
+		return $result;
 	}
 
 
 
 
 
-
-		
-	
 }

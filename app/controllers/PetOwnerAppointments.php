@@ -6,10 +6,6 @@ class PetOwnerAppointments
 
     public function index()
     {
-        $vetAvailability = new VetUpdateAvailableHoursModel;
-
-        $vetAvailabilityDetails = $vetAvailability->vetAvailabilityOwnerView();
-        
-        $this->view('petownerappointments', ['vetAvailabilityDetails'=> $vetAvailabilityDetails]);
+        $this->view('petownerappointments');
     }
 }

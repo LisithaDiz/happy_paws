@@ -1,0 +1,243 @@
+:root {
+    --primary-color: #dc868d;
+    --secondary-color: #fae3e3;
+    --text-color: #333;
+    --hover-color: #c08186;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff5f5;
+}
+
+.main-content {
+    margin-top: 110px;
+    padding: 30px;
+    flex: 1;
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.appointments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.appointment-card {
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.appointment-card:hover {
+    transform: translateY(-5px);
+}
+
+.appointment-details p {
+    margin: 8px 0;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.view-vet-btn {
+    margin-top: 20px;
+    color: white;
+    background-color: #dc868d;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.view-vet-btn:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.05);
+}
+
+.cancel-btn {
+    margin-top: 20px;
+    color: white;
+    background-color: #dc868d;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 10px;
+}
+
+.cancel-btn:hover {
+    background-color: #c08186;
+    transform: translateY(-2px);
+}
+
+.cancel-btn:active {
+    transform: scale(0.98);
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-actions {
+    margin-top: 20px;
+}
+
+.popup-btn {
+    padding: 8px 16px;
+    margin: 0 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.popup-btn.confirm {
+    background-color: #d9534f;
+    color: white;
+}
+
+.popup-btn:hover {
+    opacity: 0.9;
+}
+
+.cancelled-appointments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.cancelled-appointment-card {
+    background: #f5f5f5;  /* Light grey */
+    border: 1px solid #ddd;  /* Subtle border */
+    margin-top: 20px;
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+
+
+.cancelled-appointment-card:hover {
+    transform: translateY(-2px);
+}
+
+
+.cancelled-appointment-details p {
+    margin: 8px 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    text-align: center;
+}
+
+.cancelled-appointment-card center p {
+    
+    color: #6e6e6e;  /* Bootstrap's danger red or choose #c0392b for deep red */
+    font-weight: bold;
+    margin-top: 12px;
+    align-items: center;
+    text-align: center;
+    
+}
+
+
+.cancelled-view-vet-btn {
+    align-items: center;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    background: #c2c2c2;
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.cancelled-view-vet-btn:hover {
+    background: #8f8f8f;
+}
+
+
+@keyframes fadeIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+
+/* Tablets */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .appointment-details p {
+        font-size: 0.95rem;
+    }
+
+    .view-vet-btn {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .appointments-list {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-card {
+        padding: 20px;
+    }
+
+    .view-vet-btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px;
+    }
+}

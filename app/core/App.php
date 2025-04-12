@@ -21,7 +21,6 @@ class App
                'PetUpdate' => ['index', 'updatePetDetails'],
                'PetAdd' => ['index', 'createPet'],
                'PetOwnerProfile' => ['index'],
-               'petownerappointments' => ['index'],
                'VetSearch' => ['index'],
                'PetOwnerGuardians' => ['index'],
                'PetsitterSearch' => ['index'],
@@ -34,7 +33,8 @@ class App
                'Reviews4' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
                'PetOwnerDash'=>['index'],
-               'PetOwnerBookVet'=>['index','bookvet']
+               'PetOwnerBookVet'=>['index','bookvet'],
+               'PetOwner_Appointments'=>['index','cancelAppointment'],
             ], 
 
         

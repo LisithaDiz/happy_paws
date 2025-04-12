@@ -1,0 +1,158 @@
+/* Layout Adjustments */
+.main-content {
+    margin-top: 100px; /* Adjust if your navbar height is different */
+    padding: 20px;
+}
+
+/* Calendar Grid */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+/* Individual Calendar Days */
+.calendar-day {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.calendar-day.available {
+    background-color: #fae3e3;
+    color: rgb(77, 77, 77);
+}
+
+.calendar-day.selected {
+    background-color: #f5c6cb;
+    color: #333;
+}
+
+/* Time Slot Area */
+.time-slot-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Time Slot Boxes */
+.time-slot {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fae3e3;
+    color: rgb(77, 77, 77);
+    cursor: pointer;
+}
+
+.time-slot.selected {
+    background-color: #c35b64;
+    color: white;
+}
+
+/* Book Button */
+.book-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #dc868d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Popup */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.popup {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.popup button {
+    margin: 10px 5px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #c35b64;
+    color: white;
+}
+
+#bookingDetailsText {
+    margin-top: 15px;
+    white-space: pre-wrap;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .calendar {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
+
+    .time-slot {
+        padding: 8px 16px;
+    }
+
+    .book-btn {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .popup {
+        padding: 15px;
+    }
+
+    .popup button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
