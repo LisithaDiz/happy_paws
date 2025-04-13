@@ -1,61 +1,193 @@
-.main-content{
-    max-width: 800px;
-    width: 800px;
-    margin: 20px auto;
+/* vetappointments.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
     padding: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    animation: fadeIn 2s ease-in-out;
-    background-color: rgba(255, 255, 255, 0.3);
-     /* Set a maximum height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Hide horizontal scrolling */
-    max-height: auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    color: #333;
+    margin-bottom: 30px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.calendar {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="time"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-button.btn-primary {
-    background-color: #fae3e3;
-    color: rgb(57, 57, 57);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+.calendar-day {
+    flex: 1 1 calc(14.28% - 10px);
+    max-width: 120px;
+    background-color: #ffe8e8;
+    text-align: center;
+    padding: 15px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     cursor: pointer;
-    font-size: 16px;
-    display: block;
-    width: 100%;
+    transition: all 0.3s ease;
 }
 
-button.btn-primary:hover {
-    background-color: #f5c6cb;
-    color: rgb(57, 57, 57)
+.calendar-day:hover {
+    background-color: #f9c0c0;
+    transform: translateY(-3px);
+}
+
+.calendar-day.active {
+    background-color: #c35b64;
+    color: white;
+}
+
+.time-slots {
+    margin: 20px 0;
+}
+
+.time-slot {
+    background: #f7eaea;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.time-slot h3 {
+    margin: 0 0 10px;
+    color: #444;
+    font-size: 18px;
+}
+
+.appointment-card {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.appointment-card span {
+    color: #555;
+    font-size: 16px;
+}
+
+.appointment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.appointment-actions button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 1px solid white; /* White border */
+}
+
+.appointment-actions .complete-btn {
+    background-color: #cb9297; /* Primary theme color */
+    color: white;
+}
+
+.appointment-actions .complete-btn:hover {
+    background-color: #a36e73; /* Darker shade of the theme color */
+    transform: scale(1.05);
+}
+
+.appointment-actions .cancel-btn {
+    background-color: #e86866; /* Red theme color */
+    color: white;
+}
+
+.appointment-actions .cancel-btn:hover {
+    background-color: #c54747; /* Darker red on hover */
+    transform: scale(1.05);
+}
+
+/* Complete Button (standalone) */
+.complete-btn {
+    background-color: #cb9297; /* Primary theme color */
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid white; /* White border */
+    transition: all 0.3s ease;
+}
+
+.complete-btn:hover {
+    background-color: #a36e73; /* Darker shade of theme color */
+    border-color: white; /* White border on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Cancel Button (standalone) */
+.cancel-btn {
+    background-color: #e86866; /* Red theme color */
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid white; /* White border */
+    transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #c54747; /* Darker red on hover */
+    border-color: white; /* White border on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Adding subtle box-shadow effect for buttons */
+.appointment-actions button {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-actions button:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Slight elevation effect on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .calendar-day {
+        flex: 1 1 calc(33% - 10px);
+        max-width: unset;
+    }
+
+    .appointment-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .appointment-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-day {
+        flex: 1 1 calc(50% - 10px);
+    }
 }
 
 /* Style for scrollbars */

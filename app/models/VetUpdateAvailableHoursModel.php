@@ -36,18 +36,16 @@ class VetUpdateAvailableHoursModel
 	
     }
 
-	public function getAvailableHours()
+	public function vetAvailabilityVetView()
 	{
 		
-		$userid = $_SESSION['user_id'];
+		$vetid = $_SESSION['vet_id'];
 
-		$query = "SELECT a.day_of_week, a.start_time, end_time, a.number_of_appointments
-				FROM vet_availability a
-				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id 
-				WHERE v.user_id = :userid";
+		$query = "SELECT * FROM vet_availability 
+				WHERE vet_id = :vetid";
 		
 
-		$params = ['userid'=>$userid];
+		$params = ['vetid'=>$vetid];
 
 		$result = $this->query($query,$params);
 		

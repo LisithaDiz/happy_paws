@@ -44,7 +44,7 @@ class App
                 'VetRequest' => ['index'],
                 'VetTreatedPet' => ['index','treatedPetDetails'],
                 'VetPrescription' => ['index'],
-                'VetAvailability' => ['index'],
+                'VetAvailability' => ['index','completeAppointment'],
                 'VetMedRequest' => ['index','addMedicineRequest'],
                 'VetSettings' => ['index'],
                 'VetAvailableHours' => ['index','availableHours']

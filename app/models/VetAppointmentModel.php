@@ -43,7 +43,24 @@ class VetAppointmentModel
 	// 	return $result;
 	// }
 
+	public function appointmentDetailsVetView()
+	{
+		$vetid = $_SESSION['vet_id'];
+		
 
+		$query="SELECT * FROM appointment a
+				JOIN pet_owner o ON a.owner_id = o.owner_id
+				WHERE a.vet_id = :vetid  AND a.appointment_status = '0'";
+
+			
+		
+		$params = ['vetid'=> $vetid];// key name must match the :ownerid in query
+
+		$result = $this->query($query, $params);
+		
+		
+		return $result;
+	}
 
 
 	public function appointmentDetailsOwnerView()
@@ -112,7 +129,35 @@ class VetAppointmentModel
 		return $result;
 	}
 
+	public function completeAppointmentUpdate($appointment_id)
+	{
+		$updateStatus = "UPDATE appointment 
+						SET appointment_status = 1
+						WHERE appointment_id = :appointment_id"; 
+		$this->query($updateStatus,['appointment_id'=>$appointment_id]);
 
+		$getavlid = "SELECT * FROM appointment WHERE appointment_id = :appointment_id";
+
+		$appointment = $this->query($getavlid, ['appointment_id' => $appointment_id]);
+
+		if (!empty($appointment)) {
+			$avl_id = $appointment[0]->avl_id;  // Fetch from first row
+
+			// Step 3: Update slots in vet_availability
+			$updateslots = "UPDATE vet_availability
+							SET booked_slots = booked_slots - 1,
+								available_slots = available_slots + 1
+							WHERE avl_id = :avl_id";
+
+			$this->query($updateslots, ['avl_id' => $avl_id]);
+
+			return true;
+		} else {
+			return false; // No appointment found
+		}
+
+
+	}
 
 
 
