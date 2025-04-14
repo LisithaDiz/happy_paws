@@ -83,6 +83,7 @@ class VetAppointmentModel
 
 	}
 
+	//cancel appointment by owner
 	public function cancelAppointmentUpdate($appointment_id)
 	{
 		// Step 1: Update appointment status to '2' (Cancelled)
@@ -158,7 +159,66 @@ class VetAppointmentModel
 
 
 	}
+	public function cancelAppointmentByVet($appointment_id)
+	{
+		// Step 1: Update appointment status to '3' (Cancelled)
+		$updatestatus = "UPDATE appointment
+						SET appointment_status = 3
+						WHERE appointment_id = :appointment_id";
 
+		
+
+		$this->query($updatestatus, ['appointment_id' => $appointment_id]);
+
+		// Step 2: Retrieve avl_id from the appointment
+		$getavlid = "SELECT * FROM appointment WHERE appointment_id = :appointment_id";
+
+		$appointment = $this->query($getavlid, ['appointment_id' => $appointment_id]);
+
+		if (!empty($appointment)) {
+			$avl_id = $appointment[0]->avl_id;  // Fetch from first row
+
+			// Step 3: Update slots in vet_availability
+			$updateslots = "UPDATE vet_availability
+							SET booked_slots = booked_slots - 1,
+								available_slots = available_slots + 1
+							WHERE avl_id = :avl_id";
+
+			$this->query($updateslots, ['avl_id' => $avl_id]);
+
+			return true;
+		} else {
+			return false; // No appointment found
+		}
+	}
+
+	public function cancelledAppoinmentsVetView()
+	{
+		$vetid=$_SESSION['vet_id'];
+		$query = "SELECT a.appointment_id,a.vet_id,a.owner_id,a.avl_id,a.appointment_date,a.appointment_time,o.f_name,o.l_name
+				FROM appointment  a
+				JOIN pet_owner o ON a.owner_id = o.owner_id
+				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id
+				WHERE a.vet_id = :vetid AND a.appointment_status = 3";
+
+		$result = $this->query($query,['vetid'=> $vetid]);
+		
+
+		return $result;
+	}
+
+	public function rescheduleAppointmentOwnerView()
+	{
+
+		$ownerid = $_SESSION['owner_id'];
+		$query = "SELECT * FROM appointment a
+				JOIN veterinary_surgeon v ON v.vet_id = a.vet_id
+				WHERE a.owner_id = :ownerid AND a.appointment_status = 3 ";
+
+		$result = $this->query($query,['ownerid'=>$ownerid]);
+
+		return $result;
+	}
 
 
 }

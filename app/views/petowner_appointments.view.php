@@ -40,6 +40,23 @@
                     <p>No appointments found.</p>
                 <?php endif; ?>
             </div>
+
+            <div class="reschedule-appointments-list">
+            <?php if(!empty($rescheduleAppontments)): ?>
+                <?php foreach($rescheduleAppontments as $appointment): ?>
+                    <div class="reschedule-appointment-card">
+                        <div class="reschedule-appointment-details">
+                            <h2>Appointment Cancelled!</h2>
+                            <p><strong>Vet Name:</strong> <?= htmlspecialchars($appointment->f_name) . ' ' . htmlspecialchars($appointment->l_name) ?></p>
+                            <p><strong>Old Date:</strong> <?= htmlspecialchars($appointment->appointment_date) ?></p>
+                            <p><strong>Old Time:</strong> <?= htmlspecialchars($appointment->appointment_time) ?></p>
+                        </div>
+                        <a href="<?= ROOT ?>/VetProfile/view/<?= $appointment->vet_id ?>" class="reschedule-view-vet-btn">View Vet</a>
+                        <a href="<?= ROOT ?>/PetOwner_Appointments/reschedule/<?= $appointment->appointment_id ?>" class="reschedule-cancel-btn">Reschedule</a>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
                     
             <div class="cancelled-appointments-list">
                 <?php if(!empty($cancelledAppointments)): ?>
@@ -58,6 +75,9 @@
                     
                 <?php endif; ?>
             </div>
+
+        
+
 
         </div>
     </div>

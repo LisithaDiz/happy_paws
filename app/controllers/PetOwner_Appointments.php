@@ -10,8 +10,10 @@ class PetOwner_Appointments
         $appointmentDetails = $appointmentModel->appointmentDetailsOwnerView();
 
         $cancelledAppointments = $appointmentModel->cancelledAppoinmentsOwnerView();
+
+        $recheduleAppointments = $appointmentModel->rescheduleAppointmentOwnerView();
         
-        $this->view('petowner_appointments',['appointmentDetails'=>$appointmentDetails,'cancelledAppointments'=>$cancelledAppointments]);
+        $this->view('petowner_appointments',['appointmentDetails'=>$appointmentDetails,'cancelledAppointments'=>$cancelledAppointments,'rescheduleAppontments'=>$recheduleAppointments]);
     }
 
     public function cancelAppointment($appointment_id)

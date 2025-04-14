@@ -196,6 +196,84 @@ h1 {
 .cancelled-view-vet-btn:hover {
     background: #8f8f8f;
 }
+.reschedule-appointments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.reschedule-appointment-card {
+    background-color: #ffe5e5; /* Light warning red */
+    border: 1px solid #ff4d4d; /* Stronger red border */
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(255, 77, 77, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.reschedule-appointment-card:hover {
+    transform: translateY(-2px);
+}
+
+.reschedule-appointment-details p  {
+    margin: 8px 0;
+    color: #b30000; /* Dark alert red for text */
+    font-size: 1rem;
+}
+.reschedule-appointment-details h2  {
+    margin: 8px 0;
+    color: #b30000; /* Dark alert red for text */
+    
+}
+.reschedule-view-vet-btn {
+    align-items: center;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    background: #a22727; /* Bright warning red */
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.reschedule-view-vet-btn:hover {
+    background: #cc0000; /* Deeper red on hover */
+}
+
+.reschedule-appointment-card center p  {
+    color: #cc0000;  /* Strong red for status text */
+    font-weight: bold;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.reschedule-cancel-btn {
+    align-items: center;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    background: #a22727; /* Bright warning red */
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.reschedule-cancel-btn:hover {
+    background: #cc0000; /* Deeper red on hover */
+}
+
 
 
 @keyframes fadeIn {

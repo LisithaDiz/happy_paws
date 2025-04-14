@@ -27,103 +27,115 @@
                 <h2>Select a date to view appointments</h2>
                 <div id="appointmentsList"></div>
             </div>
+
+            <div class="cancelled-appointments-container" id="cancelledAppointmentsSection" style="display: none;">
+                <h2>Cancelled Appointments</h2>
+                <div id="cancelledAppointmentsList"></div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Hidden Form for Update Appointment Details when completed-->
+    <!-- hidden form for complete appointment -->
     <form id="completeAppointmentForm" action="<?= ROOT ?>/VetAvailability/completeAppointment" method="POST" style="display: none;">
-            <input type="hidden" name="appointment_id" id="appointment_id">
+        <input type="hidden" name="appointment_id" id="appointment_id">
+    </form>
+
+    <!-- hidden form for cancel appointment -->
+    <form id="cancelAppointmentForm" action="<?= ROOT ?>/VetAvailability/cancelAppointment" method="POST" style="display: none;">
+        <input type="hidden" name="appointment_id" id="cancel_appointment_id">
     </form>
 
     <?php include('components/footer.php'); ?>
 
-        <script>
-            let appointmentsData = <?php echo json_encode($vetAppointmentDetails); ?>;
-            let vetAvailabilityDetails = <?= json_encode($vetAvailabilityDetails); ?>;
+    <script>
+        let appointmentsData = <?= json_encode($vetAppointmentDetails ?? []); ?>;
+        let vetAvailabilityDetails = <?= json_encode($vetAvailabilityDetails ?? []); ?>;
+        let cancelledAppointmentsData = <?= json_encode($cancelledAppointmentDetails ?? []); ?>;
 
-            function formatDate(date) {
-            return date.toISOString().split('T')[0]; // Get only the YYYY-MM-DD part
+        console.log("Loaded Cancelled Appointments:", cancelledAppointmentsData);
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function generateCalendar() {
+            const calendar = document.getElementById("calendar");
+            calendar.innerHTML = "";
+
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let i = 0; i < 7; i++) {
+                let date = new Date(today);
+                date.setDate(today.getDate() + i);
+
+                const dayElement = document.createElement("div");
+                dayElement.className = "calendar-day";
+                dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
+
+                dayElement.onclick = () => {
+                    document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected-day'));
+                    dayElement.classList.add('selected-day');
+
+                    const selectedDate = formatDate(date);
+                    displayAppointmentsForDate(selectedDate);
+                    displayCancelledAppointments(selectedDate);
+                };
+
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        function displayAppointmentsForDate(dateString) {
+            const appointmentsSection = document.getElementById("appointmentsList");
+            appointmentsSection.innerHTML = "";
+
+            const filtered = appointmentsData.filter(app => {
+                let appointmentDate = new Date(app.appointment_date);
+                appointmentDate.setHours(0, 0, 0, 0);
+                return formatDate(appointmentDate) === dateString;
+            });
+
+            if (filtered.length === 0) {
+                appointmentsSection.innerHTML = "<p>No appointments for this day.</p>";
+                return;
             }
 
-            function generateCalendar() {
-                const calendar = document.getElementById("calendar");
-                calendar.innerHTML = "";
+            const grouped = {};
+            filtered.forEach(app => {
+                const avlId = app.avl_id;
+                const timeSlot = app.appointment_time;
+                if (!grouped[avlId]) grouped[avlId] = {};
+                if (!grouped[avlId][timeSlot]) grouped[avlId][timeSlot] = [];
+                grouped[avlId][timeSlot].push(app);
+            });
 
-                let today = new Date();
-                today.setHours(0, 0, 0, 0); // Set to midnight to remove time portion
+            for (let avlId in grouped) {
+                const availability = vetAvailabilityDetails.find(avl => avl.avl_id == avlId);
+                if (!availability) continue;
 
-                for (let i = 0; i < 7; i++) {
-                    let date = new Date(today);
-                    date.setDate(today.getDate() + i);
+                const avlSlotDiv = document.createElement("div");
+                avlSlotDiv.className = "time-slot";
+                avlSlotDiv.innerHTML = `<strong>Slot: ${availability.start_time} - ${availability.end_time}</strong>`;
 
-                    const dayElement = document.createElement("div");
-                    dayElement.className = "calendar-day";
-                    dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
+                for (let timeSlot in grouped[avlId]) {
+                    const timeSlotDiv = document.createElement("div");
+                    timeSlotDiv.className = "time-slot-details";
+                    timeSlotDiv.innerHTML = `<strong>Time: ${timeSlot}</strong>`;
 
-                    dayElement.onclick = () => {
-                        document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected-day'));
-                        dayElement.classList.add('selected-day');
-                        displayAppointmentsForDate(formatDate(date));
-                    };
+                    grouped[avlId][timeSlot].forEach(app => {
+                        const card = document.createElement("div");
+                        card.className = "appointment-card";
 
-                    calendar.appendChild(dayElement);
-                }
-            }
-
-            function displayAppointmentsForDate(dateString) {
-                const appointmentsSection = document.getElementById("appointmentsList");
-                appointmentsSection.innerHTML = "";
-
-                // Filter appointments data by comparing the dateString (which is in YYYY-MM-DD format)
-                const filtered = appointmentsData.filter(app => {
-                    // Convert the app.appointment_date to YYYY-MM-DD format without time
-                    let appointmentDate = new Date(app.appointment_date);
-                    appointmentDate.setHours(0, 0, 0, 0);  // Set to midnight
-                    return formatDate(appointmentDate) === dateString;
-                });
-
-                if (filtered.length === 0) {
-                    appointmentsSection.innerHTML = "<p>No appointments for this day.</p>";
-                    return;
-                }
-
-                // Group appointments by avl_id (availability slot) and then by appointment time
-                const grouped = {};
-                filtered.forEach(app => {
-                    const avlId = app.avl_id;
-                    const timeSlot = app.appointment_time;
-
-                    if (!grouped[avlId]) {
-                        grouped[avlId] = {};
-                    }
-                    if (!grouped[avlId][timeSlot]) {
-                        grouped[avlId][timeSlot] = [];
-                    }
-                    grouped[avlId][timeSlot].push(app);
-                });
-
-                // Loop through each grouped avl_id (availability slot) to get the start and end times
-                for (let avlId in grouped) {
-                    // Fetch the availability details (start_time, end_time) for this avl_id
-                    const availability = vetAvailabilityDetails.find(avl => avl.avl_id == avlId);
-
-                    if (!availability) continue; // Skip if availability details are not found
-
-                    const avlSlotDiv = document.createElement("div");
-                    avlSlotDiv.className = "time-slot";
-
-                    // Display the start and end times of the availability slot
-                    avlSlotDiv.innerHTML = `<strong>Slot: ${availability.start_time} - ${availability.end_time}</strong>`;
-
-                    // Render time slots under each availability slot
-                    for (let timeSlot in grouped[avlId]) {
-                        const timeSlotDiv = document.createElement("div");
-                        timeSlotDiv.className = "time-slot-details";
-                        timeSlotDiv.innerHTML = `<strong>Time: ${timeSlot}</strong>`;
-
-                        grouped[avlId][timeSlot].forEach(app => {
-                            const card = document.createElement("div");
-                            card.className = "appointment-card";
+                        if (app.status === 'cancelled') {
+                            card.style.backgroundColor = '#e0e0e0';
+                            card.style.color = '#555';
+                            card.innerHTML = `
+                                <p>Pet Owner: <strong>${app.f_name} ${app.l_name}</strong></p>
+                                <p><em>Appointment Cancelled</em></p>
+                            `;
+                        } else {
                             card.innerHTML = `
                                 <p>Pet Owner: <strong>${app.f_name} ${app.l_name}</strong></p>
                                 <div class="appointment-actions">
@@ -131,31 +143,76 @@
                                     <button class="cancel-btn" onclick="cancelAppointment('${app.appointment_id}')">Cancel</button>
                                 </div>
                             `;
-                            timeSlotDiv.appendChild(card);
-                        });
+                        }
 
-                        avlSlotDiv.appendChild(timeSlotDiv);
-                    }
+                        timeSlotDiv.appendChild(card);
+                    });
 
-                    appointmentsSection.appendChild(avlSlotDiv);
+                    avlSlotDiv.appendChild(timeSlotDiv);
                 }
+
+                appointmentsSection.appendChild(avlSlotDiv);
             }
+        }
+
+        function displayCancelledAppointments(dateString) {
+    const cancelledSection = document.getElementById("cancelledAppointmentsSection");
+    const cancelledList = document.getElementById("cancelledAppointmentsList");
+
+    const filtered = cancelledAppointmentsData.filter(app => {
+        let appointmentDate = new Date(app.appointment_date);
+        appointmentDate.setHours(0, 0, 0, 0);
+        return formatDate(appointmentDate) === dateString;
+    });
+
+    if (filtered.length === 0) {
+        cancelledSection.style.display = "none";
+        return;
+    }
+
+    cancelledSection.style.display = "block";
+    cancelledList.innerHTML = ""; // clear previous
+
+    filtered.forEach(app => {
+        const availability = vetAvailabilityDetails.find(avl => avl.avl_id == app.avl_id);
+        const timeSlotText = availability
+            ? `${availability.start_time} - ${availability.end_time}`
+            : "Time Slot Not Available";
+
+        const card = document.createElement("div");
+        card.className = "appointment-card cancelled-card";
+        card.innerHTML = `
+            <p>Pet Owner: <strong>${app.f_name} ${app.l_name}</strong></p>
+            <p><strong>Time Slot:</strong> ${timeSlotText}</p>
+            <p><strong>Appointment Time:</strong> ${app.appointment_time}</p>
+            <p><em>Cancelled by you</em></p>
+            
+        `;
+
+        cancelledList.appendChild(card);
+    });
+}
 
 
+        function markAsCompleted(appointment_id) {
+            document.getElementById("appointment_id").value = appointment_id;
+            document.getElementById("completeAppointmentForm").submit();
+        }
 
-            function markAsCompleted(appointment_id) {
-                document.getElementById("appointment_id").value = appointment;
-                document.getElementById("completeAppointmentForm").submit();
-            }
+        function cancelAppointment(appointment_id) {
+            document.getElementById("cancel_appointment_id").value = appointment_id;
+            document.getElementById("cancelAppointmentForm").submit();
+        }
 
-            function cancelAppointment(ownerId, time) {
-                alert(`Cancelled appointment for Owner ID ${ownerId} at ${time}.`);
-            }
-
-            generateCalendar();
-        </script>
-    </body>
+        generateCalendar();
+    </script>
+</body>
 </html>
+
+
+
+
+
 
 
 

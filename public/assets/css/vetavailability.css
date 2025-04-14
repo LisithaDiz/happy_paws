@@ -165,6 +165,43 @@ h1 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Slight elevation effect on hover */
 }
 
+.cancelled-appointments-container{
+    background-color: #dfdfdf;
+    color: #787777;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+/* Style for Cancelled Appointments */
+.appointment-card.cancelled-card {
+    background-color: #f0f0f0;  /* soft grey */
+    border: 1px solid #cccccc;  /* light grey border */
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    color: #555555; /* dark grey text */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.appointment-card.cancelled-card strong {
+    color: #444444; /* slightly bolder grey for emphasis */
+}
+
+.appointment-card.cancelled-card em {
+    color: #777777;
+    font-style: normal;
+}
+
+
+
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .calendar-day {

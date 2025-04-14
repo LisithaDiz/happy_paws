@@ -35,6 +35,7 @@ class App
                'PetOwnerDash'=>['index'],
                'PetOwnerBookVet'=>['index','bookvet'],
                'PetOwner_Appointments'=>['index','cancelAppointment'],
+               'PetOwner_Reschedule'=>['index','reschedulevet'],
             ], 
 
         
@@ -44,10 +45,11 @@ class App
                 'VetRequest' => ['index'],
                 'VetTreatedPet' => ['index','treatedPetDetails'],
                 'VetPrescription' => ['index'],
-                'VetAvailability' => ['index','completeAppointment'],
+                'VetAvailability' => ['index','completeAppointment','cancelAppointment'],
                 'VetMedRequest' => ['index','addMedicineRequest'],
                 'VetSettings' => ['index'],
-                'VetAvailableHours' => ['index','availableHours']
+                'VetAvailableHours' => ['index','availableHours'],
+                
         ],
 
         '3' => ['PetSitterDashboard' => ['index'],
