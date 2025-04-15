@@ -199,6 +199,11 @@ Trait Model
 		}
 	}
 
+	public function lastInsertId()
+	{
+		return $this->connect()->lastInsertId();
+	}
+
 	
 
 }
