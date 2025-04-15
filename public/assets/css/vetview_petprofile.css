@@ -1,0 +1,104 @@
+.pet-profile-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.pet-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1.5rem;
+}
+
+.pet-image img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.pet-details {
+    flex: 1;
+}
+
+.pet-details h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.pet-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pet-details li {
+    font-size: 1rem;
+    margin: 0.4rem 0;
+    color: #555;
+}
+
+.pet-details strong {
+    color: #222;
+}
+
+.vet-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.vet-actions .btn {
+    padding: 0.75rem 1.5rem;
+    background: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.vet-actions .btn:hover {
+    background: #005fa3;
+}
+
+.vet-actions .btn.secondary {
+    background: #28a745;
+}
+
+.vet-actions .btn.secondary:hover {
+    background: #1e7e34;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .pet-profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .pet-image img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .pet-details h2 {
+        font-size: 1.7rem;
+    }
+
+    .vet-actions {
+        justify-content: center;
+    }
+}
+

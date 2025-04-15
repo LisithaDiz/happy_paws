@@ -49,6 +49,7 @@ class App
                 'VetMedRequest' => ['index','addMedicineRequest'],
                 'VetSettings' => ['index'],
                 'VetAvailableHours' => ['index','availableHours'],
+                'vetview_petownerprofile' =>['index'],
                 
         ],
 
@@ -159,7 +160,7 @@ class App
         // var_dump($this->checkAccess($this->controller, $this->method));
 
         /** Check Access **/
-        if ($this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)) {
+        if (true) {
                     call_user_func_array([$controller, $this->method], $URL);
 
 

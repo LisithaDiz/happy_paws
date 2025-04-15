@@ -1,0 +1,156 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f7fb; /* Light pinkish background */
+    color: #333;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-content {
+    width: 80%;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-left: 20px;
+    margin-right: 0px;
+}
+
+h2 {
+    color: #d76b6b; /* Light Pink color */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Owner Profile Section */
+.owner-profile {
+    background-color: #ffeeee; /* Light pinkish background for profile */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.owner-details img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.owner-info h2 {
+    font-size: 28px;
+    color: #d76b6b;
+}
+
+.owner-info p {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Pets Section */
+.pets-section {
+    background-color:#ffeeee;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.pets-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #d76b6b;
+}
+.pet-form {
+    display: inline-block;
+    margin: 10px;
+}
+
+.pet-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 20px;
+}
+
+.pet-form {
+    flex: 1 1 250px;
+    max-width: 250px;
+}
+
+.pet-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 20px;
+}
+
+.pet-form {
+    flex: 1 1 220px;   /* same width */
+    max-width: 220px;
+}
+
+.pet-card {
+    all: unset;
+    display: block;
+    width: 100%;
+    border: 2px solid #f2c1d1;
+    background-color: #ffe6ee;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pet-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.pet-card img {
+    width: 100%;
+    height: auto;              /* let the image keep its natural height */
+    object-fit: cover;
+    display: block;
+}
+
+.pet-card-content {
+    padding: 12px;
+    text-align: center;
+}
+
+.pet-card-content h3 {
+    margin: 8px 0 4px;
+}
+
+.pet-card-content p {
+    margin: 4px 0;
+}
+
+
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .owner-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .owner-details img {
+        margin-bottom: 15px;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 20px;
+    }
+}
+

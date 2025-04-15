@@ -12,7 +12,7 @@ class PetOwner_Reschedule
         $this->view('petowner_reschedule', ['vetAvailabilityDetails'=> $vetAvailabilityDetails]);
     }
 
-    public function rechedulevet()
+    public function reschedulevet()
     {
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

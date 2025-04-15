@@ -183,7 +183,27 @@ class Pet {
 
 
     }
+
+    //owner pofile vet-view
+    public function petDetailsVetView()
+    {
+        $ownerid = 1;
+        $query = "SELECT * FROM pets
+                WHERE owner_id = :ownerid";
+
+        $result = $this->query($query,['ownerid'=>$ownerid]);
+        return $result;
+    }
     
+    //selected pet's details
+    public function petProfileVetView($petid)
+    {
+        $query = "SELECT * FROM pets
+                WHERE pet_id = :petid";
+
+        $result = $this->query($query, ['petid'=>$petid]);
+        return $result;
+    }
 
     
     
