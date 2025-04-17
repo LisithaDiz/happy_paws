@@ -106,9 +106,8 @@ class PetOwnerModel
 	
 		}
 
-		public function ownerDetailsVetView()
+		public function ownerDetailsVetView($ownerid)
 		{
-			$ownerid = 1;
 			$query = "SELECT * FROM pet_owner o
 					JOIN user u ON o.user_id = u.user_id
 					WHERE o.owner_id = :ownerid";

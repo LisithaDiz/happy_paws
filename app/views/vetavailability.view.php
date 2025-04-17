@@ -36,6 +36,11 @@
         </div>
     </div>
 
+    <!-- hidden form for view profile -->
+    <form id="viewProfileForm" action="<?= ROOT ?>/vetview_petownerprofile/index" method="POST" style="display: none;">
+        <input type="hidden" name="owner_id" id="owner_id">
+    </form>
+
     <!-- hidden form for complete appointment -->
     <form id="completeAppointmentForm" action="<?= ROOT ?>/VetAvailability/completeAppointment" method="POST" style="display: none;">
         <input type="hidden" name="appointment_id" id="appointment_id">
@@ -139,6 +144,7 @@
                             card.innerHTML = `
                                 <p>Pet Owner: <strong>${app.f_name} ${app.l_name}</strong></p>
                                 <div class="appointment-actions">
+                                    <button class="complete-btn" onclick="viewOwnerProfile('${app.owner_id}')">view profile</button>
                                     <button class="complete-btn" onclick="markAsCompleted('${app.appointment_id}')">Completed</button>
                                     <button class="cancel-btn" onclick="cancelAppointment('${app.appointment_id}')">Cancel</button>
                                 </div>
@@ -193,6 +199,10 @@
     });
 }
 
+        function viewOwnerProfile(owner_id) {
+            document.getElementById("owner_id").value = owner_id;
+            document.getElementById("viewProfileForm").submit();
+        }
 
         function markAsCompleted(appointment_id) {
             document.getElementById("appointment_id").value = appointment_id;

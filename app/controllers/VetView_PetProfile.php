@@ -47,11 +47,15 @@ class VetView_PetProfile
                         $medicine['frequency']
                     );
                 }
-                header("Location: " . ROOT . "/vetview_petprofile");
-                exit;
+                
             } else {
                 echo "No medicines selected.";
             }
+
+
         }
+
+        header("Location: " . ROOT . "/vetview_vetavailability");
+        exit;
     }
 }

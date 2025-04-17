@@ -48,8 +48,8 @@ class App
                 'VetAvailability' => ['index','completeAppointment','cancelAppointment'],
                 'VetMedRequest' => ['index','addMedicineRequest'],
                 'VetSettings' => ['index'],
-                'VetAvailableHours' => ['index','availableHours'],
-                'vetview_petownerprofile' =>['index'],
+                'VetAvailableHours' => ['index','availableHours','removeSlot'],
+                'vetview_petownerprofile' =>['index','issueprescription'],
                 
         ],
 

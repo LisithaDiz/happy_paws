@@ -52,7 +52,12 @@
                             <p><strong>Old Time:</strong> <?= htmlspecialchars($appointment->appointment_time) ?></p>
                         </div>
                         <a href="<?= ROOT ?>/VetProfile/view/<?= $appointment->vet_id ?>" class="reschedule-view-vet-btn">View Vet</a>
-                        <a href="<?= ROOT ?>/PetOwner_Appointments/reschedule/<?= $appointment->appointment_id ?>" class="reschedule-cancel-btn">Reschedule</a>
+                 
+                        <button class="reschedule-cancel-btn" onclick="rescheduleAppointment(<?= $appointment->vet_id?>)" >Reschedule</button>
+                        <!-- hidden form -->
+                        <form id="rescheduleAppointmentForm_<?= $appointment->vet_id?>" action="<?= ROOT ?>/PetOwner_Reschedule/index" method="POST" style="display: none;">
+                            <input type="hidden" name="vet_id" id="vet_id_<?=  $appointment->vet_id?>">
+                        </form>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -113,6 +118,12 @@
 
         function confirmCancel() {
             window.location.href = cancelUrl;
+        }
+
+        
+        function rescheduleAppointment(vet_id) {
+            document.getElementById("vet_id_"+vet_id).value = vet_id;
+            document.getElementById("rescheduleAppointmentForm_"+vet_id).submit();
         }
     </script>
 </body>

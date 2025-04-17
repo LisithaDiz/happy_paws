@@ -31,12 +31,16 @@ class PrescriptionModel
             'vet_id' => $vet_id
         ]);
 
-        $result = $this->query("SELECT LAST_INSERT_ID() as id");
-        $lastid = $result[0]->id;
-          // <-- get the auto-incremented ID here
-        echo"11111111";
-        var_dump($lastid);
-        return $lastid;
+        $result = $this->query("SELECT prescription_id FROM prescription ORDER BY prescription_id DESC LIMIT 1");
+
+        if (!empty($result)) {
+            $lastid = $result[0]->prescription_id;
+            return $lastid;
+        } else {
+            return null;
+        }
+
+        
     }
 
 

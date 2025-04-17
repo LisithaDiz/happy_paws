@@ -60,7 +60,13 @@
                         </div>
                         
                         <p>Related Pets: Dogs, Cats, Birds</p>
-                        <a href="<?=ROOT?>/PetOwnerAppointments" class="book-button">Book</a>
+
+                        <button class="book-button" onclick="bookAppointment(<?= $vet['vet_id'] ?>)" >Book</button>
+                        <!-- hidden form -->
+                        <form id="bookAppointmentForm_<?= $vet['vet_id'] ?>" action="<?= ROOT ?>/petownerbookvet/index" method="POST" style="display: none;">
+                            <input type="hidden" name="vet_id" id="vet_id_<?= $vet['vet_id'] ?>">
+                        </form>
+                        
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -69,6 +75,14 @@
         <?php endif; ?>
     </div>
     </div>
+
+    <script>
+
+        function bookAppointment(vet_id) {
+            document.getElementById("vet_id_"+vet_id).value = vet_id;
+            document.getElementById("bookAppointmentForm_"+vet_id).submit();
+        }
+    </script>
 
     <?php include ('components/footer.php'); ?>
 </body>

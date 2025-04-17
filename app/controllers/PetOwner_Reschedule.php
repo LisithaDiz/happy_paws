@@ -7,8 +7,8 @@ class PetOwner_Reschedule
     public function index()
     {
         $vetAvailability = new VetUpdateAvailableHoursModel;
-
-        $vetAvailabilityDetails = $vetAvailability->vetAvailabilityOwnerView();
+        $vet_id = $_POST['vet_id'];
+        $vetAvailabilityDetails = $vetAvailability->vetAvailabilityOwnerView($vet_id);
         $this->view('petowner_reschedule', ['vetAvailabilityDetails'=> $vetAvailabilityDetails]);
     }
 

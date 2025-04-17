@@ -6,7 +6,10 @@ class VetAvailableHours
 
     public function index()
     {
-        $this->view('VetAvailableHours');
+        $vetAvailableHoursModel = new VetUpdateAvailableHoursModel;
+        $currentAvailabilityDetails = $vetAvailableHoursModel->vetAvailabilityVetView();
+
+        $this->view('VetAvailableHours',['currentAvailabilityDetails' => $currentAvailabilityDetails]);
     }
 
   
@@ -44,75 +47,46 @@ class VetAvailableHours
     // }
     
 
-    public function availableHours()
+    public function removeSlot()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $userid = $_SESSION['user_id']; // Get the logged-in user ID
-            
-            $userModel = new UserModel();
-            $query = "SELECT vet_id FROM veterinary_surgeon WHERE user_id = :user_id";
-            $vetResult = $userModel->query($query, ['user_id' => $userid]);
-            
-            if (!$vetResult) {
-                return false; // No vet found for this user
+        $slotId = $_POST['slot_id'];
+        $vetUpdateAvailabilityModel = new VetUpdateAvailableHoursModel();
+    
+        // Step 1: Check for appointments on or after today for the given slot
+        $query = "SELECT * FROM appointment 
+                  WHERE avl_id = :slotId 
+                  AND appointment_date >= CURDATE()";
+    
+        $appointments = $vetUpdateAvailabilityModel->query($query, ['slotId' => $slotId]);
+    
+        if ($appointments && is_array($appointments) && count($appointments) > 0) {
+            // Appointments found — show alert
+            echo "<script>
+                    alert('Cannot delete this slot! There are upcoming appointments scheduled.');
+                    window.location.href = '" . ROOT . "/vetavailablehours';
+                 </script>";
+            exit;
+        } else {
+            // No future appointments — safe to delete
+            $deleteQuery = "DELETE FROM vet_availability WHERE avl_id = :slotId";
+            $result = $vetUpdateAvailabilityModel->query($deleteQuery, ['slotId' => $slotId]);
+    
+            if ($result) {
+                echo "<script>
+                        alert('Slot successfully deleted.');
+                        window.location.href = '" . ROOT . "/vetavailablehours';
+                     </script>";
+            } else {
+                echo "<script>
+                        alert('Error deleting the slot. Please try again.');
+                        window.location.href = '" . ROOT . "/vetavailablehours';
+                     </script>";
             }
-    
-            $vet_id = $vetResult[0]->vet_id; // Extract vet ID
-            
-            $vetUpdateAvailabilityModel = new VetUpdateAvailableHoursModel();
-    
-            // Loop through the form data and insert each availability
-            for ($i = 0; $i < count($_POST['day_of_week']); $i++) {
-                $day_of_week = $_POST['day_of_week'][$i];
-                $start_time = $_POST['start_time'][$i];
-                $end_time = $_POST['end_time'][$i];
-                $number_of_appointments = $_POST['number_of_appointments'][$i];
-    
-                // Check for overlapping time slots
-                $overlapQuery = "SELECT avl_id FROM vet_availability
-                                 WHERE vet_id = :vet_id AND day_of_week = :day_of_week
-                                 AND (
-                                     (:start_time BETWEEN start_time AND end_time) 
-                                     OR (:end_time BETWEEN start_time AND end_time)
-                                     OR (start_time BETWEEN :start_time AND :end_time)
-                                     OR (end_time BETWEEN :start_time AND :end_time)
-                                 )";
-                $overlapParams = [
-                    'vet_id' => $vet_id,
-                    'day_of_week' => $day_of_week,
-                    'start_time' => $start_time,
-                    'end_time' => $end_time
-                ];
-                $overlapResult = $vetUpdateAvailabilityModel->query($overlapQuery, $overlapParams);
-    
-                if ($overlapResult) {
-                    // If overlapping slots exist, delete them
-                    $deleteQuery = "DELETE FROM vet_availability
-                                    WHERE vet_id = :vet_id AND day_of_week = :day_of_week
-                                    AND (
-                                        (:start_time BETWEEN start_time AND end_time) 
-                                        OR (:end_time BETWEEN start_time AND end_time)
-                                        OR (start_time BETWEEN :start_time AND :end_time)
-                                        OR (end_time BETWEEN :start_time AND :end_time)
-                                    )";
-                    $vetUpdateAvailabilityModel->query($deleteQuery, $overlapParams);
-                }
-    
-                // Insert the new availability
-                $data = [
-                    'vet_id'                 => $vet_id,
-                    'day_of_week'            => $day_of_week,
-                    'start_time'             => $start_time,
-                    'end_time'               => $end_time,
-                    'number_of_appointments' => $number_of_appointments
-                ];
-                $vetUpdateAvailabilityModel->insertAvailableHours($data);
-            }
-    
-            return true; // Successfully updated availability
+            exit;
         }
-        return false;
     }
+    
+
     
 
   

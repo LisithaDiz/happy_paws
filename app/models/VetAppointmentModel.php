@@ -43,6 +43,7 @@ class VetAppointmentModel
 	// 	return $result;
 	// }
 
+	//upcoming appointments
 	public function appointmentDetailsVetView()
 	{
 		$vetid = $_SESSION['vet_id'];
@@ -50,7 +51,7 @@ class VetAppointmentModel
 
 		$query="SELECT * FROM appointment a
 				JOIN pet_owner o ON a.owner_id = o.owner_id
-				WHERE a.vet_id = :vetid  AND a.appointment_status = '0'";
+				WHERE a.vet_id = :vetid  AND a.appointment_status = '0'  AND a.appointment_date >= CURDATE()";
 
 			
 		
@@ -220,5 +221,6 @@ class VetAppointmentModel
 		return $result;
 	}
 
+	
 
 }

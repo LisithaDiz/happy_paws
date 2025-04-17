@@ -16,7 +16,6 @@
         <?php include ('components/sidebar.php'); ?>
 
         <div class="main-content">
-            <h1>Book Appointment</h1>
             <div class="calendar" id="calendar"></div>
             <div id="timeSlotContainer" class="time-slot-container"></div>
         </div>
@@ -104,7 +103,7 @@
 
         const bookButton = document.createElement("button");
         bookButton.className = "book-btn";
-        bookButton.textContent = "Book Vet";
+        bookButton.textContent = "Book";
         bookButton.onclick = handleBooking;
         timeSlotContainer.appendChild(bookButton);
     }
