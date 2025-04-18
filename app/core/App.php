@@ -49,7 +49,8 @@ class App
                 'VetMedRequest' => ['index','addMedicineRequest'],
                 'VetSettings' => ['index'],
                 'VetAvailableHours' => ['index','availableHours','removeSlot'],
-                'vetview_petownerprofile' =>['index','issueprescription'],
+                'VetView_PetOwnerProfile' =>['index'],
+                'VetView_PetProfile' =>['index','issueprescription','updatemedicalrecord','insertmedicalrecord','deletemedicalrecord']
                 
         ],
 

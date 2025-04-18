@@ -24,7 +24,7 @@
             <!-- Owner Profile Section -->
             <div class="owner-profile">
                 <div class="owner-details">
-                    <img src="<?=ROOT?>/assets/images/default-profile-picture.webp" alt="Profile Picture">
+                    <img src="<?=ROOT?>/assets/images/profilepic1.jpeg" alt="Profile Picture">
                     <div class="owner-info">
                         <?php if(!empty($petownerDetails)): ?>
                             <h2><?= htmlspecialchars($petownerDetails[0]->f_name . ' ' . $petownerDetails[0]->l_name) ?></h2>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             
-
+       
             <!-- Pets Section -->
             <div class="pets-section">
                 <h2>My Pets</h2>
@@ -47,7 +47,7 @@
                             <form method="POST" action="<?=ROOT?>/vetview_petprofile/index" class="pet-form">
                                 <input type="hidden" name="pet_id" value="<?=htmlspecialchars($pet->pet_id) ?>">
                                 <button type="submit" class="pet-card">
-                                    <img src="<?=ROOT?>/assets/images/pets/default-pet.jpg" alt="<?=htmlspecialchars($pet->pet_name)?>">
+                                    <img src="<?= ROOT ?>/assets/images/dog1.avif"  alt="<?=htmlspecialchars($pet->pet_name)?>">
                                     <div class="pet-card-content">
                                         <h3><?= htmlspecialchars($pet->pet_name) ?></h3>
                                         <p><?= htmlspecialchars($pet->pet_type) ?></p>

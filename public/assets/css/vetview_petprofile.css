@@ -91,31 +91,10 @@ body {
 }
 
 /* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
 
-.modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 25px;
-    border: none;
-    width: 50%;
-    max-width: 600px;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(245, 69, 20, 0.2);
-    position: relative;
-}
 
 .close {
+
     color: #aaa;
     position: absolute;
     right: 20px;
@@ -224,6 +203,106 @@ body {
     background-color: #eee;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: modalopen 0.4s;
+}
+
+@keyframes modalopen {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.modal-content th {
+    background: linear-gradient(135deg, #f8929c, #d8544c);
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.modal-content td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.modal-content tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.modal-content tr:hover {
+    background-color: #ffe6e6;
+}
+
+.modal-content button {
+    padding: 6px 12px;
+    margin: 2px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8929c, #d8544c);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content button:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Scrollbar styling to match existing */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f8cfd6;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #f8929c;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #f95b5b;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .modal-content {

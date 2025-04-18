@@ -28,7 +28,7 @@
                 ?>
                     <div class="pet-profile-card">
                         <div class="pet-image">
-                            <img src="<?= ROOT ?>/assets/images/pets/default-pet.jpg" 
+                            <img src="<?= ROOT ?>/assets/images/dog1.avif" 
                                 alt="<?= htmlspecialchars($pet->pet_name) ?> Image">
                         </div>
 
@@ -50,10 +50,12 @@
                     <div class="vet-actions">
                         <button type="button" class="btn" onclick="openPrescriptionModal()">Issue Prescription</button>
 
-                        <form method="POST" action="<?= ROOT ?>/vetmedicalrecord/update">
-                            <input type="hidden" name="pet_id" value="<?= htmlspecialchars($pet->pet_id) ?>">
-                            <button type="submit" class="btn secondary">Update Medical Record</button>
-                        </form>
+                        <button type="button" class="btn" onclick="openMedicalHistoryModal()">View Medical History</button>
+
+                        <button type="button" class="btn" onclick="openMedicalRecordModal()">Update Medical Record</button>
+
+                        
+                        
                     </div>
 
                 <?php else: ?>
@@ -103,6 +105,93 @@
                 <input type="hidden" name="prescribed_medicines" id="prescribed_medicines">
                 <br/>
                 <button type="submit" class="btn">Submit Prescription</button>
+            </form>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- View Medical History Modal -->
+
+    <div id="medicalHistoryModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="close" onclick="closeMedicalHistoryModal()" aria-label="Close">&times;</button>
+            <table border="1">
+                <tr>
+                    <th>Date</th>
+                    <th>Vaccinations Given</th>
+                    <th>Note</th>
+                    <th>Actions</th>
+                </tr>
+
+                <?php if (!empty($medicalHistoryDetails) && is_array($medicalHistoryDetails)): ?>
+                    <?php foreach($medicalHistoryDetails as $medhist): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($medhist->date) ?></td>
+                            <td><?= htmlspecialchars($medhist->vaccination_given) ?></td>
+                            <td><?= htmlspecialchars($medhist->special_note) ?></td>
+                            <td>
+                                <?php if (isset($_SESSION['vet_id']) && $_SESSION['vet_id'] == $medhist->vet_id): ?>
+                                    <button type="button" class="btn" onclick="openMedicalRecordUpdateModal('<?= htmlspecialchars($medhist->record_id) ?>','<?= htmlspecialchars($medhist->vaccination_given) ?>','<?= htmlspecialchars($medhist->special_note) ?>')">Update</button>
+
+                                    <form action="<?= ROOT ?>/vetview_petprofile/deletemedicalrecord" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                                        <input type="hidden" name="record_id" value="<?= htmlspecialchars($medhist->record_id) ?>">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">No medical records...</td>
+                    </tr>
+                <?php endif; ?>
+
+            </table>
+        </div>
+    </div>
+
+
+    <!--Insert  Medical Record Modal -->
+    <div id="medicalRecordModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="close" onclick="closeMedicalRecordModal()" aria-label="Close">&times;</button>
+            <h3 id="modalTitle">Update Medical Record</h3>
+
+            <?php if (!empty($petDetails)): ?>
+            <form method="POST" action="<?= ROOT ?>/vetview_petprofile/insertmedicalrecord" >
+                <input type="hidden" name="pet_id" value="<?= htmlspecialchars($pet->pet_id) ?>">
+                Vaccinations given:
+                <input type="text" name="vaccination_given" required>
+                <br/><br/>
+                <label for="specialNote">Special Note (if any):</label>
+                <textarea id="medical_specialNote" name="special_note" rows="3"required></textarea>
+                <br/>
+                <br/>
+                <button type="submit" class="btn">Update</button>
+            </form>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- Medical Record Update Modal -->
+    <div id="medicalRecordUpdateModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="close" onclick="closeMedicalRecordUpdateModal()" aria-label="Close">&times;</button>
+            <h3 id="modalTitle">Update Medical Record</h3>
+
+            <?php if (!empty($petDetails)): ?>
+            <form method="POST" action="<?= ROOT ?>/vetview_petprofile/updatemedicalrecord" >
+                <input type="hidden" name="pet_id" value="<?= htmlspecialchars($pet->pet_id) ?>">
+                <input type="hidden" id="record_id" name="record_id" ?>
+                Vaccinations given:
+                <input type="text" name="vaccination_given" required>
+                <br/><br/>
+                <label for="specialNote">Special Note (if any):</label>
+                <textarea id="medical_specialNote" name="special_note" rows="3"required></textarea>
+                <br/>
+                <br/>
+                <button type="submit" class="btn">Update</button>
             </form>
             <?php endif; ?>
         </div>
@@ -179,6 +268,34 @@
     function preparePrescriptionData() {
         document.getElementById('prescribed_medicines').value = JSON.stringify(selectedMedicines);
         return true;
+    }
+
+    function openMedicalHistoryModal() {
+        document.getElementById("medicalHistoryModal").style.display = "block";
+    }
+
+    function closeMedicalHistoryModal() {
+        document.getElementById("medicalHistoryModal").style.display = "none";
+    }
+
+    function openMedicalRecordModal() {
+        document.getElementById("medicalRecordModal").style.display = "block";
+    }
+
+    function closeMedicalRecordModal() {
+        document.getElementById("medicalRecordModal").style.display = "none";
+    }
+
+    function openMedicalRecordUpdateModal(recordId, vaccination, note) {
+        document.getElementById("medicalRecordUpdateModal").style.display = "block";
+        
+        document.querySelector("#medicalRecordUpdateModal input[name='record_id']").value = recordId;
+        document.querySelector("#medicalRecordUpdateModal input[name='vaccination_given']").value = vaccination;
+        document.querySelector("#medicalRecordUpdateModal textarea[name='special_note']").value = note;
+    }
+
+    function closeMedicalRecordUpdateModal() {
+        document.getElementById("medicalRecordUpdateModal").style.display = "none";
     }
 </script>
 
