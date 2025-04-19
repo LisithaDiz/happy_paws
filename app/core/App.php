@@ -33,7 +33,7 @@ class App
                'Reviews3' =>['index','edit','delete','add','insert'],
                'Reviews4' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
-               'PlaceOrder' => ['index', 'create'],
+               'PlaceOrder' => ['index', 'create', 'getPrescriptions'],
                'Orders' => ['createOrder'],
                'PetOwnerDash'=>['index']
             ], 
@@ -82,7 +82,7 @@ class App
         'Adminlogin' => ['index','login'],
         'Admin' =>['adminLogin'],
         'ContactUs' =>['index'],
-
+        'Prescription' => ['view'],
     ];
 
     private function splitURL()

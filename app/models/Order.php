@@ -192,12 +192,17 @@ class Order
             om.quantity,
             po.total_price,
             po.order_date,
-            po.status
+            po.status,
+            po.prescription_id,
+            pr.created_at as prescription_date,
+            vs.f_name as vet_name
         FROM pharmacy_orders po
         JOIN pet_owner pet_o ON po.owner_id = pet_o.owner_id
         JOIN pet p ON po.pet_id = p.pet_id
         JOIN order_medicines om ON po.order_id = om.order_id
         JOIN medicine m ON om.med_id = m.med_id
+        LEFT JOIN prescription pr ON po.prescription_id = pr.prescription_id
+        LEFT JOIN veterinary_surgeon vs ON pr.vet_id = vs.vet_id
         WHERE po.pharmacy_id = :pharmacy_id 
         ORDER BY po.order_date DESC
         LIMIT " . (int)$limit;
@@ -218,6 +223,9 @@ class Order
                     'total_price' => $row->total_price,
                     'order_date' => $row->order_date,
                     'status' => $row->status,
+                    'prescription_id' => $row->prescription_id,
+                    'prescription_date' => $row->prescription_date,
+                    'vet_name' => $row->vet_name
                 ];
             }
             // Add medicine details to the order
@@ -333,16 +341,17 @@ class Order
             try {
                 // Prepare order data
                 $query = "INSERT INTO pharmacy_orders 
-                          (owner_id, pharmacy_id, pet_id, total_price, order_date, status, payment_status, notes, created_at) 
+                          (owner_id, pharmacy_id, pet_id, total_price, order_date, status, payment_status, notes, prescription_id, created_at) 
                           VALUES 
-                          (:owner_id, :pharmacy_id, :pet_id, :total_price, NOW(), 'pending', 'pending', :notes, NOW())";
+                          (:owner_id, :pharmacy_id, :pet_id, :total_price, NOW(), 'pending', 'pending', :notes, :prescription_id, NOW())";
 
                 $params = [
                     ':owner_id' => $data['owner_id'],
                     ':pharmacy_id' => $data['pharmacy_id'],
                     ':pet_id' => $data['pet_id'],
                     ':total_price' => $data['total_price'],
-                    ':notes' => $data['notes'] ?? null
+                    ':notes' => $data['notes'] ?? null,
+                    ':prescription_id' => $data['prescription_id'] ?? null
                 ];
 
                 // Debug log

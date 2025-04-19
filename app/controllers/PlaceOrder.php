@@ -129,10 +129,6 @@ class PlaceOrder
                 throw new Exception("Please select a pet");
             }
 
-            if (empty($_POST['medicines']) || empty($_POST['quantities'])) {
-                throw new Exception("Please select medicines and quantities");
-            }
-
             // Prepare order data
             $orderData = [
                 'owner_id' => $_SESSION['owner_id'],
@@ -147,13 +143,15 @@ class PlaceOrder
             // Debug log the prepared order data
             error_log("Prepared order data: " . print_r($orderData, true));
 
-            // Prepare medicines data
-            foreach ($_POST['medicines'] as $index => $med_id) {
-                if (!empty($med_id) && isset($_POST['quantities'][$index]) && $_POST['quantities'][$index] > 0) {
-                    $orderData['medicines'][] = [
-                        'med_id' => $med_id,
-                        'quantity' => $_POST['quantities'][$index]
-                    ];
+            // Process medicines data
+            if (isset($_POST['medicines']) && is_array($_POST['medicines'])) {
+                foreach ($_POST['medicines'] as $medicine) {
+                    if (!empty($medicine['med_id']) && isset($medicine['quantity']) && $medicine['quantity'] > 0) {
+                        $orderData['medicines'][] = [
+                            'med_id' => $medicine['med_id'],
+                            'quantity' => $medicine['quantity']
+                        ];
+                    }
                 }
             }
 
@@ -189,9 +187,13 @@ class PlaceOrder
         exit();
     }
 
-    public function getPrescriptions()
+    public function getPrescriptions($pet_id = null)
     {
-        if (!Auth::logged_in()) {
+        error_log("getPrescriptions called with pet_id: " . $pet_id);
+        error_log("Session data: " . print_r($_SESSION, true));
+        
+        if (!isset($_SESSION['owner_id'])) {
+            error_log("No owner_id in session");
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Please log in to view prescriptions']);
             exit;
@@ -199,29 +201,61 @@ class PlaceOrder
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
             try {
-                if (!isset($_GET['pet_id'])) {
+                if (!$pet_id) {
+                    error_log("No pet_id provided");
                     throw new Exception("Pet ID is required");
                 }
 
-                $pet_id = $_GET['pet_id'];
+                // Verify the pet belongs to the owner
+                $pet = new Pet();
+                $petDetails = $pet->getPetById($pet_id);
+                
+                if (!$petDetails) {
+                    error_log("Pet not found with ID: " . $pet_id);
+                    throw new Exception("Pet not found");
+                }
+                
+                if ($petDetails->owner_id != $_SESSION['owner_id']) {
+                    error_log("Pet does not belong to owner. Pet owner_id: " . $petDetails->owner_id . ", Session owner_id: " . $_SESSION['owner_id']);
+                    throw new Exception("You do not have permission to view prescriptions for this pet");
+                }
+
                 $prescription = new PrescriptionModel();
                 $prescriptions = $prescription->getPetPrescriptions($pet_id);
                 
+                error_log("Prescriptions fetched: " . print_r($prescriptions, true));
+                
                 if ($prescriptions === false) {
+                    error_log("Failed to fetch prescriptions");
                     throw new Exception("Failed to fetch prescriptions");
                 }
                 
+                // Format the prescriptions data
+                $formattedPrescriptions = array_map(function($prescription) {
+                    return [
+                        'prescription_id' => $prescription->prescription_id,
+                        'created_at' => $prescription->created_at,
+                        'vet_name' => $prescription->vet_name
+                    ];
+                }, $prescriptions);
+                
+                error_log("Formatted prescriptions: " . print_r($formattedPrescriptions, true));
+                
                 header('Content-Type: application/json');
-                echo json_encode(['prescriptions' => $prescriptions]);
+                echo json_encode(['prescriptions' => $formattedPrescriptions]);
                 exit;
             } catch (Exception $e) {
+                error_log("Exception in getPrescriptions: " . $e->getMessage());
+                error_log("Stack trace: " . $e->getTraceAsString());
                 header('Content-Type: application/json');
                 echo json_encode(['error' => $e->getMessage()]);
                 exit;
             }
         }
         
-        // If not an AJAX request, redirect
-        $this->redirect('petowner/placeorder');
+        error_log("Invalid request method or not an AJAX request");
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'Invalid request']);
+        exit;
     }
 }

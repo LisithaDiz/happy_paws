@@ -282,7 +282,7 @@
 
             // Make AJAX request to fetch prescriptions
             const xhr = new XMLHttpRequest();
-            const url = `<?= ROOT ?>/PlaceOrder/getPrescriptions?pet_id=${petId}`;
+            const url = `<?= ROOT ?>/PlaceOrder/getPrescriptions/${petId}`;
             console.log('Fetching prescriptions from:', url);
             
             xhr.open('GET', url, true);
@@ -297,13 +297,25 @@
                         const response = JSON.parse(xhr.responseText);
                         console.log('Parsed response:', response);
                         
+                        if (response.error) {
+                            console.error('Server error:', response.error);
+                            prescriptionSelect.innerHTML = `<option value="">${response.error}</option>`;
+                            return;
+                        }
+                        
                         prescriptionSelect.innerHTML = '<option value="">No prescription</option>';
                         
                         if (response.prescriptions && response.prescriptions.length > 0) {
                             response.prescriptions.forEach(prescription => {
                                 const option = document.createElement('option');
                                 option.value = prescription.prescription_id;
-                                option.textContent = `Prescription #${prescription.prescription_id} - ${new Date(prescription.created_at).toLocaleDateString()}`;
+                                const date = new Date(prescription.created_at);
+                                const formattedDate = date.toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric'
+                                });
+                                option.textContent = `Prescription #${prescription.prescription_id} - ${formattedDate}`;
                                 prescriptionSelect.appendChild(option);
                             });
                         } else {
@@ -434,38 +446,82 @@
             xhr.send();
         }
 
-        document.getElementById('orderForm').addEventListener('submit', function(event) {
+        document.getElementById('orderForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             
+            // Validate medicines and quantities
+            const medicineRows = document.querySelectorAll('.medicine-row');
+            let isValid = true;
+            let errorMessage = '';
+            let hasValidMedicine = false;
+
             // Debug logging
-            console.log('Form submission started');
-            
-            // Get form data
-            const formData = new FormData(this);
-            
-            // Debug logging
-            console.log('Form action:', this.action);
-            console.log('Form method:', this.method);
-            console.log('Submitting data:', Object.fromEntries(formData));
-            
-            // Submit form using fetch
-            fetch(this.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
+            console.log('Validating medicine rows:', medicineRows.length);
+
+            medicineRows.forEach((row, index) => {
+                const medicineSelect = row.querySelector('select[name^="medicines"][name$="[med_id]"]');
+                const quantityInput = row.querySelector('input[name^="medicines"][name$="[quantity]"]');
+
+                console.log(`Row ${index + 1}:`, {
+                    medicineValue: medicineSelect.value,
+                    quantityValue: quantityInput.value,
+                    medicineText: medicineSelect.options[medicineSelect.selectedIndex]?.text
+                });
+
+                // Check if this row has a valid medicine selection
+                if (medicineSelect.value && medicineSelect.value !== '' && 
+                    quantityInput.value && parseInt(quantityInput.value) > 0) {
+                    hasValidMedicine = true;
+                }
+            });
+
+            if (!hasValidMedicine) {
+                isValid = false;
+                errorMessage = 'Please select at least one medicine with a valid quantity';
+            }
+
+            if (!isValid) {
+                console.log('Validation failed:', errorMessage);
+                alert(errorMessage);
+                return;
+            }
+
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                
+                // Debug logging
+                console.log('Form submission started');
+                console.log('Form action:', this.action);
+                console.log('Form method:', this.method);
+                
+                // Log all form data
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
+                
+                // Submit form using fetch
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
                 console.log('Response:', data);
+
                 if (data.success) {
                     showPopup(data.message);
                 } else {
                     alert(data.message || 'An error occurred while placing the order.');
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while placing the order. Please try again.');
-            });
+            }
         });
     </script>
 </body>

@@ -7,7 +7,7 @@ class Prescription
 
     public function view($prescription_id)
     {
-        if (!Auth::logged_in()) {
+        if (!isset($_SESSION['owner_id'])) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Please log in to view prescription']);
             exit;
@@ -23,7 +23,7 @@ class Prescription
         }
 
         // Check if the prescription belongs to the logged-in user
-        if (Auth::getUserType() === 'pet_owner' && $result->owner_id != Auth::getUserId()) {
+        if ($result->owner_id != $_SESSION['owner_id']) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'You do not have permission to view this prescription']);
             exit;
