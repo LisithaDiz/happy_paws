@@ -1,0 +1,267 @@
+:root {
+    --primary-color: #d8544c;
+    --secondary-color: #ffe6e6;
+    --text-color: #333;
+    --hover-color: #ff4d44;
+    --background-color: #f0f0f0;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+}
+
+.main-content {
+    margin-top: 110px;
+    padding: 30px;
+    flex: 1;
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+.appointments-list,
+.reschedule-appointments-list,
+.cancelled-appointments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.appointment-card,
+.reschedule-appointment-card,
+.cancelled-appointment-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.appointment-card:hover,
+.reschedule-appointment-card:hover,
+.cancelled-appointment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(245, 69, 20, 0.2);
+}
+
+.appointment-details p,
+.reschedule-appointment-details p,
+.cancelled-appointment-details p {
+    margin: 8px 0;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.view-vet-btn,
+.reschedule-view-vet-btn,
+.cancelled-view-vet-btn,
+.cancel-btn,
+.reschedule-cancel-btn {
+    padding: 8px 16px;
+    margin-top: 15px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8929c, var(--primary-color));
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.view-vet-btn:hover,
+.reschedule-view-vet-btn:hover,
+.cancelled-view-vet-btn:hover,
+.cancel-btn:hover,
+.reschedule-cancel-btn:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.view-vet-btn:active,
+.reschedule-view-vet-btn:active,
+.cancelled-view-vet-btn:active,
+.cancel-btn:active,
+.reschedule-cancel-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific styles for different card types */
+.reschedule-appointment-card {
+    background-color: #ffe5e5;
+    border: 1px solid #ff4d4d;
+    box-shadow: 0 4px 8px rgba(255, 77, 77, 0.2);
+}
+
+.reschedule-appointment-details h2 {
+    color: #b30000;
+    margin-top: 0;
+}
+
+.reschedule-appointment-details p {
+    color: #b30000;
+}
+
+/* Cancelled Appointments Section */
+.cancelled-appointments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.cancelled-appointment-card {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.cancelled-appointment-card:hover {
+    transform: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cancelled-appointment-details p {
+    margin: 8px 0;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.cancelled-view-vet-btn {
+    padding: 8px 16px;
+    margin-top: 15px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #e9ecef, #adb5bd);
+    color: #495057;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cancelled-view-vet-btn:hover {
+    background: linear-gradient(135deg, #dee2e6, #6c757d);
+    color: #212529;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cancelled-view-vet-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.cancelled-appointment-card center p {
+    color: #6c757d;
+    font-weight: 600;
+    margin-top: 15px;
+    padding: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Popup styles */
+.popup-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-actions {
+    margin-top: 20px;
+}
+
+.popup-btn {
+    padding: 8px 16px;
+    margin: 0 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.popup-btn.confirm {
+    background: linear-gradient(135deg, #f8929c, var(--primary-color));
+    color: white;
+}
+
+.popup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .appointment-details p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .appointments-list,
+    .reschedule-appointments-list,
+    .cancelled-appointments-list {
+        grid-template-columns: 1fr;
+    }
+}

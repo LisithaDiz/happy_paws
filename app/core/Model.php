@@ -121,8 +121,10 @@ Trait Model
 		$query .= " where $id_column = :$id_column ";
 
 		$data[$id_column] = $id;
+
 		// var_dump($query);
 		// var_dump($data);
+
 		            // Stop execution to view the output
 		
 		$result = $this->query($query, $data);
@@ -198,6 +200,11 @@ Trait Model
 			error_log("Parameters: " . print_r($params, true));
 			return [];
 		}
+	}
+
+	public function lastInsertId()
+	{
+		return $this->connect()->lastInsertId();
 	}
 
 	

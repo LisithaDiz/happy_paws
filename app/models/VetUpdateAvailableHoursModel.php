@@ -36,18 +36,16 @@ class VetUpdateAvailableHoursModel
 	
     }
 
-	public function getAvailableHours()
+	public function vetAvailabilityVetView()
 	{
 		
-		$userid = $_SESSION['user_id'];
+		$vetid = $_SESSION['vet_id'];
 
-		$query = "SELECT a.day_of_week, a.start_time, end_time, a.number_of_appointments
-				FROM vet_availability a
-				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id 
-				WHERE v.user_id = :userid";
+		$query = "SELECT * FROM vet_availability 
+				WHERE vet_id = :vetid";
 		
 
-		$params = ['userid'=>$userid];
+		$params = ['vetid'=>$vetid];
 
 		$result = $this->query($query,$params);
 		
@@ -55,21 +53,33 @@ class VetUpdateAvailableHoursModel
 
 	}
 
-	public function vetAvailabilityOwnerView(){
+	public function vetAvailabilityOwnerView($vetid){
 		
-		$userid = 7;
+		
 
-		$query = "SELECT a.day_of_week, a.start_time, end_time, a.number_of_appointments, a.available_slots
+		$query = "SELECT a.vet_id,a.avl_id,a.day_of_week, a.start_time, end_time, a.number_of_appointments, a.available_slots, a.booked_slots,v.f_name,v.l_name
 				FROM vet_availability a
 				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id 
-				WHERE v.user_id = :userid";
+				WHERE v.vet_id = :vetid AND a.available_slots > 0";
 		
 
-		$params = ['userid'=>$userid];
+		$params = ['vetid'=>$vetid];
 
 		$result = $this->query($query,$params);
 		
 		return $result;
+	}
+
+	public function updateAvailableSlots($avl_id)
+	{
+		$query = "UPDATE vet_availability
+              SET booked_slots = booked_slots + 1,
+                  available_slots = available_slots - 1
+              WHERE avl_id = :avl_id";
+
+    $this->query($query, ['avl_id' => $avl_id]);
+	
+	
 	}
 		
 	

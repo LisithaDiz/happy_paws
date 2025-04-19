@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 require_once '../app/core/Model.php';
 
@@ -106,4 +106,4 @@ class Review2
         $query = "DELETE FROM vet_reviews WHERE review_id = :review_id";
         return $this->query($query, ['review_id' => $review_id]);
     }
-} 
+}  

@@ -11,94 +11,7 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
-    <title>Vet Availability</title>
-
-    <style>
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            padding: 20px;
-        }
-
-        .calendar-day {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            cursor: default;
-            transition: background-color 0.3s ease;
-        }
-
-        .calendar-day.clickable {
-            background-color: #fae3e3;
-            color: rgb(77, 77, 77);
-            cursor: pointer;
-        }
-
-        .calendar-day.clickable:hover {
-            background-color: #f5c6cb;
-        }
-
-        /* Popup Styling */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
-        .popup h2 {
-            margin-bottom: 10px;
-        }
-
-        .popup .time-slot {
-            display: block;
-            margin: 5px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fae3e3;
-            color: rgb(77, 77, 77);
-            text-align: center;
-        }
-
-        .popup .close-btn {
-            display: block;
-            margin-top: 10px;
-            padding: 5px 10px;
-            background: #c35b64;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .calendar-header button {
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .calendar-header button:hover {
-            background-color: #f5c6cb;
-        }
-    </style>
+    <title>Vet Appointments</title>
 </head>
 <body>
     <?php include('components/nav2.php'); ?>
@@ -107,103 +20,220 @@
         <?php include('components/sidebar3.php'); ?>
 
         <div class="main-content">
-            <h1> Your Availability </h1>
- 
-            <div class="calendar-header">
-                <button onclick="changeMonth(-1)">Prev</button>
-                <h2 id="calendarTitle"></h2>
-                <button onclick="changeMonth(1)">Next</button>
-            </div>
+            <h1>Your Upcoming Appointments</h1>
             <div class="calendar" id="calendar"></div>
+
+            <div id="appointmentsSection" class="appointments-container">
+                <h2>Select a date to view appointments</h2>
+                <div id="appointmentsList"></div>
+            </div>
+
+            <div class="cancelled-appointments-container" id="cancelledAppointmentsSection" style="display: none;">
+                <h2>Cancelled Appointments</h2>
+                <div id="cancelledAppointmentsList"></div>
+            </div>
+
         </div>
     </div>
 
-    <div id="availabilityPopup" class="popup">
-        <h2>Available Hours</h2>
-        <div id="timeSlots"></div>
-        <button class="close-btn" onclick="closePopup()">Close</button>
-    </div>
+    <!-- hidden form for view profile -->
+    <form id="viewProfileForm" action="<?= ROOT ?>/vetview_petownerprofile/index" method="POST" style="display: none;">
+        <input type="hidden" name="owner_id" id="owner_id">
+    </form>
+
+    <!-- hidden form for complete appointment -->
+    <form id="completeAppointmentForm" action="<?= ROOT ?>/VetAvailability/completeAppointment" method="POST" style="display: none;" >
+        <input type="hidden" name="appointment_id" id="appointment_id">
+    </form>
+
+    <!-- hidden form for cancel appointment -->
+    <form id="cancelAppointmentForm" action="<?= ROOT ?>/VetAvailability/cancelAppointment" method="POST" style="display: none;" onsubmit="return >
+        <input type="hidden" name="appointment_id" id="cancel_appointment_id">
+    </form>
 
     <?php include('components/footer.php'); ?>
 
     <script>
-    let vetAvailabilityDetails = <?= json_encode($vetAvailabilityDetails); ?>;
+        let appointmentsData = <?= json_encode($vetAppointmentDetails ?? []); ?>;
+        let vetAvailabilityDetails = <?= json_encode($vetAvailabilityDetails ?? []); ?>;
+        let cancelledAppointmentsData = <?= json_encode($cancelledAppointmentDetails ?? []); ?>;
 
-    let currentDate = new Date();
+        console.log("Loaded Cancelled Appointments:", cancelledAppointmentsData);
 
-    function generateCalendar() {
-        const calendar = document.getElementById("calendar");
-        calendar.innerHTML = "";
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
 
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        const firstDayOfMonth = new Date(year, month, 1);
-        const lastDayOfMonth = new Date(year, month + 1, 0);
-        const totalDays = lastDayOfMonth.getDate();
-        const lastClickableDate = new Date(today);
-        lastClickableDate.setDate(today.getDate() + 6);
+        function generateCalendar() {
+            const calendar = document.getElementById("calendar");
+            calendar.innerHTML = "";
 
-        for (let i = 1; i <= totalDays; i++) {
-            const date = new Date(year, month, i);
-            date.setHours(0, 0, 0, 0);
-            const dayElement = document.createElement("div");
-            dayElement.className = "calendar-day";
-            dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
 
-            if (date.getTime() >= today.getTime() && date <= lastClickableDate) {
-                dayElement.classList.add("clickable");
-                dayElement.onclick = () => showAvailabilityPopup(date);
+            for (let i = 0; i < 7; i++) {
+                let date = new Date(today);
+                date.setDate(today.getDate() + i);
+
+                const dayElement = document.createElement("div");
+                dayElement.className = "calendar-day";
+                dayElement.textContent = date.toLocaleDateString("en-US", { weekday: "short", day: "numeric" });
+
+                dayElement.onclick = () => {
+                    document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected-day'));
+                    dayElement.classList.add('selected-day');
+
+                    const selectedDate = formatDate(date);
+                    displayAppointmentsForDate(selectedDate);
+                    displayCancelledAppointments(selectedDate);
+                };
+
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        function displayAppointmentsForDate(dateString) {
+            const appointmentsSection = document.getElementById("appointmentsList");
+            appointmentsSection.innerHTML = "";
+
+            const filtered = appointmentsData.filter(app => {
+                let appointmentDate = new Date(app.appointment_date);
+                appointmentDate.setHours(0, 0, 0, 0);
+                return formatDate(appointmentDate) === dateString;
+            });
+
+            if (filtered.length === 0) {
+                appointmentsSection.innerHTML = "<p>No appointments for this day.</p>";
+                return;
             }
 
-            calendar.appendChild(dayElement);
-        }
-
-        document.getElementById("calendarTitle").textContent = `${currentDate.toLocaleString("en-US", { month: "long" })} ${currentDate.getFullYear()}`;
-    }
-
-    function changeMonth(offset) {
-        currentDate.setMonth(currentDate.getMonth() + offset);
-        generateCalendar();
-    }
-
-    function showAvailabilityPopup(date) {
-        const popup = document.getElementById("availabilityPopup");
-        const timeSlotsContainer = document.getElementById("timeSlots");
-        timeSlotsContainer.innerHTML = "";
-
-        const selectedDay = date.toLocaleDateString('en-US', { weekday: 'long' });
-        const hours = vetAvailabilityDetails.filter(slot => slot.day_of_week === selectedDay);
-
-        if (hours.length === 0) {
-            timeSlotsContainer.innerHTML = "<p>No available hours</p>";
-        } else {
-            hours.forEach(slot => {
-                const timeSlot = document.createElement("div");
-                timeSlot.className = "time-slot";
-                timeSlot.textContent = `${formatTime(slot.start_time)} - ${formatTime(slot.end_time)} (${slot.number_of_appointments} slots)`;
-                timeSlotsContainer.appendChild(timeSlot);
+            const grouped = {};
+            filtered.forEach(app => {
+                const avlId = app.avl_id;
+                const timeSlot = app.appointment_time;
+                if (!grouped[avlId]) grouped[avlId] = {};
+                if (!grouped[avlId][timeSlot]) grouped[avlId][timeSlot] = [];
+                grouped[avlId][timeSlot].push(app);
             });
+
+            for (let avlId in grouped) {
+                const availability = vetAvailabilityDetails.find(avl => avl.avl_id == avlId);
+                if (!availability) continue;
+
+                const avlSlotDiv = document.createElement("div");
+                avlSlotDiv.className = "time-slot";
+                avlSlotDiv.innerHTML = `<strong>Slot: ${availability.start_time} - ${availability.end_time}</strong>`;
+
+                for (let timeSlot in grouped[avlId]) {
+                    const timeSlotDiv = document.createElement("div");
+                    timeSlotDiv.className = "time-slot-details";
+                    timeSlotDiv.innerHTML = `<strong>Time: ${timeSlot}</strong>`;
+
+                    grouped[avlId][timeSlot].forEach(app => {
+                        const card = document.createElement("div");
+                        card.className = "appointment-card";
+
+                        if (app.status === 'cancelled') {
+                            card.style.backgroundColor = '#e0e0e0';
+                            card.style.color = '#555';
+                            card.innerHTML = `
+                                <p>Pet Owner: <strong>${app.f_name} ${app.l_name}</strong></p>
+                                <p><em>Appointment Cancelled</em></p>
+                            `;
+                        } else {
+                            card.innerHTML = `
+                                <p>Pet Owner: <strong>${app.f_name} ${app.l_name}</strong></p>
+                                <div class="appointment-actions">
+                                    <button class="complete-btn" onclick="viewOwnerProfile('${app.owner_id}')">view profile</button>
+                                    <button class="complete-btn" onclick="markAsCompleted('${app.appointment_id}')">Completed</button>
+                                    <button class="cancel-btn" onclick="cancelAppointment('${app.appointment_id}')">Cancel</button>
+                                </div>
+                            `;
+                        }
+
+                        timeSlotDiv.appendChild(card);
+                    });
+
+                    avlSlotDiv.appendChild(timeSlotDiv);
+                }
+
+                appointmentsSection.appendChild(avlSlotDiv);
+            }
         }
 
-        popup.style.display = "block";
+        function displayCancelledAppointments(dateString) {
+    const cancelledSection = document.getElementById("cancelledAppointmentsSection");
+    const cancelledList = document.getElementById("cancelledAppointmentsList");
+
+    const filtered = cancelledAppointmentsData.filter(app => {
+        let appointmentDate = new Date(app.appointment_date);
+        appointmentDate.setHours(0, 0, 0, 0);
+        return formatDate(appointmentDate) === dateString;
+    });
+
+    if (filtered.length === 0) {
+        cancelledSection.style.display = "none";
+        return;
     }
 
-    function formatTime(timeString) {
-        const [hour, minute] = timeString.split(":").map(Number);
-        const period = hour >= 12 ? "PM" : "AM";
-        return `${hour % 12 || 12}:${minute.toString().padStart(2, '0')} ${period}`;
-    }
+    cancelledSection.style.display = "block";
+    cancelledList.innerHTML = ""; // clear previous
 
-    function closePopup() {
-        document.getElementById("availabilityPopup").style.display = "none";
-    }
+    filtered.forEach(app => {
+        const availability = vetAvailabilityDetails.find(avl => avl.avl_id == app.avl_id);
+        const timeSlotText = availability
+            ? `${availability.start_time} - ${availability.end_time}`
+            : "Time Slot Not Available";
 
-    generateCalendar();
-</script>
+        const card = document.createElement("div");
+        card.className = "appointment-card cancelled-card";
+        card.innerHTML = `
+            <p>Pet Owner: <strong>${app.f_name} ${app.l_name}</strong></p>
+            <p><strong>Time Slot:</strong> ${timeSlotText}</p>
+            <p><strong>Appointment Time:</strong> ${app.appointment_time}</p>
+            <p><em>Cancelled by you</em></p>
+            
+        `;
+
+        cancelledList.appendChild(card);
+    });
+}
+
+        function viewOwnerProfile(owner_id) {
+            document.getElementById("owner_id").value = owner_id;
+            document.getElementById("viewProfileForm").submit();
+        }
+
+        function markAsCompleted(appointment_id) {
+            if (confirm("Mark this appointment as completed?")) {
+                document.getElementById("appointment_id").value = appointment_id;
+                document.getElementById("completeAppointmentForm").submit();
+            }
+        }
+
+        function cancelAppointment(appointment_id) {
+            if (confirm("Are you sure you want to cancel this appointment?")) {
+                document.getElementById("cancel_appointment_id").value = appointment_id;
+                document.getElementById("cancelAppointmentForm").submit();
+            }
+        }
+
+
+        generateCalendar();
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

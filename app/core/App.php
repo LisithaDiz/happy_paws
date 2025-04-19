@@ -21,7 +21,6 @@ class App
                'PetUpdate' => ['index', 'updatePetDetails'],
                'PetAdd' => ['index', 'createPet'],
                'PetOwnerProfile' => ['index'],
-               'PetOwnerAppointments' => ['index'],
                'VetSearch' => ['index'],
                'PetOwnerGuardians' => ['index'],
                'PetsitterSearch' => ['index'],
@@ -34,6 +33,11 @@ class App
                'Reviews4' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
                'PetOwnerDash'=>['index'],
+
+               'PetOwnerBookVet'=>['index','bookvet'],
+               'PetOwner_Appointments'=>['index','cancelAppointment'],
+               'PetOwner_Reschedule'=>['index','reschedulevet'],
+               'ChatBox' =>['index'],
                'CareCenterProfile'=>['index'],
                'Pets'=>['getPetsByType'],
                'PetOwnerController'=>['addBookings']
@@ -47,10 +51,14 @@ class App
                 'VetRequest' => ['index'],
                 'VetTreatedPet' => ['index','treatedPetDetails'],
                 'VetPrescription' => ['index'],
-                'VetAvailability' => ['index'],
+                'VetAvailability' => ['index','completeAppointment','cancelAppointment'],
                 'VetMedRequest' => ['index','addMedicineRequest'],
                 'VetSettings' => ['index'],
-                'VetAvailableHours' => ['index','availableHours']
+                'VetAvailableHours' => ['index','availableHours','removeSlot'],
+                'VetView_PetOwnerProfile' =>['index'],
+                'VetView_PetProfile' =>['index','issueprescription','updatemedicalrecord','insertmedicalrecord','deletemedicalrecord'],
+                'ChatBox' =>['index']
+                
         ],
 
         '3' => ['PetSitterDashboard' => ['index'],
@@ -59,12 +67,14 @@ class App
                 'PetSitterPet' => ['index'], 
                 'PetSitterAvailability' => ['index'], 
                 'PetSitterRequest' => ['index'], 
+                'ChatBox' =>['index']
             ], 
 
         '4' => ['CareCenterDashboard' => ['index'],
                  'CareCenterCage' => ['index'],
                 'CareCenterAvailability'=> ['index'],
                 'CareCenterProfile'=> ['index'],
+                'ChatBox' =>['index']
                 ],
         '5' => ['PharmacyDashboard' => ['index'],
                 'PharmProfile'=> ['index'],
@@ -72,6 +82,7 @@ class App
                 'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
+                'ChatBox' =>['index']
             ],
         
     ];
@@ -161,6 +172,7 @@ class App
 
         /** Check Access **/
         if (1) {//$this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)
+
                     call_user_func_array([$controller, $this->method], $URL);
 
 

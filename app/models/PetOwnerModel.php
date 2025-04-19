@@ -105,5 +105,17 @@ class PetOwnerModel
 			return $this->query($query);
 	
 		}
+
+		public function ownerDetailsVetView($ownerid)
+		{
+			$query = "SELECT * FROM pet_owner o
+					JOIN user u ON o.user_id = u.user_id
+					WHERE o.owner_id = :ownerid";
+
+			$result = $this->query($query,['ownerid' => $ownerid]);
+			return $result;
+		}
+
+		
 	
 }

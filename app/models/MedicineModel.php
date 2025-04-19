@@ -17,8 +17,7 @@ class MedicineModel
 
     public function getAllMedicines()
     {
-        $order_column = 'med_id';
-        $query = "select * from $this->table order by $order_column $this->order_type";
+        $query = "SELECT * FROM medicine";
 		return $this->query($query);
         
     }

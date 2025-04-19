@@ -66,7 +66,6 @@ class PharmacyModel
         
         return 0; // Default rating if no reviews
     }
-=======
         public function getAllInfo(){
 
 
