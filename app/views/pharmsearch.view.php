@@ -69,7 +69,7 @@
                         <h4>Services:</h4>
                         <p><?=htmlspecialchars($pharmacy['services'])?></p>
                     </div>
-                    <button onclick="location.href='<?=ROOT?>/PetOwnerPlaceOrder'" class="book-button">Place Order</button>
+                    <button onclick="location.href='<?=ROOT?>/PlaceOrder/index/<?=$pharmacy['pharmacy_id']?>'" class="book-button">Place Order</button>
                 </div>
             </div>
         <?php endforeach; ?>

@@ -74,8 +74,8 @@
                                     <th>Order ID</th>
                                     <th>Customer</th>
                                     <th>Pet Details</th>
-                                    <th>Medicine</th>
-                                    <th>Quantity</th>
+                                    <th>Medicines</th>
+                                    <th>Quantities</th>
                                     <th>Total</th>
                                     <th>Status</th>
                                     <th>Date</th>
@@ -92,8 +92,16 @@
                                                 <span class="pet-name"><?= htmlspecialchars($order->pet_name) ?></span>
                                                 <span class="pet-type"><?= htmlspecialchars($order->pet_type) ?></span>
                                             </td>
-                                            <td><?= htmlspecialchars($order->medicine) ?></td>
-                                            <td><?= $order->quantity ?></td>
+                                            <td>
+                                                <?php foreach ($order->medicines as $medicine): ?>
+                                                    <?= htmlspecialchars($medicine->med_name) ?><br>
+                                                <?php endforeach; ?>
+                                            </td>
+                                            <td>
+                                                <?php foreach ($order->medicines as $medicine): ?>
+                                                    <?= htmlspecialchars($medicine->quantity) ?><br>
+                                                <?php endforeach; ?>
+                                            </td>
                                             <td>Rs. <?= number_format($order->total_price, 2) ?></td>
                                             <td>
                                                 <span class="status-badge <?= $order->status ?>">

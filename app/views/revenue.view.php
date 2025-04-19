@@ -62,7 +62,7 @@ if (empty($data)) {
                     <i class="fas fa-shopping-cart"></i>
                     <div class="stat-info">
                         <p class="stat-label">Total Orders</p>
-                        <h3 class="stat-value"><?= number_format($data['statistics']['total_orders']) ?></h3>
+                        <h3 class="stat-value"><?= number_format($data['summary']['total_orders']) ?></h3>
                         <p class="stat-period">All Time</p>
                     </div>
                 </div>
