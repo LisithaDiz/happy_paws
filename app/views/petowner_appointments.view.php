@@ -20,6 +20,8 @@
         <div class="main-content">
             <h1>My Appointments</h1>
 
+            
+            <h2>Upcoming Appointments</h2><br/>
             <div class="appointments-list">
                 <?php if(!empty($appointmentDetails)): ?>
                     <?php foreach($appointmentDetails as $appointment): ?>
@@ -41,6 +43,8 @@
                 <?php endif; ?>
             </div>
 
+            
+            <br/><h2>Appointments Cancelled By Veterinary Surgeon</h2><br/>
             <div class="reschedule-appointments-list">
             <?php if(!empty($rescheduleAppontments)): ?>
                 <?php foreach($rescheduleAppontments as $appointment): ?>
@@ -62,7 +66,8 @@
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-                    
+
+            <br/><h2>Appointments Cancelled By You</h2><br/>   
             <div class="cancelled-appointments-list">
                 <?php if(!empty($cancelledAppointments)): ?>
                     <?php foreach($cancelledAppointments as $appointment): ?>

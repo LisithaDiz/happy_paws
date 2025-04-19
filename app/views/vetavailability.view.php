@@ -42,12 +42,12 @@
     </form>
 
     <!-- hidden form for complete appointment -->
-    <form id="completeAppointmentForm" action="<?= ROOT ?>/VetAvailability/completeAppointment" method="POST" style="display: none;">
+    <form id="completeAppointmentForm" action="<?= ROOT ?>/VetAvailability/completeAppointment" method="POST" style="display: none;" >
         <input type="hidden" name="appointment_id" id="appointment_id">
     </form>
 
     <!-- hidden form for cancel appointment -->
-    <form id="cancelAppointmentForm" action="<?= ROOT ?>/VetAvailability/cancelAppointment" method="POST" style="display: none;">
+    <form id="cancelAppointmentForm" action="<?= ROOT ?>/VetAvailability/cancelAppointment" method="POST" style="display: none;" onsubmit="return >
         <input type="hidden" name="appointment_id" id="cancel_appointment_id">
     </form>
 
@@ -205,14 +205,19 @@
         }
 
         function markAsCompleted(appointment_id) {
-            document.getElementById("appointment_id").value = appointment_id;
-            document.getElementById("completeAppointmentForm").submit();
+            if (confirm("Mark this appointment as completed?")) {
+                document.getElementById("appointment_id").value = appointment_id;
+                document.getElementById("completeAppointmentForm").submit();
+            }
         }
 
         function cancelAppointment(appointment_id) {
-            document.getElementById("cancel_appointment_id").value = appointment_id;
-            document.getElementById("cancelAppointmentForm").submit();
+            if (confirm("Are you sure you want to cancel this appointment?")) {
+                document.getElementById("cancel_appointment_id").value = appointment_id;
+                document.getElementById("cancelAppointmentForm").submit();
+            }
         }
+
 
         generateCalendar();
     </script>

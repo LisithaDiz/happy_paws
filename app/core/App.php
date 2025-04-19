@@ -36,6 +36,7 @@ class App
                'PetOwnerBookVet'=>['index','bookvet'],
                'PetOwner_Appointments'=>['index','cancelAppointment'],
                'PetOwner_Reschedule'=>['index','reschedulevet'],
+               'ChatBox' =>['index']
             ], 
 
         
@@ -50,7 +51,8 @@ class App
                 'VetSettings' => ['index'],
                 'VetAvailableHours' => ['index','availableHours','removeSlot'],
                 'VetView_PetOwnerProfile' =>['index'],
-                'VetView_PetProfile' =>['index','issueprescription','updatemedicalrecord','insertmedicalrecord','deletemedicalrecord']
+                'VetView_PetProfile' =>['index','issueprescription','updatemedicalrecord','insertmedicalrecord','deletemedicalrecord'],
+                'ChatBox' =>['index']
                 
         ],
 
@@ -60,12 +62,14 @@ class App
                 'PetSitterPet' => ['index'], 
                 'PetSitterAvailability' => ['index'], 
                 'PetSitterRequest' => ['index'], 
+                'ChatBox' =>['index']
             ], 
 
         '4' => ['CareCenterDashboard' => ['index'],
                  'CareCenterCage' => ['index'],
                 'CareCenterAvailability'=> ['index'],
                 'CareCenterProfile'=> ['index'],
+                'ChatBox' =>['index']
                 ],
         '5' => ['PharmacyDashboard' => ['index'],
                 'PharmProfile'=> ['index'],
@@ -73,6 +77,7 @@ class App
                 'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
+                'ChatBox' =>['index']
             ],
         
     ];
