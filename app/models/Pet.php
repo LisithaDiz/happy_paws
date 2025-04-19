@@ -165,7 +165,7 @@ class Pet {
 
     public function treatedPetDetails()
     {
-        echo"sssss";
+        // echo"sssss";
         $userid = $_SESSION['user_id'];
         $query= "SELECT p.pet_id, p.pet_name, p.age, o.f_name, o.l_name
                 FROM pets p
@@ -183,9 +183,8 @@ class Pet {
 
 
     }
-    
 
-    
+
     
 }
 

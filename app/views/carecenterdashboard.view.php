@@ -8,20 +8,16 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/carecenterdash.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
 
-
-
-    
-
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
        
-        <?php include ('components/sidebar5.php'); ?>
+        <?php include ('components/sidebar_care_center.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>Welcome, [Pet Care Center Name]!</h1>
+            <h1>Welcome, <?=$_SESSION['care_center_name']?>!</h1>
             <p>Your dashboard is designed to help you seamlessly manage your pet care center, monitor activities, and provide top-notch care for all pets.</p>
 
             <!-- Dashboard Overview Section -->

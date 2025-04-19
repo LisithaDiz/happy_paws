@@ -18,7 +18,8 @@ class CageModel
 		'designed_for', 
 		'location', 
 		'available_cages',
-        'additional_features'
+        'additional_features',
+        'cage_img'
 	];
 
 	public function getAllCages($id)
