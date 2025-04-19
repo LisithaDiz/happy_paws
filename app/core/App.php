@@ -17,7 +17,7 @@ class App
 
                     ],
         '1' => ['PetOwnerDashboard' => ['index'], 
-               'PetDetails' => ['index', 'deletePet'], 
+               'PetDetails' => ['index', 'deletePet'],
                'PetUpdate' => ['index', 'updatePetDetails'],
                'PetAdd' => ['index', 'createPet'],
                'PetOwnerProfile' => ['index'],
@@ -33,10 +33,15 @@ class App
                'Reviews4' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
                'PetOwnerDash'=>['index'],
+
                'PetOwnerBookVet'=>['index','bookvet'],
                'PetOwner_Appointments'=>['index','cancelAppointment'],
                'PetOwner_Reschedule'=>['index','reschedulevet'],
-               'ChatBox' =>['index']
+               'ChatBox' =>['index'],
+               'CareCenterProfile'=>['index'],
+               'Pets'=>['getPetsByType'],
+               'PetOwnerController'=>['addBookings']
+               
             ], 
 
         
@@ -166,7 +171,8 @@ class App
         // var_dump($this->checkAccess($this->controller, $this->method));
 
         /** Check Access **/
-        if (true) {
+        if (1) {//$this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)
+
                     call_user_func_array([$controller, $this->method], $URL);
 
 

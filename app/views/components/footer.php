@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
 <footer>
  
   <div class="footer-container">

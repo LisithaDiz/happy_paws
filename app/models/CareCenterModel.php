@@ -80,6 +80,7 @@ class CareCenterModel
     }
     public function getSearchInfo() {
         $query = "SELECT  
+                care_center_id,
                 name,
                 district,
                 city,
@@ -92,5 +93,26 @@ class CareCenterModel
         var_dump($query);
 
         return $this->query($query);
+    }
+
+    public function updateProfile($data, $id) {
+        // Handle file uploads
+        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === 0) {
+            $profileImage = file_get_contents($_FILES['profile_image']['tmp_name']);
+            $data['profile_image'] = $profileImage;
+        }
+        
+        if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === 0) {
+            $coverImage = file_get_contents($_FILES['cover_image']['tmp_name']);
+            $data['cover_image'] = $coverImage;
+        }
+
+        // Remove empty values and files from data array
+        $data = array_filter($data, function($value) {
+            return $value !== null && $value !== '';
+        });
+
+        // Use the Model trait's update method
+        return $this->update($id, $data, 'care_center_id');
     }
 }

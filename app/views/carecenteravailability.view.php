@@ -16,7 +16,7 @@
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
-    <?php include ('components/sidebar5.php'); ?>
+    <?php include ('components/sidebar_care_center.php'); ?>
 
 
         <!-- Main content area -->

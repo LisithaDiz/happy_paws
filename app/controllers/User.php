@@ -137,6 +137,7 @@ class User
         // Authenticate user
         $user = $this->userModel->authenticate($username, $password, $user_role);
 
+
         if (empty($user)) {
             $error = "Invalid username, password, or user role.";
             $this->view('login', ['error' => $error]);
@@ -151,8 +152,9 @@ class User
             $_SESSION['user_id'] = $user->user_id;
             $_SESSION['user_role'] = $user_role;
             $_SESSION['user_status'] = $user->active_status;
+            $_SESSION['username'] = $user->username;
 
-        
+
 
             if ($_SESSION['user_status'] == '1') {
                 switch ($user_role) {
@@ -161,6 +163,8 @@ class User
                         $user_owner = new PetOwnerModel;
                         $user_=$user_owner->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['owner_id'] = $user_->owner_id;
+                        $_SESSION['owner_name'] = $user_->f_name +' '+ $user_->l_name;
+
 
                         redirect('PetOwnerDash');
                         break;
@@ -168,6 +172,7 @@ class User
                         $user_vet = new VetModel;
                         $user_=$user_vet->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['vet_id'] = $user_->vet_id;
+                        $_SESSION['vet_name'] = $user_->f_name +' '+ $user_->l_name;
                         
                         redirect('VetDashboard');
                         break;
@@ -175,6 +180,7 @@ class User
                         $user_sitter = new PetSitterModel;
                         $user_=$user_sitter->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['sitter_id'] = $user_->sitter_id;
+                        $_SESSION['sitter_name'] = $user_->name;
                         
                         redirect('PetSitterDashboard');
                         break;
@@ -182,6 +188,7 @@ class User
                         $user_center = new CareCenterModel;
                         $user_=$user_center->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['care_center_id'] = $user_->care_center_id;
+                        $_SESSION['care_center_name'] = $user_->name;
                         
                         redirect('CareCenterDashboard');
                         break;
@@ -189,6 +196,7 @@ class User
                         $user_pharmacy = new PharmacyModel;
                         $user_=$user_pharmacy->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['pharmacy_id'] = $user_->pharmacy_id;
+                        $_SESSION['pharmacy_name'] = $user_->name;
                         
                         redirect('PharmacyDashboard');
                         break;
