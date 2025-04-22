@@ -162,27 +162,22 @@ class Notification
 
     private function getTimeAgo($datetime)
     {
-        $now = new DateTime;
-        $ago = new DateTime($datetime);
+        $now = new DateTime('now', new DateTimeZone('Asia/Colombo'));
+        $ago = new DateTime($datetime, new DateTimeZone('Asia/Colombo'));
         $diff = $now->diff($ago);
 
-        $days = $diff->days;
-        $hours = $diff->h;
-        $minutes = $diff->i;
-        $seconds = $diff->s;
-
-        if ($days > 0) {
-            if ($days >= 7) {
-                $weeks = floor($days / 7);
-                return $weeks . ' week' . ($weeks > 1 ? 's' : '') . ' ago';
-            }
-            return $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
-        } elseif ($hours > 0) {
-            return $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ago';
-        } elseif ($minutes > 0) {
-            return $minutes . ' minute' . ($minutes > 1 ? 's' : '') . ' ago';
+        if ($diff->y > 0) {
+            return $diff->y . ' year' . ($diff->y > 1 ? 's' : '') . ' ago';
+        } elseif ($diff->m > 0) {
+            return $diff->m . ' month' . ($diff->m > 1 ? 's' : '') . ' ago';
+        } elseif ($diff->d > 0) {
+            return $diff->d . ' day' . ($diff->d > 1 ? 's' : '') . ' ago';
+        } elseif ($diff->h > 0) {
+            return $diff->h . ' hour' . ($diff->h > 1 ? 's' : '') . ' ago';
+        } elseif ($diff->i > 0) {
+            return $diff->i . ' minute' . ($diff->i > 1 ? 's' : '') . ' ago';
         } else {
-            return $seconds . ' second' . ($seconds > 1 ? 's' : '') . ' ago';
+            return 'just now';
         }
     }
 } 

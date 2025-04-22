@@ -760,7 +760,8 @@
                                         <span class="medicine-name">${medicine.med_name}</span>
                                         <div class="medicine-details">
                                             <div><strong>Dosage:</strong> ${medicine.dosage || 'Not specified'}</div>
-                                            <div><strong>Instructions:</strong> ${medicine.instructions || 'Not specified'}</div>
+                                            <div><strong>Frequency:</strong> ${medicine.frequency || 'Not specified'}</div>
+                                            <div><strong>Quantity:</strong> ${medicine.quantity || 'Not specified'}</div>
                                         </div>
                                     </li>
                                 `;

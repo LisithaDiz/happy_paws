@@ -149,6 +149,10 @@
                             <label>Frequency</label>
                             <div><?= htmlspecialchars($medicine->frequency) ?></div>
                         </div>
+                        <div>
+                            <label>Quantity</label>
+                            <div><?= htmlspecialchars($medicine->quantity) ?></div>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

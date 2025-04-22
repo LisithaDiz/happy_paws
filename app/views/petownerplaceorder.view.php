@@ -86,46 +86,35 @@
         /* Medicine Rows */
         .medicine-row {
             display: flex;
+            align-items: center;
             gap: 15px;
             margin-bottom: 15px;
-            align-items: center;
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            border: 1px solid #e0e0e0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
         }
 
-        .medicine-row:hover {
-            background-color: #fff5f6;
-        }
-
-        .medicine-row select,
-        .medicine-row input {
+        .medicine-name {
             flex: 1;
-            margin: 0;
+            font-weight: 500;
+        }
+
+        .medicine-quantity {
+            min-width: 50px;
+            text-align: center;
         }
 
         .remove-medicine {
             background-color: #dc3545;
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
+            padding: 5px 10px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .remove-medicine:hover {
             background-color: #c82333;
-            transform: translateY(-1px);
-        }
-
-        .remove-medicine i {
-            font-size: 0.9em;
         }
 
         /* Add Medicine Button */
@@ -493,11 +482,12 @@
         .popup-message {
             margin-bottom: 20px;
             font-size: 1.2em;
-            color: #d8544c;
+            color: #28a745;
+            font-weight: 500;
         }
 
         .popup-close {
-            background-color: #f8929c;
+            background-color: #28a745;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -508,7 +498,7 @@
         }
 
         .popup-close:hover {
-            background-color: #d8544c;
+            background-color: #218838;
             transform: translateY(-1px);
         }
 
@@ -612,23 +602,46 @@
                     <select id="pet_id" name="pet_id" required onchange="loadPrescriptions(this.value)">
                         <option value="">Select a pet</option>
                         <?php if(!empty($pets)): ?>
-                            <?php foreach ($pets as $pet): ?>
+                    <?php foreach ($pets as $pet): ?>
                                 <option value="<?= $pet->pet_id ?>"><?= htmlspecialchars($pet->pet_name) ?> (<?= htmlspecialchars($pet->pet_type) ?>)</option>
-                            <?php endforeach; ?>
+                    <?php endforeach; ?>
                         <?php else: ?>
                             <option value="" disabled>No pets found</option>
                         <?php endif; ?>
-                    </select>
+                </select>
                 </div>
 
                 <div class="form-group" id="prescription-section" style="display: none;">
                     <label for="prescription_id">Select Prescription (Optional)</label>
                     <select id="prescription_id" name="prescription_id" onchange="viewPrescriptionDetails(this.value)">
                         <option value="">No prescription</option>
-                    </select>
-                    <div id="prescription-details" style="display: none; margin-top: 15px; padding: 10px; background-color: #f8f9fa; border-radius: 5px;">
+</select>
+                    <div class="prescription-details" style="display: none; margin-top: 15px; padding: 10px; background-color: #f8f9fa; border-radius: 5px;">
                         <h4>Prescription Details</h4>
-                        <div id="prescription-info"></div>
+                        <div class="prescription-info">
+                            <div class="info-item">
+                                <label>Date:</label>
+                                <span id="prescription-date"></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Vet:</label>
+                                <span id="prescription-vet"></span>
+                            </div>
+                            <div class="info-item">
+                                <label>Pet:</label>
+                                <span id="prescription-pet"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="medicines-list">
+                            <h4>Prescribed Medicines:</h4>
+                            <div id="prescription-medicines"></div>
+                        </div>
+                        
+                        <div class="special-notes" id="prescription-notes" style="display: none;">
+                            <strong>Special Notes:</strong>
+                            <p id="prescription-note-text"></p>
+                        </div>
                     </div>
                 </div>
 
@@ -637,21 +650,13 @@
                     <label>Medicines</label>
                     <div id="medicine-rows">
                         <div class="medicine-row">
-                            <select name="medicines[0][med_id]" required onchange="updateTotalPrice()">
-                                <option value="">Select medicine</option>
-                                <?php if(!empty($medicines)): ?>
-                                    <?php foreach ($medicines as $medicine): ?>
-                                        <option value="<?= $medicine->med_id ?>" data-price="<?= $medicine->price ?>">
-                                            <?= htmlspecialchars($medicine->med_name) ?> - Rs.<?= number_format($medicine->price, 2) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
-                            <input type="number" name="medicines[0][quantity]" min="1" value="1" required onchange="updateTotalPrice()">
+                            <input type="hidden" name="medicines[0][med_id]" value="">
+                            <span class="medicine-name"></span>
+                            <input type="hidden" name="medicines[0][quantity]" value="1">
+                            <span class="medicine-quantity"></span>
                             <button type="button" class="remove-medicine" onclick="removeMedicineRow(this)">Remove</button>
                         </div>
                     </div>
-                    <button type="button" onclick="addMedicineRow()">Add Medicine</button>
                 </div>
 
                 <div class="form-group">
@@ -701,12 +706,16 @@
         }
 
         function removeMedicineRow(button) {
-            if (document.querySelectorAll('.medicine-row').length > 1) {
-                const row = button.parentElement;
+            const row = button.parentElement;
+            const container = document.getElementById('medicine-rows');
+            const rows = container.querySelectorAll('.medicine-row');
+            
+            // Only allow removal if there's more than one row
+            if (rows.length > 1) {
                 row.remove();
                 updateTotalPrice();
             } else {
-                alert('You must have at least one medicine in the order.');
+                alert('You must keep at least one medicine in the order.');
             }
         }
 
@@ -715,14 +724,20 @@
             const rows = document.querySelectorAll('.medicine-row');
             
             rows.forEach(row => {
-                const select = row.querySelector('select');
-                const quantityInput = row.querySelector('input[type="number"]');
-                const selectedOption = select.options[select.selectedIndex];
+                const medIdInput = row.querySelector('input[name^="medicines"][name$="[med_id]"]');
+                const quantityInput = row.querySelector('input[name^="medicines"][name$="[quantity]"]');
                 
-                if (selectedOption && selectedOption.dataset.price) {
-                    const price = parseFloat(selectedOption.dataset.price);
-                    const quantity = parseInt(quantityInput.value) || 0;
-                    total += price * quantity;
+                if (medIdInput && quantityInput) {
+                    // Get the medicine name from the span
+                    const medicineName = row.querySelector('.medicine-name').textContent;
+                    // Find the medicine in the original medicines array
+                    const medicine = <?= json_encode($medicines) ?>.find(m => m.med_name === medicineName);
+                    
+                    if (medicine) {
+                        const price = parseFloat(medicine.price);
+                        const quantity = parseInt(quantityInput.value) || 0;
+                        total += price * quantity;
+                    }
                 }
             });
             
@@ -735,28 +750,33 @@
         });
 
         function showPopup(message) {
-            document.getElementById('popupMessage').textContent = message;
-            document.getElementById('successPopup').style.display = 'flex';
+            const popupMessage = document.getElementById('popupMessage');
+            const popupOverlay = document.getElementById('successPopup');
+            
+            popupMessage.textContent = message;
+            popupOverlay.style.display = 'flex';
+            
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                closePopup();
+            }, 5000);
         }
 
         function closePopup() {
-            document.getElementById('successPopup').style.display = 'none';
+            const popupOverlay = document.getElementById('successPopup');
+            popupOverlay.style.display = 'none';
+            
             // Reset the form after closing the popup
             document.getElementById('orderForm').reset();
+            
             // Reset the medicine container to have only one row
-            document.getElementById('medicine-rows').innerHTML = `
+            const container = document.getElementById('medicine-rows');
+            container.innerHTML = `
                 <div class="medicine-row">
-                    <select name="medicines[0][med_id]" required onchange="updateTotalPrice()">
-                        <option value="">Select medicine</option>
-                        <?php if(!empty($medicines)): ?>
-                            <?php foreach ($medicines as $medicine): ?>
-                                <option value="<?= $medicine->med_id ?>" data-price="<?= $medicine->price ?>">
-                                    <?= htmlspecialchars($medicine->med_name) ?> - Rs.<?= number_format($medicine->price, 2) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                    <input type="number" name="medicines[0][quantity]" min="1" value="1" required onchange="updateTotalPrice()">
+                    <input type="hidden" name="medicines[0][med_id]" value="">
+                    <span class="medicine-name"></span>
+                    <input type="hidden" name="medicines[0][quantity]" value="1">
+                    <span class="medicine-quantity"></span>
                     <button type="button" class="remove-medicine" onclick="removeMedicineRow(this)">Remove</button>
                 </div>
             `;
@@ -766,7 +786,7 @@
         function loadPrescriptions(petId) {
             if (!petId) {
                 document.getElementById('prescription-section').style.display = 'none';
-                document.getElementById('prescription-details').style.display = 'none';
+                document.querySelector('.prescription-details').style.display = 'none';
                 return;
             }
 
@@ -777,22 +797,16 @@
             // Make AJAX request to fetch prescriptions
             const xhr = new XMLHttpRequest();
             const url = `<?= ROOT ?>/PlaceOrder/getPrescriptions/${petId}`;
-            console.log('Fetching prescriptions from:', url);
             
             xhr.open('GET', url, true);
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             
             xhr.onload = function() {
-                console.log('Response status:', xhr.status);
-                console.log('Response text:', xhr.responseText);
-                
                 if (xhr.status === 200) {
                     try {
                         const response = JSON.parse(xhr.responseText);
-                        console.log('Parsed response:', response);
                         
                         if (response.error) {
-                            console.error('Server error:', response.error);
                             prescriptionSelect.innerHTML = `<option value="">${response.error}</option>`;
                             return;
                         }
@@ -817,12 +831,10 @@
                         }
                     } catch (e) {
                         console.error('Error parsing response:', e);
-                        console.error('Raw response:', xhr.responseText);
                         prescriptionSelect.innerHTML = '<option value="">Error loading prescriptions</option>';
                     }
                 } else {
                     console.error('Error loading prescriptions:', xhr.status);
-                    console.error('Response text:', xhr.responseText);
                     prescriptionSelect.innerHTML = '<option value="">Error loading prescriptions</option>';
                 }
             };
@@ -836,105 +848,153 @@
         }
 
         function viewPrescriptionDetails(prescriptionId) {
-            const detailsDiv = document.getElementById('prescription-details');
-            const infoDiv = document.getElementById('prescription-info');
+            const detailsDiv = document.querySelector('.prescription-details');
+            const medicinesDiv = document.getElementById('prescription-medicines');
+            const notesDiv = document.getElementById('prescription-notes');
             
             if (!prescriptionId) {
                 detailsDiv.style.display = 'none';
+                // Clear medicine rows if no prescription selected
+                const medicineRows = document.querySelectorAll('.medicine-row');
+                medicineRows.forEach((row, index) => {
+                    if (index > 0) { // Keep first row
+                        row.remove();
+                    } else {
+                        // Reset first row
+                        const nameSpan = row.querySelector('.medicine-name');
+                        const quantitySpan = row.querySelector('.medicine-quantity');
+                        const medIdInput = row.querySelector('input[name^="medicines"][name$="[med_id]"]');
+                        const quantityInput = row.querySelector('input[name^="medicines"][name$="[quantity]"]');
+                        nameSpan.textContent = '';
+                        quantitySpan.textContent = '';
+                        medIdInput.value = '';
+                        quantityInput.value = '1';
+                    }
+                });
+                updateTotalPrice();
                 return;
             }
 
             detailsDiv.style.display = 'block';
-            infoDiv.innerHTML = 'Loading prescription details...';
+            medicinesDiv.innerHTML = 'Loading prescription details...';
 
             // Make AJAX request to fetch prescription details
             const xhr = new XMLHttpRequest();
             const url = `<?= ROOT ?>/Prescription/view/${prescriptionId}`;
-            console.log('Fetching prescription details from:', url);
             
             xhr.open('GET', url, true);
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             
             xhr.onload = function() {
-                console.log('Response status:', xhr.status);
-                console.log('Response text:', xhr.responseText);
-                
                 if (xhr.status === 200) {
                     try {
                         const response = JSON.parse(xhr.responseText);
-                        console.log('Parsed response:', response);
                         
                         if (response.error) {
-                            infoDiv.innerHTML = `<div class="error">${response.error}</div>`;
+                            medicinesDiv.innerHTML = `<div class="error">${response.error}</div>`;
                             return;
                         }
 
                         if (response.prescription) {
-                            let html = `
-                                <div class="prescription-info">
-                                    <div class="info-item">
-                                        <label>Date:</label>
-                                        <span>${new Date(response.prescription.created_at).toLocaleDateString()}</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <label>Vet:</label>
-                                        <span>${response.prescription.vet_name}</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <label>Pet:</label>
-                                        <span>${response.prescription.pet_name}</span>
-                                    </div>
-                                </div>
-                            `;
-                            
-                            if (response.prescription.special_note) {
-                                html += `
-                                    <div class="special-notes">
-                                        <label>Special Notes:</label>
-                                        <p>${response.prescription.special_note}</p>
-                                    </div>
-                                `;
-                            }
-                            
-                            html += `
-                                <div class="medicines-list">
-                                    <h4>Prescribed Medicines:</h4>
-                            `;
-                            
+                            // Update prescription info
+                            document.getElementById('prescription-date').textContent = new Date(response.prescription.created_at).toLocaleDateString();
+                            document.getElementById('prescription-vet').textContent = response.prescription.vet_name;
+                            document.getElementById('prescription-pet').textContent = response.prescription.pet_name;
+
+                            // Update medicines list
+                            let medicinesHtml = '';
                             if (response.medicines && response.medicines.length > 0) {
-                                response.medicines.forEach(medicine => {
-                                    html += `
+                                // Clear existing medicine rows except the first one
+                                const medicineRows = document.querySelectorAll('.medicine-row');
+                                medicineRows.forEach((row, index) => {
+                                    if (index > 0) {
+                                        row.remove();
+                                    }
+                                });
+
+                                // Add medicine rows for each prescribed medicine
+                                const container = document.getElementById('medicine-rows');
+                                response.medicines.forEach((medicine, index) => {
+                                    if (index === 0) {
+                                        // Update first row
+                                        const firstRow = container.querySelector('.medicine-row');
+                                        const nameSpan = firstRow.querySelector('.medicine-name');
+                                        const quantitySpan = firstRow.querySelector('.medicine-quantity');
+                                        const medIdInput = firstRow.querySelector('input[name^="medicines"][name$="[med_id]"]');
+                                        const quantityInput = firstRow.querySelector('input[name^="medicines"][name$="[quantity]"]');
+                                        
+                                        nameSpan.textContent = medicine.med_name;
+                                        quantitySpan.textContent = medicine.quantity;
+                                        medIdInput.value = medicine.med_id;
+                                        quantityInput.value = medicine.quantity;
+                                    } else {
+                                        // Add new row for additional medicines
+                                        const newRow = document.createElement('div');
+                                        newRow.className = 'medicine-row';
+                                        newRow.innerHTML = `
+                                            <input type="hidden" name="medicines[${index}][med_id]" value="${medicine.med_id}">
+                                            <span class="medicine-name">${medicine.med_name}</span>
+                                            <input type="hidden" name="medicines[${index}][quantity]" value="${medicine.quantity}">
+                                            <span class="medicine-quantity">${medicine.quantity}</span>
+                                            <button type="button" class="remove-medicine" onclick="removeMedicineRow(this)">Remove</button>
+                                        `;
+                                        container.appendChild(newRow);
+                                    }
+
+                                    // Add to medicines list display
+                                    medicinesHtml += `
                                         <div class="medicine-item">
                                             <div class="medicine-header">
                                                 <span class="medicine-name">${medicine.med_name}</span>
+                                            </div>
+                                            <div class="medicine-details">
+                                                <div>
+                                                    <label>Dosage:</label>
+                                                    <span>${medicine.dosage}</span>
+                                                </div>
+                                                <div>
+                                                    <label>Frequency:</label>
+                                                    <span>${medicine.frequency}</span>
+                                                </div>
+                                                <div>
+                                                    <label>Quantity:</label>
+                                                    <span>${medicine.quantity}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     `;
                                 });
                             } else {
-                                html += '<p>No medicines prescribed</p>';
+                                medicinesHtml = '<p>No medicines prescribed</p>';
                             }
-                            
-                            html += '</div>';
-                            infoDiv.innerHTML = html;
+                            medicinesDiv.innerHTML = medicinesHtml;
+
+                            // Update special notes if any
+                            if (response.prescription.special_note) {
+                                notesDiv.style.display = 'block';
+                                document.getElementById('prescription-note-text').textContent = response.prescription.special_note;
+                            } else {
+                                notesDiv.style.display = 'none';
+                            }
+
+                            // Update total price after adding medicines
+                            updateTotalPrice();
                         } else {
-                            infoDiv.innerHTML = 'Prescription details not found';
+                            medicinesDiv.innerHTML = 'Prescription details not found';
                         }
                     } catch (e) {
                         console.error('Error parsing response:', e);
-                        console.error('Raw response:', xhr.responseText);
-                        infoDiv.innerHTML = '<div class="error">Error loading prescription details</div>';
+                        medicinesDiv.innerHTML = '<div class="error">Error loading prescription details</div>';
                     }
                 } else {
                     console.error('Error loading prescription details:', xhr.status);
-                    console.error('Response text:', xhr.responseText);
-                    infoDiv.innerHTML = '<div class="error">Error loading prescription details</div>';
+                    medicinesDiv.innerHTML = '<div class="error">Error loading prescription details</div>';
                 }
             };
             
             xhr.onerror = function(e) {
                 console.error('Network error while loading prescription details:', e);
-                infoDiv.innerHTML = '<div class="error">Error loading prescription details</div>';
+                medicinesDiv.innerHTML = '<div class="error">Error loading prescription details</div>';
             };
             
             xhr.send();
@@ -948,24 +1008,27 @@
             let isValid = true;
             let errorMessage = '';
             let hasValidMedicine = false;
+            let formData = new FormData(this);
 
-            // Debug logging
-            console.log('Validating medicine rows:', medicineRows.length);
+            // Clear any existing medicine data
+            for (let key of formData.keys()) {
+                if (key.startsWith('medicines[')) {
+                    formData.delete(key);
+                }
+            }
 
+            // Collect medicine data from the new structure
             medicineRows.forEach((row, index) => {
-                const medicineSelect = row.querySelector('select[name^="medicines"][name$="[med_id]"]');
-                const quantityInput = row.querySelector('input[name^="medicines"][name$="[quantity]"]');
-
-                console.log(`Row ${index + 1}:`, {
-                    medicineValue: medicineSelect.value,
-                    quantityValue: quantityInput.value,
-                    medicineText: medicineSelect.options[medicineSelect.selectedIndex]?.text
-                });
-
-                // Check if this row has a valid medicine selection
-                if (medicineSelect.value && medicineSelect.value !== '' && 
-                    quantityInput.value && parseInt(quantityInput.value) > 0) {
-                    hasValidMedicine = true;
+                const medicineName = row.querySelector('.medicine-name').textContent;
+                const quantitySpan = row.querySelector('.medicine-quantity');
+                
+                if (medicineName && quantitySpan) {
+                    const medicine = <?= json_encode($medicines) ?>.find(m => m.med_name === medicineName);
+                    if (medicine) {
+                        formData.append(`medicines[${index}][med_id]`, medicine.med_id);
+                        formData.append(`medicines[${index}][quantity]`, quantitySpan.textContent);
+                        hasValidMedicine = true;
+                    }
                 }
             });
 
@@ -975,26 +1038,11 @@
             }
 
             if (!isValid) {
-                console.log('Validation failed:', errorMessage);
                 alert(errorMessage);
                 return;
             }
 
             try {
-                // Get form data
-                const formData = new FormData(this);
-                
-                // Debug logging
-                console.log('Form submission started');
-                console.log('Form action:', this.action);
-                console.log('Form method:', this.method);
-                
-                // Log all form data
-                for (let [key, value] of formData.entries()) {
-                    console.log(`${key}: ${value}`);
-                }
-                
-                // Submit form using fetch
                 const response = await fetch(this.action, {
                     method: 'POST',
                     body: formData
@@ -1005,7 +1053,6 @@
                 }
 
                 const data = await response.json();
-                console.log('Response:', data);
 
                 if (data.success) {
                     showPopup(data.message);

@@ -14,8 +14,13 @@ class Notifications extends Controller
 
     public function markAsRead($notification_id = null)
     {
-        // Clear any existing output buffers
+        // Disable error reporting for this request
+        error_reporting(0);
+        ini_set('display_errors', 0);
+        
+        // Clear any existing output buffers and start a new one
         while (ob_get_level()) ob_end_clean();
+        ob_start();
         
         // Set headers for JSON response
         header('Content-Type: application/json');
@@ -27,8 +32,8 @@ class Notifications extends Controller
                 throw new Exception('Invalid request method');
             }
 
-            // Check if user is logged in
-            if (!isset($_SESSION['user_id'])) {
+            // Check if user is logged in - use owner_id for pet owners
+            if (!isset($_SESSION['owner_id'])) {
                 throw new Exception('User not authenticated');
             }
 
@@ -43,31 +48,43 @@ class Notifications extends Controller
                 throw new Exception('Notification not found');
             }
 
-            // Check if notification belongs to the logged-in user
-            if ($notification->user_id != $_SESSION['user_id']) {
+            // Check if notification belongs to the logged-in user - use owner_id
+            if ($notification->user_id != $_SESSION['owner_id']) {
                 throw new Exception('Unauthorized access');
             }
 
             // Check if already marked as read
             if ($notification->is_read) {
+                ob_end_clean();
                 echo json_encode(['success' => true, 'message' => 'Notification already marked as read']);
-                return;
+                exit();
             }
 
             // Mark notification as read
             if ($this->notification->markAsRead($notification_id)) {
+                ob_end_clean();
                 echo json_encode(['success' => true, 'message' => 'Notification marked as read']);
+                exit();
             } else {
                 throw new Exception('Failed to mark notification as read');
             }
 
         } catch (Exception $e) {
+            // Log the error
             error_log("Error in markAsRead: " . $e->getMessage());
+            
+            // Clear any output that might have been generated
+            ob_end_clean();
+            
+            // Set error HTTP status code
             http_response_code(400);
+            
+            // Return error JSON
             echo json_encode([
                 'success' => false,
                 'message' => $e->getMessage()
             ]);
+            exit();
         }
     }
 } 
