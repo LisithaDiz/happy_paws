@@ -32,7 +32,7 @@ class PetDetails
                 $petModel = new Pet(); // Assuming the Pet class exists
                 $petModel->deletePet($pet_id); // Assuming a `delete` method exists in the Pet class
                 // Redirect to a success page or back to the pet list
-                header("<?= ROOT ?>/petownerdash");
+                redirect("PetOwnerDash");
                 exit;
             } else {
                 // Handle error when pet_id is not provided

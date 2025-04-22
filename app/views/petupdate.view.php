@@ -6,22 +6,18 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/petadd.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
     <title>Edit Pet Profile</title>
 </head>
 <body>
     <!-- Navigation -->
-    <?php include('components/nav.php'); ?>
+    <?php include('components/nav2.php'); ?>
 
 <div class="dashboard-container">
     <!-- Sidebar -->
-    <?php
-    include 'components/renderSidebar.php';
-    echo renderSidebar(ROOT, $petowner);
-    ?>
-
+    <?php include ('components/sidebar.php'); ?>
     <!-- Main Content -->
     <div class="main-content">
     <form method="POST" action="<?= ROOT ?>/PetUpdate/updatePetDetails?pet_id=<?= $pet['pet_id'] ?>&owner_id=<?= $pet['owner_id'] ?>" class="form-container">

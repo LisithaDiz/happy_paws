@@ -21,6 +21,7 @@ class PetAdd {
                 'vaccinations' => $_POST['vaccinations'] ?? '',
                 'date_of_birth' => $_POST['date_of_birth'] ?? '',
             ];
+            var_dump($data);
 
             // Validate form data
             $errors = [];
@@ -37,7 +38,7 @@ class PetAdd {
 
             $petModel = new Pet();
             if ($petModel->insertPet($data)) {
-                header("Location: " . ROOT . "/petownerdash");
+                header("Location: " . ROOT . "/PetOwnerDashboard");
                 exit;
             } else {
                 $this->view('petadd', ['error' => 'Failed to add pet. Please try again.', 'data' => $data]);

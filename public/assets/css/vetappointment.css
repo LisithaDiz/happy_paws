@@ -1,0 +1,185 @@
+.sidebar {
+    color: #000000;
+    top: 60px; /* Adjust this if navbar height is different */
+    left: 0;
+    width: 250px; /* Width of the sidebar */
+    height: calc(100vh - 40px); /* Full height minus navbar and footer */
+    background-color: #f8d7da; /* Adjust color as needed */
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+/* Sidebar content styling */
+.sidebar h3 {
+    font-size: 18px;
+    color: #d8544c;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li {
+    margin: 10px 0;
+}
+/* Style the sidebar links (buttons) */
+.sidebar ul li a {
+    display: block;
+    width: 100%; /* Ensures all buttons are the same width */
+    padding: 12px 0; /* Adjust vertical padding for button height */
+    text-align: center; /* Center the text inside the button */
+    background-color: #fae3e3; /* Light pink background */
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for 3D effect */
+    transition: all 0.3s ease-in-out;
+    margin: 5px 0; /* Even spacing between buttons */
+}
+/* 3D button effect on hover */
+.sidebar ul li a:hover {
+    background-color: #f5c6cb; /* Slightly darker pink on hover */
+    color: #fff; /* White text on hover */
+    transform: translateY(-2px); /* Slightly lift the button */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+/* Dashboard container to display sidebar and main content side by side */
+.dashboard-container {
+    display: flex;
+    flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
+    /* height: 100vh; Full viewport height */
+    margin-top: 150px;
+}
+.main-content{
+    margin-top: 150px;
+    position: relative;
+    max-width: 800px;
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.3);
+    overflow-y: auto;  /* Enables vertical scrolling */
+    max-height: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.overview-cards {
+    display: flex;
+    gap: 20px;
+    
+}
+.card {
+    width: 700px; /* Makes the card take the full width */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    
+    
+}
+.card:hover {
+    transform: translateY(-5px); /* Elevates the card on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Slightly bigger shadow on hover */
+}
+.card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+    flex-grow: 1; /* Allows title to grow and take available space */
+}
+.card .btn-dashboard {
+    background-color: #fae3e3;; /* Green color for a modern button */
+    border-color: #fae3e3;
+    color: #292828;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Aligns button to the right */
+    margin-top: -25px; /* Moves the button up to align with the title */
+}
+.card .btn-dashboard:hover {
+    background-color: #f5c6cb; /* Slightly darker green on hover */
+}
+/* Popup box styling */
+.popup {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to .main-content */
+    z-index: 1000; /* Ensure the popup is above all other content */
+    top: 50%; /* Center vertically inside main-content */
+    left: 50%; /* Center horizontally inside main-content */
+    transform: translate(-50%, -50%); /* Offset to perfectly center */
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+/* Popup content box */
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    color: #000000;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.popup-buttons {
+    margin-top: 20px;
+}
+.btn-completed{
+    background-color: #fae3e3;
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+.btn-completed:hover {
+    background-color: #f5c6cb;
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f5c6cb; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fae3e3; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f5c6cb; /* Darker color on hover */
+}
+
+
+
+
+
+
+
+

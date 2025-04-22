@@ -12,6 +12,30 @@ class Pet {
     public function __construct() {
         $this->order_column = 'pet_id';
     }
+    public function findAllByOwnerId($owner_id) {
+        try {
+            // Validate owner_id input
+            if (!is_numeric($owner_id)) {
+                error_log("Invalid owner_id: must be an integer.");
+                return [];
+            }
+    
+            $con = $this->connect();
+    
+            // Query to fetch all pets for the given owner_id
+            $query = "SELECT * FROM " . $this->table . " WHERE owner_id = :owner_id";
+    
+            $stm = $con->prepare($query);
+            $stm->bindValue(':owner_id', $owner_id, PDO::PARAM_INT);
+            $stm->execute();
+    
+            // Fetch and return all matching records
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error fetching pets for owner_id $owner_id: " . $e->getMessage());
+            return [];
+        }
+    }
 
     public function findAll() {
         try {
@@ -53,6 +77,8 @@ class Pet {
             error_log("Error deleting pet: " . $e->getMessage());
             return false;
         }
+        header("Location: " . ROOT . "/PetOwnerDash");
+
     }
 
     public function insertPet($data) {
@@ -95,6 +121,8 @@ class Pet {
             error_log("PDO Exception: " . $e->getMessage());
             return false;
         }
+        header("Location: " . ROOT . "/PetOwnerDash");
+
     }
 
     public function updatePet($pet_id, $data) {
@@ -131,8 +159,32 @@ class Pet {
             error_log("Error updating pet: " . $e->getMessage());
             return false;
         }
+        header("Location: " . ROOT . "/PetOwnerDash");
+
+    }
+
+    public function treatedPetDetails()
+    {
+        echo"sssss";
+        $userid = $_SESSION['user_id'];
+        $query= "SELECT p.pet_id, p.pet_name, p.age, o.f_name, o.l_name
+                FROM pets p
+                JOIN pet_owner o ON p.owner_id = o.owner_id
+                JOIN appointments a ON p.pet_id = a.pet_id
+                JOIN veterinary_surgeon v ON v.vet_id = a.vet_id
+                JOIN user u ON u.user_id = v.user_id
+                WHERE u.user_id = :userid AND a.appointment_status = '1'";
+
+        $params = ['userid'=>$userid];
+
+        $result = $this->query($query,$params);
+
+        return $result;
+
+
     }
     
+
     
     
 }

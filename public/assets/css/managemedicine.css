@@ -1,0 +1,257 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    margin: 100px;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #fae3e3;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px;
+    text-align: center;
+    background-color: #f8d7da;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar ul li a:hover {
+    background-color: #f5c6cb;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Main Content */
+.main-content{
+    margin-top: 300px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 2s ease-in-out;
+    background-color: rgb(255, 255, 255);
+    max-height: auto; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrolling */
+    margin-right: 40px;
+    margin-left: 170px;
+}
+
+.main-content h2 {
+    color: #d8544c;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f5c6cb;
+    padding-bottom: 5px;
+}
+
+/* Search Bar */
+input[name="search"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
+/* Medicine List */
+.medicine-list h3 {
+    color: #d8544c;
+    margin-bottom: 10px;
+}
+
+.medicine-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.medicine-list th,
+.medicine-list td {
+    border: 1px solid #f8d7da;
+    padding: 10px;
+    text-align: left;
+}
+
+.medicine-list th {
+    background-color: #fae3e3;
+    color: #333;
+}
+
+.medicine-list tbody tr:nth-child(even) {
+    background-color: #fff8f9;
+}
+
+/* Buttons */
+.btn-delete,
+.btn-edit {
+    width: 100px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-delete {
+    background-color: #fae3e3 ;
+    color: #000000;
+}
+
+.btn-delete:hover {
+    background-color: #f5c6cb;
+    color: #000000;
+}
+
+.btn-edit {
+
+
+    background-color: #fae3e3 ;
+    color: #000000;
+    margin-left: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #f5c6cb;
+    color: #000000;
+}
+
+/* Add Medicine Form */
+.add-medicine h3 {
+    color: #d8544c;
+    margin-bottom: 10px;
+}
+
+.add-medicine input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
+.add-medicine button {
+    padding: 10px 20px;
+    background-color:#fae3e3 ;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+ 
+}
+
+.add-medicine button:hover {
+    background-color: #f5c6cb ;
+    color: black;
+}
+
+/* Modal */
+/* Style for the modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scrolling if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+    z-index: 1000; /* Sit on top of other elements */
+    /* display: flex; */
+    align-items: center; /* Vertically center the modal */
+    justify-content: center; /* Horizontally center the modal */
+}
+
+/* Style for the modal content */
+.modal-content {
+   
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Adjust width as needed */
+    max-width: 600px; /* Optional: Max width for responsiveness */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+
+.modal-content h3 {
+    color: #d8544c;
+    margin-bottom: 20px;
+}
+
+.modal-content input,
+.modal-content button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    background-color: #fae3e3;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #f5c6cb;
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f5c6cb; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fae3e3; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f5c6cb; /* Darker color on hover */
+}
+
+.actions-column {
+    width: 150px; /* Adjust as needed */
+    text-align: center; /* Optional: center-align actions */
+}

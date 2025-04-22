@@ -42,7 +42,7 @@ class PetUpdate
     }
 
     // Debugging: Check if pet_id and owner_id are set
-    echo "Pet ID: $pet_id, Owner ID: $owner_id";  // Check if they are properly populated
+    header("Location: " . ROOT . "/PetOwnerDash");
 
     // Check if pet_id and owner_id are missing
     if (!$pet_id || !$owner_id) {
@@ -68,14 +68,15 @@ class PetUpdate
     // Call the update method
     $result = $petModel->updatePet($pet_id, $data);
 
-    // Handle the result (e.g., redirect, show a success message, etc.)
-    if ($result) {
-        echo "Pet details updated successfully!";
-        // Optionally, redirect to another page
-        // header("Location: /somepage");
-    } else {
-        echo "Error updating pet details.";
-    }
+    // // Handle the result (e.g., redirect, show a success message, etc.)
+    // if ($result) {
+    //     echo "Pet details updated successfully!";
+    //     // Optionally, redirect to another page
+    //     // header("Location: /somepage");
+    // } else {
+    //     echo "Error updating pet details.";
+    // }
+    header("Location: " . ROOT . "/PetOwnerDashboard");
 
     return $result;
 }

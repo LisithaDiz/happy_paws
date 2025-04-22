@@ -1,63 +1,8 @@
 
-/* Sidebar */
-.sidebar {
-    color: #000000;
-    top: 60px; /* Adjust this if navbar height is different */
-    left: 0;
-    width: 250px; /* Width of the sidebar */
-    height: calc(100vh - 40px); /* Full height minus navbar and footer */
-    background-color: #f8d7da; /* Adjust color as needed */
-    padding: 20px;
-    overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Sidebar content styling */
-.sidebar h3 {
-    font-size: 18px;
-    color: #d8544c;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-/* Style the sidebar links (buttons) */
-.sidebar ul li a {
-    display: block;
-    width: 100%; /* Ensures all buttons are the same width */
-    padding: 12px 0; /* Adjust vertical padding for button height */
-    text-align: center; /* Center the text inside the button */
-    background-color: #fae3e3; /* Light pink background */
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for 3D effect */
-    transition: all 0.3s ease-in-out;
-    margin: 5px 0; /* Even spacing between buttons */
-}
-
-/* 3D button effect on hover */
-.sidebar ul li a:hover {
-    background-color: #f5c6cb; /* Slightly darker pink on hover */
-    color: #fff; /* White text on hover */
-    transform: translateY(-2px); /* Slightly lift the button */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-}
-
-
-
 
 /* Dashboard container to display sidebar and main content side by side */
 .dashboard-container {
+    margin-top: 20px;
     display: flex;
     flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
     height: 100vh; /* Full viewport height */
@@ -87,6 +32,7 @@
     align-items: flex-start;
     gap: 20px;
     width: 100%;
+    color: black;
 }
 
 
@@ -111,12 +57,13 @@
 .profile-details {
     flex-grow: 1;
     padding-left: 20px;
+    color: #000000;
 }
 
 .profile-details h1 {
     margin-bottom: 15px;
     font-size: 22px;
-    color: #ffffff;
+    color: black;
     font-weight: 600;
 }
 
@@ -131,7 +78,7 @@
 .profile-details .detail-label {
     width: 200px; /* Fixed width for labels */
     font-weight: 600;
-    color: #ffffff;
+    color: black;
 }
 
 .profile-details .colon {

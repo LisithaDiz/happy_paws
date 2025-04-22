@@ -10,8 +10,10 @@ body {
    font-family: Arial, sans-serif;
  
    min-height: 100vh;
-   background-image: url('../../assets/images/wall/11.jpg');
-   background-size: cover;
+   /* background-color: rgb(231, 177, 179); */
+   background-image: url('../../assets/images/wall/5.jpg');
+   background-color: white;
+   background-size: cover; 
 }
 
 .signup-container {

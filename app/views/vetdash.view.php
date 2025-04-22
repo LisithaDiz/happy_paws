@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="icon" href="<?= ROOT ?>/assets/images/happy-paws-logo.png">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/styles.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/vetdash.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/nav.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/footer.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/sidebar.css">
+    <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetdash.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <title>Vet Dashboard</title>
+    
+
 </head>
 <body>
-    <?php 
-    include 'components/nav.php';
-    ?>
-
+    <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
-        <?php
-        include 'components/renderSidebar.php'; 
-        echo renderSidebar(ROOT, $vet);
-        ?>
+        <!-- Sidebar for vet functionalities -->
+        <?php include ('components/sidebar3.php'); ?>
+
+        <div class="sidebar">
+        <ul>
+                <li><a href="<?=ROOT?>/VetDashboard">Dashboard</a></li>
+                <li><a href="<?=ROOT?>/VetProfile">My Profile</a></li>
+                <li><a href="<?=ROOT?>/VetAppoinment">Upcoming Appointments</a></li>
+                <li><a href="<?=ROOT?>/VetRequest">Appointment Requests</a></li>    
+                <li><a href="<?=ROOT?>/VetTreatedPet">View Pets</a></li>
+                <li><a href="<?=ROOT?>/VetPrescription">Prescriptions</a></li>
+                <li><a href="<?=ROOT?>/VetAvailability">Update Availability</a></li>
+                <li><a href="<?=ROOT?>/VetMedRequest">Request to Add Medicine</a></li>
+            </ul>
+        </div>
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>Welcome, Dr. <?= htmlspecialchars($vetName ?? 'Guest') ?>!</h1>
-            <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, pet records, prescriptions, and more.</p>
+            <h1>Welcome, Dr. [Vet Name]!</h1>
+            <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, pets records, prescriptions, and more.</p>
 
             <!-- Dashboard Overview Section -->
             <section class="dashboard-overview">
@@ -31,17 +41,17 @@
                     <div class="card">
                         <h3>Upcoming Appointments</h3>
                         <p>3 appointments scheduled for today.</p>
-                        <a href="<?= ROOT ?>/vetappoinment" class="btn-dashboard">View upcoming appointments</a>
+                        <a href="<?=ROOT?>/vetappoinment" class="btn-dashboard">Appoinments</a>
                     </div>
                     <div class="card">
-                        <h3>Appointment Requests</h3>
-                        <p>6 requests received.</p>
-                        <a href="<?= ROOT ?>/vetrequest" class="btn-dashboard">View received requests</a>
+                        <h3>Appoinment Requests</h3>
+                        <p>6 Requests received.</p>
+                        <a href="<?=ROOT?>/vetrequest" class="btn-dashboard">Requests</a>
                     </div>
                     <div class="card">
                         <h3>Prescriptions</h3>
                         <p>2 prescriptions to be filled today.</p>
-                        <a href="<?= ROOT ?>/vet/prescriptions" class="btn-dashboard">View prescriptions</a>
+                        <a href="<?=ROOT?>/vetprescription" class="btn-dashboard">Prescriptions</a>
                     </div>
                 </div>
             </section>
@@ -50,13 +60,15 @@
             <section class="contact">
                 <h2>Need Help?</h2>
                 <p>If you have any questions or need assistance, feel free to contact our support team.</p>
-                <a href="<?= ROOT ?>/vet/contact" class="btn-dashboard">Contact Support</a>
+                <a href="<?=ROOT?>/vet/contact" class="btn-dashboard">Contact Support</a>
             </section>
         </div>
+
     </div>
-
-    <?php include 'components/footer.php'; ?>
-
-    <script src="<?= ROOT ?>/assets/js/script.js"></script>
+    
+    <?php include ('components/footer.php'); ?>
+<!--    
+    <script src="<?=ROOT?>/assets/js/script.js"></script> -->
+   
 </body>
 </html>

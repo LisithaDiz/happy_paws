@@ -19,7 +19,7 @@
                 
                 <div class="role-selection">
                     <label for="user-type">Sign up as:</label>
-                    <input type="hidden" id="user-type" name="user-type" required>
+                    <input type="hidden" id="user-type" name="user_role" required>
 
                     <div class="role-cards">
                         <div class="role-card" data-role="petOwner">
@@ -77,3 +77,4 @@
 
 </body>
 </html>
+

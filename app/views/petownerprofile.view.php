@@ -3,20 +3,19 @@
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/petownerprofile.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetprofile.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
+    <title>My Profile</title>
+
+
 </head>
 <body>
-    <?php include('components/nav.php'); ?>
+    <?php include('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for pet owner functionalities -->
-        <?php
-        include 'components/renderSidebar.php'; 
-
-        echo renderSidebar(ROOT, $petowner);
-        ?>
+        <?php include ('components/sidebar.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">
@@ -25,19 +24,19 @@
             </div>
 
             <div class="profile-details">
-                <h1>----------------------------Pet Owner Profile----------------------------</h1>
+                <h1>My Profile</h1>
                 <br/>
 
                 <div class="detail-line">
                     <div class="detail-label">Username</div>
                     <div class="colon">:</div>
-                    <div class="detail-value">johndoe</div> 
+                    <div class="detail-value">naveenNimasara</div> 
                 </div>
                 
                 <div class="detail-line">
                     <div class="detail-label">Email</div>
                     <div class="colon">:</div>
-                    <div class="detail-value">johndoe@example.com</div> 
+                    <div class="detail-value">naveen@example.com</div> 
                 </div>
                 
                 <div class="detail-line">
@@ -55,13 +54,13 @@
                 <div class="detail-line">
                     <div class="detail-label">First Name</div>
                     <div class="colon">:</div>
-                    <div class="detail-value">John</div> 
+                    <div class="detail-value">Naveen</div> 
                 </div>
 
                 <div class="detail-line">
                     <div class="detail-label">Last Name</div>
                     <div class="colon">:</div>
-                    <div class="detail-value">Doe</div> 
+                    <div class="detail-value">Nimsara</div> 
                 </div>
 
                 <div class="detail-line">
@@ -79,19 +78,19 @@
                 <div class="detail-line">
                     <div class="detail-label">District</div>
                     <div class="colon">:</div>
-                    <div class="detail-value">Downtown</div>
+                    <div class="detail-value">Colombo</div>
                 </div>
 
                 <div class="detail-line">
                     <div class="detail-label">City</div>
                     <div class="colon">:</div>
-                    <div class="detail-value">Metropolis</div>
+                    <div class="detail-value">Panadura</div>
                 </div>
 
                 <div class="detail-line">
                     <div class="detail-label">Contact No</div>
                     <div class="colon">:</div>
-                    <div class="detail-value">+123456789</div> 
+                    <div class="detail-value">+07777777</div> 
                 </div>
                 
                 <div class="detail-line">

@@ -119,3 +119,17 @@ p {
 }
 
 
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .service-section {
+        flex-direction: column; /* Stack content vertically on small screens */
+        text-align: center;
+    }
+
+    .service-description {
+        text-align: center;
+    }
+}
+
+

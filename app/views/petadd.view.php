@@ -6,21 +6,18 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/petadd.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
     <title>Pet Profile</title>
 </head>
 <body>
     <!-- Navigation -->
-    <?php include('components/nav.php'); ?>
+    <?php include('components/nav2.php'); ?>
 
 <div class="dashboard-container">
     <!-- Sidebar -->
-    <?php
-    include 'components/renderSidebar.php';
-    echo renderSidebar(ROOT, $petowner);
-    ?>
+    <?php include ('components/sidebar.php'); ?>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -28,8 +25,8 @@
     <h2 class="form-title">Add a New Pet</h2>
 
     <div class="form-group">
-        <label for="owner_id">Owner ID:</label>
-        <input type="text" id="owner_id" name="owner_id" required>
+    <input type="hidden" id="owner_id" name="owner_id" value="<?= htmlspecialchars($_SESSION['owner_id']) ?>">
+    
     </div>
 
     <div class="form-group">

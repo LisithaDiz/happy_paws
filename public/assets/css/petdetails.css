@@ -116,7 +116,7 @@
 .profile-details h1 {
     margin-bottom: 15px;
     font-size: 22px;
-    color: #ffffff;
+    color: black;
     font-weight: 600;
 }
 
@@ -131,7 +131,7 @@
 .profile-details .detail-label {
     width: 200px; /* Fixed width for labels */
     font-weight: 600;
-    color: #ffffff;
+    color: black;
 }
 
 .profile-details .colon {
@@ -203,8 +203,8 @@
 
 /* Update Button (Link) */
 .update-btn {
-    background-color: #007bff;
-    color: white;
+    background-color: #fae3e3;
+    color: rgb(0, 0, 0);
     padding: 12px 25px;
     font-size: 16px;
     border-radius: 8px;
@@ -219,7 +219,31 @@
 }
 
 .update-btn:hover {
-    background-color: #0056b3;
+    background-color: #f5c6cb;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.prescrip-btn {
+    background-color:#fae3e3 ;
+    color: rgb(0, 0, 0);
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    text-decoration: none; /* Remove underline */
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+}
+
+.prescrip-btn:hover {
+    background-color: #f5c6cb;
+    color: #000000;
     transform: translateY(-2px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }

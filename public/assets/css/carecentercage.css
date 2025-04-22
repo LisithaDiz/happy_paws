@@ -1,0 +1,295 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.dashboard-container {
+    margin: 100px;
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content{
+    margin-top: 300px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 2s ease-in-out;
+    background-color: rgb(255, 255, 255);
+    max-height: auto; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrolling */
+    margin-right: 40px;
+    margin-left: 170px;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section {
+    margin-bottom: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #b46d77;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a {
+    color: #b46d77;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Add Cage Form */
+#add-cage form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#add-cage label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out;
+}
+
+select:focus {
+    border-color: #b46d77;
+    outline: none;
+}
+
+option {
+    font-size: 14px;
+    color: #333;
+}
+
+
+#add-cage input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#add-cage button {
+    grid-column: span 2;
+    padding: 10px;
+    background-color: #b46d77;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#add-cage button:hover {
+    background-color: #b46d77;
+}
+
+/* Search and Filter */
+#search-filter form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#search-filter label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#search-filter input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#search-filter button {
+    grid-column: span 2;
+    padding: 10px;
+    background-color: #b46d77;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#search-filter button:hover {
+    background-color: #b46d77;
+}
+
+/* Cage List Table */
+#cage-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#cage-list th, #cage-list td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#cage-list th {
+    background-color: #b46d77;
+    color: white;
+    font-weight: bold;
+}
+
+#cage-list tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#cage-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+#cage-list button {
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#cage-list button.edit {
+    background-color: #ffc107;
+    color: black;
+}
+
+#cage-list button.edit:hover {
+    background-color: #e0a800;
+}
+
+#cage-list button.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+#cage-list button.delete:hover {
+    background-color: #c82333;
+}
+
+.btn-delete,
+.btn-edit {
+    width: 120px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 36px; /* Set a consistent height */
+    margin-left: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-delete {
+    background-color: #b46d77;
+    color: white;
+
+}
+
+.btn-delete:hover {
+    background-color: #f5c6cb;
+    color: #450000;
+}
+
+.btn-edit {
+    background-color: #ff746d;
+    color: white;
+
+}
+
+.btn-edit:hover {
+    background-color: #f5c6cb;
+    color: #450000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #add-cage form, #search-filter form {
+        grid-template-columns: 1fr;
+    }
+
+    #add-cage button, #search-filter button {
+        grid-column: span 1;
+    }
+
+    #cage-list table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+#search-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#search-filter h2 {
+    margin: 0;
+}
+
+#search {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#search:focus {
+    border-color: #007bff;
+}

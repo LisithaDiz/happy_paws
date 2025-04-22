@@ -4,7 +4,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-$user_role = $_POST["user-type"];
+
+$user_role = $_POST["user_role"];
+
 
 ?>
 
@@ -53,7 +55,7 @@ $user_role = $_POST["user-type"];
                 <?php } ?>
             </div>
 
-            <form action="signup_process.php" method="POST" enctype="multipart/form-data">
+            <form action="<?= ROOT ?>/user/signupProcess" method="POST" enctype="multipart/form-data">
                 <div class="input-group">
                 <input type="hidden" name="user_role" value="<?php echo $user_role; ?>">
                 <!-- Common Fields -->
@@ -72,7 +74,7 @@ $user_role = $_POST["user-type"];
                         <input type="text" id="license" name="license" required>
                         <!-- Certificate (file upload)  required -->
                         <label for="vet_certificate">Certificate:</label>
-                        <input type="file" id="vet_certificate" name="vet_certificate"> 
+                        <input type="file" id="vet_certificate" name="vet_certificate" required> 
                     <?php } ?>
 
                     <label for="firstname">First Name</label>
@@ -149,7 +151,7 @@ $user_role = $_POST["user-type"];
 
                     <!-- Certificate (file upload)  required -->
                     <label for="certificate">Certificate</label>
-                    <input type="file" id="certificate" name="certificate" accept=".cer,.crt,.pem,.pfx" > 
+                    <input type="file" id="certificate" name="certificate" accept=".cer,.crt,.pem,.pfx" required> 
 
                     <!-- District -->
                     <label for="district">District</label>
@@ -202,7 +204,7 @@ $user_role = $_POST["user-type"];
                 
                 <p id="error-message" style="color: red; display: none;">Passwords do not match!</p>
                 </div>
-                <button type="submit">Sign Up</button>
+                <button type="submit" >Sign Up</button>
             </form>
         </div>
   

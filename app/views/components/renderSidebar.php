@@ -26,14 +26,14 @@ $vet = [
 ];
 
 $petowner = [
-    'Dashboard' => '/petownerdash',
-    'My Profile' => '/petownerprofile',
-    'Appointments' => '/petownerappointments',
-    'Pets' => '/petownerdash',
-    'Prescriptions' => '/petownerprescriptions',
-    'Pet Guardians' => '/petownerguardians',
-    'Pharmacies' => '/pharmacysearch', 
-    'Settings' => '/petownersettings',
+    'Dashboard' => '/PetOwnerDash',
+    'My Profile' => '/PetOwnerProfile',
+    'Find Vet' => '/VetSearch',
+    'Pets' => '/PetOwnerDashboard',
+    // 'Prescriptions' => '/PetOwnerPrescriptions',
+    'Pet Guardians' => '/PetOwnerGuardians',
+    'Pharmacies' => '/PharmSearch', 
+    // 'Settings' => '/PetPwnerSettings',
 ];
 
 $petsitter = [

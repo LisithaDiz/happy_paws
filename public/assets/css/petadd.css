@@ -58,6 +58,7 @@
 
 /* Dashboard container to display sidebar and main content side by side */
 .dashboard-container {
+    margin-top: 30px;
     display: flex;
     flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
     height: 100vh; /* Full viewport height */
