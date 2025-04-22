@@ -5,8 +5,11 @@ if (empty($data)) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Dashboard</title>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/pharmdash.css">
@@ -72,12 +75,16 @@ if (empty($data)) {
             <div class="charts-section">
                 <div class="chart-container">
                     <h2>Monthly Revenue Trend</h2>
-                    <canvas id="revenueChart"></canvas>
+                    <div class="chart-wrapper">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
                 </div>
                 
                 <div class="chart-container">
                     <h2>Top Products Performance</h2>
-                    <canvas id="productsChart"></canvas>
+                    <div class="chart-wrapper">
+                        <canvas id="productsChart"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -104,7 +111,8 @@ if (empty($data)) {
                                     <td><?= number_format($month['orders']) ?></td>
                                     <td><?= $month['top_product'] ?></td>
                                     <td class="<?= $month['growth'] >= 0 ? 'positive' : 'negative' ?>">
-                                        <?= $month['growth'] ?>%
+                                        <i class="fas fa-<?= $month['growth'] >= 0 ? 'arrow-up' : 'arrow-down' ?>"></i>
+                                        <?= abs($month['growth']) ?>%
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -131,10 +139,10 @@ if (empty($data)) {
                             <tbody>
                                 <?php foreach ($data['top_products'] as $product): ?>
                                 <tr>
-                                    <td><?= $product['name'] ?></td>
-                                    <td><?= number_format($product['units_sold']) ?></td>
-                                    <td>Rs. <?= number_format($product['revenue']) ?></td>
-                                    <td class="positive"><?= $product['profit_margin'] ?>%</td>
+                                    <td><?= $product->medicine_name ?></td>
+                                    <td><?= number_format($product->total_quantity) ?></td>
+                                    <td>Rs. <?= number_format($product->total_revenue) ?></td>
+                                    <td class="positive"><?= number_format(($product->total_revenue / $product->total_quantity), 2) ?>%</td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -154,28 +162,88 @@ if (empty($data)) {
     // Revenue Chart
     const revenueCtx = document.getElementById('revenueChart').getContext('2d');
     new Chart(revenueCtx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: <?= json_encode(array_column($data['monthly_revenue'], 'month')) ?>,
             datasets: [{
                 label: 'Monthly Revenue',
                 data: <?= json_encode(array_column($data['monthly_revenue'], 'revenue')) ?>,
-                borderColor: '#f87e76',
-                backgroundColor: 'rgba(248, 126, 118, 0.1)',
-                fill: true,
-                tension: 0.4
+                backgroundColor: 'rgba(216, 84, 76, 0.8)',
+                borderColor: '#d8544c',
+                borderWidth: 1,
+                borderRadius: 4,
+                barThickness: 15
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 5,
+                    right: 5,
+                    top: 5,
+                    bottom: 5
+                }
+            },
             plugins: {
                 legend: {
-                    position: 'top',
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        size: 12,
+                        family: "'Poppins', sans-serif",
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        size: 11,
+                        family: "'Poppins', sans-serif"
+                    },
+                    padding: 8,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return 'Rs. ' + context.parsed.y.toLocaleString();
+                        }
+                    }
                 }
             },
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    max: 20000,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)',
+                        drawBorder: false
+                    },
+                    ticks: {
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 9
+                        },
+                        callback: function(value) {
+                            return 'Rs. ' + value.toLocaleString();
+                        },
+                        stepSize: 100,
+                        maxTicksLimit: 20,
+                        padding: 5
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 9
+                        },
+                        padding: 5
+                    },
+                    categoryPercentage: 0.7,
+                    barPercentage: 0.8
                 }
             }
         }
@@ -186,24 +254,144 @@ if (empty($data)) {
     new Chart(productsCtx, {
         type: 'bar',
         data: {
-            labels: <?= json_encode(array_column($data['top_products'], 'name')) ?>,
-            datasets: [{
-                label: 'Revenue',
-                data: <?= json_encode(array_column($data['top_products'], 'revenue')) ?>,
-                backgroundColor: 'rgba(248, 126, 118, 0.8)',
-                borderRadius: 6
-            }]
+            labels: <?= json_encode(array_map(function($product) { return $product->medicine_name; }, $data['top_products'])) ?>,
+            datasets: [
+                {
+                    label: 'Revenue',
+                    data: <?= json_encode(array_map(function($product) { return $product->total_revenue; }, $data['top_products'])) ?>,
+                    backgroundColor: 'rgba(216, 84, 76, 0.8)',
+                    borderColor: '#d8544c',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    barThickness: 15,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Units Sold',
+                    data: <?= json_encode(array_map(function($product) { return $product->total_quantity; }, $data['top_products'])) ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor: '#36a2eb',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    barThickness: 15,
+                    yAxisID: 'y1'
+                }
+            ]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                    bottom: 10
+                }
+            },
             plugins: {
                 legend: {
                     position: 'top',
+                    labels: {
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 11
+                        },
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        size: 12,
+                        family: "'Poppins', sans-serif",
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        size: 11,
+                        family: "'Poppins', sans-serif"
+                    },
+                    padding: 8,
+                    callbacks: {
+                        label: function(context) {
+                            if (context.dataset.label === 'Revenue') {
+                                return 'Revenue: Rs. ' + context.parsed.y.toLocaleString();
+                            } else {
+                                return 'Units Sold: ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
                 }
             },
             scales: {
                 y: {
-                    beginAtZero: true
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Revenue (Rs.)',
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 11
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)',
+                        drawBorder: false
+                    },
+                    ticks: {
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 9
+                        },
+                        callback: function(value) {
+                            return 'Rs. ' + value.toLocaleString();
+                        },
+                        stepSize: 1000,
+                        maxTicksLimit: 8,
+                        padding: 5
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Units Sold',
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 11
+                        }
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 9
+                        },
+                        stepSize: 1,
+                        maxTicksLimit: 8,
+                        padding: 5
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            family: "'Poppins', sans-serif",
+                            size: 9
+                        },
+                        padding: 5
+                    },
+                    categoryPercentage: 0.7,
+                    barPercentage: 0.8
                 }
             }
         }

@@ -22,7 +22,8 @@ class Revenue
         // Get all revenue data
         $data = [
             'summary' => $revenue->getRevenueSummary($_SESSION['pharmacy_id']),
-            'monthly_revenue' => $revenue->getMonthlyRevenueDetails($_SESSION['pharmacy_id'])
+            'monthly_revenue' => $revenue->getMonthlyRevenueDetails($_SESSION['pharmacy_id']),
+            'top_products' => $revenue->getTopProducts($_SESSION['pharmacy_id'])
         ];
         
         $this->view('revenue', ['data' => $data]);

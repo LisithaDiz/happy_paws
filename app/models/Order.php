@@ -180,7 +180,7 @@ class Order
         }
     }
 
-    public function getRecentOrders($pharmacy_id, $limit = 5)
+    public function getRecentOrders($pharmacy_id, $limit = 20)
     {
         $query = "SELECT 
             po.order_id,
@@ -204,7 +204,13 @@ class Order
         LEFT JOIN prescription pr ON po.prescription_id = pr.prescription_id
         LEFT JOIN veterinary_surgeon vs ON pr.vet_id = vs.vet_id
         WHERE po.pharmacy_id = :pharmacy_id 
-        ORDER BY po.order_date DESC
+        AND (po.status = 'pending' OR po.order_date >= DATE_SUB(NOW(), INTERVAL 7 DAY))
+        ORDER BY 
+            CASE 
+                WHEN po.status = 'pending' THEN 0
+                ELSE 1
+            END,
+            po.order_date DESC
         LIMIT " . (int)$limit;
 
         $results = $this->query($query, [':pharmacy_id' => $pharmacy_id]);
@@ -246,7 +252,7 @@ class Order
             SUM(CASE WHEN po.status = 'pending' THEN 1 ELSE 0 END) as pending_orders,
             SUM(CASE WHEN po.status = 'accepted' THEN 1 ELSE 0 END) as accepted_orders,
             SUM(CASE WHEN po.status = 'declined' THEN 1 ELSE 0 END) as declined_orders,
-            COALESCE(SUM(po.total_price), 0) as total_revenue
+            COALESCE(SUM(CASE WHEN po.payment_status = 'paid' THEN po.total_price ELSE 0 END), 0) as total_revenue
         FROM pharmacy_orders po 
         WHERE po.pharmacy_id = :pharmacy_id";
 
@@ -339,6 +345,12 @@ class Order
             $db->beginTransaction();
 
             try {
+                // Get pet owner's name for the notification
+                $ownerQuery = "SELECT f_name FROM pet_owner WHERE owner_id = :owner_id";
+                $ownerStmt = $db->prepare($ownerQuery);
+                $ownerStmt->execute([':owner_id' => $data['owner_id']]);
+                $owner = $ownerStmt->fetch(PDO::FETCH_OBJ);
+
                 // Prepare order data
                 $query = "INSERT INTO pharmacy_orders 
                           (owner_id, pharmacy_id, pet_id, total_price, order_date, status, payment_status, notes, prescription_id, created_at) 
@@ -385,6 +397,16 @@ class Order
                     error_log("Inserting medicine with params: " . print_r($paramsMedicine, true));
                     $medicineStmt->execute($paramsMedicine);
                 }
+
+                // Create notification for the pharmacy
+                $notification = new Notification();
+                $notificationData = [
+                    'user_id' => $data['pharmacy_id'],
+                    'reference_id' => $order_id,
+                    'type' => 'new_order',
+                    'message' => "New order received from customer " . ($owner->f_name ?? 'Unknown')
+                ];
+                $notification->createNotification($notificationData);
 
                 // If we get here, everything worked, so commit the transaction
                 $db->commit();

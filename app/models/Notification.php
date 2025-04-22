@@ -131,4 +131,58 @@ class Notification
             return 0;
         }
     }
+
+    public function getNotifications($user_id, $limit = 5)
+    {
+        try {
+            $query = "SELECT * FROM notifications 
+                      WHERE user_id = :user_id 
+                      ORDER BY created_at DESC 
+                      LIMIT :limit";
+            
+            $db = $this->connect();
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            $notifications = $stmt->fetchAll(PDO::FETCH_OBJ);
+            
+            // Add time_ago property to each notification
+            foreach ($notifications as $notification) {
+                $notification->time_ago = $this->getTimeAgo($notification->created_at);
+            }
+            
+            return $notifications;
+        } catch (Exception $e) {
+            error_log("Error in getNotifications: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    private function getTimeAgo($datetime)
+    {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+
+        $days = $diff->days;
+        $hours = $diff->h;
+        $minutes = $diff->i;
+        $seconds = $diff->s;
+
+        if ($days > 0) {
+            if ($days >= 7) {
+                $weeks = floor($days / 7);
+                return $weeks . ' week' . ($weeks > 1 ? 's' : '') . ' ago';
+            }
+            return $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
+        } elseif ($hours > 0) {
+            return $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ago';
+        } elseif ($minutes > 0) {
+            return $minutes . ' minute' . ($minutes > 1 ? 's' : '') . ' ago';
+        } else {
+            return $seconds . ' second' . ($seconds > 1 ? 's' : '') . ' ago';
+        }
+    }
 } 

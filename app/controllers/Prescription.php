@@ -7,7 +7,7 @@ class Prescription
 
     public function view($prescription_id)
     {
-        if (!isset($_SESSION['owner_id'])) {
+        if (!isset($_SESSION['owner_id']) && !isset($_SESSION['pharmacy_id'])) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Please log in to view prescription']);
             exit;
@@ -22,8 +22,8 @@ class Prescription
             exit;
         }
 
-        // Check if the prescription belongs to the logged-in user
-        if ($result->owner_id != $_SESSION['owner_id']) {
+        // Check if the prescription belongs to the logged-in user or if it's a pharmacy viewing it
+        if (isset($_SESSION['owner_id']) && $result->owner_id != $_SESSION['owner_id']) {
             header('Content-Type: application/json');
             echo json_encode(['error' => 'You do not have permission to view this prescription']);
             exit;

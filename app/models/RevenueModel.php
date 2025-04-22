@@ -39,16 +39,67 @@ class RevenueModel
     // Calculate and store monthly revenue details
     public function updateMonthlyRevenue($pharmacy_id)
     {
+        // Get all months with orders
         $query = "SELECT 
-            SUM(om.quantity * m.price) AS total_revenue
+            DATE_FORMAT(po.payment_date, '%Y-%m-01') as month,
+            SUM(po.total_price) as revenue,
+            COUNT(DISTINCT po.order_id) as orders,
+            (
+                SELECT m.med_name
+                FROM order_medicines om
+                JOIN medicine m ON om.med_id = m.med_id
+                WHERE om.order_id IN (
+                    SELECT order_id 
+                    FROM pharmacy_orders 
+                    WHERE pharmacy_id = :pharmacy_id 
+                    AND DATE_FORMAT(payment_date, '%Y-%m-01') = DATE_FORMAT(po.payment_date, '%Y-%m-01')
+                )
+                GROUP BY m.med_id, m.med_name
+                ORDER BY SUM(om.quantity) DESC
+                LIMIT 1
+            ) as top_product
         FROM pharmacy_orders po
-        JOIN order_medicines om ON po.order_id = om.order_id
-        JOIN medicine m ON om.med_id = m.med_id
         WHERE po.pharmacy_id = :pharmacy_id
-        AND MONTH(po.processed_date) = MONTH(CURRENT_DATE())
-        AND YEAR(po.processed_date) = YEAR(CURRENT_DATE())";
+        AND po.payment_status = 'paid'
+        AND po.status = 'accepted'
+        AND po.payment_date IS NOT NULL
+        GROUP BY DATE_FORMAT(po.payment_date, '%Y-%m-01')
+        ORDER BY month DESC";
 
-        return $this->query($query, [':pharmacy_id' => $pharmacy_id]);
+        $results = $this->query($query, [':pharmacy_id' => $pharmacy_id]);
+
+        // Calculate growth for each month
+        $monthly_data = [];
+        foreach ($results as $index => $row) {
+            $growth = 0;
+            if ($index < count($results) - 1) {
+                $prev_revenue = $results[$index + 1]->revenue;
+                if ($prev_revenue > 0) {
+                    $growth = (($row->revenue - $prev_revenue) / $prev_revenue) * 100;
+                }
+            }
+
+            // Insert or update monthly revenue data
+            $insert_query = "INSERT INTO monthly_revenue_details 
+                (pharmacy_id, month, revenue, orders, top_product, growth)
+                VALUES (:pharmacy_id, :month, :revenue, :orders, :top_product, :growth)
+                ON DUPLICATE KEY UPDATE
+                revenue = VALUES(revenue),
+                orders = VALUES(orders),
+                top_product = VALUES(top_product),
+                growth = VALUES(growth)";
+
+            $this->query($insert_query, [
+                ':pharmacy_id' => $pharmacy_id,
+                ':month' => $row->month,
+                ':revenue' => $row->revenue,
+                ':orders' => $row->orders,
+                ':top_product' => $row->top_product,
+                ':growth' => $growth
+            ]);
+        }
+
+        return true;
     }
 
     // Get monthly revenue details for display
@@ -86,16 +137,14 @@ class RevenueModel
     public function getRevenueSummary($pharmacy_id)
     {
         $query = "SELECT 
-            SUM(om.quantity * m.price) as total_revenue,
+            SUM(po.total_price) as total_revenue,
             AVG(po.total_price) as monthly_average,
             COUNT(*) as total_orders
         FROM pharmacy_orders po
-        JOIN order_medicines om ON po.order_id = om.order_id
-        JOIN medicine m ON om.med_id = m.med_id
         WHERE po.pharmacy_id = :pharmacy_id 
         AND po.payment_status = 'paid'
         AND po.status = 'accepted'
-        AND po.processed_date IS NOT NULL";
+        AND po.payment_date IS NOT NULL";
 
         $result = $this->query($query, [':pharmacy_id' => $pharmacy_id]);
 
@@ -109,7 +158,7 @@ class RevenueModel
         WHERE po.pharmacy_id = :pharmacy_id 
         AND po.payment_status = 'paid'
         AND po.status = 'accepted'
-        AND po.processed_date IS NOT NULL
+        AND po.payment_date IS NOT NULL
         GROUP BY m.med_id, m.med_name
         ORDER BY units DESC
         LIMIT 1";
@@ -126,5 +175,32 @@ class RevenueModel
                 'units' => (int)($top_product[0]->units ?? 0)
             ]
         ];
+    }
+
+    public function getTopProducts($pharmacy_id)
+    {
+        try {
+            $query = "SELECT 
+                        m.med_name as medicine_name,
+                        COUNT(om.med_id) as total_orders,
+                        SUM(om.quantity) as total_quantity,
+                        SUM(om.price * om.quantity) as total_revenue
+                    FROM order_medicines om
+                    JOIN medicine m ON om.med_id = m.med_id
+                    JOIN pharmacy_orders po ON om.order_id = po.order_id
+                    WHERE po.pharmacy_id = :pharmacy_id
+                    AND po.payment_status = 'paid'
+                    AND po.status = 'accepted'
+                    AND po.payment_date IS NOT NULL
+                    GROUP BY m.med_id, m.med_name
+                    ORDER BY total_quantity DESC
+                    LIMIT 5";
+
+            $result = $this->query($query, [':pharmacy_id' => $pharmacy_id]);
+            return is_array($result) ? $result : [];
+        } catch (Exception $e) {
+            error_log("Error in getTopProducts: " . $e->getMessage());
+            return [];
+        }
     }
 } 
