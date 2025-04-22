@@ -63,7 +63,7 @@
                         <span>New Order</span>
                     </a>
                     
-                    <a href="<?=ROOT?>/reports" class="action-btn">
+                    <a href="<?=ROOT?>/report" class="action-btn">
                         <i class="fas fa-chart-bar"></i>
                         <span>Generate Report</span>
                     </a>

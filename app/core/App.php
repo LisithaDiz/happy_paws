@@ -67,6 +67,7 @@ class App
                 'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
+                'Report' => ['index', 'download'],
             ],
         
     ];

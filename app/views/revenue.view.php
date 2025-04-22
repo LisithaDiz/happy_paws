@@ -125,28 +125,30 @@ if (empty($data)) {
             <!-- Top Products Table -->
             <div class="data-section">
                 <div class="section-card">
-                    <h2><i class="fas fa-box"></i> Top Products</h2>
-                    <div class="table-responsive">
-                        <table class="revenue-table">
-                            <thead>
-                                <tr>
-                                    <th>Product Name</th>
-                                    <th>Units Sold</th>
-                                    <th>Revenue</th>
-                                    <th>Profit Margin</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($data['top_products'] as $product): ?>
-                                <tr>
-                                    <td><?= $product->medicine_name ?></td>
-                                    <td><?= number_format($product->total_quantity) ?></td>
-                                    <td>Rs. <?= number_format($product->total_revenue) ?></td>
-                                    <td class="positive"><?= number_format(($product->total_revenue / $product->total_quantity), 2) ?>%</td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    <h2><i class="fas fa-box"></i> Medicine Sales Details</h2>
+                    <div class="top-products">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Units Sold</th>
+                                        <th>Orders</th>
+                                        <th>Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($data['top_products'] as $product): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($product->medicine_name) ?></td>
+                                        <td><?= $product->total_quantity ?></td>
+                                        <td><?= $product->total_orders ?></td>
+                                        <td>Rs. <?= number_format($product->total_revenue, 2) ?></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -252,31 +254,27 @@ if (empty($data)) {
     // Products Chart
     const productsCtx = document.getElementById('productsChart').getContext('2d');
     new Chart(productsCtx, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels: <?= json_encode(array_map(function($product) { return $product->medicine_name; }, $data['top_products'])) ?>,
-            datasets: [
-                {
-                    label: 'Revenue',
-                    data: <?= json_encode(array_map(function($product) { return $product->total_revenue; }, $data['top_products'])) ?>,
-                    backgroundColor: 'rgba(216, 84, 76, 0.8)',
-                    borderColor: '#d8544c',
-                    borderWidth: 1,
-                    borderRadius: 4,
-                    barThickness: 15,
-                    yAxisID: 'y'
-                },
-                {
-                    label: 'Units Sold',
-                    data: <?= json_encode(array_map(function($product) { return $product->total_quantity; }, $data['top_products'])) ?>,
-                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                    borderColor: '#36a2eb',
-                    borderWidth: 1,
-                    borderRadius: 4,
-                    barThickness: 15,
-                    yAxisID: 'y1'
-                }
-            ]
+            datasets: [{
+                data: <?= json_encode(array_map(function($product) { return $product->total_revenue; }, $data['top_products'])) ?>,
+                backgroundColor: [
+                    'rgba(216, 84, 76, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)'
+                ],
+                borderColor: [
+                    '#d8544c',
+                    '#36a2eb',
+                    '#ffce56',
+                    '#4bc0c0',
+                    '#9966ff'
+                ],
+                borderWidth: 1
+            }]
         },
         options: {
             responsive: true,
@@ -291,7 +289,7 @@ if (empty($data)) {
             },
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'right',
                     labels: {
                         font: {
                             family: "'Poppins', sans-serif",
@@ -314,84 +312,12 @@ if (empty($data)) {
                     padding: 8,
                     callbacks: {
                         label: function(context) {
-                            if (context.dataset.label === 'Revenue') {
-                                return 'Revenue: Rs. ' + context.parsed.y.toLocaleString();
-                            } else {
-                                return 'Units Sold: ' + context.parsed.y.toLocaleString();
-                            }
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `Rs. ${value.toLocaleString()} (${percentage}%)`;
                         }
                     }
-                }
-            },
-            scales: {
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'Revenue (Rs.)',
-                        font: {
-                            family: "'Poppins', sans-serif",
-                            size: 11
-                        }
-                    },
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.05)',
-                        drawBorder: false
-                    },
-                    ticks: {
-                        font: {
-                            family: "'Poppins', sans-serif",
-                            size: 9
-                        },
-                        callback: function(value) {
-                            return 'Rs. ' + value.toLocaleString();
-                        },
-                        stepSize: 1000,
-                        maxTicksLimit: 8,
-                        padding: 5
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'Units Sold',
-                        font: {
-                            family: "'Poppins', sans-serif",
-                            size: 11
-                        }
-                    },
-                    grid: {
-                        drawOnChartArea: false,
-                        drawBorder: false
-                    },
-                    ticks: {
-                        font: {
-                            family: "'Poppins', sans-serif",
-                            size: 9
-                        },
-                        stepSize: 1,
-                        maxTicksLimit: 8,
-                        padding: 5
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    },
-                    ticks: {
-                        font: {
-                            family: "'Poppins', sans-serif",
-                            size: 9
-                        },
-                        padding: 5
-                    },
-                    categoryPercentage: 0.7,
-                    barPercentage: 0.8
                 }
             }
         }

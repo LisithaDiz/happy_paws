@@ -9,9 +9,7 @@ class RevenueModel
     // Create monthly_revenue_details table if it doesn't exist
     public function createMonthlyRevenueTable()
     {
-        // Drop the existing table first
-        $drop_query = "DROP TABLE IF EXISTS monthly_revenue_details";
-        $this->query($drop_query);
+        
 
         // Create the table with all required columns
         $query = "CREATE TABLE monthly_revenue_details (
@@ -39,7 +37,10 @@ class RevenueModel
     // Calculate and store monthly revenue details
     public function updateMonthlyRevenue($pharmacy_id)
     {
-        // Get all months with orders
+        // Debug: Log the current year
+        error_log("Current year: " . date('Y'));
+        
+        // Get all months with orders for the current year
         $query = "SELECT 
             DATE_FORMAT(po.payment_date, '%Y-%m-01') as month,
             SUM(po.total_price) as revenue,
@@ -66,7 +67,27 @@ class RevenueModel
         GROUP BY DATE_FORMAT(po.payment_date, '%Y-%m-01')
         ORDER BY month DESC";
 
+        // Debug: Log the query
+        error_log("Revenue query: " . $query);
+        
         $results = $this->query($query, [':pharmacy_id' => $pharmacy_id]);
+        
+        // Debug: Log the results
+        error_log("Query results: " . print_r($results, true));
+        
+        // Debug: Check for April orders specifically
+        $april_query = "SELECT 
+            DATE_FORMAT(payment_date, '%Y-%m-%d') as payment_date,
+            payment_status,
+            status,
+            total_price
+        FROM pharmacy_orders 
+        WHERE pharmacy_id = :pharmacy_id
+        AND MONTH(payment_date) = 4 
+        AND YEAR(payment_date) = YEAR(CURDATE())";
+        
+        $april_results = $this->query($april_query, [':pharmacy_id' => $pharmacy_id]);
+        error_log("April orders: " . print_r($april_results, true));
 
         // Calculate growth for each month
         $monthly_data = [];
@@ -181,22 +202,26 @@ class RevenueModel
     {
         try {
             $query = "SELECT 
+                        m.med_id,
                         m.med_name as medicine_name,
-                        COUNT(om.med_id) as total_orders,
-                        SUM(om.quantity) as total_quantity,
-                        SUM(om.price * om.quantity) as total_revenue
-                    FROM order_medicines om
-                    JOIN medicine m ON om.med_id = m.med_id
-                    JOIN pharmacy_orders po ON om.order_id = po.order_id
-                    WHERE po.pharmacy_id = :pharmacy_id
-                    AND po.payment_status = 'paid'
-                    AND po.status = 'accepted'
-                    AND po.payment_date IS NOT NULL
+                        COUNT(DISTINCT po.order_id) as total_orders,
+                        COALESCE(SUM(om.quantity), 0) as total_quantity,
+                        COALESCE(SUM(m.price * om.quantity), 0) as total_revenue
+                    FROM medicine m
+                    INNER JOIN order_medicines om ON m.med_id = om.med_id
+                    INNER JOIN pharmacy_orders po ON om.order_id = po.order_id 
+                        AND po.pharmacy_id = :pharmacy_id
+                        AND po.payment_status = 'paid'
+                        AND po.status = 'accepted'
+                        AND po.payment_date IS NOT NULL
                     GROUP BY m.med_id, m.med_name
-                    ORDER BY total_quantity DESC
-                    LIMIT 5";
+                    ORDER BY total_quantity DESC";
 
             $result = $this->query($query, [':pharmacy_id' => $pharmacy_id]);
+            
+            // Debug: Log the results
+            error_log("Top Products results: " . print_r($result, true));
+            
             return is_array($result) ? $result : [];
         } catch (Exception $e) {
             error_log("Error in getTopProducts: " . $e->getMessage());

@@ -435,4 +435,107 @@ class Order
             ];
         }
     }
+
+    public function getSalesReport($pharmacy_id, $start_date, $end_date)
+    {
+        try {
+            $query = "SELECT 
+                COUNT(DISTINCT po.order_id) as total_orders,
+                COALESCE(SUM(CASE WHEN po.payment_status = 'paid' THEN po.total_price ELSE 0 END), 0) as total_revenue,
+                COALESCE(AVG(CASE WHEN po.payment_status = 'paid' THEN po.total_price ELSE NULL END), 0) as average_order_value,
+                COUNT(CASE WHEN po.status = 'accepted' THEN 1 END) as accepted_orders,
+                COUNT(CASE WHEN po.status = 'declined' THEN 1 END) as declined_orders,
+                COUNT(CASE WHEN po.payment_status = 'paid' THEN 1 END) as paid_orders,
+                COUNT(CASE WHEN po.status = 'accepted' AND po.payment_status = 'pending' THEN 1 END) as pending_payments
+            FROM pharmacy_orders po 
+            WHERE po.pharmacy_id = :pharmacy_id 
+            AND (po.payment_date BETWEEN :start_date AND :end_date OR po.payment_status = 'pending')";
+
+            $params = [
+                ':pharmacy_id' => $pharmacy_id,
+                ':start_date' => $start_date,
+                ':end_date' => $end_date
+            ];
+
+            $result = $this->query($query, $params);
+            return $result[0] ?? null;
+        } catch (Exception $e) {
+            error_log("Error in getSalesReport: " . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function getMedicineSalesReport($pharmacy_id, $start_date, $end_date)
+    {
+        try {
+            $query = "SELECT 
+                m.med_id,
+                m.med_name,
+                COUNT(DISTINCT po.order_id) as order_count,
+                SUM(om.quantity) as total_quantity,
+                COALESCE(SUM(om.quantity * m.price), 0) as total_revenue
+            FROM pharmacy_orders po
+            JOIN order_medicines om ON po.order_id = om.order_id
+            JOIN medicine m ON om.med_id = m.med_id
+            WHERE po.pharmacy_id = :pharmacy_id 
+            AND po.status = 'accepted'
+            AND (po.payment_status = 'paid' OR po.payment_date IS NOT NULL)
+            AND (po.payment_date BETWEEN :start_date AND :end_date OR po.payment_date IS NULL)
+            GROUP BY m.med_id, m.med_name
+            ORDER BY total_revenue DESC";
+
+            $params = [
+                ':pharmacy_id' => $pharmacy_id,
+                ':start_date' => $start_date,
+                ':end_date' => $end_date
+            ];
+
+            // Debug log
+            error_log("Executing medicine sales report query with params: " . print_r($params, true));
+            error_log("SQL Query: " . $query);
+            
+            $results = $this->query($query, $params);
+            error_log("Query results: " . print_r($results, true));
+
+            return $results;
+        } catch (Exception $e) {
+            error_log("Error in getMedicineSalesReport: " . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function getMedicineSalesWithoutOrderMedicines($pharmacy_id, $start_date, $end_date)
+    {
+        try {
+            $query = "SELECT 
+                m.med_id,
+                m.med_name,
+                COUNT(DISTINCT po.order_id) as order_count,
+                SUM(JSON_EXTRACT(po.medicines, '$[*].quantity')) as total_quantity,
+                COALESCE(SUM(JSON_EXTRACT(po.medicines, '$[*].quantity') * m.unit_price), 0) as total_revenue
+            FROM pharmacy_orders po
+            JOIN medicine m ON JSON_CONTAINS(po.medicines, CAST(CONCAT('{\"med_id\":', m.med_id, '}') AS JSON), '$[*]')
+            WHERE po.pharmacy_id = :pharmacy_id 
+            AND po.payment_status = 'paid'
+            AND po.payment_date BETWEEN :start_date AND :end_date
+            GROUP BY m.med_id, m.med_name
+            ORDER BY total_revenue DESC";
+
+            $params = [
+                ':pharmacy_id' => $pharmacy_id,
+                ':start_date' => $start_date,
+                ':end_date' => $end_date
+            ];
+
+            // Debug log
+            error_log("Executing medicine sales report query without order_medicines table with params: " . print_r($params, true));
+            $results = $this->query($query, $params);
+            error_log("Query results: " . print_r($results, true));
+
+            return $results;
+        } catch (Exception $e) {
+            error_log("Error in getMedicineSalesWithoutOrderMedicines: " . $e->getMessage());
+            throw $e;
+        }
+    }
 } 
