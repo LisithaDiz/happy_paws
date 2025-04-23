@@ -74,7 +74,7 @@
                         <form id="viewProfileForm_<?= $pharmacy['pharmacy_id'] ?>" action="<?= ROOT ?>/pharmacyprofile/index" method="POST" style="display: none;">
                             <input type="hidden" name="pharmacy_id" id="view_pharmacy_id_<?= $pharmacy['pharmacy_id'] ?>">
                         </form>
-                    <button onclick="location.href='<?=ROOT?>/PetOwnerPlaceOrder'" class="book-button">Place Order</button>
+                    <button onclick="location.href='<?=ROOT?>/PlaceOrder/index/<?=$pharmacy['pharmacy_id']?>'" class="book-button">Place Order</button>
                 </div>
             </div>
         <?php endforeach; ?>

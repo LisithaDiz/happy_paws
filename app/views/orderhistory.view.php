@@ -34,8 +34,8 @@
                                     <th>Order ID</th>
                                     <th>Customer</th>
                                     <th>Pet Details</th>
-                                    <th>Medicine</th>
-                                    <th>Quantity</th>
+                                    <th>Medicines</th>
+                                    <th>Quantities</th>
                                     <th>Total</th>
                                     <th>Status</th>
                                     <th>Processed Date</th>
@@ -43,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if(!empty($data['orders'])): ?>
+                                <?php if (!empty($data['orders']) && is_array($data['orders'])): ?>
                                     <?php foreach($data['orders'] as $order): ?>
                                         <tr>
                                             <td>#<?= $order->order_id ?></td>
@@ -52,8 +52,24 @@
                                                 <span class="pet-name"><?= htmlspecialchars($order->pet_name) ?></span>
                                                 <span class="pet-type"><?= htmlspecialchars($order->pet_type) ?></span>
                                             </td>
-                                            <td><?= htmlspecialchars($order->medicine) ?></td>
-                                            <td><?= $order->quantity ?></td>
+                                            <td>
+                                                <?php if (!empty($order->medicines) && is_array($order->medicines)): ?>
+                                                    <?php foreach ($order->medicines as $medicine): ?>
+                                                        <?= htmlspecialchars($medicine->med_name) ?><br>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    No medicines found.
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if (!empty($order->medicines) && is_array($order->medicines)): ?>
+                                                    <?php foreach ($order->medicines as $medicine): ?>
+                                                        <?= htmlspecialchars($medicine->quantity) ?><br>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    N/A
+                                                <?php endif; ?>
+                                            </td>
                                             <td>Rs. <?= number_format($order->total_price, 2) ?></td>
                                             <td>
                                                 <span class="status-badge <?= $order->status ?>">
@@ -65,7 +81,7 @@
                                                 <a href="javascript:void(0)" onclick="showOrderDetails({
                                                     orderId: '<?= $order->order_id ?>',
                                                     customer: '<?= htmlspecialchars($order->customer_name) ?>',
-                                                    medicine: '<?= htmlspecialchars($order->medicine) ?>',
+                                                    medicine: '<?= htmlspecialchars(implode(", ", array_map(fn($m) => $m->med_name, $order->medicines))) ?>',
                                                     total: '<?= number_format($order->total_price, 2) ?>',
                                                     status: '<?= $order->status ?>',
                                                     declineReason: '<?= htmlspecialchars($order->decline_reason ?? '') ?>',
@@ -78,7 +94,7 @@
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="9" class="no-orders">No processed orders found.</td>
+                                        <td colspan="8" class="text-center">No orders found</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -97,55 +113,70 @@
                                 <tr>
                                     <th>Order ID</th>
                                     <th>Customer</th>
-                                    <th>Medicine</th>
+                                    <th>Medicines</th>
                                     <th>Total Amount</th>
-                                    <th>Order Date</th>
+                                    <th>Processed Date</th>
                                     <th>Payment Status</th>
+                                    <th>Payment Date</th>
                                     <th>Actions</th>
                                     <th>Bill</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if(!empty($data['orders'])): ?>
-                                    <?php foreach($data['orders'] as $order): ?>
-                                        <tr>
-                                            <td>#<?= $order->order_id ?></td>
-                                            <td><?= htmlspecialchars($order->customer_name) ?></td>
-                                            <td><?= htmlspecialchars($order->medicine) ?></td>
-                                            <td>Rs. <?= number_format($order->total_price, 2) ?></td>
-                                            <td><?= date('M d, Y', strtotime($order->processed_date)) ?></td>
-                                            <td>
-                                                <span class="payment-status <?= $order->payment_status ?>">
-                                                    <?= ucfirst($order->payment_status) ?>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" 
-                                                       onchange="markAsPaid(<?= $order->order_id ?>, this)" 
-                                                       <?= $order->payment_status === 'paid' ? 'checked disabled' : '' ?>>
-                                            </td>
-                                            <td class="bill-cell">
-                                                <?php if($order->payment_status === 'paid'): ?>
-                                                    <button onclick="showBill(<?= htmlspecialchars(json_encode([
-                                                        'orderId' => $order->order_id,
-                                                        'customer' => $order->customer_name,
-                                                        'medicine' => $order->medicine,
-                                                        'quantity' => $order->quantity,
-                                                        'total' => $order->total_price,
-                                                        'date' => date('M d, Y', strtotime($order->processed_date)),
-                                                        'status' => $order->payment_status
-                                                    ])) ?>)" class="generate-bill-btn">
-                                                        <i class="fas fa-file-invoice"></i> Generate Bill
+                                <?php if (!empty($data['orders'])): ?>
+                                    <?php foreach ($data['orders'] as $order): ?>
+                                        <?php if ($order->status === 'accepted'): ?>
+                                            <tr>
+                                                <td>#<?= $order->order_id ?></td>
+                                                <td><?= htmlspecialchars($order->customer_name) ?></td>
+                                                <td>
+                                                    <?php if (!empty($order->medicines) && is_array($order->medicines)): ?>
+                                                        <?php foreach ($order->medicines as $medicine): ?>
+                                                            <?= htmlspecialchars($medicine->med_name) ?> (Qty: <?= htmlspecialchars($medicine->quantity) ?>)<br>
+                                                        <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                        No medicines found.
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>Rs. <?= number_format($order->total_price, 2) ?></td>
+                                                <td><?= date('M d, Y', strtotime($order->processed_date)) ?></td>
+                                                <td>
+                                                    <span class="payment-status <?= $order->payment_status ?>">
+                                                        <?= ucfirst($order->payment_status) ?>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <?= $order->payment_date ? date('M d, Y', strtotime($order->payment_date)) : '-' ?>
+                                                </td>
+                                                <td>
+                                                    <button onclick="togglePaymentStatus(<?= $order->order_id ?>, this)" 
+                                                            class="toggle-payment-btn <?= $order->payment_status === 'paid' ? 'paid' : 'unpaid' ?>">
+                                                        <?= $order->payment_status === 'paid' ? 'Mark as Unpaid' : 'Mark as Paid' ?>
                                                     </button>
-                                                <?php else: ?>
-                                                    <span class="bill-pending">Payment Pending</span>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td class="bill-cell">
+                                                    <?php if ($order->payment_status === 'paid'): ?>
+                                                        <button onclick="showBill({
+                                                            orderId: '<?= $order->order_id ?>',
+                                                            customer: '<?= htmlspecialchars($order->customer_name) ?>',
+                                                            medicine: '<?= htmlspecialchars(implode(", ", array_map(fn($m) => $m->med_name, $order->medicines))) ?>',
+                                                            quantity: '<?= implode(", ", array_map(fn($m) => $m->quantity, $order->medicines)) ?>',
+                                                            total: '<?= number_format($order->total_price, 2) ?>',
+                                                            date: '<?= date('M d, Y', strtotime($order->processed_date)) ?>',
+                                                            status: '<?= $order->payment_status ?>'
+                                                        })" class="generate-bill-btn">
+                                                            <i class="fas fa-file-invoice"></i> Generate Bill
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <span class="bill-pending">Payment Pending</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="7" class="no-orders">No orders found.</td>
+                                        <td colspan="8" class="no-orders">No orders found.</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -211,8 +242,12 @@
                         <span id="bill-order-id"></span>
                     </div>
                     <div class="bill-row">
-                        <span class="label">Date:</span>
+                        <span class="label">Order Date:</span>
                         <span id="bill-date"></span>
+                    </div>
+                    <div class="bill-row">
+                        <span class="label">Payment Date:</span>
+                        <span id="bill-payment-date"></span>
                     </div>
                     <div class="bill-row">
                         <span class="label">Customer:</span>
@@ -246,7 +281,14 @@
                 <div class="bill-footer">
                     <div class="payment-info">
                         <p>Payment Status: <span class="status-badge accepted">Paid</span></p>
-                        <p>Payment Method: Card Payment</p>
+                        <div class="payment-method-selector">
+                            <label for="payment-method">Payment Method:</label>
+                            <select id="payment-method" onchange="updatePaymentMethod()">
+                                <option value="Card Payment">Card Payment</option>
+                                <option value="Cash Payment">Cash Payment</option>
+                            </select>
+                        </div>
+                        <p id="payment-method-display">Payment Method: Card Payment</p>
                     </div>
                     <button onclick="printBill()" class="print-bill-btn">
                         <i class="fas fa-print"></i> Print Bill
@@ -309,57 +351,95 @@
             }
         }
 
-        function markAsPaid(orderId, checkbox) {
-            if (!checkbox.checked) {
-                return;
-            }
+        function togglePaymentStatus(orderId, button) {
+            const isPaid = button.classList.contains('paid');
+            const newStatus = isPaid ? 'unpaid' : 'paid';
+            const confirmMessage = isPaid ? 'Are you sure you want to mark this order as unpaid?' : 'Are you sure you want to mark this order as paid?';
 
-            if (confirm('Are you sure you want to mark this order as paid?')) {
+            if (confirm(confirmMessage)) {
                 // Show loading state
-                checkbox.disabled = true;
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
                 // Create FormData
                 const formData = new FormData();
                 formData.append('order_id', orderId);
 
-                fetch(`<?=ROOT?>/orderhistory/markAsPaid`, {
+                fetch(`<?=ROOT?>/orderhistory/togglePaymentStatus`, {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    credentials: 'same-origin'
                 })
                 .then(async response => {
-                    const text = await response.text();
-                    console.log('Raw server response:', text); // Debug log
+                    const contentType = response.headers.get('content-type');
+                    
+                    // Log response details for debugging
+                    console.log('Response status:', response.status);
+                    console.log('Content-Type:', contentType);
 
-                    try {
-                        if (!text) {
-                            throw new Error('Empty response received');
+                    if (!contentType || !contentType.includes('application/json')) {
+                        const text = await response.text();
+                        console.error('Non-JSON response:', text);
+                        if (response.status === 401) {
+                            throw new Error('Session expired');
                         }
-                        
-                        const data = JSON.parse(text);
-                        
-                        if (!response.ok) {
-                            throw new Error(data.message || `HTTP error! status: ${response.status}`);
-                        }
-                        
-                        return data;
-                    } catch (e) {
-                        console.error('Response parsing error:', e);
-                        throw new Error(`Server response error: ${e.message}`);
+                        throw new Error(`Server returned invalid response type: ${contentType}`);
                     }
+
+                    const data = await response.json();
+                    console.log('Response data:', data);
+
+                    if (!response.ok) {
+                        throw new Error(data.message || `HTTP error! status: ${response.status}`);
+                    }
+
+                    return data;
                 })
                 .then(data => {
                     if (data.success) {
-                        // Success state
-                        checkbox.disabled = true;
-                        const row = checkbox.closest('tr');
-                        
+                        // Toggle the button state
+                        button.classList.toggle('paid');
+                        button.classList.toggle('unpaid');
+                        button.textContent = data.newStatus === 'paid' ? 'Mark as Unpaid' : 'Mark as Paid';
+
                         // Update payment status display
+                        const row = button.closest('tr');
                         const statusCell = row.querySelector('.payment-status');
                         if (statusCell) {
-                            statusCell.textContent = 'Paid';
-                            statusCell.className = 'payment-status paid';
+                            statusCell.textContent = data.newStatus.charAt(0).toUpperCase() + data.newStatus.slice(1);
+                            statusCell.className = 'payment-status ' + data.newStatus;
                         }
-                        
+
+                        // Update payment date
+                        const paymentDateCell = row.querySelector('td:nth-child(7)');
+                        if (paymentDateCell) {
+                            paymentDateCell.textContent = data.payment_date || '-';
+                        }
+
+                        // Update bill cell
+                        const billCell = row.querySelector('.bill-cell');
+                        if (billCell) {
+                            if (data.newStatus === 'paid') {
+                                const billButton = `<button onclick="showBill({
+                                    orderId: '${orderId}',
+                                    customer: '${row.querySelector('td:nth-child(2)').textContent}',
+                                    medicine: '${row.querySelector('td:nth-child(3)').textContent}',
+                                    quantity: '${row.querySelector('td:nth-child(5)').textContent}',
+                                    total: '${row.querySelector('td:nth-child(4)').textContent.replace('Rs. ', '')}',
+                                    date: '${data.payment_date}'
+                                })" class="generate-bill-btn">
+                                    <i class="fas fa-file-invoice"></i> Generate Bill
+                                </button>`;
+                                billCell.innerHTML = billButton;
+                            } else {
+                                billCell.innerHTML = '<span class="bill-pending">Payment Pending</span>';
+                            }
+                        }
+
                         // Visual feedback
                         row.style.backgroundColor = '#f0fff4';
                         setTimeout(() => {
@@ -367,20 +447,30 @@
                         }, 1000);
 
                         // Show success message
-                        alert('Payment status updated successfully');
+                        alert(data.message || 'Payment status updated successfully');
                     } else {
+                        if (data.redirect) {
+                            alert('Your session has expired. Please log in again.');
+                            window.location.href = data.redirect;
+                            return;
+                        }
                         throw new Error(data.message || 'Failed to update payment status');
                     }
                 })
                 .catch(error => {
-                    console.error('Error details:', error);
-                    // Reset checkbox state
-                    checkbox.checked = false;
-                    checkbox.disabled = false;
-                    alert('An error occurred while updating payment status: ' + error.message);
+                    console.error('Error:', error);
+                    if (error.message === 'Session expired') {
+                        alert('Your session has expired. Please log in again.');
+                        window.location.href = '<?=ROOT?>/login';
+                        return;
+                    }
+                    alert('An error occurred: ' + error.message);
+                })
+                .finally(() => {
+                    // Reset button state
+                    button.disabled = false;
+                    button.textContent = isPaid ? 'Mark as Unpaid' : 'Mark as Paid';
                 });
-            } else {
-                checkbox.checked = false;
             }
         }
 
@@ -389,18 +479,39 @@
             // Populate bill details
             document.getElementById('bill-order-id').textContent = '#' + orderData.orderId;
             document.getElementById('bill-date').textContent = orderData.date;
+            document.getElementById('bill-payment-date').textContent = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
             document.getElementById('bill-customer').textContent = orderData.customer;
             document.getElementById('bill-medicine').textContent = orderData.medicine;
             document.getElementById('bill-quantity').textContent = orderData.quantity;
             document.getElementById('bill-amount').textContent = 'Rs. ' + orderData.total;
             document.getElementById('bill-total').textContent = 'Rs. ' + orderData.total;
 
+            // Reset payment method to default
+            document.getElementById('payment-method').value = 'Card Payment';
+            document.getElementById('payment-method-display').textContent = 'Payment Method: Card Payment';
+
             // Show the modal
             document.getElementById('billModal').style.display = 'flex';
         }
 
+        function updatePaymentMethod() {
+            const selectedMethod = document.getElementById('payment-method').value;
+            document.getElementById('payment-method-display').textContent = 'Payment Method: ' + selectedMethod;
+        }
+
         function printBill() {
+            // Hide the select element before printing
+            const paymentMethodSelect = document.getElementById('payment-method');
+            paymentMethodSelect.style.display = 'none';
+            
             window.print();
+            
+            // Show the select element after printing
+            paymentMethodSelect.style.display = 'block';
         }
 
         // Update the window onclick handler to include the bill modal

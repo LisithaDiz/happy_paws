@@ -1,80 +1,97 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
     margin: 0;
-    padding: 0;
+    padding: 20px;
 }
 
+/* Page Heading */
 .dashboard-heading {
     color: #d8544c;
     font-size: 28px;
-    margin: 20px 0;
+    margin: 40px 0 20px;
     text-align: center;
+    padding-top: 80px;
 }
 
+/* Container for the form */
 .place-order-container {
-    max-width: 600px;
-    margin: 0 auto;
     background-color: #fff;
-    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 600px;
+    margin: auto;
 }
 
-.place-order-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Form Group Styles */
+.form-group {
+    margin-bottom: 20px;
 }
 
-.form-label {
-    font-size: 14px;
+/* Label Styles */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
     color: #333;
-    font-weight: bold;
-    margin-bottom: 5px;
 }
 
-.form-select, .form-input, .form-textarea {
+/* Input and Select Styles */
+input[type="text"],
+input[type="number"],
+select {
     width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    transition: border-color 0.3s ease;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding is included in width */
+    transition: border-color 0.3s;
 }
 
-.form-select:focus, .form-input:focus, .form-textarea:focus {
-    border-color: #d8544c;
-    outline: none;
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #d8544c; /* Change border color on focus */
+    outline: none; /* Remove default outline */
 }
 
-.form-textarea {
-    resize: vertical;
-}
-
-.submit-button {
-    padding: 10px 20px;
-    font-size: 16px;
+/* Button Styles */
+button {
+    background-color: #4CAF50; /* Green */
     color: white;
-    background-color: #f8929c;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-.submit-button:hover {
-    background-color: #d8544c;
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
 }
 
-.submit-button:active {
-    transform: scale(0.98);
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .place-order-container {
+        padding: 20px;
+    }
+
+    button {
+        width: 100%; /* Full width on small screens */
+    }
 }
 
+/* Error Message Styles */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Scrollbar Styling */
 .place-order-container::-webkit-scrollbar {
     width: 8px;
 }
@@ -93,13 +110,85 @@ body {
     background: #d15b52;
 }
 
-/* Add responsiveness */
-@media (max-width: 768px) {
-    .place-order-container {
-        padding: 15px;
-    }
+/* File Input Styling (Optional Visual Tweaks) */
+input[type="file"].form-input {
+    padding: 8px;
+    background-color: #fff;
+}
 
-    .submit-button {
-        font-size: 14px;
-    }
+.medicine-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.medicine-row select,
+.medicine-row input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.medicine-row select:focus,
+.medicine-row input:focus {
+    border-color: #d8544c; /* Change border color on focus */
+}
+
+.remove-row-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.remove-row-btn:hover {
+    background-color: #e63939; /* Darker red on hover */
+}
+
+/* Smaller Button Styles for Add Another Medicine */
+#add-medicine-btn {
+    margin-top: 10px;
+    padding: 5px 10px; /* Reduced padding for a smaller button */
+    font-size: 14px; /* Smaller font size */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+#add-medicine-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Add these styles to your existing CSS */
+select#pet_id {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+}
+
+select#pet_id option[disabled] {
+    color: #999;
+    font-style: italic;
+}
+
+.error-message {
+    background-color: #ffe6e6;
+    border: 1px solid #ff9999;
+    color: #cc0000;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
 }

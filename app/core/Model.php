@@ -131,13 +131,13 @@ Trait Model
 		// var_dump($result);
 		
 
+		$result = $this->query($query, $data);
 
 		if ($result) {
 			return true; // Return true if update was successful
 		} else {
 			return false; // Return false if update failed
 		}
-
 	}
 
 	// public function delete($id, $id_column = 'id')
@@ -208,5 +208,44 @@ Trait Model
 	}
 
 	
+	// Add new query method for notifications and other new features
+	public function query($query, $params = [])
+	{
+		try {
+			$stmt = $this->connect()->prepare($query);
+			
+			if (!$stmt) {
+				error_log("Database prepare failed for query: " . $query);
+				error_log("Error info: " . print_r($this->connect()->errorInfo(), true));
+				return false;
+			}
+
+			error_log("Executing query: " . $query);
+			error_log("With parameters: " . print_r($params, true));
+			
+			$check = $stmt->execute($params);
+			if (!$check) {
+				error_log("Query execution failed: " . print_r($stmt->errorInfo(), true));
+				return false;
+			}
+
+			if (stripos($query, 'SELECT') === 0) {
+				$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+				if ($result === false) {
+					error_log("Fetch failed: " . print_r($stmt->errorInfo(), true));
+					return [];
+				}
+				return $result;
+			}
+			
+			// For INSERT, UPDATE, DELETE queries
+			return $stmt->rowCount() >= 0; // Changed to >= 0 because some valid updates might affect 0 rows
+		} catch (PDOException $e) {
+			error_log("Database error: " . $e->getMessage());
+			error_log("Query: " . $query);
+			error_log("Parameters: " . print_r($params, true));
+			return false;
+		}
+	}
 
 }

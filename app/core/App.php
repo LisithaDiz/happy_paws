@@ -46,6 +46,9 @@ class App
                'PetOwnerView _CareCenterProfile'=>['index']
                
                
+               'PlaceOrder' => ['index', 'create', 'getPrescriptions'],
+               'Orders' => ['createOrder'],
+               'PetOwnerDash'=>['index']
             ], 
 
         
@@ -88,6 +91,7 @@ class App
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
                 'ChatBox' =>['index']
+                'Report' => ['index', 'download'],
             ],
         
     ];
@@ -103,7 +107,7 @@ class App
         'Adminlogin' => ['index','login'],
         'Admin' =>['adminLogin'],
         'ContactUs' =>['index'],
-
+        'Prescription' => ['view'],
     ];
 
     private function splitURL()
@@ -114,36 +118,25 @@ class App
 
     private function checkAccess($controller, $method)
     {
-        //checking
-        // var_dump($_SESSION['user_id']);
-        // var_dump($_SESSION['user_role']);
         if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
             return false; 
         }
 
         $role = $_SESSION['user_role'];
         
-        // Check if the role exists in roleAccess
         if (!isset($this->roleAccess[$role])) {
             return false;
         }
-        // show($method);
         
-        // Check if the controller exists for this role
         if (isset($this->roleAccess[$role][$controller])) {
-            // var_dump( in_array($method, $this->roleAccess[$role][$controller], true));
             return in_array($method, $this->roleAccess[$role][$controller], true);
-            
-        }    
+        }
         
         return false;
-     }
+    }
 
     private function isPublic($controller, $method)
-    {   //checking
-        // echo($controller);
-        // echo($method);
-        // var_dump(isset($this->publicAccess[$controller]));
+    {
         return isset($this->publicAccess[$controller]) && in_array($method, $this->publicAccess[$controller]);
     }
 
@@ -158,34 +151,23 @@ class App
             $this->controller = ucfirst($URL[0]);
             unset($URL[0]);
         } else {
-            // Load 404 controller for invalid URLs
             require "../app/controllers/_404.php";
             $this->controller = "_404";
         }
 
         $controller = new $this->controller;
-
-        /** Select method **/
-        if (!empty($URL[1])) {
-            if (method_exists($controller, $URL[1])) {
-                $this->method = $URL[1];
-                unset($URL[1]);
-            }
-        }
-        // var_dump($this->isPublic($this->controller, $this->method));
-        // var_dump($this->checkAccess($this->controller, $this->method));
+        $this->method = $URL[1] ?? $this->method;
 
         /** Check Access **/
-        if (1) {//$this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)
-
-                    call_user_func_array([$controller, $this->method], $URL);
-
-
+        if ($this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)) {
+            if (method_exists($controller, $this->method)) {
+                unset($URL[1]);
+                call_user_func_array([$controller, $this->method], $URL);
+            } else {
+                redirect('_404');
+            }
         } else {
-            // echo "   Error...controller not loading (in app)";
-            // Redirect to unauthorized access page or show an error
             redirect('_404');
-            exit();
         }
     }
 }

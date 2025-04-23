@@ -3,7 +3,7 @@
 class Pet {
     use Model;
 
-    protected $table = 'pets';
+    protected $table = 'pet';
     protected $allowedColumns = [
         'pet_id', 'owner_id', 'pet_name', 'pet_type', 'breed', 
         'age', 'color', 'weight', 'vaccinations', 'date_of_birth'
@@ -207,6 +207,28 @@ class Pet {
 
 
     
+    public function getPetsByOwner($owner_id)
+    {
+        try {
+            $query = "SELECT * FROM pet WHERE owner_id = :owner_id ORDER BY pet_name";
+            return $this->query($query, [':owner_id' => $owner_id]);
+        } catch (Exception $e) {
+            error_log("Error in getPetsByOwner: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getPetById($pet_id)
+    {
+        try {
+            $query = "SELECT * FROM pet WHERE pet_id = :pet_id LIMIT 1";
+            $result = $this->query($query, [':pet_id' => $pet_id]);
+            return $result ? $result[0] : null;
+        } catch (Exception $e) {
+            error_log("Error in getPetById: " . $e->getMessage());
+            return null;
+        }
+    }
 }
 
 

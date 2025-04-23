@@ -103,5 +103,28 @@ class PharmacyModel
 		return $this->query($query);
 
 	}
+    public function getAllPharmacies()
+    {
+        try {
+            $query = "SELECT * FROM pharmacy WHERE status = 'active' ORDER BY pharmacy_name";
+            return $this->query($query);
+        } catch (Exception $e) {
+            error_log("Error in getAllPharmacies: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getPharmacyById($pharmacy_id)
+    {
+        try {
+            $query = "SELECT * FROM pharmacy WHERE pharmacy_id = :pharmacy_id LIMIT 1";
+            $result = $this->query($query, [':pharmacy_id' => $pharmacy_id]);
+            return $result ? $result[0] : null;
+        } catch (Exception $e) {
+            error_log("Error in getPharmacyById: " . $e->getMessage());
+            return null;
+        }
+    }
+
 	
 }

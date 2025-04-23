@@ -1,31 +1,38 @@
 /* Base Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
 }
 
+/* Main container styles */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 60px; /* Adjust based on your navbar height */
+}
+
+/* Search container styles */
 .search-container {
-    max-width: 1000px;
-    margin: 0 auto;
+    flex: 1;
     padding: 20px;
-    padding-top: 100px;
+    padding-top: 120px;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 .search-header {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    background-color: white;
     padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
 .search-heading {
     color: #d8544c;
     font-size: 24px;
-    margin-bottom: 15px;
-    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
 }
 
 .search-form {
@@ -61,6 +68,12 @@ body {
     justify-content: center;
 }
 
+.search-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
 .search-button, .clear-button {
     padding: 10px 20px;
     border: none;
@@ -79,21 +92,18 @@ body {
     color: white;
 }
 
-.clear-button {
-    background: #f0f0f0;
-    color: #666;
-}
-
 .search-button:hover, .clear-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #d8544c, #ff4d44);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .search-button:active, .clear-button:active {
-    transform: translateY(0);
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Results Container */
+/* Results container styles */
 .results-container {
     padding: 15px 0;
 }
@@ -104,25 +114,58 @@ body {
     gap: 20px;
 }
 
+.results-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.results-container::-webkit-scrollbar-track {
+    background: #ffd0d0;
+    border-radius: 4px;
+}
+
+.results-container::-webkit-scrollbar-thumb {
+    background: #f8929c;
+    border-radius: 4px;
+}
+
+.results-container::-webkit-scrollbar-thumb:hover {
+    background: #f95b5b;
+}
+
+.petCareCenter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
 .petCareCenter-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 380px;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: 90%;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 20px;
 }
 
 .petCareCenter-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(216, 84, 76, 0.15);
+    box-shadow: 0 8px 16px rgba(245, 69, 20, 0.2);
 }
 
 .petCareCenter-image {
+    width: 150px;
     height: 150px;
     overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .petCareCenter-image img {
@@ -137,120 +180,179 @@ body {
 }
 
 .petCareCenter-info {
-    padding: 15px;
-    flex: 1;
+    width: 100%;
+    text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .petCareCenter-info h2 {
     margin: 0 0 8px 0;
-    color: #333;
-    font-size: 18px;
-    line-height: 1.3;
+    color: black;
+    font-size: 20px !important;
+    text-align: center;
 }
 
 .rating {
-    margin: 6px 0;
-    display: flex;
-    align-items: center;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .stars {
-    color: #FFD700;
-    font-size: 16px;
-    letter-spacing: 2px;
+    color: #d8544c;
+    font-size: 18px;
 }
 
 .reviews {
-    margin-left: 8px;
-    font-size: 13px;
     color: #666;
+    font-size: 14px;
+    margin-left: 5px;
 }
 
 .location, .contact, .services {
+    margin: 5px 0;
+    color: black;
+    font-size: 14px !important;
     display: flex;
     align-items: center;
-    margin: 5px 0;
-    color: #555;
-    font-size: 13px;
-    line-height: 1.4;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
 }
 
 .location i, .contact i, .services i {
     color: #d8544c;
-    margin-right: 8px;
-    width: 16px;
-    text-align: center;
+    width: 20px;
 }
 
 .book-form {
-    margin-top: auto;
-    padding-top: 12px;
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .book-button {
-    width: 100%;
-    padding: 10px;
+    width: 50%;
+    padding: 10px 20px;
+    cursor: pointer;
     background: linear-gradient(135deg, #f8929c, #d8544c);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .book-button:hover {
-    background: linear-gradient(135deg, #d8544c, #c03a32);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(216, 84, 76, 0.3);
+    background: linear-gradient(135deg, #d8544c, #ff4d44);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .book-button:active {
-    transform: translateY(0);
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* No results styles */
 .no-results {
     text-align: center;
-    padding: 50px 20px;
+    padding: 40px;
     color: #666;
 }
 
 .no-results i {
-    font-size: 50px;
-    color: #d8544c;
-    margin-bottom: 20px;
+    font-size: 48px;
+    color: #ddd;
+    margin-bottom: 10px;
 }
 
 .no-results p {
     font-size: 18px;
-    margin: 0;
 }
 
-/* Responsive Adjustments */
+/* Responsive design */
 @media (max-width: 768px) {
     .search-inputs {
         flex-direction: column;
-        align-items: center;
-    }
-    
-    .search-bar {
-        width: 100%;
-        max-width: 300px;
     }
     
     .petCareCenter-grid {
         grid-template-columns: 1fr;
     }
     
-    .petCareCenter-card {
-        height: auto;
-        min-height: 380px;
+    .search-buttons {
+        flex-direction: column;
     }
+    
+    .search-button, .clear-button {
+        width: 100%;
+    }
+    
+    .petCareCenter-card {
+        width: 100%;
+    }
+}
+
+.card-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.view-reviews-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.view-reviews-button:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.view-reviews-button i {
+    color: #ffd700;
+}
+
+.book-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.book-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
 }

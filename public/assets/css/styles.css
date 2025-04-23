@@ -265,3 +265,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #f95b5b; /* Darker color on hover */
 }
+
+/* Add success message styles */
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px 20px;
+    margin: 20px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
