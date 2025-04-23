@@ -84,6 +84,10 @@ class App
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+                'ChatBox' =>['index'],
+>>>>>>> Stashed changes
 =======
                 'ChatBox' =>['index'],
 >>>>>>> Stashed changes
