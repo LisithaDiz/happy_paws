@@ -9,6 +9,14 @@ class PetOwnerController
     public function addBookings()
     {   
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate cage_id
+            if (!isset($_POST['cage_id']) || empty($_POST['cage_id'])) {
+                $_SESSION['message'] = 'Invalid cage selection. Please try again.';
+                $_SESSION['message_type'] = 'error';
+                redirect('/carecenterprofile');
+                return;
+            }
+
             $data = [
                 'cage_id' => $_POST['cage_id'],
                 'pet_id' => $_POST['pet_id'],
@@ -16,15 +24,22 @@ class PetOwnerController
                 'end_date' => $_POST['checkout_date'],
                 'care_center_id' => $_POST['carecenter_id'],
                 'owner_id' => $_SESSION['owner_id'],
-                'special_req' => $_POST['specialRequests'],
-
+                'special_req' => $_POST['specialRequests'] ?? 'None',
+                'status' => 'Pending'
             ];
-            print_r($data);
 
             $bookingModel = new CareCenterBookingModel();
-            $bookingModel->insertBooking($data);
+            $result = $bookingModel->insertBooking($data);
 
-            // redirect('/CareCenterProfile');
+            if ($result) {
+                $_SESSION['message'] = 'Booking created successfully!';
+                $_SESSION['message_type'] = 'success';
+            } else {
+                $_SESSION['message'] = 'Failed to create booking. Please try again.';
+                $_SESSION['message_type'] = 'error';
+            }
+
+            redirect('/petownerbookings');
         }
     }
 

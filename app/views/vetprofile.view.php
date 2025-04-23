@@ -5,15 +5,15 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetprofile.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
-    <title>My Profile</title>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - My Profile</title>
 
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar3.php'); ?>
+        <?php include ('components/sidebar_vet.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">
@@ -197,13 +197,11 @@
                     });
                 </script>
 
-
-
         </div>
 
     </div>
     
-    <?php include ('components/footer.php'); ?>
+    <?php include ('components/footer_mini.php'); ?>
 <!--    
     <script src="<?=ROOT?>/assets/js/script.js"></script> -->
    

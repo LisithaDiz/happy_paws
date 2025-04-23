@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/contactus.css">
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -14,42 +15,126 @@
 
 <main>
   <section class="contact-section">
-    <h1>Contact Us</h1>
+    <div class="contact-container">
+      <div class="contact-info1">
+        <div class="form-header">
+          <h2>Contact Information</h2>
+          <p>Reach out to us through any of these channels</p>
+        </div>
+        
+        <div class="contact-list">
+          <div class="contact-item">
+            <div class="item-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="item-content">
+              <h3>Our Location</h3>
+              <p>123 Pet Street, Colombo, Sri Lanka</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="item-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="item-content">
+              <h3>Phone Number</h3>
+              <p>+94 123 456 789</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="item-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="item-content">
+              <h3>Email Address</h3>
+              <p>info@happypaws.com</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
 
-    <!-- Display Success/Error Messages -->
-    <?php if (!empty($success)): ?>
-    <p class="success-message"><?= htmlspecialchars($success) ?>
-    <?php elseif (!empty($error)): ?>
-    <p class="error-message><?= htmlspecialchars($error) ?>
-    <?php endif; ?>
+      <div class="contact-form-container">
+        <div class="form-header">
+          <h2>Contact Us</h2>
+          <p>If you have any complaints or feedback, please don’t hesitate to let us know!<br></p>.
+        </div>
 
+        <!-- Display Success/Error Messages -->
+        <?php if (!empty($success)): ?>
+          <div class="success-message">
+            <div class="message-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="message-content">
+              <h4>Success!</h4>
+              <p><?= htmlspecialchars($success) ?></p>
+            </div>
+          </div>
+        <?php elseif (!empty($error)): ?>
+          <div class="error-message">
+            <div class="message-icon">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="message-content">
+              <h4>Error</h4>
+              <p><?= htmlspecialchars($error) ?></p>
+            </div>
+          </div>
+        <?php endif; ?>
 
-    <form action="<?=ROOT?>/user/contactUs" method="POST" onsubmit="return validateForm()">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>" required>
-      <span class="error" id="nameError"></span>
+        <form action="<?=ROOT?>/user/contactUs" method="POST" onsubmit="return validateForm()" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <div class="input-icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <input type="text" id="name" name="name" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>" placeholder="Your Name" required>
+              <span class="error" id="nameError"></span>
+            </div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" required>
-      <span class="error" id="emailError"></span>
+            <div class="form-group">
+              <div class="input-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <input type="email" id="email" name="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" placeholder="Email Address" required>
+              <span class="error" id="emailError"></span>
+            </div>
+          </div>
 
-      <label for="subject">Subject:</label>
-      <input type="text" id="subject" name="subject" value="<?= isset($_POST['subject']) ? htmlspecialchars($_POST['subject']) : '' ?>" required>
-      <span class="error" id="subjectError"></span>
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-tag"></i>
+            </div>
+            <input type="text" id="subject" name="subject" value="<?= isset($_POST['subject']) ? htmlspecialchars($_POST['subject']) : '' ?>" placeholder="Subject" required>
+            <span class="error" id="subjectError"></span>
+          </div>
 
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" required><?= isset($_POST['message']) ? htmlspecialchars($_POST['message']) : '' ?></textarea>
-      <span class="error" id="messageError"></span>
+          <div class="form-group">
+            <div class="input-icon">
+              <i class="fas fa-comment"></i>
+            </div>
+            <textarea id="message" name="message" placeholder="Your Message" required><?= isset($_POST['message']) ? htmlspecialchars($_POST['message']) : '' ?></textarea>
+            <span class="error" id="messageError"></span>
+          </div>
 
-      <button type="submit">Submit</button>
-    </form>
-
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-icon">
+              <i class="fas fa-paper-plane"></i>
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
   </section>
 </main>
 
 <?php include('components/footer.php'); ?>
 
-<!--  JavaScript Validation -->
+<!-- JavaScript Validation -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("name").addEventListener("input", validateName);

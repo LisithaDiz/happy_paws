@@ -3,15 +3,16 @@
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/managecertificates.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
-    <title>Manage Certificates - Admin Dashboard</title>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - Manage Certificates</title>
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar1.php'); ?>
+        <?php include ('components/sidebar_admin.php'); ?>
         <!-- Main content area -->
         <div class="main-content">
             <h2>Manage Certificates</h2>
@@ -139,5 +140,6 @@
             </div>
         </div>
     </div>
+    <?php include ('components/footer_mini.php'); ?>
 </body>
 </html>

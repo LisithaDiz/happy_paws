@@ -5,15 +5,15 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/petownerdash.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/footer.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/footer_mini.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/components/sidebar.css">
-    <title>Dashboard</title>
+    <title>Happy Paws - My Pets</title>
 </head>
 <body>
     <?php include 'components/nav2.php'; ?>
 
     <div class="dashboard-container">
-    <?php include ('components/sidebar.php'); ?>
+    <?php include ('components/sidebar_pet_owner.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <?php include 'components/footer.php'; ?>
+    <?php include 'components/footer_mini.php'; ?>
 
     <script src="<?= ROOT ?>/assets/js/script.js"></script>
 </body>

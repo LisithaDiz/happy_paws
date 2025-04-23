@@ -6,15 +6,14 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/pharmprofile.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
-
-    
+    <title>Happy Paws - Pharmacy Profile</title>
 
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar2.php'); ?>
+        <?php include ('components/sidebar_pharmacy.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">

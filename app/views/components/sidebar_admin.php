@@ -1,4 +1,17 @@
 <div class="sidebar">
+    <!-- Add user profile section at top -->
+    <div class="sidebar-profile">
+        <div class="profile-image">
+            <img src="<?=ROOT?>/assets/images/happy-paws-logo.png" alt="Profile">
+        </div>
+        <div class="profile-info">
+            <h4><?= $_SESSION['user_role'] ?? 'Admin' ?></h4>
+            <p><?="------------" ?></p>
+        </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
     <nav class="sidebar-nav">
         <ul>
             <li>
@@ -41,6 +54,6 @@
     </div>
 </div>
 
-<script src="<?=ROOT?>/assets/js/sidebar.js"></script>
+
 <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

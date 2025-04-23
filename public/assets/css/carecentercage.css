@@ -23,15 +23,23 @@ body {
 .dashboard-container {
     display: flex;
     min-height: 100vh;
+    
+    
 }
 
 .main-content {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
     flex: 1;
     padding: 20px;
     padding-top: 80px;
+    
+    width: 1100px;
 }
 
 .page-header {
+    margin-left: 10px;
     margin-bottom: 30px;
 }
 
@@ -59,11 +67,11 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
@@ -106,7 +114,7 @@ body {
     border: 1px solid var(--medium-gray);
     border-radius: 5px;
     font-size: 14px;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 .search-card input:focus {
@@ -122,7 +130,7 @@ body {
     border-radius: 5px;
     padding: 0 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    
     display: flex;
     align-items: center;
     gap: 8px;
@@ -257,7 +265,7 @@ body {
     height: 100%;
     background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
     border-radius: 12px 0 0 12px;
-    transition: width 0.5s ease;
+    
 }
 
 .availability-meter span {
@@ -375,6 +383,10 @@ body {
 }
 
 .dimension-inputs {
+    grid-column: 1 / -1;
+}
+
+.dimension-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -518,7 +530,6 @@ body {
         width: 100%;
         justify-content: center;
     }
-
 }
 /* View Toggle */
 .view-toggle {
@@ -555,6 +566,7 @@ body {
 
 /* Cage Grid View */
 .cage-grid {
+    margin-top: 50px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
@@ -576,7 +588,7 @@ body {
 
 .cage-image {
     position: relative;
-    height: 200px;
+    height: 180px;
     overflow: hidden;
 }
 
@@ -588,16 +600,16 @@ body {
 }
 
 .cage-tile:hover .cage-image img {
-    transform: scale(1.05);
+    transform: scale(1.005);
 }
 
 .availability-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    padding: 5px 10px;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
     color: white;
     text-transform: uppercase;
@@ -612,42 +624,43 @@ body {
 }
 
 .cage-info {
-    padding: 20px;
+    padding: 15px;
 }
 
 .cage-info h3 {
-    margin: 0 0 15px 0;
+    margin: 0 0 12px 0;
     color: var(--text-color);
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .cage-specs {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 .spec-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
+    gap: 6px;
+    font-size: 12px;
     color: var(--text-light);
 }
 
 .spec-item i {
     color: var(--primary-color);
-    width: 16px;
+    width: 14px;
     text-align: center;
+    font-size: 12px;
 }
 
 .cage-features {
-    margin: 15px 0;
-    padding: 10px;
+    margin: 12px 0;
+    padding: 8px;
     background: var(--light-gray);
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .cage-features p {
@@ -655,14 +668,14 @@ body {
 }
 
 .cage-availability {
-    margin-top: 15px;
+    margin-top: 12px;
 }
 
 .cage-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    padding-top: 15px;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 12px;
     border-top: 1px dashed var(--medium-gray);
 }
 
@@ -679,4 +692,197 @@ body {
     .cage-actions {
         flex-direction: column;
     }
+}
+
+/* Search Card Specific Styles */
+.card.search-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 1px solid var(--medium-gray);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.card.search-card:hover {
+    box-shadow: 0 8px 25px rgba(216, 84, 76, 0.1);
+    transform: translateY(-2px);
+}
+
+.card.search-card .card-header {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-bottom: 1px solid var(--medium-gray);
+    padding: 20px;
+}
+
+.card.search-card .card-header h2 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card.search-card .card-body {
+    padding: 25px;
+}
+
+.card.search-card .search-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.card.search-card input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 8px;
+    font-size: 14px;
+    /* transition: all 0.3s ease; */
+    background-color: #ffffff;
+}
+
+.card.search-card input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(216, 84, 76, 0.1);
+}
+
+.card.search-card .search-btn {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    cursor: pointer;
+    /* transition: all 0.3s ease; */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.card.search-card .search-btn:hover {
+    background: linear-gradient(135deg, var(--primary-color), #c03a32);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(216, 84, 76, 0.2);
+}
+
+/* Add Cage Card Specific Styles */
+.card.add-cage-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 1px solid var(--medium-gray);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    margin-top: 30px;
+}
+
+.card.add-cage-card:hover {
+    box-shadow: 0 8px 25px rgba(216, 84, 76, 0.1);
+    transform: translateY(-2px);
+}
+
+.card.add-cage-card .card-header {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-bottom: 1px solid var(--medium-gray);
+    padding: 20px;
+}
+
+.card.add-cage-card .card-header h2 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card.add-cage-card .card-body {
+    padding: 25px;
+}
+
+.card.add-cage-card .cage-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.card.add-cage-card .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.card.add-cage-card .form-group {
+    margin-bottom: 0;
+}
+
+.card.add-cage-card .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.card.add-cage-card .form-group input,
+.card.add-cage-card .form-group select,
+.card.add-cage-card .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+.card.add-cage-card .form-group input:focus,
+.card.add-cage-card .form-group select:focus,
+.card.add-cage-card .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(216, 84, 76, 0.1);
+}
+
+.card.add-cage-card .dimension-inputs {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+}
+
+.card.add-cage-card .dimension-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.card.add-cage-card .btn-submit {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+}
+
+.card.add-cage-card .btn-submit:hover {
+    background: linear-gradient(135deg, var(--primary-color), #c03a32);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(216, 84, 76, 0.2);
 }

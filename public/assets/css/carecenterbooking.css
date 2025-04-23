@@ -1,0 +1,206 @@
+.main-content{
+    margin-top: 130px;
+    margin-left: 100px;
+    width: 1100px;
+}
+
+/* Calendar Styles */
+
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.monthyear {
+    color: rgb(77, 77, 77);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.calendar-controls {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    
+}
+
+.btn {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fae3e3;
+    color: rgb(77, 77, 77);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    
+    
+}
+
+.btn:hover {
+    background-color: #f5c6cb;
+    color: rgb(77, 77, 77);
+    transform: translateY(-2px);
+}
+
+.calendar-day {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.calendar-day:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.calendar-day.selected-day {
+    background-color: #c35b64;
+    color: white;
+    border-color: #c35b64;
+}
+
+.calendar-day.has-bookings::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    width: 6px;
+    height: 6px;
+    background-color: #c35b64;
+    border-radius: 50%;
+}
+
+.calendar-day.past-date {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.calendar-day.empty {
+    background-color: #f8f9fa;
+    border: none;
+    cursor: default;
+}
+
+/* Bookings Container */
+.bookings-container, 
+.cancelled-bookings-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.bookings-container h2,
+.cancelled-bookings-container h2 {
+    color: #444;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Booking Card Styles */
+.booking-card {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-2px);
+}
+
+.booking-card p {
+    margin: 8px 0;
+}
+
+.booking-card strong {
+    color: #444;
+}
+
+/* Button Styles */
+.booking-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.booking-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 120px;
+}
+
+.booking-actions .view-btn {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.booking-actions .view-btn:hover {
+    background-color: #357abd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.booking-actions .cancel-btn {
+    background-color: #e86866;
+    color: white;
+}
+
+.booking-actions .cancel-btn:hover {
+    background-color: #c54747;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Cancelled Bookings Section */
+.cancelled-bookings-container {
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    margin-top: 30px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .calendar-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .booking-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .booking-actions button {
+        width: 100%;
+        text-align: center;
+    }
+}

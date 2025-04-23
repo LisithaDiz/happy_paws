@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Happy Paws - My Dashboard</title>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/carecenterdash.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
 
@@ -51,8 +52,8 @@
         </div>
 
     </div>
-    
-    <?php include ('components/footer.php'); ?>
+    <?php include ('components/footer_mini.php'); ?>
+
 <!--    
     <script src="<?=ROOT?>/assets/js/script.js"></script> -->
    

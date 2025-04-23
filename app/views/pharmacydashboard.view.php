@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
-    <!-- Add sidebar.css before other component styles -->
+    <title>Happy Paws - Pharmacy Dashboard</title>
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/pharmdash.css">
@@ -16,7 +16,7 @@
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for pharmacy functionalities -->
-        <?php include ('components/sidebar2.php'); ?>
+        <?php include ('components/sidebar_pharmacy.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">

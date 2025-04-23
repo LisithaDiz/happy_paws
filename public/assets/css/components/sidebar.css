@@ -1,5 +1,6 @@
 /* Sidebar */
 .sidebar {
+    z-index: 10;
     margin-top: auto;
     position: fixed;
     top: 100px;

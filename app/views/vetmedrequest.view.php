@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetdash.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetmedrequest.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
-    <title>Vet Medicine Request</title>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - Request Medicine</title>
 
     
 
@@ -16,7 +16,7 @@
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar3.php'); ?>
+        <?php include ('components/sidebar_vet.php'); ?>
 
     
 
@@ -38,7 +38,7 @@
     </div>
 
     
-    <?php include ('components/footer.php'); ?>
+    <?php include ('components/footer_mini.php'); ?>
 
    
 </body>

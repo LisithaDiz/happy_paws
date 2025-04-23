@@ -163,7 +163,7 @@ class User
                         $user_owner = new PetOwnerModel;
                         $user_=$user_owner->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['owner_id'] = $user_->owner_id;
-                        $_SESSION['owner_name'] = $user_->f_name +' '+ $user_->l_name;
+                        $_SESSION['owner_name'] = $user_->f_name . ' ' . $user_->l_name;
 
 
                         redirect('PetOwnerDash');
@@ -172,8 +172,9 @@ class User
                         $user_vet = new VetModel;
                         $user_=$user_vet->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['vet_id'] = $user_->vet_id;
-                        $_SESSION['vet_name'] = $user_->f_name +' '+ $user_->l_name;
-                        
+                        $_SESSION['vet_name'] = $user_->f_name . ' ' . $user_->l_name;
+                        $_SESSION['profile_image'] = $user_->profile_image;
+
                         redirect('VetDashboard');
                         break;
                     case 3:
@@ -181,6 +182,7 @@ class User
                         $user_=$user_sitter->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['sitter_id'] = $user_->sitter_id;
                         $_SESSION['sitter_name'] = $user_->name;
+                        $_SESSION['profile_image'] = $user_->profile_image;
                         
                         redirect('PetSitterDashboard');
                         break;
@@ -189,6 +191,7 @@ class User
                         $user_=$user_center->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['care_center_id'] = $user_->care_center_id;
                         $_SESSION['care_center_name'] = $user_->name;
+                        $_SESSION['profile_image'] = $user_->profile_image;
                         
                         redirect('CareCenterDashboard');
                         break;
@@ -197,6 +200,7 @@ class User
                         $user_=$user_pharmacy->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['pharmacy_id'] = $user_->pharmacy_id;
                         $_SESSION['pharmacy_name'] = $user_->name;
+                        $_SESSION['profile_image'] = $user_->profile_image;
                         
                         redirect('PharmacyDashboard');
                         break;

@@ -18,10 +18,11 @@ body {
     width: 400px; 
     margin: 100px auto; 
     padding: 30px; 
-    border-radius: 5px;
+    border-radius: 8px;
     border: 2px solid #d8544c;
     position: relative;
     animation: fadeInScale 1s ease-in-out;
+    background: transparent;
     
 }
 
@@ -29,97 +30,121 @@ body {
 .login-box {
 
     padding: 20px;
-    border-radius: 10px; 
+    border-radius: 8px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: transparent;
     text-align: center; 
-    
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.3);
     box-sizing: border-box;
-    border: 2px solid white; 
-    
 }
 
 
 .login-box h2 {
-    margin-bottom: 20px;
-    color: black; 
+    margin-bottom: 25px;
+    color: #333; 
     font-size: 28px;
+    position: relative;
+}
+
+.login-box h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #d8544c;
+    border-radius: 3px;
 }
 
 
 .input-group {
-    margin-bottom: 15px;
-    font-weight: bold;
-    color:#333;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 
 .input-group input[type="text"],
 .input-group input[type="password"],
-select {
+.input-group select {
     width: 100%;
-    padding: 10px;
+    padding: 12px 15px 12px 40px;
     border: 1px solid #cccccc;
     border-radius: 5px; 
     font-size: 14px;
     box-sizing: border-box;
-    color:black;
-    
+    color: #333;
+    transition: all 0.3s ease;
 }
 
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #d8544c;
+    box-shadow: 0 0 5px rgba(216, 84, 76, 0.2);
+}
+
+.input-group .input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus + .input-icon {
+    color: #d8544c;
+}
 
 .login-button{
     width: 100%;
-    padding: 10px;
-    /* background-color: #d8544c; */
-    background:#d8544c;
+    padding: 12px;
+    background: #d8544c;
     color: #ffffff; 
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 
 .login-button:hover {
-    color: black;
-    
+    background: #c44a42;
+    transform: translateY(-2px);
 }
 
 
 .register-link {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 
 .register-link p {
-    color:black; 
+    color: #333; 
     font-size: 14px;
-    font-size: medium;
 }
 
 .register-link a {
-    color: white;
-    font-size: medium;
-    text-decoration: none; 
+    color: #d8544c;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .register-link a:hover {
+    color: #c44a42;
     text-decoration: underline;
-
 }
 @keyframes fadeInScale {
     0% {
         opacity: 0;
-        transform: scale(0.9);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(1.01);
+        transform: scale(0.95);
     }
     100% {
         opacity: 1;
@@ -130,13 +155,19 @@ select {
 
 
 .error-message {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
-    text-align: center;
-    background-color: #ffe6e6;
-    padding: 10px;
-    border: 1px solid red;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 12px;
     border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
 

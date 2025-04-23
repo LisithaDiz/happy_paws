@@ -4,23 +4,23 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
   
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetdash.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/pet_dash.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <!-- <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar_.css"> -->
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
-    <title>Welcome!</title>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - My Dashboard</title>
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
 
     <div class="dashboard-container">
        
-        <?php include ('components/sidebar.php'); ?>
+        <?php include ('components/sidebar_pet_owner.php'); ?>
         <!-- Sidebar for pet owner functionalities -->
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>Welcome, [Pet Owner's Name]!</h1>
+            <h1>Welcome, <?php echo $_SESSION['owner_name']; ?>!</h1>
             <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage pet records, find veterinary services, and more.</p>
 
             <!-- Dashboard Overview Section -->
@@ -54,7 +54,7 @@
         </div>
     </div>
     
-    <?php include ('components/footer.php'); ?>
+    <?php include ('components/footer_mini.php'); ?>
     <!-- <script src="<?=ROOT?>/assets/js/script.js"></script> -->
 </body>
 </html>

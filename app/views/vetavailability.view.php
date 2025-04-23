@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetavailability.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/petownerappointments.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
-    <title>Vet Appointments</title>
+    <title>Happy Paws - My Appointments</title>
 </head>
 <body>
     <?php include('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-        <?php include('components/sidebar3.php'); ?>
+        <?php include('components/sidebar_vet.php'); ?>
 
         <div class="main-content">
             <h1>Your Upcoming Appointments</h1>
@@ -51,7 +51,7 @@
         <input type="hidden" name="appointment_id" id="cancel_appointment_id">
     </form>
 
-    <?php include('components/footer.php'); ?>
+    <?php include('components/footer_mini.php'); ?>
 
     <script>
         let appointmentsData = <?= json_encode($vetAppointmentDetails ?? []); ?>;

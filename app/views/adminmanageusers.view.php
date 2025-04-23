@@ -3,18 +3,19 @@
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/manageusers.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
-    <title>Manage Users - Admin Dashboard</title>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - Manage Users</title>
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar1.php'); ?>
+    <?php include ('components/sidebar_admin.php'); ?>
         <!-- Main content area -->
-        <div class="main-content">
-        <div class="user-management">
+    <div class="main-content">
+    <div class="user-management">
     <h2>Manage Users</h2>
 
     <!-- Pet Owners -->
@@ -187,54 +188,55 @@
     </div>
 
     <!-- Pharmacies -->
-    <div class="user-section">
-        <h3>Pharmacies</h3>
-        <table class="user-table">
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Created at</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($data['pharmacies'] as $pharmacy): ?>
-                <tr>
-                    <td><?= $pharmacy->user_id ?></td>
-                    <td><?= $pharmacy->username ?></td>
-                    <td><?= $pharmacy->email ?></td>
-                    <td><?= $pharmacy->created_at ?></td>
-                    <td><?= $pharmacy->active_status ?></td>
-                    <td class="action-buttons">
-                        <form action="<?= ROOT ?>/ViewUser" method="POST" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?= $pharmacy->user_id ?>">
-                            <button type="submit" class="btn-view">View</button>
-                        </form>
-                        <form action="<?= ROOT ?>/EditUser" method="POST" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?= $pharmacy->user_id ?>">
-                            <button type="submit" class="btn-edit">Edit</button>
-                        </form>
-                        <form action="<?= ROOT ?>/SuspendUser" method="POST" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?= $pharmacy->user_id ?>">
-                            <button type="submit" class="btn-delete">Suspend</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            
-            </tbody>
-        </table>
-    </div>
-
-    <div class="action-buttons" style="margin-top: 20px;">
-        <a href="<?=ROOT?>/Signup_role" class="btn-edit">Add New User</a>
-    </div>
-</div>
+        <div class="user-section">
+            <h3>Pharmacies</h3>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Created at</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($data['pharmacies'] as $pharmacy): ?>
+                    <tr>
+                        <td><?= $pharmacy->user_id ?></td>
+                        <td><?= $pharmacy->username ?></td>
+                        <td><?= $pharmacy->email ?></td>
+                        <td><?= $pharmacy->created_at ?></td>
+                        <td><?= $pharmacy->active_status ?></td>
+                        <td class="action-buttons">
+                            <form action="<?= ROOT ?>/ViewUser" method="POST" style="display:inline;">
+                                <input type="hidden" name="user_id" value="<?= $pharmacy->user_id ?>">
+                                <button type="submit" class="btn-view">View</button>
+                            </form>
+                            <form action="<?= ROOT ?>/EditUser" method="POST" style="display:inline;">
+                                <input type="hidden" name="user_id" value="<?= $pharmacy->user_id ?>">
+                                <button type="submit" class="btn-edit">Edit</button>
+                            </form>
+                            <form action="<?= ROOT ?>/SuspendUser" method="POST" style="display:inline;">
+                                <input type="hidden" name="user_id" value="<?= $pharmacy->user_id ?>">
+                                <button type="submit" class="btn-delete">Suspend</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                
+                </tbody>
+            </table>
         </div>
 
-    
+        <div class="action-buttons" style="margin-top: 20px;">
+            <a href="<?=ROOT?>/Signup_role" class="btn-edit">Add New User</a>
+        </div>
+    </div>
+</div>
+</div>
+
+    <?php include ('components/footer_mini.php'); ?>
 </body>
 </html>

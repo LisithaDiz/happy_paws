@@ -15,7 +15,7 @@
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar3.php'); ?>
+        <?php include ('components/sidebar_vet.php'); ?>
 
         <div class="sidebar">
             

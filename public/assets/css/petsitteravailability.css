@@ -1,3 +1,16 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
+    height: 100vh; /* Full viewport height */
+}
+
+.main-content{
+    margin-top: 200px;
+    margin-left: 100px;
+    width: 1100px;
+}
+
+
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
