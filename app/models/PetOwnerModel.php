@@ -8,8 +8,7 @@ class PetOwnerModel
 	protected $table = 'pet_owner';
 
 	protected $allowedColumns = [
-
-			'user_id',
+			'owner_id',
             'f_name',
             'l_name',
             'age',

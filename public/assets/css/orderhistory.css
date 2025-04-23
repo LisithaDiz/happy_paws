@@ -620,4 +620,32 @@ body {
 
 .modal-content h2 i {
     color: #4299e1;
+}
+
+.toggle-payment-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-payment-btn.paid {
+    background-color: #28a745; /* Green for paid */
+    color: white;
+}
+
+.toggle-payment-btn.unpaid {
+    background-color: #dc3545; /* Red for unpaid */
+    color: white;
+}
+
+.toggle-payment-btn:hover {
+    opacity: 0.9;
+}
+
+.toggle-payment-btn:disabled {
+    background-color: #6c757d; /* Gray for disabled */
+    cursor: not-allowed;
 } 

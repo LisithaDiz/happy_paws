@@ -33,4 +33,10 @@ Trait Controller
 		return false;
 	}
 
+	public function redirect($path)
+	{
+		header("Location: " . ROOT . "/" . $path);
+		die();
+	}
+
 }

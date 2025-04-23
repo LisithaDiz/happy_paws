@@ -67,4 +67,45 @@ class Orders
         }
         exit;
     }
+
+    public function createOrder($pharmacy_id)
+    {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+            return;
+        }
+
+        try {
+            $order = new Order();
+            $medicineModel = new MedicineModel(); // Use the correct model name
+            $medicines = $medicineModel->getAllMedicines(); // Fetch all medicines
+
+            // Get and validate POST data
+            $data = [
+                'owner_id' => $_SESSION['owner_id'], // Ensure this is the correct owner ID
+                'pharmacy_id' => $pharmacy_id, // Use the pharmacy ID from the URL
+                'pet_id' => $_POST['pet_id'],
+                'total_price' => $_POST['total_price'],
+                'notes' => $_POST['notes'] ?? null, // Include notes if provided
+                'medicines' => []
+            ];
+
+            // Prepare medicines data
+            foreach ($_POST['medicines'] as $index => $med_id) {
+                $data['medicines'][] = [
+                    'med_id' => $med_id,
+                    'quantity' => $_POST['quantities'][$index]
+                ];
+            }
+
+            // Create the order
+            $result = $order->createOrder($data);
+            echo json_encode($result);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+        exit;
+    }
 }

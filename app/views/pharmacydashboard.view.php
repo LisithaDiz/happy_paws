@@ -34,7 +34,7 @@
                         <i class="fas fa-money-bill-wave"></i>
                         <div class="stat-info">
                             <h3>Total Revenue</h3>
-                            <p class="stat-value">$<?php echo number_format($total_revenue ?? 0); ?></p>
+                            <p class="stat-value">Rs. <?php echo number_format($total_revenue ?? 0); ?></p>
                             <a href="<?=ROOT?>/revenue" class="stat-link">View Details</a>
                         </div>
                     </div>
@@ -58,12 +58,12 @@
                         <i class="fas fa-plus-circle"></i>
                         <span>Request Medicine</span>
                     </button>
-                    <a href="<?=ROOT?>/orders/new" class="action-btn">
+                    <a href="<?=ROOT?>/orders" class="action-btn">
                         <i class="fas fa-file-medical"></i>
                         <span>New Order</span>
                     </a>
                     
-                    <a href="<?=ROOT?>/reports" class="action-btn">
+                    <a href="<?=ROOT?>/report" class="action-btn">
                         <i class="fas fa-chart-bar"></i>
                         <span>Generate Report</span>
                     </a>
@@ -74,15 +74,31 @@
             <section class="recent-activity">
                 <h2><i class="fas fa-history"></i> Recent Activity</h2>
                 <div class="activity-list">
-                    <!-- Add your recent activity items here -->
-                    <div class="activity-item">
-                        <i class="fas fa-clock"></i>
-                        <div class="activity-details">
-                            <p>New order received from Customer #1234</p>
-                            <span class="activity-time">2 hours ago</span>
-                        </div>
-                    </div>
-                    <!-- Add more activity items as needed -->
+                    <?php
+                    // Get notifications using the Notification model
+                    $notification = new Notification();
+                    $notifications = $notification->getNotifications($_SESSION['pharmacy_id'], 5);
+
+                    if (empty($notifications)) {
+                        echo '<p class="no-activity">No recent activity</p>';
+                    } else {
+                        foreach ($notifications as $notification) {
+                            echo '<div class="activity-item">';
+                            echo '<div class="activity-icon">';
+                            if ($notification->type === 'new_order') {
+                                echo '<i class="fas fa-shopping-cart"></i>';
+                            } else {
+                                echo '<i class="fas fa-bell"></i>';
+                            }
+                            echo '</div>';
+                            echo '<div class="activity-content">';
+                            echo '<p>' . htmlspecialchars($notification->message) . '</p>';
+                            echo '<span class="activity-time">' . $notification->time_ago . '</span>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    }
+                    ?>
                 </div>
             </section>
 

@@ -42,39 +42,45 @@
                         <?php foreach ($petCareCenters as $petCareCenter): ?>
                             <div class="petCareCenter-card">
                                 <div class="petCareCenter-image">
-                                    <?php if (!empty($petCareCenter->profile_image)): ?>
-                                        <img src="data:image/jpeg;base64,<?= base64_encode($petCareCenter->profile_image) ?>" 
-                                            alt="<?= htmlspecialchars($petCareCenter->name) ?>">
+                                    <?php if (!empty($petCareCenter['profile_image'])): ?>
+                                        <img src="data:image/jpeg;base64,<?= base64_encode($petCareCenter['profile_image']) ?>" 
+                                            alt="<?= htmlspecialchars($petCareCenter['name']) ?>">
                                     <?php else: ?>
-                                        <img src="<?=ROOT?>/assets/images/profile1.jpg" 
-                                            alt="<?= htmlspecialchars($petCareCenter->name) ?>">
+                                        <img src="<?=ROOT?>/assets/images/careprofile1.jpg" 
+                                            alt="<?= htmlspecialchars($petCareCenter['name']) ?>">
                                     <?php endif; ?>
                                 </div>
                                 <div class="petCareCenter-info">
-                                    <h2><?= htmlspecialchars($petCareCenter->name) ?></h2>
+                                    <h2><?= htmlspecialchars($petCareCenter['name']) ?></h2>
                                     <div class="rating">
-                                        <span class="stars"><?= str_repeat("★", $petCareCenter->rating ?? 0) ?></span>
-                                        <span class="reviews">(<?= $petCareCenter->review_count ?? 0 ?> reviews)</span>
+                                        <span class="stars"><?= str_repeat("★", $petCareCenter['rating'] ?? 0) ?></span>
+                                        <span class="reviews">(<?= $petCareCenter['review_count'] ?? 0 ?> reviews)</span>
                                     </div>
                                     <p class="location">
                                         <i class="fas fa-map-marker-alt"></i>
-                                        <?= htmlspecialchars($petCareCenter->city) . ', ' . htmlspecialchars($petCareCenter->district) ?>
+                                        <?= htmlspecialchars($petCareCenter['city']) . ', ' . htmlspecialchars($petCareCenter['district']) ?>
                                     </p>
                                     <p class="contact">
                                         <i class="fas fa-phone"></i>
-                                        <?= htmlspecialchars($petCareCenter->contact_no) ?>
+                                        <?= htmlspecialchars($petCareCenter['contact_no']) ?>
                                     </p>
                                     <p class="services">
                                         <i class="fas fa-concierge-bell"></i>
-                                        <?= htmlspecialchars($petCareCenter->services_offered ?? "Not Specified") ?>
+                                        <?= htmlspecialchars($petCareCenter['services_offered'] ?? "Not Specified") ?>
                                     </p>
                                     
-                                    <form action="CareCenterProfile" method="POST" class="book-form">
-                                        <input type="hidden" name="id" value="<?= $petCareCenter->care_center_id?>">
-                                        <button type="submit" class="book-button">
-                                            <i class="fas fa-calendar-check"></i> Book Now
-                                        </button>
-                                    </form>
+                                    <div class="card-buttons">
+                                        <a href="<?=ROOT?>/reviews4/index/<?= $petCareCenter['care_center_id'] ?>" class="view-reviews-button">
+                                            <i class="fas fa-star"></i> View Reviews
+                                        </a>
+                                        
+                                        <form action="CareCenterProfile" method="POST" class="book-form">
+                                            <input type="hidden" name="id" value="<?= $petCareCenter['care_center_id'] ?>">
+                                            <button type="submit" class="book-button">
+                                                <i class="fas fa-calendar-check"></i> Book Now
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
