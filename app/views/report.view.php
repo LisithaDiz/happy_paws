@@ -99,6 +99,42 @@
                     </div>
                 </div>
 
+                <div class="monthly-revenue">
+                    <h2>Monthly Revenue Details</h2>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Revenue</th>
+                                    <th>Orders</th>
+                                    <th>Top Product</th>
+                                    <th>Growth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($data['monthly_revenue'])): ?>
+                                    <?php foreach ($data['monthly_revenue'] as $month): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($month['month']) ?></td>
+                                        <td>Rs. <?= number_format($month['revenue'], 2) ?></td>
+                                        <td><?= number_format($month['orders']) ?></td>
+                                        <td><?= htmlspecialchars($month['top_product']) ?></td>
+                                        <td class="<?= $month['growth'] >= 0 ? 'positive' : 'negative' ?>">
+                                            <?= number_format($month['growth'], 2) ?>%
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="5" class="text-center">No monthly revenue data available</td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="order-stats">
                     <h2>Order Statistics</h2>
                     <div class="stats-grid">

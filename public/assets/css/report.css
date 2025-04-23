@@ -128,14 +128,14 @@
     gap: 30px;
 }
 
-.medicine-sales, .order-stats {
+.medicine-sales, .order-stats, .monthly-revenue {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
 
-.medicine-sales h2, .order-stats h2 {
+.medicine-sales h2, .order-stats h2, .monthly-revenue h2 {
     color: #333;
     margin-bottom: 20px;
     font-size: 1.2em;
@@ -158,13 +158,23 @@ th, td {
 }
 
 th {
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #f87e76;
+    color: white;
     font-weight: 600;
 }
 
 tr:hover {
     background-color: #f8f9fa;
+}
+
+.positive {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.negative {
+    color: #dc3545;
+    font-weight: 600;
 }
 
 /* Order Stats Grid */
