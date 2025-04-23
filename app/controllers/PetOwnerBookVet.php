@@ -10,6 +10,7 @@ class PetOwnerBookVet
         $vetAvailability = new VetUpdateAvailableHoursModel;
 
         $vet_id = $_POST['vet_id'];
+        var_dump($vet_id);
         $vetAvailabilityDetails = $vetAvailability->vetAvailabilityOwnerView($vet_id);
         $this->view('petownerbookvet', ['vetAvailabilityDetails'=> $vetAvailabilityDetails]);
     }

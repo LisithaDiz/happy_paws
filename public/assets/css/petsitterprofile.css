@@ -122,7 +122,7 @@ body {
     color: white;
     margin-top: 80px;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr;
     gap: 20px;
     padding: 30px;
 }
@@ -766,6 +766,26 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.message-btn {
+    padding: 8px 16px;
+    margin: 10px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+}
+
+.message-btn:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 480px) {

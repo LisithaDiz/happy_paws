@@ -40,13 +40,17 @@ class App
                'ChatBox' =>['index'],
                'CareCenterProfile'=>['index'],
                'Pets'=>['getPetsByType'],
-               'PetOwnerController'=>['addBookings']
+               'PetOwnerController'=>['addBookings'],
+               'PetOwnerView_VetProfile'=>['index'],
+               'PetOwnerView_SitterProfile'=>['index'],
+               'PetOwnerView _CareCenterProfile'=>['index']
+               
                
             ], 
 
         
         '2' => ['VetDashboard' => ['index'],
-                'VetProfile'=> ['index','updateVetDetails','vetprofile','deleteVet'],
+                'VetProfile'=> ['index','updateVetDetails','vetprofileUpdate','deleteVet'],
                 'VetAppoinment' => ['index','getAppointmentDetails','appointmentStatus'],
                 'VetRequest' => ['index'],
                 'VetTreatedPet' => ['index','treatedPetDetails'],
@@ -62,12 +66,13 @@ class App
         ],
 
         '3' => ['PetSitterDashboard' => ['index'],
-                'PetSitterProfile' => ['index'], 
+                'PetSitterProfile' => ['index','updateSitterDetails','sitterprofileUpdate','deletesitter'], 
                 'PetSitterAccepted' => ['index'], 
                 'PetSitterPet' => ['index'], 
                 'PetSitterAvailability' => ['index'], 
                 'PetSitterRequest' => ['index'], 
-                'ChatBox' =>['index']
+                'ChatBox' =>['index'],
+
             ], 
 
         '4' => ['CareCenterDashboard' => ['index'],

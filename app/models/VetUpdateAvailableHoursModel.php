@@ -29,9 +29,17 @@ class VetUpdateAvailableHoursModel
 		$query = "INSERT INTO vet_availability (vet_id, day_of_week, start_time, end_time, number_of_appointments) 
               VALUES (:vet_id, :day_of_week, :start_time, :end_time, :number_of_appointments)";
     
+	
         $result= $this->query($query, $data);
+		if($result)
+        {
+            header("Location: " . ROOT . "/vetAvailableHours");
+            exit;
+        }
+        else{
+            echo "Something went wrong. Time slot cannot be added.";
+        }
 
-		return $result;
 
 	
     }
@@ -49,7 +57,7 @@ class VetUpdateAvailableHoursModel
 
 		$result = $this->query($query,$params);
 		
-		return $result;
+		return is_array($result) ? $result : []; 
 
 	}
 

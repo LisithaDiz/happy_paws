@@ -1,11 +1,11 @@
 <?php
 
-class PharmProfile
+class PaymentForm
 {
     use Controller;
 
     public function index()
     {
-        $this->view('pharmprofile');
+        $this->view('paymentform');
     }
 }

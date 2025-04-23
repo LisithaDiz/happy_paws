@@ -68,6 +68,11 @@
                         <h4>Services:</h4>
                         <p><?=htmlspecialchars($petSitter['services'])?></p>
                     </div>
+
+                    <button class="book-button" onclick="viewProfile(<?= $petSitter['sitter_id'] ?>)" >View profile</button>
+                        <form id="viewProfileForm_<?= $petSitter['sitter_id'] ?>" action="<?= ROOT ?>/petsitterprofile/index" method="POST" style="display: none;">
+                            <input type="hidden" name="sitter_id" id="view_sitter_id_<?= $petSitter['sitter_id'] ?>">
+                        </form>
                     
                     <button class="book-button" onclick="location.href='<?=ROOT?>/PetOwnerSitterSelection'"> 
                                                                                                                        <!-- <?=$petSitter['sitter_id']?> -->
@@ -81,6 +86,13 @@
     <?php endif; ?>
     </div>
 </div>
+
+        <script>
+            function viewProfile(sitter_id) {
+            document.getElementById("view_sitter_id_"+sitter_id).value = sitter_id;
+            document.getElementById("viewProfileForm_"+sitter_id).submit();
+        }
+        </script>
     <?php include ('components/footer.php'); ?>
 </body>
 </html>

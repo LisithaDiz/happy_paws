@@ -69,6 +69,11 @@
                         <h4>Services:</h4>
                         <p><?=htmlspecialchars($pharmacy['services'])?></p>
                     </div>
+                    <button class="book-button" onclick="viewProfile(<?= $pharmacy['pharmacy_id'] ?>)" >View profile</button>
+                    
+                        <form id="viewProfileForm_<?= $pharmacy['pharmacy_id'] ?>" action="<?= ROOT ?>/pharmacyprofile/index" method="POST" style="display: none;">
+                            <input type="hidden" name="pharmacy_id" id="view_pharmacy_id_<?= $pharmacy['pharmacy_id'] ?>">
+                        </form>
                     <button onclick="location.href='<?=ROOT?>/PetOwnerPlaceOrder'" class="book-button">Place Order</button>
                 </div>
             </div>
@@ -78,6 +83,12 @@
     <?php endif; ?>
     </div>
 </div>
+<script>
+            function viewProfile(pharmacy_id) {
+            document.getElementById("view_pharmacy_id_"+pharmacy_id).value = pharmacy_id;
+            document.getElementById("viewProfileForm_"+pharmacy_id).submit();
+        }
+        </script>
     <?php include ('components/footer.php'); ?>
 </body>
 </html> 

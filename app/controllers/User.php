@@ -163,7 +163,7 @@ class User
                         $user_owner = new PetOwnerModel;
                         $user_=$user_owner->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['owner_id'] = $user_->owner_id;
-                        $_SESSION['owner_name'] = $user_->f_name +' '+ $user_->l_name;
+                        $_SESSION['owner_name'] = $user_->f_name .' '. $user_->l_name;
 
 
                         redirect('PetOwnerDash');
@@ -172,7 +172,7 @@ class User
                         $user_vet = new VetModel;
                         $user_=$user_vet->first(['user_id' => $_SESSION['user_id']]);
                         $_SESSION['vet_id'] = $user_->vet_id;
-                        $_SESSION['vet_name'] = $user_->f_name +' '+ $user_->l_name;
+                        $_SESSION['vet_name'] = $user_->f_name .' '. $user_->l_name;
                         
                         redirect('VetDashboard');
                         break;

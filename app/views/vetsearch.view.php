@@ -58,14 +58,20 @@
                             </p>
                             <button class="view-reviews-btn" onclick="location.href='<?=ROOT?>/reviews2/index/<?= $vet['vet_id'] ?>'">View Reviews</button>
                         </div>
+
+                        <button class="book-button" onclick="viewProfile(<?= $vet['vet_id'] ?>)" >View profile</button>
+                        <form id="viewProfileForm_<?= $vet['vet_id'] ?>" action="<?= ROOT ?>/vetprofile/index" method="POST" style="display: none;">
+                            <input type="hidden" name="vet_id" id="view_vet_id_<?= $vet['vet_id'] ?>">
+                        </form>
                         
-                        <p>Related Pets: Dogs, Cats, Birds</p>
 
                         <button class="book-button" onclick="bookAppointment(<?= $vet['vet_id'] ?>)" >Book</button>
                         <!-- hidden form -->
                         <form id="bookAppointmentForm_<?= $vet['vet_id'] ?>" action="<?= ROOT ?>/petownerbookvet/index" method="POST" style="display: none;">
-                            <input type="hidden" name="vet_id" id="vet_id_<?= $vet['vet_id'] ?>">
+                            <input type="hidden" name="vet_id" id="book_vet_id_<?= $vet['vet_id'] ?>">
                         </form>
+
+                        
                         
                     </div>
                 </div>
@@ -79,8 +85,13 @@
     <script>
 
         function bookAppointment(vet_id) {
-            document.getElementById("vet_id_"+vet_id).value = vet_id;
+            document.getElementById("book_vet_id_"+vet_id).value = vet_id;
             document.getElementById("bookAppointmentForm_"+vet_id).submit();
+        }
+
+        function viewProfile(vet_id) {
+            document.getElementById("view_vet_id_"+vet_id).value = vet_id;
+            document.getElementById("viewProfileForm_"+vet_id).submit();
         }
     </script>
 

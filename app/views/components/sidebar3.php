@@ -14,17 +14,17 @@
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/vetAppoinment" class="<?= ($currentPage == 'appointments') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/vetAvailability" class="<?= ($currentPage == 'appointments') ? 'active' : '' ?>">
                     <i class="fas fa-calendar-check"></i>
                     <span>Appointments</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="<?=ROOT?>/vetTreatedPet" class="<?= ($currentPage == 'pets') ? 'active' : '' ?>">
                     <i class="fas fa-paw"></i>
                     <span>View Pets</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="<?=ROOT?>/vetPrescription" class="<?= ($currentPage == 'prescriptions') ? 'active' : '' ?>">
                     <i class="fas fa-prescription"></i>
@@ -32,17 +32,12 @@
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/vetAvailability" class="<?= ($currentPage == 'availability') ? 'active' : '' ?>">
-                    <i class="fas fa-clock"></i>
-                    <span>Upcoming Appointments</span>
-                </a>
-            </li>
-            <!-- <li>
-                <a href="<?=ROOT?>/vetAvailableHours class="<?= ($currentPage == 'availablehours') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/vetAvailableHours" class="<?= ($currentPage == 'availability') ? 'active' : '' ?>">
                     <i class="fas fa-clock"></i>
                     <span>Update Availability</span>
                 </a>
-            </li> -->
+            </li>
+            
             <li>
                 <a href="<?=ROOT?>/vetMedRequest" class="<?= ($currentPage == 'medicine-request') ? 'active' : '' ?>">
                     <i class="fas fa-capsules"></i>

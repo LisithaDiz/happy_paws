@@ -18,8 +18,52 @@ class PetSitterModel
             'city',
             'street',
             'contact_no',
-            'years_exp'
+            'years_exp',
+            'activity_status'
 	];
+
+  public function getSitterDetails($sitterid=null)    
+	{
+		if ($sitterid === null) {
+			$sitterid = $_SESSION['sitter_id'];
+		}
+
+		$query = "SELECT *
+				FROM user
+				JOIN pet_sitter
+				ON user.user_id = pet_sitter.user_id 
+				WHERE pet_sitter.sitter_id = :sitterid";
+
+		// Bind the parameter to avoid SQL injection
+		$params = ['sitterid' => $sitterid];
+
+		// Execute the query and store the result
+		$result = $this->query($query, $params);
+		
+
+		// Return the result
+		return $result;
+	}
+
+	public function getSitterDetailsOwnerView($sitterid)    
+	{
+
+		$query = "SELECT *
+				FROM user
+				JOIN pet_sitter
+				ON user.user_id = pet_sitter.user_id 
+				WHERE  pet_sitter.sitter_id= :sitterid";
+
+		// Bind the parameter to avoid SQL injection
+		$params = ['sitterid' => $sitterid];
+
+		// Execute the query and store the result
+		$result = $this->query($query, $params);
+    
+
+		// Return the result
+		return $result;
+	}
 
     public function getAllInfo(){
 

@@ -239,7 +239,6 @@
                     </div>
                     
                     <button type="submit" class="submit-btn">Save Changes</button>
-                    <button type="button" id="deleteProfileBtn" class="delete-btn">Delete Profile</button>
                 </form>
             </div>
         </div>
@@ -297,28 +296,6 @@
                 modal.classList.add('active');
             });
         });
-
-        const deleteProfileBtn = document.getElementById('deleteProfileBtn');
-            const deleteConfirmationModal = document.getElementById('deleteConfirmationModal');
-            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-            const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-
-            if (deleteProfileBtn) {
-                deleteProfileBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    editProfileModal.classList.remove('active');
-                    deleteConfirmationModal.classList.add('active');
-                });
-            }
-
-            confirmDeleteBtn.addEventListener('click', function() {
-                window.location.href = "<?= ROOT ?>/PetSitterProfile/deletecarecenter";
-            });
-
-            cancelDeleteBtn.addEventListener('click', function() {
-                deleteConfirmationModal.classList.remove('active');
-            });
-
         
         // Close modal
         closeModal.addEventListener('click', function() {

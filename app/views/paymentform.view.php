@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/styles.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/paymentform.css">
 </head>
 <body>
     <div class="payment-container">
@@ -24,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label for="amount">Amount:</label>
-                <input type="text" id="amount" name="amount" value="100" readonly>
+                <input type="text" id="amount" name="amount" value="" readonly>
             </div>
             <button type="submit" class="submit-button">Proceed to Payment</button>
         </form>

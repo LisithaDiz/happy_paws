@@ -24,7 +24,8 @@ class VetModel
 		'city', 
 		'street', 
 		'contact_no', 
-		'years_exp'
+		'years_exp',
+		'activity_status'
 	];
 
 	// public function getFirstVetDetails()    
@@ -50,23 +51,39 @@ class VetModel
 
 
 
-	public function getVetDetails()    
+	public function getVetDetails($vetid=null)    
 	{
-		$userid = $_SESSION['user_id'];
+		if ($vetid === null) {
+			$vetid = $_SESSION['vet_id'];
+		}
 
-		$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
-						veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
-						veterinary_surgeon.age, veterinary_surgeon.gender, 
-						veterinary_surgeon.district, veterinary_surgeon.city, 
-						veterinary_surgeon.contact_no, 
-						veterinary_surgeon.years_exp
+		$query = "SELECT *
+				FROM user u
+				JOIN veterinary_surgeon v
+				ON u.user_id = v.user_id 
+				WHERE v.vet_id = :vetid";
+
+		// Bind the parameter to avoid SQL injection
+		$params = ['vetid' => $vetid];
+
+		// Execute the query and store the result
+		$result = $this->query($query, $params);
+
+		// Return the result
+		return $result;
+	}
+
+	public function getVetDetailsOwnerView($vetid)    
+	{
+
+		$query = "SELECT *
 				FROM user
 				JOIN veterinary_surgeon 
 				ON user.user_id = veterinary_surgeon.user_id 
-				WHERE user.user_id = :userid";
+				WHERE  veterinary_surgeon.vet_id= :vetid";
 
 		// Bind the parameter to avoid SQL injection
-		$params = ['userid' => $userid];
+		$params = ['vetid' => $vetid];
 
 		// Execute the query and store the result
 		$result = $this->query($query, $params);

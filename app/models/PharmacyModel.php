@@ -24,6 +24,30 @@ class PharmacyModel
 
         }
 
+        public function getPharmacyDetails($pharmacyid=null)
+        {
+            if ($pharmacyid === null) {
+                $pharmacyid = $_SESSION['pharmacy_id'];
+            }
+    
+            $query = "SELECT *
+                    FROM user
+                    JOIN pharmacy
+                    ON user.user_id = pharmacy.user_id 
+                    WHERE pharmacy.pharmacy_id = :pharmacyid";
+    
+            // Bind the parameter to avoid SQL injection
+            $params = ['pharmacyid' => $pharmacyid];
+    
+            // Execute the query and store the result
+            $result = $this->query($query, $params);
+            
+    
+            // Return the result
+            return $result;
+
+        }
+
 
         public function searchPharmacy($name = '', $location = '')
        {
@@ -66,6 +90,8 @@ class PharmacyModel
         
         return 0; // Default rating if no reviews
     }
+
+        
         public function getAllInfo(){
 
 

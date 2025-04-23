@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?=ROOT?>/PharmProfile" class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/PharmacyProfile" class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
                     <i class="fas fa-user-md"></i>
                     <span>My Profile</span>
                 </a>

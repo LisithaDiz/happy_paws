@@ -31,11 +31,12 @@
                             <p>Email: <?= htmlspecialchars($petownerDetails[0]->email) ?></p> <!-- Assuming user_id is linked to the email -->
 
                             <!-- Message Button -->
-                            <form method="POST" action="<?=ROOT?>/vetmessage/index">
+                            <form method="POST" action="<?=ROOT?>/chatbox/index">
                                 <input type="hidden" name="receiver_id" value="<?= htmlspecialchars($petownerDetails[0]->user_id) ?>">
-                                <input type="hidden" name="receiver_role" value="1"> <!-- Assuming role 1 is Pet Owner -->
+                                <input type="hidden" name="receiver_role_number" value="1" >
                                 <button type="submit" class="message-btn">Message</button>
                             </form>
+                            
                         <?php else: ?>
                             <h2>Unknown Owner</h2>
                             <p>Email: N/A</p>

@@ -8,10 +8,13 @@ class VetProfile
     {
         // Load the Vet model
         $vetModel = new VetModel();
+        $vetid = $_POST['vet_id'];
 
 
         // Fetch the first vet's details (you can modify this logic to fetch specific records later)
-        $vetDetails = $vetModel->getVetDetails();
+        $vetDetails = $vetModel->getVetDetails($vetid);
+        
+
         // Pass the fetched data to the view
         $this->view('vetprofile', ['vetDetails' => $vetDetails]);
     }
@@ -19,7 +22,7 @@ class VetProfile
    
 
 
-    public function vetprofile()
+    public function vetprofileUpdate()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $vetUpdated = $this->updateVetDetails();
@@ -140,28 +143,38 @@ class VetProfile
     }
 
     public function deleteVet()
-{
+    {
+        $vetid = $_SESSION['vet_id'];
+        
+        // Ensure $vetid is not empty
+        if (empty($vetid)) {
+            echo "Vet ID is not set!";
+            return;
+        }
     
-    $userid = $_SESSION['user_id'];
-    // Instantiate the Vet model
-
-    $vetModel = new VetModel();
-    $vetRole = new RoleModel();
+        // Instantiate the Vet model
+        $vetModel = new VetModel();
+    
+        $data = ['activity_status' => 0];
+    
+        // Debugging: Check the query
+        echo "Updating vet with ID: $vetid<br>";
+    
+        // Instead of deleting, update activity_status to 0
+        $updateStatus = $vetModel->update($vetid, $data, 'vet_id');
 
     
-    $vetDeletedRoleTable =$vetRole->deleteRole($userid, 2);
-    $vetDeletedVetTable = $vetModel->delete($userid, 'user_id');
-    
-
-    if ($vetDeletedVetTable && $vetDeletedRoleTable) {
-        echo "Profile deleted successfully.";
-        // Redirect after deletion
-        header("Location: " . ROOT . "/home");
-        exit();
-    } else {
-        echo "Failed to delete profile.";
+        if ($updateStatus) {
+            echo "Profile deactivated successfully.";
+            // Redirect after deactivation
+            header("Location: " . ROOT . "/home");
+            exit();
+        } else {
+            echo "Failed to deactivate profile.";
+        }
     }
-}
+    
+    
 
 
 
