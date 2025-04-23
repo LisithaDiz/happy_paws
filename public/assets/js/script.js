@@ -1,38 +1,38 @@
 // Background Image Slideshow
 
-const images = [
-  'url("../public/assets/images/pet-owner.jpg")',
-  'url("../public/assets/images/wall/1.jpg")',
-  'url("../public/assets/images/wall/2.jpg")',
-  'url("../public/assets/images/wall/3.jpg")',
-  'url("../public/assets/images/wall/4.jpg")',
-  'url("../public/assets/images/wall/5.jpg")',
-  'url("../public/assets/images/wall/6.jpg")',
-  'url("../public/assets/images/wall/7.jpg")',
-  'url("../public/assets/images/wall/8.jpg")',
-  'url("../public/assets/images/wall/9.jpg")',
-  'url("../public/assets/images/wall/10.jpg")',
-  'url("../public/assets/images/wall/11.jpg")',
-  'url("../public/assets/images/wall/12.jpg")',
-  'url("../public/assets/images/wall/13.jpg")',
-  'url("../public/assets/images/wall/14.jpg")',
-  'url("../public/assets/images/wall/15.jpg")',
-  'url("../public/assets/images/wall/16.jpg")',
-  'url("../public/assets/images/wall/17.jpg")',
-  'url("../public/assets/images/wall/18.jpg")'
+// const images = [
+//   'url("../public/assets/images/pet-owner.jpg")',
+//   'url("../public/assets/images/wall/1.jpg")',
+//   'url("../public/assets/images/wall/2.jpg")',
+//   'url("../public/assets/images/wall/3.jpg")',
+//   'url("../public/assets/images/wall/4.jpg")',
+//   'url("../public/assets/images/wall/5.jpg")',
+//   'url("../public/assets/images/wall/6.jpg")',
+//   'url("../public/assets/images/wall/7.jpg")',
+//   'url("../public/assets/images/wall/8.jpg")',
+//   'url("../public/assets/images/wall/9.jpg")',
+//   'url("../public/assets/images/wall/10.jpg")',
+//   'url("../public/assets/images/wall/11.jpg")',
+//   'url("../public/assets/images/wall/12.jpg")',
+//   'url("../public/assets/images/wall/13.jpg")',
+//   'url("../public/assets/images/wall/14.jpg")',
+//   'url("../public/assets/images/wall/15.jpg")',
+//   'url("../public/assets/images/wall/16.jpg")',
+//   'url("../public/assets/images/wall/17.jpg")',
+//   'url("../public/assets/images/wall/18.jpg")'
 
-];
-// console.log("checking...");
+// ];
+// // console.log("checking...");
 
-let currentIndex = 0;
+// let currentIndex = 0;
 
-function changeBackgroundImage() {
-  document.body.style.backgroundImage = images[currentIndex];
-  currentIndex = (currentIndex + 1) % images.length;
-}
+// function changeBackgroundImage() {
+//   document.body.style.backgroundImage = images[currentIndex];
+//   currentIndex = (currentIndex + 1) % images.length;
+// }
 
-setInterval(changeBackgroundImage, 3000); // Change image every 3 seconds
-window.onload = changeBackgroundImage;
+// setInterval(changeBackgroundImage, 3000); // Change image every 3 seconds
+// window.onload = changeBackgroundImage;
 
 // Form Validation
 // document.addEventListener('DOMContentLoaded', function() {
@@ -96,3 +96,14 @@ window.onload = changeBackgroundImage;
 //     }
 // }
 
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const target = document.querySelector(this.getAttribute('href'));
+      target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+      });
+  });
+});

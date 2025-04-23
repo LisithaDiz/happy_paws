@@ -16,7 +16,7 @@
     <section id="hero">
         
         <div class="hero-content">
-            <h1>Happy Paws: Simplifying Pet Care</h1>
+            <h1>Happy Paws<br>Simplifying Pet Care</h1>
             <p>The all-in-one platform for pet sitting, veterinary care, and medication management.</p>
             <a href="signup_role" class="signup-button">Sign Up</a>
         </div>
@@ -25,6 +25,10 @@
 
         <div class="card" onclick="window.location.href='vet_clinics.html'">
             <img src="<?=ROOT?>/assets/images/vet_.jpg" alt="Vet Clinics">
+            <video class="card-video" muted>
+                <source src="<?=ROOT?>/assets/videos/vet_clinics.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
             <div class="card-content">
                 <h2>Vet Clinics</h2>
                 <p>Locate the best vet clinics for your pet's health.</p>
@@ -56,9 +60,7 @@
     </section>
     <?php include ('components/footer.php'); ?>
    
-
     <script src="<?=ROOT?>/assets/js/script.js"></script>
-
    
 </body>
 </html>

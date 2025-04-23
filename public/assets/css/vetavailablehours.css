@@ -1,0 +1,366 @@
+/* Base Variables for Theme */
+:root {
+    --primary-color: #c35b64;
+    --primary-light: #fae3e3;
+    --primary-dark: #8e3e46;
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #777;
+    --bg-light: #f9f9f9;
+    --bg-white: #ffffff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  
+  /* Main Content Styles */
+  .main-content {
+    margin-top: 100px;
+    width: 1200px;
+    flex: 1;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto 50px;
+    background: var(--bg-white);
+    border-radius: 12px 12px 0 0;
+    box-shadow: var(--box-shadow);
+  }
+  
+  h2 {
+    color: var(--primary-dark);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    text-align: center;
+    color: var(--text-medium);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+  
+  /* Form Container */
+ 
+
+  #availabilityForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* Availability Group Styles */
+  .availability-group {
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    background-color: var(--bg-light);
+    border: 1px solid var(--primary-light);
+    position: relative;
+    transition: var(--transition);
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .availability-group:hover {
+    box-shadow: var(--box-shadow);
+  }
+  
+  .availability-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-dark);
+    font-weight: 500;
+  }
+  
+  .availability-group select,
+  .availability-group input[type="time"],
+  .availability-group input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+  }
+  
+  .availability-group select:focus,
+  .availability-group input[type="time"]:focus,
+  .availability-group input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-light);
+  }
+  
+  /* Time Inputs Layout */
+  .time-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  /* Remove Button */
+  .remove-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+  
+  .remove-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
+  }
+  
+  /* Action Buttons */
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .add-button, .submit-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .add-button {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+  
+  .add-button:hover {
+    background-color: var(--primary-light);
+  }
+  
+  .submit-button {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .submit-button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+  }
+
+  /* vetappointments.css */
+
+/* Base Variables for Theme */
+:root {
+    --primary-color: #c35b64;
+    --primary-light: #fae3e3;
+    --primary-dark: #8e3e46;
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #777;
+    --bg-light: #f9f9f9;
+    --bg-white: #ffffff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Layout Structure */
+.dashboard-container {
+    display: flex;
+    flex: 1;
+    margin-top: 100px;
+    overflow: hidden;
+}
+
+
+
+/* Typography */
+h1, h2, h3 {
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+h3 {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-top: 30px;
+}
+
+/* Calendar Styles */
+.calendar {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+}
+
+.calendar-day {
+    min-width: 100px;
+    background-color: var(--primary-light);
+    text-align: center;
+    padding: 15px 10px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+}
+
+.calendar-day:hover {
+    background-color: #f5c6cb;
+    transform: translateY(-3px);
+}
+
+.calendar-day.selected-day {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+}
+
+/* Availability Table Styles */
+.availability-list {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    background-color: var(--bg-light);
+    border: 1px solid var(--primary-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.availability-list h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary-dark);
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.availability-item {
+    position: relative;
+    background-color: var(--bg-white);
+    border: 1px solid var(--primary-light);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.availability-item:hover {
+    transform: translateY(-2px);
+}
+
+.slot-details p {
+    margin: 0.3rem 0;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.slot-details strong {
+    color: var(--primary-color);
+}
+
+/* Styling the remove button */
+.remove-slot-form {
+    margin: 0;
+}
+
+.remove-slot-form .remove-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.3rem 0.6rem;  /* small button */
+    font-size: 0.85rem;
+    width: auto;            /* remove fixed circle size */
+    min-width: 70px;         /* make it compact */
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.remove-slot-form .remove-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+
+
+
+
+  
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .main-content {
+      padding: 1.5rem;
+      margin: 20px auto;
+    }
+    
+    .time-inputs {
+      grid-template-columns: 1fr;
+    }
+    
+    .buttons {
+      flex-direction: column;
+    }
+    
+    .add-button, .submit-button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .main-content {
+      padding: 1rem;
+      margin: 15px auto;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+  }

@@ -34,7 +34,7 @@ class User
 
         if ($user_role == 'veterinary') {
             $data = array_merge($data, [
-                'f_tname' => $_POST['firstname'],
+                'f_name' => $_POST['firstname'],
                 'l_name' => $_POST['lastname'],
                 'age' => $_POST['age'],
                 'gender' => $_POST['gender'],
@@ -110,99 +110,164 @@ class User
     }
     
 
-    public function login() {
-         
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            
+    public function login()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+        $user_role = trim($_POST['user_role']) ?? '';
 
-            $roleMapping = [
-                'petOwner'        => 1,
-                'veterinary'      => 2,
-                'petSitter'       => 3,
-                'petCareCenter'   => 4,
-                'pharmacy'        => 5,
-            ];
+        $roleMapping = [
+            'petOwner'        => 1,
+            'veterinary'      => 2,
+            'petSitter'       => 3,
+            'petCareCenter'   => 4,
+            'pharmacy'        => 5,
+        ];
 
-            $user_role = trim($_POST['user_role']) ?? ''; // Assume the role is sent as a POST parameter
-           
-
-            // Validate and assign the user role
-            if (array_key_exists($user_role, $roleMapping)) {
-                $user_role = $roleMapping[$user_role];
-
-            } else {
-                
-                die("Invalid role provided.");
-            }
-            
-            $user = $this->userModel->authenticate($username,$password,$user_role); 
-            if($user)
-
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                }
-                
-
-                $_SESSION['user_id'] = $user->user_id;
-                $_SESSION['user_role'] = $user_role; 
-                $_SESSION['user_status'] = $user->active_status;
-
-                if($_SESSION['user_status'] =='1'){
-
-                    switch ($user_role) {
-                        case 1:
-                            redirect('PetOwnerDashboard');
-                            break;
-                        case 2:
-                            redirect('VetDashboard');
-                            break;
-                        case 3:
-                            redirect('PetSitterDashboard');
-                            break;
-                        case 4:
-                            redirect('CareCenterDashboard');
-                            break;
-                        case 5:
-                            redirect('PharmacyDashboard');
-                            break;
-                        default:
-                            echo "user role not working in the controller";
-                            // redirect('unauthorized');
-
-                            break;
-                    }
-                }
-                else{
-                    // redirect('unauthorized');
-                }
-                
-                exit();
-            } else {
-               
-                echo "Invalid username or password.";
-                $this->view('user/login');
-            }
-
-    }
-       
-        
-   
-
-    public function logout() {
-        if (!isset($_SESSION['user_id'])) {
-            http_response_code(401); 
-            echo json_encode(['status' => 'error', 'message' => 'Not logged in']);
+        // Validate and assign the user role
+        if (array_key_exists($user_role, $roleMapping)) {
+            $user_role = $roleMapping[$user_role];
+        } else {
+            $error = "Invalid role provided.";
+            $this->view('login', ['error' => $error]);
             return;
         }
-    
-        $_SESSION = array();
-        session_destroy();
-    
-        
-        http_response_code(200); 
-        echo json_encode(['status' => 'success', 'message' => 'Logged out successfully']);
+
+        // Authenticate user
+        $user = $this->userModel->authenticate($username, $password, $user_role);
+
+
+        if (empty($user)) {
+            $error = "Invalid username, password, or user role.";
+            $this->view('login', ['error' => $error]);
+            return;
+        }
+
+        if ($user) {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION['user_id'] = $user->user_id;
+            $_SESSION['user_role'] = $user_role;
+            $_SESSION['user_status'] = $user->active_status;
+            $_SESSION['username'] = $user->username;
+
+
+
+            if ($_SESSION['user_status'] == '1') {
+                switch ($user_role) {
+                    case 1:
+
+                        $user_owner = new PetOwnerModel;
+                        $user_=$user_owner->first(['user_id' => $_SESSION['user_id']]);
+                        $_SESSION['owner_id'] = $user_->owner_id;
+                        $_SESSION['owner_name'] = $user_->f_name .' '. $user_->l_name;
+
+
+                        redirect('PetOwnerDash');
+                        break;
+                    case 2:
+                        $user_vet = new VetModel;
+                        $user_=$user_vet->first(['user_id' => $_SESSION['user_id']]);
+                        $_SESSION['vet_id'] = $user_->vet_id;
+                        $_SESSION['vet_name'] = $user_->f_name .' '. $user_->l_name;
+                        
+                        redirect('VetDashboard');
+                        break;
+                    case 3:
+                        $user_sitter = new PetSitterModel;
+                        $user_=$user_sitter->first(['user_id' => $_SESSION['user_id']]);
+                        $_SESSION['sitter_id'] = $user_->sitter_id;
+                        $_SESSION['sitter_name'] = $user_->name;
+                        
+                        redirect('PetSitterDashboard');
+                        break;
+                    case 4:
+                        $user_center = new CareCenterModel;
+                        $user_=$user_center->first(['user_id' => $_SESSION['user_id']]);
+                        $_SESSION['care_center_id'] = $user_->care_center_id;
+                        $_SESSION['care_center_name'] = $user_->name;
+                        
+                        redirect('CareCenterDashboard');
+                        break;
+                    case 5:
+                        $user_pharmacy = new PharmacyModel;
+                        $user_=$user_pharmacy->first(['user_id' => $_SESSION['user_id']]);
+                        $_SESSION['pharmacy_id'] = $user_->pharmacy_id;
+                        $_SESSION['pharmacy_name'] = $user_->name;
+                        
+                        redirect('PharmacyDashboard');
+                        break;
+                    default:
+                        $error = "Unknown user role.";
+                        $this->view('login', ['error' => $error]);
+                        return;
+                }
+            } else {
+                redirect('_404');
+            }
+        }
+    } else {
+        $this->view('login');
     }
+}
+
+    
+    public function logout() {
+        if (isset($_SESSION['user_id'])) {
+            session_destroy();
+            redirect('login');
+        } else {
+            http_response_code(401);
+            echo "Not logged in.";
+        }
+    }
+
+    public function contactUs() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Trim the inputs
+            $name = trim($_POST['name']);
+            $email = trim($_POST['email']);
+            $subject = trim($_POST['subject']);
+            $message = trim($_POST['message']);
+            $user_id =  !empty($_SESSION['user_id']) ?$_SESSION['user_id'] :'0';
+            
+            $response = [];
+    
+            // Validation
+            if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+                $response['error'] = "All fields are required!";
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $response['error'] = "Invalid email format!";
+            } elseif (strlen($message) < 10) {
+                $response['error'] = "Message must be at least 10 characters!";
+            } else {
+                // Store in Database (Example)
+                $data = [
+                    'name' => $name,
+                    'email' => $email,
+                    'subject' => $subject,
+                    'message' => $message,
+                    'user_id' => $user_id
+                ];
+    
+                $contactModel = new ContactUsModel();
+                $saved = $contactModel->addContactUs($data);
+    
+                if ($saved) {
+                    $success = "Your message has been submitted!";
+                    $_POST = []; 
+                    $this->view('contactus', ['success' => $success]);
+                } else {
+                    $error = "Something went wrong. Please try again.";
+                    $this->view('contactus', ['error' => $error]);
+
+                }
+            }
+        }
+        
+}
 
 }    

@@ -6,7 +6,7 @@ class VetDash
 
     public function index()
     {
-        $this->view('vetdash');
+        $this->view('VetDash');
     }
 }
 

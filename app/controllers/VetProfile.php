@@ -8,10 +8,13 @@ class VetProfile
     {
         // Load the Vet model
         $vetModel = new VetModel();
+        $vetid = $_POST['vet_id'];
 
 
         // Fetch the first vet's details (you can modify this logic to fetch specific records later)
-        $vetDetails = $vetModel->getFirstVetDetails();
+        $vetDetails = $vetModel->getVetDetails($vetid);
+        
+
         // Pass the fetched data to the view
         $this->view('vetprofile', ['vetDetails' => $vetDetails]);
     }
@@ -19,14 +22,15 @@ class VetProfile
    
 
 
-    public function vetprofile()
+    public function vetprofileUpdate()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $vetUpdated = $this->updateVetDetails();
             $userUpdated = $this->updateUserDetails();
-
+            // var_dump($vetUpdated);
+            // var_dump($userUpdated);
             if ($vetUpdated && $userUpdated) {
-                header("Location: " . ROOT . "/vetprofile");
+                header("Location: " . ROOT . "/vetProfile");
                 exit;
             } else {
                 echo "Failed to update some details.<br>";
@@ -44,16 +48,14 @@ class VetProfile
         $vetModel = new VetModel();
         $userModel = new UserModel();
 
-
-        // Replace with dynamic IDs
-        $vetId = 1; 
-        $userId = 2;
+        $userid = $_SESSION['user_id'];
+        
 
         // Get vet details
-        $vetDetails = $vetModel->getById($vetId, 'vet_id');
+        $vetDetails = $vetModel->getById($userid, 'user_id');
 
         // Get user details
-        $userDetails = $userModel->getById($userId, 'user_id');
+        $userDetails = $userModel->getById($userid, 'user_id');
 
         // Pass both vet and user data to the view
         require_once '../app/views/vetprofile.view.php';
@@ -69,7 +71,7 @@ class VetProfile
 
     public function updateVetDetails()
     {
-         
+    
         // Check if the form is submitted via POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get the form data from the POST request
@@ -88,17 +90,21 @@ class VetProfile
 
             // // Get the vet's ID, for example from the session or passed as a parameter
             // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
-            $vetid = 1;
+            // $vetid = 1;
             // Load the Vet model
+            $userid = $_SESSION['user_id'];
+           
+            // var_dump($userid);
 
             $vetModel = new VetModel(); // Use VetModel which extends the core Model
 
-
-
             // After updating, you can redirect the user to the profile page or show a success message
+            $result = $vetModel->update($userid, $data, 'user_id');
+            // var_dump($result);
             
-            $result = $vetModel->update($vetid, $data, 'vet_id');
+
             return $result;
+            
             
             }
             return false;
@@ -119,8 +125,8 @@ class VetProfile
             // You may want to validate the data here, e.g., check if required fields are filled
 
             // // Get the vet's ID, for example from the session or passed as a parameter
-            // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
-            $userid = 2;
+            $userid = $_SESSION['user_id']; // Assuming the user ID is stored in the session
+            // $userid = 2;
             // Load the Vet model
 
             $userModel = new UserModel(); // Use VetModel which extends the core Model
@@ -137,28 +143,38 @@ class VetProfile
     }
 
     public function deleteVet()
-{
-    $vetId = 2;  // Hardcoded for now
-
-    // Instantiate the Vet model
-
-    $vetModel = new VetModel();
-
-
-    // Delete the vet record
-    $vetDeleted = $vetModel->delete($vetId, 'vet_id');
+    {
+        $vetid = $_SESSION['vet_id'];
+        
+        // Ensure $vetid is not empty
+        if (empty($vetid)) {
+            echo "Vet ID is not set!";
+            return;
+        }
+    
+        // Instantiate the Vet model
+        $vetModel = new VetModel();
+    
+        $data = ['activity_status' => 0];
+    
+        // Debugging: Check the query
+        echo "Updating vet with ID: $vetid<br>";
+    
+        // Instead of deleting, update activity_status to 0
+        $updateStatus = $vetModel->update($vetid, $data, 'vet_id');
 
     
-
-    if ($vetDeleted) {
-        echo "Profile deleted successfully.";
-        // Redirect after deletion
-        header("Location: " . ROOT . "/home");
-        exit();
-    } else {
-        echo "Failed to delete profile.";
+        if ($updateStatus) {
+            echo "Profile deactivated successfully.";
+            // Redirect after deactivation
+            header("Location: " . ROOT . "/home");
+            exit();
+        } else {
+            echo "Failed to deactivate profile.";
+        }
     }
-}
+    
+    
 
 
 

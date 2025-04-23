@@ -1,0 +1,127 @@
+/* Reset some default styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: black;
+  background-image: url("../../assets/images/pet-owner.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+.contact-section h1 {
+  text-align: center; /* Ensures text is centered within the heading */
+}
+
+.contact-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* Container for the form and messages */
+form {
+width: 80%;
+max-width: 600px;
+margin: 20px auto;
+padding: 20px;
+border: 1px solid #ccc;
+border-radius: 8px;
+background-color: #f9f9f9;
+}
+
+/* Style for labels */
+label {
+display: block;
+margin: 8px 0 5px;
+font-weight: bold;
+}
+
+/* Style for input fields and textarea */
+input[type="text"],
+input[type="email"],
+textarea {
+width: 100%;
+padding: 10px;
+margin-bottom: 15px;
+border: 1px solid #ddd;
+border-radius: 4px;
+box-sizing: border-box;
+font-size: 14px;
+}
+
+/* Style for textarea */
+textarea {
+min-height: 150px;
+}
+
+/* Style for error messages */
+.error {
+color: red;
+font-size: 12px;
+}
+
+/* Success and error messages at the top */
+.success-message {
+background-color: #d4edda;
+color: #155724;
+padding: 10px;
+border: 1px solid #c3e6cb;
+border-radius: 4px;
+margin-bottom: 15px;
+}
+
+.error-message {
+background-color: #f8d7da;
+color: #721c24;
+padding: 10px;
+border: 1px solid #f5c6cb;
+border-radius: 4px;
+margin-bottom: 15px;
+}
+
+/* Style for the submit button */
+button {
+background-color: #4CAF50;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+}
+
+button:hover {
+background-color: #45a049;
+}
+
+button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+
+
+.form-box {
+
+  padding: 20px;
+  border-radius: 10px; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  text-align: center; 
+  
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  box-sizing: border-box;
+  border: 2px solid white; 
+  
+}

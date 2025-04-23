@@ -1,0 +1,76 @@
+<div class="sidebar">
+    <div class="sidebar-profile">
+        <div class="profile-image">
+            <img src="<?=ROOT?>/assets/images/prof/vet_prof.webp" alt="Profile">
+        </div>
+        <div class="profile-info">
+            <h4><?= $_SESSION['care_center_name'] ?? 'User' ?></h4>
+            <p><?= $_SESSION['username'] ?? 'username' ?></p>
+        </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <nav class="sidebar-nav">
+        <ul>
+            <li>
+                <a href="<?=ROOT?>/careCenterDashboard" class="<?= ($currentPage == 'dashboard') ? 'active' : '' ?>">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/careCenterProfile" class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/petsitter/requests" class="<?= ($currentPage == 'requests') ? 'active' : '' ?>">
+                    <i class="fas fa-bell"></i>
+                    <span>View Requests</span>
+                    <span class="notification-badge">3</span> <!-- Dynamic number from backend -->
+                </a>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/petsitter/accepted" class="<?= ($currentPage == 'accepted') ? 'active' : '' ?>">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Requests</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/petsitter/pets" class="<?= ($currentPage == 'pets') ? 'active' : '' ?>">
+                    <i class="fas fa-paw"></i>
+                    <span>View Pets</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/careCenterAvailability" class="<?= ($currentPage == 'availability') ? 'active' : '' ?>">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Availability</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/careCenterCage" class="<?= ($currentPage == 'cages') ? 'active' : '' ?>">
+                    <i class="fas fa-box-open"></i>
+                    <span>Cages</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="user-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Online</span>
+        </div>
+        <a href="<?=ROOT?>/logout" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
+
+<script src="<?=ROOT?>/assets/js/sidebar.js"></script>
+<link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

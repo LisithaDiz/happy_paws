@@ -6,6 +6,9 @@ class VetTreatedPet
 
     public function index()
     {
-        $this->view('vettreatedpet');
+        $petModel = new Pet;
+        $petDetails = $petModel->treatedPetDetails();
+        
+        $this->view('VetTreatedpet',['petDetails'=>$petDetails]);
     }
 }

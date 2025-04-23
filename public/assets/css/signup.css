@@ -5,7 +5,7 @@ body {
     color: white;
     background-size: cover;
     background-position: center;
-    background-image: url(../../assets/images/wall/10.jpg);
+    background-image: url('../../assets/images/wall/16.jpg');
     transition: background-image 3s ease-in-out;
 }
 .signup-box {
@@ -76,6 +76,7 @@ body {
     border: none;
     border-radius: 8px;
     font-size: 18px;
+    height: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -83,7 +84,7 @@ body {
 /* Hover effect on button */
 .signup-box button:hover {
     background-color: #d8544c;
-    transform: scale(1.05);
+    color: black;
 }
 
 /* Error message styling */

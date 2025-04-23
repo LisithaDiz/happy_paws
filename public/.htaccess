@@ -6,3 +6,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 #send everything else to the index page
 RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+</IfModule>

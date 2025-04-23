@@ -1,0 +1,119 @@
+
+
+/* Dashboard container to display sidebar and main content side by side */
+.dashboard-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
+    height: 100vh; /* Full viewport height */
+}
+
+
+
+.main-content{
+    position: relative;
+    max-width: 1000px;
+    margin: 100px auto 20px; /* Increased top margin to 50px */
+    padding: 20px;
+    backdrop-filter: blur(40px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0);
+    max-height: 80vh;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+
+.profile-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    color: black;
+}
+
+
+/* Profile Picture */
+.profile-picture {
+    flex-shrink: 0;
+    width: 200px; /* Increased width */
+    height: 200px; /* Increased height */
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fafafa;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-details {
+    flex-grow: 1;
+    padding-left: 20px;
+    color: #000000;
+}
+
+.profile-details h1 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: black;
+    font-weight: 600;
+}
+
+/* Style each line in profile details */
+.profile-details .detail-line {
+    display: flex;
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.6;
+}
+
+.profile-details .detail-label {
+    width: 200px; /* Fixed width for labels */
+    font-weight: 600;
+    color: black;
+}
+
+.profile-details .colon {
+    padding-right: 40px; /* Space between colon and value */
+    color: #ffffff;
+}
+
+.profile-details .detail-value {
+    flex: 1;
+    padding-left: 10px; /* Optional padding for spacing after colon */
+}
+
+
+
+/* Optional Responsive Styles */
+@media (max-width: 600px) {
+    .main-content {
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-details {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-details h2 {
+        font-size: 20px;
+    }
+}
+
+

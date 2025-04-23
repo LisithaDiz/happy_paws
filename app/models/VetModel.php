@@ -16,6 +16,7 @@ class VetModel
 		'user_id',
 		'f_name', 
 		'l_name', 
+		'license_no',
 		'certificate',
 		'age', 
 		'gender', 
@@ -23,31 +24,111 @@ class VetModel
 		'city', 
 		'street', 
 		'contact_no', 
-		'years_exp'
+		'years_exp',
+		'activity_status'
 	];
 
-	public function getFirstVetDetails()    
+	// public function getFirstVetDetails()    
+	// {
+	// 	// Define the SQL query
+	// 	$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
+	// 					veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
+	// 					veterinary_surgeon.age, veterinary_surgeon.gender, 
+	// 					veterinary_surgeon.district, veterinary_surgeon.city, 
+	// 					veterinary_surgeon.contact_no, 
+	// 					veterinary_surgeon.years_exp
+	// 			FROM user
+	// 			JOIN veterinary_surgeon 
+	// 			ON user.user_id = veterinary_surgeon.user_id 
+	// 			LIMIT 1";
+
+	// 	// Execute the query and store the result
+	// 	$result = $this->query($query);
+
+	// 	// Return the result
+	// 	return $result;
+	// }
+
+
+
+	public function getVetDetails($vetid=null)    
 	{
-		// Define the SQL query
-		$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
-						veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
-						veterinary_surgeon.age, veterinary_surgeon.gender, 
-						veterinary_surgeon.district, veterinary_surgeon.city, 
-						veterinary_surgeon.contact_no, 
-						veterinary_surgeon.years_exp
-				FROM user
-				JOIN veterinary_surgeon 
-				ON user.user_id = veterinary_surgeon.user_id 
-				LIMIT 1";
+		if ($vetid === null) {
+			$vetid = $_SESSION['vet_id'];
+		}
+
+		$query = "SELECT *
+				FROM user u
+				JOIN veterinary_surgeon v
+				ON u.user_id = v.user_id 
+				WHERE v.vet_id = :vetid";
+
+		// Bind the parameter to avoid SQL injection
+		$params = ['vetid' => $vetid];
 
 		// Execute the query and store the result
-		$result = $this->query($query);
+		$result = $this->query($query, $params);
 
 		// Return the result
 		return $result;
 	}
 
+	public function getVetDetailsOwnerView($vetid)    
+	{
 
+		$query = "SELECT *
+				FROM user
+				JOIN veterinary_surgeon 
+				ON user.user_id = veterinary_surgeon.user_id 
+				WHERE  veterinary_surgeon.vet_id= :vetid";
+
+		// Bind the parameter to avoid SQL injection
+		$params = ['vetid' => $vetid];
+
+		// Execute the query and store the result
+		$result = $this->query($query, $params);
+
+		// Return the result
+		return $result;
+	}
+
+	public function getAppointmentDetails()
+	{
+		$userid = $_SESSION['user_id'];
+		
+
+		$query="SELECT appointments.appointment_id,appointments.pet_id, appointments.startTime, appointments.endTime, pets.pet_name
+				FROM appointments
+				JOIN pets ON appointments.pet_id = pets.pet_id
+				JOIN veterinary_surgeon ON veterinary_surgeon.vet_id = appointments.vet_id
+				JOIN user ON user.user_id = veterinary_surgeon.user_id
+				WHERE user.user_id = :userid  AND appointment_status = '0'";
+
+			
+
+		$params = ['userid'=> $userid];
+
+		$result = $this->query($query, $params);
+		
+		return $result;
+
+	}
+
+	// public function updateAppointmentStatus()
+	// {
+	// 	$userid = $_SESSION['user_id'];
+	// 	$appointmentid = $_POST['appointment_id'];
+		
+
+	// 	$query = "UPDATE appointments 
+	// 			SET appointment_status = '1';
+	// 			WHERE apointment_id = :appointmentid";
+
+	// 	$params = ['userid'=> $userid];
+
+	// 	$this->query($query, $params);
+
+	// }
 
 	public function getById($id, $id_column = 'vet_id')
 	{
@@ -61,6 +142,22 @@ class VetModel
 	
 		return false;  // Return false if no result was found or query failed
 	}
+
+	public function addMedicineRequest( $medicineName, $note)
+    {
+        // Define the SQL query to insert the request into the medicine_request table
+        $query = "INSERT INTO medicine_request (medicine_name, note) 
+                  VALUES (:medicine_name, :note)";
+
+        // Bind the parameters and execute the query
+        $data = [
+            'medicine_name' => $medicineName,
+            'note' => $note
+        ];
+
+        // Execute the query and return the result
+        return $this->query($query, $data);
+    }
 	
 
 
@@ -97,24 +194,36 @@ class VetModel
 			return false;
 		}
 
-	public static function getVetData() {
-        // Placeholder data (you would query the database here)
-        return [
-            'username' => 'johndoe',
-            'email' => 'johndoe@example.com',
-            'password' => '********',
-            'createdDate' => '2024-11-12',
-            'licenseNo' => '123456',
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'age' => 35,
-            'gender' => 'Male',
-            'district' => 'Downtown',
-            'city' => 'Metropolis',
-            'contactNo' => '+123456789',
-            'yearsOfExperience' => 10,
-            'profilePicture' => 'assets/images/default-profile-picture.webp'
-        ];
-    }
+	// public static function getVetData() {
+    //     // Placeholder data (you would query the database here)
+    //     return [
+    //         'username' => 'johndoe',
+    //         'email' => 'johndoe@example.com',
+    //         'password' => '********',
+    //         'createdDate' => '2024-11-12',
+    //         'licenseNo' => '123456',
+    //         'firstName' => 'John',
+    //         'lastName' => 'Doe',
+    //         'age' => 35,
+    //         'gender' => 'Male',
+    //         'district' => 'Downtown',
+    //         'city' => 'Metropolis',
+    //         'contactNo' => '+123456789',
+    //         'yearsOfExperience' => 10,
+    //         'profilePicture' => 'assets/images/default-profile-picture.webp'
+    //     ];
+    // }
+
+
+	public function getAllInfo(){
+
+		$order_column = 'vet_id';
+    	$query = "SELECT * FROM $this->table AS vet
+              JOIN user AS u ON vet.user_id = u.user_id
+              ORDER BY $order_column $this->order_type";
+
+		return $this->query($query);
+
+	}
 	
 }

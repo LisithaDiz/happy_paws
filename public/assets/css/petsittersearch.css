@@ -1,0 +1,261 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.search-heading {
+    color: #d8544c; /* Or use a specific shade like #FFA500 */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    text-align: center;
+    padding: 20px;
+    margin-top: 120px;
+}
+
+.search-bar {
+    width: 200px;
+    padding: 12px;
+    padding: 12px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.search-bar:focus {
+    border: none;
+    box-shadow: 0 0 8px rgba(255, 118, 111, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: #ffe6e6;
+    transform: scale(1.02);
+}
+
+.search-bar:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.search-button, .clear-button, .book-button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8929c, #d8544c); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+}
+
+.search-button:hover, .clear-button:hover, .book-button:hover {
+    background: linear-gradient(135deg, #d8544c, #ff4d44); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.search-button:active, .clear-button:active, .book-button:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
+.view-reviews-btn {
+    display: inline-block;
+    padding: 2px 6px; /* Adjusted padding for a smaller button */
+    background: linear-gradient(135deg, #ffb0b7, #ff4d44); /* Gradient background */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 3D effect */
+    text-size-adjust: auto;
+    font-size: 10px; /* Smaller font size */
+}
+
+.view-reviews-btn:hover {
+    background: linear-gradient(135deg, #ff4d44, #ff2a2a); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for 3D effect */
+}
+
+.view-reviews-btn:active {
+    transform: translateY(1px); /* Slightly lower the button on click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
+
+.book-button {
+    width: 30%;
+    margin: 0 auto;
+    display: block;
+}
+
+.results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: calc(100vh - 300px);
+    overflow-y: scroll;
+}
+
+.petsitter-card {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    padding: 20px;
+    width: 90%;
+    gap: 20px;
+}
+
+.petsitter-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(245, 69, 20, 0.2);
+}
+
+.petsitter-image {
+    width: 200px;
+    min-width: 200px; /* Prevent image from shrinking */
+    height: 200px;
+}
+
+.petsitter-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.petsitter-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    align-items: center; /* Center text content horizontally */
+    text-align: center; /* Center text within the info section */
+}
+
+.petsitter-info h2 {
+    margin: 0 0 10px 0;
+    color: black;
+    font-size: 20px !important;
+}
+
+.petsitter-info p {
+    margin: 5px 0;
+    color: black;
+    font-size: 14px !important;
+}
+
+.rating-stars {
+    color: #d8544c; /* Same color as the book button */
+    filter: hue-rotate(320deg); /* This helps adjust the star color */
+}
+
+.results-container::-webkit-scrollbar {
+    width: 10px;
+    display: block;
+}
+
+.results-container::-webkit-scrollbar-track {
+    background: #fae3e3;
+    border-radius: 10px;
+}
+
+.results-container::-webkit-scrollbar-thumb {
+    background: #f8929c;
+    border-radius: 10px;
+}
+
+.results-container::-webkit-scrollbar-thumb:hover {
+    background: #f95b5b;
+}
+
+.services {
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+.services h4 {
+    color: #d8544c;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.book-button {
+    width: 120px;
+    padding: 8px 15px;
+    background-color: #f8929c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    align-self: center;
+    transition: background-color 0.3s ease;
+}
+
+.book-button:hover {
+    background-color: #d8544c;
+}
+
+/* Add responsive design */
+@media (max-width: 768px) {
+    .petCareCenter-card {
+        flex-direction: column;
+    }
+
+    .petCareCenter-image {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .petCareCenter-info {
+        padding: 20px 10px;
+    }
+}
+
+.sitter-details, .services {
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+.rating, .description {
+    margin: 8px 0;
+}
+
+.rating-number {
+    font-size: 14px;
+    color: #666;
+    margin-left: 5px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.rating p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+

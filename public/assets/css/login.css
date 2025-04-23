@@ -1,7 +1,10 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+  
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url('../../assets/images/wall/2.jpg');
+    /* background-image: url('../../assets/images/paws.jpg'); */
+
     background-size: cover;
     color:black;
     
@@ -18,7 +21,8 @@ body {
     border-radius: 5px;
     border: 2px solid #d8544c;
     position: relative;
-     
+    animation: fadeInScale 1s ease-in-out;
+    
 }
 
 
@@ -35,7 +39,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
     box-sizing: border-box;
-    border: 2px solid white; */
+    border: 2px solid white; 
+    
 }
 
 
@@ -70,6 +75,8 @@ select {
 .login-button{
     width: 100%;
     padding: 10px;
+    /* background-color: #d8544c; */
+    background:#d8544c;
     color: #ffffff; 
     border: none;
     border-radius: 5px;
@@ -92,15 +99,44 @@ select {
 .register-link p {
     color:black; 
     font-size: 14px;
+    font-size: medium;
 }
 
 .register-link a {
     color: white;
+    font-size: medium;
     text-decoration: none; 
 }
 
 .register-link a:hover {
     text-decoration: underline;
 
+}
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 5px;
 }
 

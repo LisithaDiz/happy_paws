@@ -1,89 +1,170 @@
-/* Footer CSS */
 footer {
-    color: black;
-    font-family: Arial, sans-serif;
- 
-  }
   
+  color: #4a5568;
+  padding: 1rem 1rem;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 0;
+  background-color: white;
+
+}
+
+
+
+/* Container styles */
+.footer-container { 
+  max-height: 200px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0;
+}
+
+/* Section styles */
+.footer-about h2 {
+  color: #d8544c;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.heart-icon {
+  color: #ec4899;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Links and list styles */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h3 {
+  color: black;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+  position: relative;
+}
+li{
+  color: red;
+}
+
+.hover-underline {
+  position: relative;
+  
+}
+
+.hover-underline:hover {
+  color: #d8544c;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  color:#d8544c;
+  background-color: #d8544c;
+  transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+  color:#d8544c;
+
+  
+}
+
+
+/* Contact section styles */
+.footer-contact li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.contact-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Social media section */
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  transition: transform 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateX(5px);
+  color: #d8544c;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.social-link:hover .social-icon {
+  transform: scale(1.1);
+  color: #d8544c;
+}
+
+/* Legal section */
+.footer-legal {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footer-legal p {
+  margin: 0.5rem 0;
+  max-height: fit-content;
+  font-size: 0.875rem;
+}
+
+.footer-legal a {
+  margin: 0 0.75rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
   .footer-container {
- 
-    background-color: #ffffff4d;
-   
-    backdrop-filter: blur(55px);
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 0 50px;
-  }
-  
-  .footer-container div {
-    margin: 20px;
-  }
-  
-  .footer-about h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #d8544c;
-  }
-  
-  .footer-about p {
-    font-size: 16px;
-  }
-  
-  .footer-contact, .footer-links, .footer-services, .footer-social {
-    max-width: 200px;
-  }
-  
-  .footer-contact ul, .footer-links ul, .footer-services ul, .footer-social ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .footer-contact li, .footer-links li, .footer-services li, .footer-social li {
-    margin: 5px 0;
-  }
-  
-  .footer-contact a, .footer-links a, .footer-services a, .footer-social a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .footer-contact a:hover, .footer-links a:hover, .footer-services a:hover, .footer-social a:hover {
-    text-decoration: underline;
-  }
-  
-  .footer-legal {
-    color:white;
+    grid-template-columns: 1fr;
     text-align: center;
-    margin-top: 0px;
-    font-size: 14px;
-    background-color: #333;
-    padding: 20px;
-    margin-bottom: -10px;
   }
-  
-  .footer-legal a {
-    color: #ecf0f1;
-    text-decoration: none;
+
+  .footer-contact li {
+    justify-content: center;
   }
-  
-  .footer-legal a:hover {
-    text-decoration: underline;
+
+  .social-link {
+    justify-content: center;
   }
-  
-  .footer-legal p {
-    margin: 5px 0;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .footer-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .footer-container div {
-      margin: 10px 0;
-    }
-  }
-  
+}

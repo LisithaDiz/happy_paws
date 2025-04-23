@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../../assets/images/admin1.jpg');
+    background-size: cover;
+
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);    padding: 2.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    transform: translateY(0);
+    animation: slideIn 0.8s ease-out;
+    
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(-50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: black;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: black;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.form-group label:hover {
+    color: black;
+ }
+
+.form-group input {
+    width: 100%;
+    padding: 0.9rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    border-color: black;
+    
+}
+
+.form-group input:focus {
+    border-color: black;
+    box-shadow: 0 0 8px rgba(46, 44, 44, 0.5);
+    outline: none;
+    background: #fff;
+} 
+
+.login-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #8f362f;
+    color: white;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 1px;
+    
+}
+
+.login-btn:hover {
+    background: #5d1c17;
+    color: white;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.success {
+    color: green;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+
+
+/* Interactive Glow on Input Focus */
+.form-group input:focus {
+    background: #fff;
+    border-color: #8f362f;
+   
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 1.8rem;
+        max-width: 90%;
+    }
+
+    .login-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .form-group input {
+        font-size: 0.95rem;
+        padding: 0.7rem;
+    }
+
+    .login-btn {
+        font-size: 0.95rem;
+        padding: 0.9rem;
+    }
+
+    .forgot-password {
+        font-size: 0.8rem;
+    }
+}

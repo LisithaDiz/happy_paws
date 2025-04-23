@@ -4,108 +4,90 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetappointment.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <title>Vet Appointment</title>
 </head>
 <body>
-    <?php include ('components/nav.php'); ?>
+    <?php include('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-        <div class="sidebar">
-            <ul>
-                <li><a href="<?=ROOT?>/vetdash">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/vetprofile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/vetappoinment">Upcoming Appointments</a></li>
-                <li><a href="<?=ROOT?>/vetrequest">Appointment Requests</a></li>    
-                <li><a href="<?=ROOT?>/vettreatedpet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/vetprescription">Prescriptions</a></li>
-                <li><a href="<?=ROOT?>/vet/settings">Settings</a></li>
-            </ul>
-        </div>
+        <?php include('components/sidebar3.php'); ?>
 
         <div class="main-content">
             <div class="overview-cards">
-                <div class="appoinement-requests">
-                    <h1>-----------------------------------Appointments-----------------------------------</h1>
-                    
-                    <!-- Each card will have its own appointment details -->
-                    <div class="card" id="appointment1">
-                        <h3>Appointment 1</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '10:00 AM', 'appointment1')">View Details</button>
-                    </div>
+                <div class="appointment-requests">
+                    <h1>Appointments</h1>
 
-                    <div class="card" id="appointment2">
-                        <h3>Appointment 2</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2:00 PM', 'appointment2')">View Details</button>
-                    </div>
-
-                    <div class="card" id="appointment3">
-                        <h3>Appointment 3</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Charlie', '2024-11-22', '4:00 PM', 'appointment3')">View Details</button>
-                    </div>
-
-                    <div class="card" id="appointment4">
-                        <h3>Appointment 4</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '11:00 AM', 'appointment4')">View Details</button>
-                    </div>
-
-
-                    <!-- Popup structure -->
-                    <div id="appointmentPopup" class="popup">
-                        <div class="popup-content">
-                            <h3>Appointment Details</h3>
-                            <p><strong>Pet Name:</strong> <span id="petName">Max</span></p>
-                            <p><strong>Appointment Date:</strong> <span id="appointmentDate">2024-11-20</span></p>
-                            <p><strong>Time:</strong> <span id="appointmentTime">10:00 AM</span></p>
-                            
-                            <!-- Completed button in the popup -->
-                            <button class="btn-completed" onclick="completeAppointment()">Completed</button>
-                        </div>
-                    </div>
+                    <?php if (isset($appointmentDetails) && !empty($appointmentDetails)): ?>
+                        <?php foreach ($appointmentDetails as $appointment): ?>
+                            <div class="card" id="card-<?= htmlspecialchars($appointment->appointment_id) ?>">
+                                <h3>Appointment for <?= htmlspecialchars($appointment->pet_name) ?></h3>
+                                <button class="btn-dashboard" onclick="openPopup('<?= htmlspecialchars($appointment->pet_name) ?>', 
+                                    '<?= htmlspecialchars($appointment->startTime) ?>', 
+                                    '<?= htmlspecialchars($appointment->endTime) ?>', 
+                                    '<?= htmlspecialchars($appointment->appointment_id) ?>')">View Details</button>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No appointment details found.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <?php include ('components/footer.php'); ?>
-<!-- 
-    <script src="<?=ROOT?>/assets/js/script.js"></script> -->
+    <!-- Popup Structure -->
+    <div id="appointmentPopup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h3>Appointment Details</h3>
+            <p><strong>Pet Name:</strong> <span id="petName"></span></p>
+            <p><strong>Start Time:</strong> <span id="startTime"></span></p>
+            <p><strong>End Time:</strong> <span id="endTime"></span></p>
+
+            <form id="completeForm" method="POST" action="<?= ROOT ?>/VetAppoinment/appointmentStatus">
+                <input type="hidden" name="appointment_id" id="appointmentIdInput">
+                <button type="submit" class="btn-completed">Completed</button>
+            </form>
+            <button onclick="closePopup()" class="btn-close">Close</button>
+        </div>
+    </div>
+
+    <?php include('components/footer.php'); ?>
 
     <script>
         let currentAppointmentId = null;
 
-            // Function to open the popup with dynamic details
-            function openPopup(petName, appointmentDate, appointmentTime, appointmentId) {
-                document.getElementById("petName").textContent = petName;
-                document.getElementById("appointmentDate").textContent = appointmentDate;
-                document.getElementById("appointmentTime").textContent = appointmentTime;
-                document.getElementById("appointmentPopup").style.display = "flex";
+        function openPopup(petName, startTime, endTime, appointmentId) {
+            console.log("Popup triggered for:", petName, startTime, endTime, appointmentId);
 
-                currentAppointmentId = appointmentId; // Set the correct current appointment ID
+            // Set the dynamic details in the popup
+            document.getElementById("petName").textContent = petName;
+            document.getElementById("startTime").textContent = startTime;
+            document.getElementById("endTime").textContent = endTime;
+
+            // Update the hidden input for the appointment ID
+            document.getElementById("appointmentIdInput").value = appointmentId;
+
+            // Display the popup
+            document.getElementById("appointmentPopup").style.display = "flex";
+
+            // Track the current appointment ID
+            currentAppointmentId = appointmentId;
+        }
+
+        function closePopup() {
+            document.getElementById("appointmentPopup").style.display = "none";
+        }
+
+        // Optional: Close the popup when clicking outside the popup content
+        window.onclick = function(event) {
+            const popup = document.getElementById("appointmentPopup");
+            if (event.target === popup) {
+                closePopup();
             }
-
-            function closePopup() {
-                document.getElementById("appointmentPopup").style.display = "none";
-            }
-
-            function completeAppointment() {
-                if (currentAppointmentId) {
-                    const card = document.getElementById(currentAppointmentId);
-                    if (card) {
-                        card.remove(); // Remove the appointment card from the dashboard
-                    }
-                    closePopup(); // Close the popup after marking as completed
-                }
-            }
-
-            // Optional: Close the popup when clicking outside the popup content
-            window.onclick = function(event) {
-                if (event.target == document.getElementById("appointmentPopup")) {
-                    closePopup();
-                }
-            }
-
-        
+        };
     </script>
 </body>
 </html>
+
