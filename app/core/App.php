@@ -55,6 +55,7 @@ class App
                 'PetSitterPet' => ['index'], 
                 'PetSitterAvailability' => ['index'], 
                 'PetSitterRequest' => ['index', 'updateStatus'], 
+                'PetSitterAvailabilityUpdate' => ['index', 'updateAvailability'],
             ], 
 
         '4' => ['CareCenterDashboard' => ['index'],
