@@ -33,6 +33,22 @@ class App
                'Reviews3' =>['index','edit','delete','add','insert'],
                'Reviews4' =>['index','edit','delete','add','insert'],
                'PetOwnerPlaceOrder' =>['index'],
+<<<<<<< Updated upstream
+=======
+               'PetOwnerDash'=>['index'],
+
+               'PetOwnerBookVet'=>['index','bookvet'],
+               'PetOwner_Appointments'=>['index','cancelAppointment'],
+               'PetOwner_Reschedule'=>['index','reschedulevet'],
+               'ChatBox' =>['index'],
+               'CareCenterProfile'=>['index'],
+               'Pets'=>['getPetsByType'],
+               'PetOwnerController'=>['addBookings'],
+               'PetOwnerView_VetProfile'=>['index'],
+               'PetOwnerView_SitterProfile'=>['index'],
+               'PetOwnerView _CareCenterProfile'=>['index'],
+               
+>>>>>>> Stashed changes
                'PlaceOrder' => ['index', 'create', 'getPrescriptions'],
                'Orders' => ['createOrder'],
                'PetOwnerDash'=>['index']
@@ -67,6 +83,10 @@ class App
                 'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
+<<<<<<< Updated upstream
+=======
+                'ChatBox' =>['index'],
+>>>>>>> Stashed changes
                 'Report' => ['index', 'download'],
             ],
         
