@@ -12,7 +12,7 @@
     <?php include('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-        <?php include('components/sidebar3.php'); ?>
+        <?php include('components/sidebar_vet.php'); ?>
 
         <div class="main-content">
             <div class="overview-cards">

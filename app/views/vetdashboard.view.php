@@ -5,20 +5,20 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetdash.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
 
-    <title>Vet Dashboard</title>
+    <title>Happy Paws - My Dashboard</title>
 
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar3.php'); ?>
+        <?php include ('components/sidebar_vet.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>Welcome, Dr. [Vet Name]!</h1>
+            <h1>Welcome, Dr. <?=$_SESSION['vet_name']?>!</h1>
             <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, pets records, prescriptions, and more.</p>
 
             <!-- Dashboard Overview Section -->
@@ -53,7 +53,7 @@
 
     </div>
     
-    <?php include ('components/footer.php'); ?>
+    <?php include ('components/footer_mini.php'); ?>
 <!--    
     <script src="<?=ROOT?>/assets/js/script.js"></script> -->
    

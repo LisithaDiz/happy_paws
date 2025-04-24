@@ -6,64 +6,72 @@ class CareCenter
 
     use Controller;
 
-    public function allBookings()
+    public function index()
     {
-        // Fetch all bookings for display
-        $medicineModel = new MedicineModel();
-        $medicines = $medicineModel->getAllMedicines();
-
-        // Pass data to the view
-        include '../app/views/manageMedicine.php';
+        // Redirect to the cage management page by default
+        redirect('/care-center/cages');
     }
 
-    // public function addBooking()
-    // {   
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $data = [
-    //             'med_name' => $_POST['med_name'],
-    //             'med_description' => $_POST['med_description'],
-    //         ];
-    //         print_r($data);
+    public function addCage()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get the care center ID from the session
+            $care_center_id = $_SESSION['care_center_id']?? null;
+            
+            if (!$care_center_id) {
+                $_SESSION['error'] = "You must be logged in as a care center to add cages";
+                redirect('/care-center/cages');
+                return;
+            }
 
-    //         $medicineModel = new MedicineModel();
-    //         $medicineModel->insertMedicine($data);
+            // Create new CageModel instance
+            $cageModel = new CageModel();
 
-    //         redirect('/adminManageMedicine');
-    //     }
-    // }
+            // Prepare the cage data
+            $cageData = [
+                'care_center_id' => $care_center_id,
+                'cage_name' => $_POST['cage_name'] ?? '',
+                'number_of_cages' => $_POST['number_of_cages'] ?? 0,
+                'height' => $_POST['height'] ?? 0,
+                'length' => $_POST['length'] ?? 0,
+                'width' => $_POST['width'] ?? 0,
+                'designed_for' => $_POST['designed_for'] ?? '',
+                'location' => $_POST['location'] ?? '',
+                'additional_features' => $_POST['additional_features'] ?? '',
+                'available_cages' => $_POST['available_cages'] ?? 0
+            ];
 
-    // public function updateBooking()
-    // {
-        
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $id = $_POST['med_id'];
-    //         // show($id);
-    //         $data = [
-    //             'med_name' => $_POST['med_name'],
-    //             'med_description' => $_POST['med_description'],
-    //         ];
+            // Handle image upload if provided
+            if (isset($_FILES['cage_img']) && $_FILES['cage_img']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = ROOT . '/assets/images/cages/';
+                $fileName = uniqid() . '_' . basename($_FILES['cage_img']['name']);
+                $targetPath = $uploadDir . $fileName;
 
-    //         var_dump($data);
-    //         $medicineModel = new MedicineModel();
-    //         $medicineModel->updateMedicine($id, $data ,$id);
+                if (move_uploaded_file($_FILES['cage_img']['tmp_name'], $targetPath)) {
+                    $cageData['cage_img'] = $fileName;
+                }
+            }
 
-    //         redirect('/adminManageMedicine');
+            // Insert the cage
+            $result = $cageModel->insertCage($cageData);
 
-    //     }
-    // }
+            if ($result['status'] === 'success') {
+                $_SESSION['success'] = $result['message'];
+            } else {
+                $_SESSION['error'] = $result['message'];
+            }
 
-    // public function deleteBooking()
-    // {
-    //     // echo "in admin s delete fuction";
-    //     if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
-    //         $id = $_POST['med_id'];
+            // Redirect back to the cage management page
+            redirect('/careCenterCage');
+        } else {
+            // If not a POST request, redirect to the cage management page
+            redirect('/careCenterCage');
+        }
+    }
 
-    //         $medicineModel = new MedicineModel();
-    //         $medicineModel->deleteMedicine($id);
+    
 
-    //         redirect('adminManageMedicine');
-    //     }
-    // }
+    
 }
 
 

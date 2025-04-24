@@ -3,9 +3,10 @@
 <head>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetrequest.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/petsitterrequest.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - My Requests</title>
 
     
 
@@ -14,17 +15,7 @@
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <div class="sidebar">
-            
-            <ul>
-            <li><a href="<?=ROOT?>/PetSitterDashboard">Dashboard</a></li>
-                <li><a href="<?=ROOT?>/PetSitterProfile">My Profile</a></li>
-                <li><a href="<?=ROOT?>/PetSitterRequest">View Requests</a></li>
-                <li><a href="<?=ROOT?>/PetSitterAccepted">Accepted Requests</a></li>    
-                <li><a href="<?=ROOT?>/PetSitterPet">View Pets</a></li>
-                <li><a href="<?=ROOT?>/PetSitterAvailability">Update Availability</a></li>
-            </ul>
-        </div>
+        <?php include ('components/sidebar_pet_sitter.php'); ?>
 
         <div class="main-content">
             <div class="overview-cards">
@@ -79,7 +70,7 @@
 
     </div>
     
-    <?php include ('components/footer.php'); ?>
+    <?php include ('components/footer_mini.php'); ?>
 <!--    
     <script src="<?=ROOT?>/assets/js/script.js"></script> -->
 

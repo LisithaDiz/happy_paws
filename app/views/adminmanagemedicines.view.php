@@ -5,17 +5,17 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin_medicine.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/managemedicine.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
-    <title>Manage Medicines- Admin Dashboard</title>   
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - Manage Medicines</title>   
 
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
-    <?php include ('components/sidebar1.php'); ?>
+    <?php include ('components/sidebar_admin.php'); ?>
         <div class="main-content">
             <h2>Add Medicines</h2>
                 <div class="add-medicine">
@@ -121,7 +121,7 @@
         });
 
 
-        
+        <?php include ('components/footer_mini.php'); ?>
     </script>
 
 </body>

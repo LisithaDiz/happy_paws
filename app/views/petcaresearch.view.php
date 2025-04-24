@@ -15,7 +15,7 @@
     <?php include ('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-        <?php include ('components/sidebar.php'); ?>
+        <?php include ('components/sidebar_pet_owner.php'); ?>
         
         <div class="search-container">
             <div class="search-header">

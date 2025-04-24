@@ -15,8 +15,8 @@
   
   /* Main Content Styles */
   .main-content {
-    margin-top: 100px;
-    width: 1200px;
+    margin-top: 250px;
+    width: 1100px;
     flex: 1;
     padding: 30px;
     max-width: 1200px;
@@ -24,6 +24,7 @@
     background: var(--bg-white);
     border-radius: 12px 12px 0 0;
     box-shadow: var(--box-shadow);
+    margin-left: 320px;
   }
   
   h2 {

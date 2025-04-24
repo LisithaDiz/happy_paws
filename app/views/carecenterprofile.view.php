@@ -2,15 +2,211 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <?php if ($_SESSION['user_role'] == 4){
+        echo "<title>Happy Paws - My Profile</title>";
+    }elseif($_SESSION['user_role'] == 1){
+        echo "<title>Happy Paws - CareCenter Profiles</title>";
+    }else{
+        echo "<title>Happy Paws</title>";
+    } ?>
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/carecenterprofile.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Book Pet Care Services</title>
+    <style>
+        /* Additional styles for the demo calendar */
+        .demo-calendar {
+            margin-top: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .demo-calendar h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #d8544c;
+            font-size: 16px;
+        }
+        
+        .demo-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .demo-calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border-radius: 3px;
+            background-color: #f0f0f0;
+        }
+        
+        .demo-calendar-day.available {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .demo-calendar-day.unavailable {
+            background-color: #F44336;
+            color: white;
+            cursor: not-allowed;
+        }
+        
+        .demo-calendar-day-header {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #777;
+            padding: 5px 0;
+        }
+        
+        /* Manual date input styles */
+        .manual-date-input {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .manual-date-input h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #d8544c;
+            font-size: 16px;
+        }
+        
+        .date-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .date-input-group input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+        }
+        
+        .date-input-group button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .date-input-group button:hover {
+            background-color: #45a049;
+        }
+        
+        .manual-dates-list {
+            margin-top: 10px;
+        }
+        
+        .manual-dates-list p {
+            background-color: #f0f0f0;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .manual-dates-list p button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 6px;
+            cursor: pointer;
+        }
+        
+        .calendar-container {
+            margin: 20px 0;
+        }
+        
+        .calendar-legend {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        
+        .legend-color.available {
+            background-color: #4CAF50;
+        }
+        
+        .legend-color.unavailable {
+            background-color: #F44336;
+        }
+        
+        .legend-color.selected {
+            background-color: #2196F3;
+        }
+        
+        .availability-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .calendar-day.available {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+        
+        .calendar-day.unavailable {
+            background-color: #FFEBEE;
+            color: #C62828;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.selected {
+            background-color: #E3F2FD;
+            color: #1565C0;
+        }
+        
+        .calendar-day:hover:not(.unavailable) {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <?php if (!isset($petCareCenter)) {
@@ -23,7 +219,7 @@
         <?php if($_SESSION['user_role'] == 4){
             include ('components/sidebar_care_center.php');
         }else{
-            include ('components/sidebar.php');
+            include ('components/sidebar_pet_owner.php');
         } ?>
         
         <div class="booking-container">
@@ -84,6 +280,7 @@
                         <p><?= htmlspecialchars($petCareCenter[0]->openning_hours ?? 'Not specified') ?></p>
                     </div>
                 </div>
+            
             </div>
 
             <div class="cage-booking-section">
@@ -107,6 +304,7 @@
                                         <p><i class="fas fa-ruler-combined"></i> Dimensions: <?= htmlspecialchars($cage->height) ?> x <?= htmlspecialchars($cage->length) ?> x <?= htmlspecialchars($cage->width) ?></p>
                                         <p><i class="fas fa-home"></i> Location: <?= htmlspecialchars($cage->location) ?></p>
                                         <p><i class="fas fa-clipboard-list"></i> Features: <?= htmlspecialchars($cage->additional_features) ?></p>
+                                        <h4><i class="fa-solid fa-dollar-sign"></i> Daily Price: <?= htmlspecialchars($cage->daily_price) ?></h4>
                                     </div>
                                     
                                     <div class="booking-info">
@@ -118,7 +316,9 @@
                                         
                                         <button class="book-btn <?= $cage->available_cages > 0 ? '' : 'disabled' ?>" 
                                                 data-cage-id="<?= htmlspecialchars($cage->cage_id) ?>"
-                                                data-cage-type="<?= htmlspecialchars($cage->designed_for)?>">
+                                                data-cage-type="<?= htmlspecialchars($cage->designed_for)?>"
+                                                data-price="<?= htmlspecialchars($cage->daily_price) ?>">
+                                                
                                             <i class="fas fa-calendar-check"></i> Book Now
                                         </button>
                                     </div>
@@ -144,34 +344,44 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form action="<?= ROOT ?>/petOwnerController/addBookings" method="POST">
-                    <input type="hidden" id="cageId" name="cage_id">
+                <form id="bookingForm" action="<?= ROOT ?>/CareCenterBookings/createBooking" method="POST">
+                    <input type="hidden" id="cage_id" name="cage_id">
                     <input type="hidden" id="carecenter_id" name="carecenter_id" value="<?= htmlspecialchars($petCareCenter[0]->care_center_id) ?>">
                     
                     <div class="form-group">
                         <label for="petSelect">Select Pet</label>
                         <select id="petSelect" name="pet_id" required>
                             <option value="">-- Select Pet --</option>
-                            <!-- Populated by JavaScript -->
                         </select>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="checkinDate">Check-in Date</label>
-                        <input type="date" id="checkinDate" name="checkin_date" required>
+                    <div class="calendar-container">
+                        <h4>Select Available Dates</h4>
+                        <div class="calendar-legend">
+                            <div class="legend-item">
+                                <span class="legend-color available"></span>
+                                <span>Available</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color unavailable"></span>
+                                <span>Unavailable</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color selected"></span>
+                                <span>Selected</span>
+                            </div>
+                        </div>
+                        <div id="availabilityCalendar" class="availability-calendar">
+                            <!-- Calendar will be populated by JavaScript -->
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="checkoutDate">Check-out Date</label>
-                        <input type="date" id="checkoutDate" name="checkout_date" required>
+                        <label for="specialReq">Special Requirements (Optional)</label>
+                        <textarea id="specialReq" name="special_req" rows="3" placeholder="Any special requirements for your pet's stay..."></textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="specialRequests">Special Requests</label>
-                        <textarea id="specialRequests" name="special_requests" rows="3"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-booking">Confirm Booking</button>
+                    <button type="submit" class="submit-booking">Book Selected Dates</button>
                 </form>
             </div>
         </div>
@@ -247,36 +457,65 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        // Book button click handlers
-        const bookButtons = document.querySelectorAll('.book-btn:not(.disabled)');
-        const modal = document.getElementById('bookingModal');
-        const closeModal = document.querySelector('.close-modal');
-        // const bookingForm = document.getElementById('bookingForm');
-        const cageIdInput = document.getElementById('cageId');
-        
-        // Open modal when book button is clicked
-        bookButtons.forEach(button => {
-            button.addEventListener('click', function() {
-    
-                const cageType = this.getAttribute('data-cage-type');
-
+            const bookButtons = document.querySelectorAll('.book-btn:not(.disabled)');
+            const modal = document.getElementById('bookingModal');
+            const closeModal = document.querySelector('.close-modal');
+            const cageIdInput = document.getElementById('cage_id');
+            const petSelect = document.getElementById('petSelect');
+            const availabilityCalendar = document.getElementById('availabilityCalendar');
+            const bookingForm = document.getElementById('bookingForm');
             
-                petSelect.innerHTML = '<option value="">-- Select Pet --</option>';
+            let selectedDates = new Set();
+            
+            // Open modal when book button is clicked
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const cageId = this.getAttribute('data-cage-id');
+                    cageIdInput.value = cageId;
+                    
+                    const cageType = this.getAttribute('data-cage-type');
+                    
+                    // Reset selected dates
+                    selectedDates.clear();
+                    
+                    // Populate pet select
+                    populatePetSelect(cageType);
+                    
+                    // Fetch and render availability calendar
+                    fetchAvailabilityCalendar(cageId);
+                    
+                    modal.classList.add('active');
+                });
+            });
+            
+            // Handle form submission
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                // Get pets data from PHP and ensure it's an array
+                // Create hidden input for selected dates
+                const datesInput = document.createElement('input');
+                datesInput.type = 'hidden';
+                datesInput.name = 'booking_dates';
+                datesInput.value = JSON.stringify(Array.from(selectedDates));
+                
+                // Add the dates input to the form
+                this.appendChild(datesInput);
+                
+                // Submit the form
+                this.submit();
+            });
+            
+            //pet showing in the booking modal
+            function populatePetSelect(cageType) {
+                petSelect.innerHTML = '<option value="">-- Select Pet --</option>';
                 const petsData = <?php echo is_array($data['pets']) ? json_encode($data['pets']) : '[]'; ?>;
                 
-                // Check if pets data exists and is an array
                 if (Array.isArray(petsData) && petsData.length > 0) {
-                    // Filter pets based on cage type
                     const filteredPets = petsData.filter(pet => {
                         return pet.pet_type.toLowerCase()+"s" === cageType.toLowerCase();
                     });
                     
-                    console.log('Filtered pets:', filteredPets);
-                    
                     if (filteredPets.length > 0) {
-                        // Add filtered pets to select
                         filteredPets.forEach(pet => {
                             const option = document.createElement('option');
                             option.value = pet.pet_id;
@@ -330,61 +569,137 @@
             if (e.target === modal) {
                 modal.classList.remove('active');
             }
-        });
-        
-        // Update checkout date minimum based on checkin date
-            document.getElementById('checkinDate').addEventListener('change', function() {
-                document.getElementById('checkoutDate').min = this.value;
-            });
-        });
-        
-        // Edit Profile Modal functionality
-        const editProfileBtn = document.getElementById('editProfileBtn');
-        const editProfileModal = document.getElementById('editProfileModal');
-        const closeEditModal = editProfileModal.querySelector('.close-modal');
-        
-        if (editProfileBtn) {
-            editProfileBtn.addEventListener('click', function() {
-                editProfileModal.classList.add('active');
-            });
-        }
-        
-        closeEditModal.addEventListener('click', function() {
-            editProfileModal.classList.remove('active');
-        });
-        
-        editProfileModal.addEventListener('click', function(e) {
-            if (e.target === editProfileModal) {
-                editProfileModal.classList.remove('active');
-            }
-        });
-        
-        // Handle form submission
-        const editProfileForm = document.getElementById('editProfileForm');
-        if (editProfileForm) {
-            editProfileForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
+            
+            //fetching availability calendar
+            function fetchAvailabilityCalendar(cageId) {
+                const careCenterId = document.getElementById('carecenter_id').value;
                 
-                fetch(this.action, {
+                fetch('<?= ROOT ?>/CareCenterProfile/getCageAvailability', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `cage_id=${cageId}&care_center_id=${careCenterId}`
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Profile updated successfully!');
-                        window.location.reload();
+                        renderAvailabilityCalendar(data.dates);
                     } else {
-                        alert('Error updating profile: ' + data.message);
+                        showError('Failed to fetch availability data');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('An error occurred while updating the profile.');
+                    showError('Failed to fetch availability data');
                 });
+            }
+            
+            function renderAvailabilityCalendar(dates) {
+                availabilityCalendar.innerHTML = '';
+                
+                // Group dates by month
+                const months = {};
+                dates.forEach(date => {
+                    const monthYear = new Date(date.date).toLocaleString('default', { month: 'long', year: 'numeric' });
+                    if (!months[monthYear]) {
+                        months[monthYear] = [];
+                    }
+                    months[monthYear].push(date);
+                });
+                
+                // Render each month
+                Object.entries(months).forEach(([monthYear, monthDates]) => {
+                    const monthContainer = document.createElement('div');
+                    monthContainer.className = 'calendar-month';
+                    
+                    const monthHeader = document.createElement('h5');
+                    monthHeader.textContent = monthYear;
+                    monthContainer.appendChild(monthHeader);
+                    
+                    const daysHeader = document.createElement('div');
+                    daysHeader.className = 'calendar-days-header';
+                    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    daysOfWeek.forEach(day => {
+                        const dayElement = document.createElement('div');
+                        dayElement.className = 'calendar-day-header';
+                        dayElement.textContent = day;
+                        daysHeader.appendChild(dayElement);
+                    });
+                    monthContainer.appendChild(daysHeader);
+                    
+                    const daysGrid = document.createElement('div');
+                    daysGrid.className = 'calendar-days-grid';
+                    
+                    // Get the first day of the month
+                    const firstDate = new Date(monthDates[0].date);
+                    const firstDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 1).getDay();
+                    
+                    // Add empty cells for days before the first day of the month
+                    for (let i = 0; i < firstDay; i++) {
+                        const emptyCell = document.createElement('div');
+                        emptyCell.className = 'calendar-day empty';
+                        daysGrid.appendChild(emptyCell);
+                    }
+                    
+                    // Add cells for each day of the month
+                    monthDates.forEach(date => {
+                        const dayCell = document.createElement('div');
+                        dayCell.className = 'calendar-day';
+                        dayCell.textContent = new Date(date.date).getDate();
+                        
+                        if (date.available) {
+                            dayCell.classList.add('available');
+                            dayCell.addEventListener('click', () => toggleDateSelection(date.date, dayCell));
+                        } else {
+                            dayCell.classList.add('unavailable');
+                            if (date.bookings && date.bookings.length > 0) {
+                                const tooltip = document.createElement('div');
+                                tooltip.className = 'tooltip';
+                                tooltip.textContent = `Booked by: ${date.bookings.map(b => b.pet_name).join(', ')}`;
+                                dayCell.appendChild(tooltip);
+                            }
+                        }
+                        
+                        if (selectedDates.has(date.date)) {
+                            dayCell.classList.add('selected');
+                        }
+                        
+                        daysGrid.appendChild(dayCell);
+                    });
+                    
+                    monthContainer.appendChild(daysGrid);
+                    availabilityCalendar.appendChild(monthContainer);
+                });
+            }
+            
+            function toggleDateSelection(date, element) {
+                if (selectedDates.has(date)) {
+                    selectedDates.delete(date);
+                    element.classList.remove('selected');
+                } else {
+                    selectedDates.add(date);
+                    element.classList.add('selected');
+                }
+            }
+            
+            function showError(message) {
+                alert(message);
+            }
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('active');
             });
-        }
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
     </script>
+    <?php include ('components/footer_mini.php'); ?>
 </body>
 </html>

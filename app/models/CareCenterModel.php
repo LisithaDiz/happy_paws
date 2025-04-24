@@ -8,14 +8,19 @@ class CareCenterModel
 	protected $table = 'pet_care_center';
 
 	protected $allowedColumns = [
-
-	        'user_id',
-            'name',
-            'district',
-            'city',
-            'street',
-            'contact_no',
-            'certificate'
+		'care_center_id',
+		'user_id',
+		'name',
+		'district',
+		'city',
+		'street',
+		'contact_no',
+		'certificate',
+		'opening_hours',
+		'services_offered',
+		'about_us',
+		'profile_image',
+		'cover_image'
 	];
 
     public function getAllInfo() {
@@ -114,5 +119,12 @@ class CareCenterModel
 
         // Use the Model trait's update method
         return $this->update($id, $data, 'care_center_id');
+    }
+
+    public function getCareCenterById($centerId)
+    {
+        $query = "SELECT * FROM $this->table WHERE care_center_id = :care_center_id";
+        $result = $this->query($query, ['care_center_id' => $centerId]);
+        return $result[0] ?? null;
     }
 }

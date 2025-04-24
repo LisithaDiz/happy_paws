@@ -2,11 +2,11 @@
     <!-- Add user profile section at top -->
     <div class="sidebar-profile">
         <div class="profile-image">
-            <img src="<?=ROOT?>/assets/images/prof/vet_prof.webp" alt="Profile">
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['profile_image']); ?>" alt="Profile">
         </div>
         <div class="profile-info">
-            <h4><?= $_SESSION['USER']->name ?? 'User' ?></h4>
-            <p><?= $_SESSION['USER']->email ?? 'email@example.com' ?></p>
+            <h4><?= $_SESSION['pharmacy_name'] ?? 'Pharmacy' ?></h4>
+            <p><?= $_SESSION['username']?? 'username' ?></p>
         </div>
     </div>
 
@@ -46,14 +46,13 @@
             <span class="status-dot"></span>
             <span class="status-text">Online</span>
         </div>
-        <a href="<?=ROOT?>/logout" class="logout-btn">
+        
+        <a href="<?=ROOT?>/user/logout" class="logout-btn">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
         </a>
     </div>
 </div>
 
-<script src="<?=ROOT?>/assets/js/sidebar.js"></script>
 <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

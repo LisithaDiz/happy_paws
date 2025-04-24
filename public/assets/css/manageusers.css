@@ -1,63 +1,4 @@
-/* Sidebar */
-body {
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-    font-family: Arial, sans-serif;
-}
 
-.sidebar {
-    color: #000000;
-    top: 60px; /* Adjust this if navbar height is different */
-    left: 0;
-    width: 250px; /* Width of the sidebar */
-    height: calc(100vh - 40px); /* Full height minus navbar and footer */
-    background-color: #f8d7da; /* Adjust color as needed */
-    padding: 20px;
-    overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Sidebar content styling */
-.sidebar h3 {
-    font-size: 18px;
-    color: #d8544c;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-/* Style the sidebar links (buttons) */
-.sidebar ul li a {
-    display: block;
-    width: 100%; /* Ensures all buttons are the same width */
-    padding: 12px 0; /* Adjust vertical padding for button height */
-    text-align: center; /* Center the text inside the button */
-    background-color: #fae3e3; /* Light pink background */
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for 3D effect */
-    transition: all 0.3s ease-in-out;
-    margin: 5px 0; /* Even spacing between buttons */
-}
-
-/* 3D button effect on hover */
-.sidebar ul li a:hover {
-    background-color: #f5c6cb; /* Slightly darker pink on hover */
-    color: #fff; /* White text on hover */
-    transform: translateY(-2px); /* Slightly lift the button */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-}
 
 /* Dashboard container to display sidebar and main content side by side */
 .dashboard-container {
@@ -67,8 +8,8 @@ body {
 }
 
 .main-content{
-    max-width: 1000px;
-    width: 1000px;
+   
+    width: 1100px;
     margin: 20px auto;
     padding: 20px;
     backdrop-filter: blur(20px);
@@ -79,8 +20,8 @@ body {
     max-height: auto; /* Set a maximum height */
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Hide horizontal scrolling */
-    margin-right: 40px;
-    margin-left: 150px;
+    margin-left: 100px;
+    margin-top: 100px;
 }
 
 /* User Management Styles */

@@ -34,8 +34,6 @@ class VetAppoinment
                 'appointment_status'      => '1',    
             ];
 
-
-
             // You may want to validate the data here, e.g., check if required fields are filled
 
             // // Get the vet's ID, for example from the session or passed as a parameter

@@ -24,12 +24,14 @@ body {
 .main-content {
     flex: 1;
     padding: 30px;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto 50px; /* Space for footer */
     background: white;
     border-radius: 12px 12px 0 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     /* Viewport minus navbar/footer */
+    margin-left: 320px;
+
 }
 
 /* Typography */

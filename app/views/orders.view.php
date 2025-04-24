@@ -462,7 +462,7 @@
     
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <?php include ('components/sidebar2.php'); ?>
+        <?php include ('components/sidebar_pharmacy.php'); ?>
 
         <!-- Main content -->
         <div class="main-content">

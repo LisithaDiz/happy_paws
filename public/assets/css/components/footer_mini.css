@@ -1,0 +1,37 @@
+.footer-bottom {
+    z-index: 1;
+    margin-top: 4rem;
+    padding: 1.5rem 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background-attachment: fixed;
+}
+
+.footer-bottom-content {
+    margin-left: 200px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-bottom-content p{
+    margin-left: 150px;
+}
+.footer-legal {
+    margin-left: ;
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-legal a {
+    color: #555;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-legal a:hover {
+    color: #d8544c;
+}

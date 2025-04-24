@@ -1,6 +1,6 @@
 <header class="modern-header">
     <nav class="modern-nav">
-        <a href="/index.php" class="modern-logo">
+        <a href="<?=ROOT?>/index.php" class="modern-logo">
             <img src="<?=ROOT?>/assets/images/happy-paws-logo.png" alt="Logo">
         </a>
 

@@ -7,7 +7,7 @@ body {
 }
 
 .booking-container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 20px;
     padding-top: 100px;
@@ -301,6 +301,19 @@ body {
     margin: 0 0 10px 0;
     color: #333;
     font-size: 18px;
+}
+.cage-info h4 {
+    margin: 0 0 10px 0;
+    color: #d8544c;
+    font-size: 16px;
+    background-color: #ffd6d6;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    opacity: 0.8;
 }
 
 .specs {
@@ -776,4 +789,201 @@ body {
     .confirm-btn, .cancel-btn {
         max-width: 100%;
     }
+/* Calendar Styles */
+.calendar-container {
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+.calendar-container h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #d8544c;
+    font-size: 16px;
+}
+
+.calendar-legend {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.legend-color.available {
+    background-color: #4CAF50;
+}
+
+.legend-color.unavailable {
+    background-color: #F44336;
+}
+
+.legend-color.selected {
+    background-color: #2196F3;
+}
+
+.availability-calendar {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.calendar-month {
+    margin-bottom: 20px;
+}
+
+.calendar-month h5 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 5px;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    padding: 5px 0;
+}
+
+.calendar-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+}
+
+.calendar-day.empty {
+    background-color: transparent;
+    cursor: default;
+}
+
+.calendar-day.available {
+    background-color: #4CAF50;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.calendar-day.available:hover {
+    background-color: #3d8b40;
+    transform: scale(1.1);
+}
+
+.calendar-day.unavailable {
+    background-color: #F44336;
+    color: white;
+    cursor: not-allowed;
+}
+
+.calendar-day.selected {
+    background-color: #2196F3;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #2196F3;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.calendar-day.unavailable:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: 120%;
+}
+
+.loading, .error {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.error {
+    color: #F44336;
+}
+
+/* Selected Dates Summary */
+.selected-dates-summary {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.selected-dates-summary p {
+    margin: 5px 0;
+}
+
+.selected-dates-summary span {
+    font-weight: 600;
+    color: #2196F3;
+}
+
+.selected-dates-list {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.selected-dates-list p {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+    font-size: 13px;
+}
+
+.selected-dates-list p:last-child {
+    border-bottom: none;
+}
+
+/* Make the modal wider for the calendar */
+#bookingModal .modal-container {
+    max-width: 600px;
 }

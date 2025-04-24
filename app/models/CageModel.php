@@ -30,6 +30,14 @@ class CageModel
         
     }
 
+    public function getCageById($cage_id)
+    {
+        $query = "SELECT * FROM $this->table WHERE cage_id = :cage_id";
+        $result = $this->query($query, ['cage_id' => $cage_id]);
+        return $result[0] ?? null;
+        
+    }
+
 public function insertCage($data)
 {
     // Validate required fields
@@ -84,8 +92,14 @@ public function insertCage($data)
 
     public function deleteCage($id)
     {
-        $this->delete($id,'cage_id');
-        
+        try {
+            $query = "DELETE FROM $this->table WHERE cage_id = :cage_id";
+            $params = [':cage_id' => $id];
+            return $this->query($query, $params);
+        } catch (PDOException $e) {
+            error_log("Error deleting cage: " . $e->getMessage());
+            return false;
+        }
     }
 }
 

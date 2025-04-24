@@ -11,7 +11,7 @@
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
         <!-- Sidebar for vet functionalities -->
-        <?php include ('components/sidebar1.php'); ?>
+        <?php include ('components/sidebar_admin.php'); ?>
         <!-- Main content area -->
         <div class="main-content">
             <div class="user-requests-management">

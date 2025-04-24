@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/styles.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     
     <title>Admin Dashboard - Happy Paws</title>
     <style>
@@ -262,7 +262,7 @@
 <body>
     <?php include ('components/nav2.php'); ?>
     <div class="dashboard-container">
-        <?php include ('components/sidebar1.php'); ?>
+        <?php include ('components/sidebar_admin.php'); ?>
         <div class="main-content">
             <div class="dashboard-header">
                 <h1>Admin Dashboard</h1>

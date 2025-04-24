@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="sidebar-profile">
         <div class="profile-image">
-            <img src="<?=ROOT?>/assets/images/prof/vet_prof.webp" alt="Profile">
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['profile_image']); ?>" alt="Profile">
         </div>
         <div class="profile-info">
             <h4><?= $_SESSION['care_center_name'] ?? 'User' ?></h4>
@@ -25,25 +25,20 @@
                     <span>My Profile</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="<?=ROOT?>/petsitter/requests" class="<?= ($currentPage == 'requests') ? 'active' : '' ?>">
                     <i class="fas fa-bell"></i>
                     <span>View Requests</span>
-                    <span class="notification-badge">3</span> <!-- Dynamic number from backend -->
-                </a>
-            </li>
+                    <span class="notification-badge"></span> <!-- Dynamic number from backend -->
+                <!-- </a>
+            </li> --> 
             <li>
-                <a href="<?=ROOT?>/petsitter/accepted" class="<?= ($currentPage == 'accepted') ? 'active' : '' ?>">
+                <a href="<?=ROOT?>/careCenterBookings" class="<?= ($currentPage == 'accepted') ? 'active' : '' ?>">
                     <i class="fas fa-check-circle"></i>
-                    <span>Requests</span>
+                    <span>Bookings</span>
                 </a>
             </li>
-            <li>
-                <a href="<?=ROOT?>/petsitter/pets" class="<?= ($currentPage == 'pets') ? 'active' : '' ?>">
-                    <i class="fas fa-paw"></i>
-                    <span>View Pets</span>
-                </a>
-            </li>
+            
             <li>
                 <a href="<?=ROOT?>/careCenterAvailability" class="<?= ($currentPage == 'availability') ? 'active' : '' ?>">
                     <i class="fas fa-calendar-alt"></i>
@@ -64,13 +59,12 @@
             <span class="status-dot"></span>
             <span class="status-text">Online</span>
         </div>
-        <a href="<?=ROOT?>/logout" class="logout-btn">
+        <a href="<?=ROOT?>/user/logout" class="logout-btn">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
         </a>
     </div>
 </div>
 
-<script src="<?=ROOT?>/assets/js/sidebar.js"></script>
 <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

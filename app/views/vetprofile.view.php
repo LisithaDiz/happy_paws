@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetprofile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Vet Profile</title>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - My Profile</title>
+
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     
     <div class="dashboard-container">
-        <?php include ('components/sidebar3.php'); ?>
+        <?php include ('components/sidebar_vet.php'); ?>
         
         <div class="booking-container">
             <?php if (isset($vetDetails) && !empty($vetDetails)): ?>
@@ -25,6 +26,7 @@
                 <div class="cover-image">
                     <img src="<?=ROOT?>/assets/images/vet_cover3-min.jpg" alt="Vet Cover Image" class="cover-image">
                 </div>
+        <!-- Sidebar for vet functionalities -->
 
                 <div class="profile-header">
                     <div class="profile-image1">
@@ -86,6 +88,91 @@
                     <p>No vet details found.</p>
                 </div>
             <?php endif; ?>
+                <!-- Popup structure -->
+                <div id="editProfilePopup" class="popup">
+                    <form action="<?= ROOT ?>/VetProfile/vetprofile" method="POST" class="update-form">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" value="<?= htmlspecialchars($vet->username) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="f_name">First Name:</label>
+                            <input type="text" id="f_name" name="f_name" value="<?= htmlspecialchars($vet->f_name) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="l_name">Last Name:</label>
+                            <input type="text" id="l_name" name="l_name" value="<?= htmlspecialchars($vet->l_name) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="number" id="age" name="age" value="<?= htmlspecialchars($vet->age) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="M" <?= $vet->gender == 'M' ? 'selected' : '' ?>>Male</option>
+                                <option value="F" <?= $vet->gender == 'F' ? 'selected' : '' ?>>Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District:</label>
+                            <input type="text" id="district" name="district" value="<?= htmlspecialchars($vet->district) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city" value="<?= htmlspecialchars($vet->city) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact_no">Contact No:</label>
+                            <input type="text" id="contact_no" name="contact_no" value="<?= htmlspecialchars($vet->contact_no) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="years_exp">Years of Experience:</label>
+                            <input type="number" id="years_exp" name="years_exp" value="<?= htmlspecialchars($vet->years_exp) ?>" required>
+                        </div>
+                        <button type="submit">Update</button>
+                    </form>
+
+                </div>
+
+                <div id="deleteConfirmationPopup">
+                    <div class="popup-content">
+                        <h3>Are you sure you want to delete this profile?</h3>
+                        <button id="confirmDeleteBtn" class="confirm-btn">Yes, Delete</button>
+                        <button id="cancelDeleteBtn" class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
+
+
+                <script>
+                    // JavaScript for Popup
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const popup = document.getElementById('editProfilePopup');
+                        const editBtn = document.getElementById('editProfileBtn');
+
+                        editBtn.addEventListener('click', () => {
+                            popup.style.display = 'flex';
+                        });
+
+                        window.addEventListener('click', (event) => {
+                            if (event.target === popup) {
+                                popup.style.display = 'none';
+                            }
+                        });
+                    });
+                    
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const deleteBtn = document.getElementById('deleteProfileBtn');
+
+                        deleteBtn.addEventListener('click', () => {
+                            if (confirm('Are you sure you want to delete this profile?')) {
+                                // Redirect to the delete route
+                                window.location.href = "<?= ROOT ?>/vetProfile/deleteVet";
+                            }
+                        });
+                    });
+                </script>
+
         </div>
     </div>
     
@@ -237,6 +324,6 @@
         });
     </script>
     
-    <?php include ('components/footer.php'); ?>
+    <?php include ('components/footer_mini.php'); ?>
 </body>
 </html>

@@ -50,7 +50,7 @@ if (!empty($prescriptionDetails)) {
     <?php include('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-        <?php include('components/sidebar3.php'); ?>
+        <?php include('components/sidebar_vet.php'); ?>
 
         <main class="main-content">
             <div class="pet-profile-container">

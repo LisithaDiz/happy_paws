@@ -17,13 +17,15 @@ if (empty($data)) {
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Happy Paws - Pharmacy Revenue</title>
+
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
     
     <div class="dashboard-container">
         <!-- Sidebar for pharmacy functionalities -->
-        <?php include ('components/sidebar2.php'); ?>
+        <?php include ('components/sidebar_pharmacy.php'); ?>
 
         <!-- Main content area -->
         <div class="main-content">

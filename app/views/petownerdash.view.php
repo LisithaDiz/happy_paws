@@ -4,13 +4,11 @@
     <link rel="icon" href="<?=ROOT?>/assets/images/happy-paws-logo.png">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
   
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/vetdash.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/pet_dash.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/nav2.css">
     <!-- <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/sidebar_.css"> -->
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer.css">
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Welcome!</title>
     <style>
         /* Notification Bell Container */
         .notification-bell {
@@ -194,12 +192,18 @@
             background-color: #218838;
         }
     </style>
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/components/footer_mini.css">
+    <title>Happy Paws - My Dashboard</title>
 </head>
 <body>
     <?php include ('components/nav2.php'); ?>
 
     <div class="dashboard-container">
-        <?php include('components/sidebar.php'); ?>
+
+        <?php include ('components/sidebar_pet_owner.php'); ?>
+        <!-- Sidebar for pet owner functionalities -->
+
+            
         
         <?php if(isset($_SESSION['success'])): ?>
             <div class="success-message">
@@ -212,7 +216,7 @@
         <div class="main-content">
             <!-- Add notification bell in the header area -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h1>Welcome, <?= htmlspecialchars($user_name ?? '[Pet Owner\'s Name]') ?>!</h1>
+            <h1>Welcome, <?php echo $_SESSION['owner_name']; ?>!</h1>
                 <div class="notification-bell" id="notificationBell">
                     <i class="fas fa-bell"></i>
                     <?php if (!empty($notifications)): ?>
@@ -291,7 +295,7 @@
         </div>
     </div>
     
-    
+    <?php include ('components/footer_mini.php'); ?>
     <!-- <script src="<?=ROOT?>/assets/js/script.js"></script> -->
 
     <script>
