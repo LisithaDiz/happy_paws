@@ -51,8 +51,8 @@
                         <div class="reschedule-appointment-details">
                             <h2><i class="fa-solid fa-circle-xmark"></i> Appointment Cancelled!</h2>
                             <p><i class="fa-solid fa-user-doctor"></i> <strong>Vet Name:</strong> <?= htmlspecialchars($appointment->f_name) . ' ' . htmlspecialchars($appointment->l_name) ?></p>
-                            <p><i class="fa-solid fa-calendar-xmark"></i> <strong>Old Date:</strong> <?= htmlspecialchars($appointment->appointment_date) ?></p>
-                            <p><i class="fa-solid fa-clock-rotate-left"></i> <strong>Old Time:</strong> <?= htmlspecialchars($appointment->appointment_time) ?></p>
+                            <p><i class="fa-solid fa-calendar-xmark"></i> <strong>Date:</strong> <?= htmlspecialchars($appointment->appointment_date) ?></p>
+                            <p><i class="fa-solid fa-clock-rotate-left"></i> <strong>Time:</strong> <?= htmlspecialchars($appointment->appointment_time) ?></p>
                             <p><i class="fa-solid fa-ban"></i> <strong>Status:</strong> <span class="status-badge-cancelled">cancelled</span></p>
                         </div>
                         <a href="<?= ROOT ?>/VetProfile/view/<?= $appointment->vet_id ?>" class="reschedule-view-vet-btn"><i class="fa-solid fa-eye"></i> View Vet</a>
@@ -86,8 +86,33 @@
                     <p>No cancelled appointments by you.</p>
                 <?php endif; ?>
             </div>
+
+            <br/><h2><i class="fa-solid fa-circle-check"></i> Completed Appointments</h2><br/>   
+            <div class="cancelled-appointments-list">
+                <?php if(!empty($completedAppointments)): ?>
+                    <?php foreach($completedAppointments as $appointment): ?>
+                        <div class="cancelled-appointment-card">
+                            <div class="cancelled-appointment-details">
+                                <p><i class="fa-solid fa-user-doctor"></i> <strong>Vet Name:</strong> <?= htmlspecialchars($appointment->f_name) . ' ' . htmlspecialchars($appointment->l_name) ?></p>
+                                <p><i class="fa-solid fa-calendar"></i> <strong>Date:</strong> <?= htmlspecialchars($appointment->appointment_date) ?></p>
+                                <p><i class="fa-solid fa-clock"></i> <strong>Time:</strong> <?= htmlspecialchars($appointment->appointment_time) ?></p>
+                                <p><i class="fa-solid fa-ban"></i> <strong>Status:</strong> <span class="status-badge-cancelled">completed</span></p>
+                            </div>
+                            <a href="<?= ROOT ?>/VetProfile/view/<?= $appointment->vet_id ?>" class="cancelled-view-vet-btn"><i class="fa-solid fa-eye"></i> View Vet</a>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No completed appointments by you.</p>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
+        </div>
+    </div>
+
+    
+
+   
 
     <?php include('components/footer.php'); ?>
 

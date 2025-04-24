@@ -74,7 +74,8 @@ class VetAppointmentModel
 
 		$query="SELECT * FROM appointment a
 				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id
-				WHERE a.owner_id = :ownerid  AND a.appointment_status = '0'";
+				WHERE a.owner_id = :ownerid  AND a.appointment_status = '0' AND a.appointment_date >= CURDATE()
+				ORDER BY a.appointment_date DESC";
 
 			
 		
@@ -120,13 +121,14 @@ class VetAppointmentModel
 	}
 
 
-	
+	//cancelled by pwt owner
 	public function cancelledAppoinmentsOwnerView()
 	{
 		$ownerid=$_SESSION['owner_id'];
 		$query = "SELECT * FROM appointment  a
 				JOIN veterinary_surgeon v ON a.vet_id = v.vet_id
-				WHERE a.owner_id = :ownerid AND a.appointment_status = 2";
+				WHERE a.owner_id = :ownerid AND a.appointment_status = 2
+				ORDER BY a.appointment_date DESC";
 
 		$result = $this->query($query,['ownerid'=> $ownerid]);
 		
@@ -163,6 +165,7 @@ class VetAppointmentModel
 
 
 	}
+	
 	public function cancelAppointmentByVet($appointment_id)
 	{
 		// Step 1: Update appointment status to '3' (Cancelled)
@@ -217,11 +220,26 @@ class VetAppointmentModel
 		$ownerid = $_SESSION['owner_id'];
 		$query = "SELECT * FROM appointment a
 				JOIN veterinary_surgeon v ON v.vet_id = a.vet_id
-				WHERE a.owner_id = :ownerid AND a.appointment_status = 3 ";
+				WHERE a.owner_id = :ownerid AND a.appointment_status = 3 
+				ORDER BY a.appointment_date DESC";
 
 		$result = $this->query($query,['ownerid'=>$ownerid]);
 
 		return $result;
+	}
+
+	public function completedAppointmentsOwnerView()
+	{
+		$ownerid = $_SESSION['owner_id'];
+		$query = "SELECT * FROM appointment a
+				JOIN veterinary_surgeon v ON v.vet_id = a.vet_id
+				WHERE a.owner_id = :ownerid AND a.appointment_status = 1 AND a.appointment_date <= CURDATE()
+				ORDER BY a.appointment_date DESC ";
+
+		$result = $this->query($query,['ownerid'=>$ownerid]);
+
+		return $result;
+
 	}
 
 	
