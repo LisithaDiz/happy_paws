@@ -21,6 +21,7 @@ if (!empty($prescriptionDetails)) {
             'med_id' => $item->med_id,
             'dosage' => $item->dosage,
             'frequency' => $item->frequency,
+            'quantity' => $item->quantity,
             'med_name' => $item->med_name,
             'med_description' => $item->med_description
         ];
@@ -59,8 +60,12 @@ if (!empty($prescriptionDetails)) {
                 ?>
                     <div class="pet-profile-card">
                         <div class="pet-image">
-                            <img src="<?= ROOT ?>/assets/images/dog1.avif" 
-                                alt="<?= htmlspecialchars($pet->pet_name) ?> Image">
+                                <?php if (!empty($pet->profile_image)): ?>
+                                    <img src="data:image/jpeg;base64,<?= base64_encode($pet->profile_image) ?>" 
+                                        alt="Owner Profile Image" class="profile-image1">
+                                <?php else: ?>
+                                    <img src="<?=ROOT?>/assets/images/default-profile-picture.webp" alt="Default Profile Image" class="profile-image1">
+                                <?php endif; ?>
                         </div>
 
                         <div class="pet-details">
@@ -72,7 +77,6 @@ if (!empty($prescriptionDetails)) {
                                 <li><i class="fas fa-venus-mars"></i> <strong>Gender:</strong> <?= htmlspecialchars($pet->gender) ?></li>
                                 <li><i class="fas fa-palette"></i> <strong>Color:</strong> <?= htmlspecialchars($pet->color) ?></li>
                                 <li><i class="fas fa-weight"></i> <strong>Weight:</strong> <?= htmlspecialchars($pet->weight) ?> kg</li>
-                                <li><i class="fas fa-syringe"></i> <strong>Vaccinations:</strong> <?= htmlspecialchars($pet->vaccinations) ?></li>
                                 <li><i class="fas fa-calendar-alt"></i> <strong>Date of Birth:</strong> <?= htmlspecialchars($pet->date_of_birth) ?></li>
                             </ul>
                         </div>
@@ -80,13 +84,18 @@ if (!empty($prescriptionDetails)) {
                     </div>
 
                     <div class="vet-actions">
+                       
                         <button type="button" class="btn" onclick="openViewPrescriptionModal()">View Prescriptions</button>
-
-                        <button type="button" class="btn" onclick="openPrescriptionModal()">Issue Prescription</button>
-
+                        
                         <button type="button" class="btn" onclick="openMedicalHistoryModal()">View Medical History</button>
 
-                        <button type="button" class="btn" onclick="openMedicalRecordModal()">Update Medical Record</button>
+                        <?php if($_SESSION['user_role'] == 2): ?>
+                            <button type="button" class="btn" onclick="openPrescriptionModal()">Issue Prescription</button>
+                        <?php endif; ?>
+
+                        <?php if($_SESSION['user_role'] == 2): ?>
+                            <button type="button" class="btn" onclick="openMedicalRecordModal()">Update Medical Record</button>
+                        <?php endif; ?>
                    
                         
                     </div>
@@ -117,8 +126,9 @@ if (!empty($prescriptionDetails)) {
                                     <?php foreach ($prescription['medicines'] as $med): ?>
                                         <li>
                                             <strong><?= htmlspecialchars($med['med_name']) ?></strong> – 
-                                            <?= htmlspecialchars($med['dosage']) ?>, 
-                                            <?= htmlspecialchars($med['frequency']) ?>
+                                            Dosage:<?= htmlspecialchars($med['dosage']) ?>, 
+                                            Frequency:<?= htmlspecialchars($med['frequency']) ?>,
+                                            Quantity:<?= htmlspecialchars($med['quantity']) ?>
                                             <br>
                                         </li>
                                     <?php endforeach; ?>
@@ -193,7 +203,7 @@ if (!empty($prescriptionDetails)) {
                     <th>Date</th>
                     <th>Vaccinations Given</th>
                     <th>Note</th>
-                    <th>Actions</th>
+                    <!-- <th>Actions</th> -->
                 </tr>
 
                 <?php if (!empty($medicalHistoryDetails) && is_array($medicalHistoryDetails)): ?>
@@ -202,7 +212,7 @@ if (!empty($prescriptionDetails)) {
                             <td><?= htmlspecialchars($medhist->date) ?></td>
                             <td><?= htmlspecialchars($medhist->vaccination_given) ?></td>
                             <td><?= htmlspecialchars($medhist->special_note) ?></td>
-                            <td>
+                            <!-- <td>
                                 <?php if (isset($_SESSION['vet_id']) && $_SESSION['vet_id'] == $medhist->vet_id): ?>
                                     <button type="button" class="btn" onclick="openMedicalRecordUpdateModal('<?= htmlspecialchars($medhist->record_id) ?>','<?= htmlspecialchars($medhist->vaccination_given) ?>','<?= htmlspecialchars($medhist->special_note) ?>')">Update</button>
 
@@ -211,7 +221,7 @@ if (!empty($prescriptionDetails)) {
                                         <button type="submit">Delete</button>
                                     </form>
                                 <?php endif; ?>
-                            </td>
+                            </td> -->
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -304,7 +314,7 @@ if (!empty($prescriptionDetails)) {
 
     function selectMedicine(medId, medicineName) {
         if (!selectedMedicines.some(med => med.id === medId)) {
-            selectedMedicines.push({ id: medId, name: medicineName, dosage: "", frequency: "" });
+            selectedMedicines.push({ id: medId, name: medicineName, dosage: "", frequency: "" , quantity:""});
             updateSelectedMedicinesUI();
         }
         document.getElementById("medicineList").style.display = "none";
@@ -323,6 +333,8 @@ if (!empty($prescriptionDetails)) {
                     class="dosage-input" data-index="${index}" oninput="updateDosage(this)">
                 <input type="text" placeholder="Frequency (e.g., Twice a day)" 
                     class="frequency-input" data-index="${index}" oninput="updateFrequency(this)">
+                <input type="text" placeholder="Quantity(units) (e.g., 2 )" 
+                    class="frequency-input" data-index="${index}" oninput="updateQuantity(this)">
             `;
             container.appendChild(li);
         });
@@ -336,6 +348,10 @@ if (!empty($prescriptionDetails)) {
     function updateFrequency(input) {
         const index = input.dataset.index;
         selectedMedicines[index].frequency = input.value;
+    }
+    function updateQuantity(input) {
+        const index = input.dataset.index;
+        selectedMedicines[index].quantity = input.value;
     }
 
     function preparePrescriptionData() {

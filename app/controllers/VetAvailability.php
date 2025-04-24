@@ -14,6 +14,12 @@ class VetAvailability
         $vetAppointmentDetails = $vetApponitmentModel->appointmentDetailsVetView();
 
         $cancelledAppointmentDetails = $vetApponitmentModel->cancelledAppoinmentsVetView();
+        // echo"availability                   "    ;
+        // var_dump($vetAvailabilityDetails);
+        // echo"appointments              ";
+        // var_dump($vetAppointmentDetails);
+        // echo"cancelled appointments                 ";
+        // var_dump($cancelledAppointmentDetails);
         $this->view('vetavailability', ['vetAvailabilityDetails'=> $vetAvailabilityDetails,'vetAppointmentDetails'=> $vetAppointmentDetails,'cancelledAppointmentDetails'=>$cancelledAppointmentDetails]);
 
     }
@@ -47,6 +53,7 @@ class VetAvailability
             
             $model = new VetAppointmentModel; 
 
+            var_dump($appointment_id);
             // Get current slots first
             $result = $model->cancelAppointmentByVet($appointment_id);
             

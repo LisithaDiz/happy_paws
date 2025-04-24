@@ -43,13 +43,13 @@ class PrescriptionModel
 
     }
 
-    public function getPrescriptionDetails($prescription_id)
+    public function getPrescriptionDetailsForm($prescription_id)
     {
-        $query = "SELECT p.*, pet.pet_name, vs.f_name as vet_name, po.owner_id 
+        $query = "SELECT p.*, pets.pet_name, vs.f_name as vet_name, po.owner_id 
                  FROM prescription p 
-                 JOIN pet pet ON p.pet_id = pet.pet_id 
+                 JOIN pets pets ON p.pet_id = pets.pet_id 
                  JOIN veterinary_surgeon vs ON p.vet_id = vs.vet_id 
-                 JOIN pet_owner po ON pet.owner_id = po.owner_id 
+                 JOIN pet_owner po ON pets.owner_id = po.owner_id 
                  WHERE p.prescription_id = :prescription_id";
 
         $result = $this->query($query, [':prescription_id' => $prescription_id]);

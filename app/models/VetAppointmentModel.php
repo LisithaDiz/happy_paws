@@ -19,7 +19,8 @@ class VetAppointmentModel
 		'avl_id',
 		'appointment_time', 
 		'appointment_date',
-		'appointment_status'
+		'appointment_status',
+		'consultation_fee'
 	];
 
 	// public function getFirstVetDetails()    
@@ -47,18 +48,20 @@ class VetAppointmentModel
 	public function appointmentDetailsVetView()
 	{
 		$vetid = $_SESSION['vet_id'];
+		var_dump($vetid);
 		
 
-		$query="SELECT * FROM appointment a
+		$query="SELECT a.appointment_id, a.vet_id, a.owner_id, a.avl_id, a.appointment_date, a.appointment_time, a.appointment_status,a.consultation_fee,
+				o.user_id, o.f_name, o.l_name, o.age FROM appointment a
 				JOIN pet_owner o ON a.owner_id = o.owner_id
-				WHERE a.vet_id = :vetid  AND a.appointment_status = '0'  AND a.appointment_date >= CURDATE()";
+				WHERE a.vet_id = :vetid  AND a.appointment_status = '0'  ";
 
 			
 		
 		$params = ['vetid'=> $vetid];// key name must match the :ownerid in query
 
 		$result = $this->query($query, $params);
-		
+
 		
 		return $result;
 	}

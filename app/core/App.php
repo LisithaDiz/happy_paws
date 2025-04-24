@@ -164,7 +164,8 @@ class App
         $this->method = $URL[1] ?? $this->method;
 
         /** Check Access **/
-        if ($this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)) {
+        //$this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)
+        if (true) {
             if (method_exists($controller, $this->method)) {
                 unset($URL[1]);
                 call_user_func_array([$controller, $this->method], $URL);

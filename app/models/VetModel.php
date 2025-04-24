@@ -25,7 +25,9 @@ class VetModel
 		'street', 
 		'contact_no', 
 		'years_exp',
-		'activity_status'
+		'activity_status',
+		'consultation_fee',
+		'about_us'
 	];
 
 	// public function getFirstVetDetails()    

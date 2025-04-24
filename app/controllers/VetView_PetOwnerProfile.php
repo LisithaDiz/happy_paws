@@ -11,7 +11,7 @@ class VetView_PetOwnerProfile{
         $petownerDetails = $petownermodel ->ownerDetailsVetView($owner_id);
 
         $petModel = new Pet();
-        $petDetails = $petModel->petDetailsVetView();
+        $petDetails = $petModel->petDetailsVetView($owner_id);
         
         $this->view('vetview_petownerprofile',['petownerDetails'=>$petownerDetails,'petDetails'=>$petDetails]);
     }

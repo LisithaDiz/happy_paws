@@ -11,7 +11,8 @@ class MedicineModel
 
 			'med_id',
             'med_name',
-            'med_description'
+            'med_description',
+            'price'
         
 	];
 

@@ -27,6 +27,15 @@ class PetOwnerBookVet
             $model = new VetUpdateAvailableHoursModel; // or AvailabilityModel
             $appointmentmodel = new VetAppointmentModel;
 
+            $query = "SELECT consultation_fee FROM veterinary_surgeon
+                    WHERE vet_id = :vet_id";
+
+            $vetModel = new VetModel;
+            $fee = $vetModel->query($query,['vet_id'=>$vet_id]);
+            $consultation_fee = $fee[0]->consultation_fee;
+           
+            
+
             // Get current slots first
             $current = $model->first(['avl_id' => $avl_id]);
             $data = [
@@ -34,22 +43,21 @@ class PetOwnerBookVet
                 'owner_id'          => $owner_id,
                 'avl_id'            => $avl_id,
                 'appointment_date'  => $date,
-                'appointment_time'  => $exact_time
+                'appointment_time'  => $exact_time,
+                'consultation_fee'  => $consultation_fee
             ];
         
 
             if ($current && $current->available_slots > 0) {
-                // $data = [
-                //     'booked_slots'    => $current->booked_slots + 1,
-                //     'available_slots' => $current->available_slots - 1
-                // ];
                 
-                // Now both fields are passed
+                
+                //Now both fields are passed
                 $model->updateAvailableSlots($avl_id);
                 
-                $result=$appointmentmodel->insert($data);
-                
-                
+                $result=$appointmentmodel->insert($data);            
+            }
+            else{
+                echo "No Available Slots! Please Select another time slot";
             }
 
             // if ($result) {

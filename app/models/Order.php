@@ -40,7 +40,7 @@ class Order
             po.status
         FROM pharmacy_orders po
         JOIN pet_owner pet_o ON po.owner_id = pet_o.owner_id
-        JOIN pet p ON po.pet_id = p.pet_id
+        JOIN pets p ON po.pet_id = p.pet_id
         JOIN order_medicines om ON po.order_id = om.order_id
         JOIN medicine m ON om.med_id = m.med_id
         WHERE po.pharmacy_id = :pharmacy_id 
@@ -68,7 +68,7 @@ class Order
             po.decline_reason
         FROM pharmacy_orders po
         JOIN pet_owner pet_o ON po.owner_id = pet_o.owner_id
-        JOIN pet p ON po.pet_id = p.pet_id
+        JOIN pets p ON po.pet_id = p.pet_id
         JOIN order_medicines om ON po.order_id = om.order_id
         JOIN medicine m ON om.med_id = m.med_id
         WHERE po.pharmacy_id = :pharmacy_id 
@@ -198,7 +198,7 @@ class Order
             vs.f_name as vet_name
         FROM pharmacy_orders po
         JOIN pet_owner pet_o ON po.owner_id = pet_o.owner_id
-        JOIN pet p ON po.pet_id = p.pet_id
+        JOIN pets p ON po.pet_id = p.pet_id
         JOIN order_medicines om ON po.order_id = om.order_id
         JOIN medicine m ON om.med_id = m.med_id
         LEFT JOIN prescription pr ON po.prescription_id = pr.prescription_id
