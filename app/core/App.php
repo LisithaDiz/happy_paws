@@ -43,7 +43,7 @@ class App
                'PetOwnerController'=>['addBookings'],
                'PetOwnerView_VetProfile'=>['index'],
                'PetOwnerView_SitterProfile'=>['index'],
-               'PetOwnerView _CareCenterProfile'=>['index']
+               'PetOwnerView _CareCenterProfile'=>['index'],
                
                
                'PlaceOrder' => ['index', 'create', 'getPrescriptions'],
