@@ -20,34 +20,32 @@
         <!-- Main content area -->
         <div class="main-content">
             <div class="overview-cards">
-                    <h1>Pet Details</h1>
-                    
-                    <!-- Prescription List -->
-                    <div class="prescription-card" id="prescription1">
-                        <div class="pet-info">
-                            <img src="<?=ROOT?>/assets/images/background3.jpeg" alt="Buddy" class="pet-photo">
-                            <div>
-                                <h3>Buddy</h3>
-                                <p>Age: 2 years</p>
+                <h1>Completed Appointments</h1>
+                
+                <?php if (!empty($appointments)): ?>
+                    <?php foreach ($appointments as $appointment): ?>
+                        <div class="prescription-card" id="appointment-<?= $appointment->appointment_id ?>">
+                            <div class="pet-info">
+                                <img src="<?=ROOT?>/assets/images/background3.jpeg" alt="<?= htmlspecialchars($appointment->pet_name) ?>" class="pet-photo">
+                                <div>
+                                    <h3><?= htmlspecialchars($appointment->pet_name) ?></h3>
+                                    <p>Age: <?= htmlspecialchars($appointment->age) ?> years</p>
+                                    <p>Type: <?= htmlspecialchars($appointment->pet_type) ?></p>
+                                    <p>Breed: <?= htmlspecialchars($appointment->breed) ?></p>
+                                    <p>Appointment Date: <?= date('F j, Y', strtotime($appointment->day_of_appointment)) ?></p>
+                                </div>
+                            </div>
+                            <div class="appointment-status">
+                                <span class="status-badge completed">Completed</span>
                             </div>
                         </div>
-                        <button class="btn-dashboard" >View Pet</button>
-                    </div>
-
-                    <div class="prescription-card" id="prescription2">
-                        <div class="pet-info">
-                            <img src="<?=ROOT?>/assets/images/background2.jpeg" alt="Bella" class="pet-photo">
-                            <div>
-                                <h3>Bella</h3>
-                                <p>Age: 3 years</p>
-                            </div>
-                        </div>
-                      <button class="btn-dashboard" >View Pet</button>
-
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No completed appointments found.</p>
+                <?php endif; ?>
             </div>
         </div>
+    </div>
 
         
 

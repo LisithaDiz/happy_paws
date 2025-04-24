@@ -134,7 +134,7 @@
 
 <?php include('components/footer.php'); ?>
 
-<!-- JavaScript Validation -->
+<!--  JavaScript Validation -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("name").addEventListener("input", validateName);

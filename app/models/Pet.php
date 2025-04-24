@@ -3,7 +3,7 @@
 class Pet {
     use Model;
 
-    protected $table = 'pet';
+    protected $table = 'pets';
     protected $allowedColumns = [
         'pet_id', 'owner_id', 'pet_name', 'pet_type', 'breed', 
         'age', 'color', 'weight', 'vaccinations', 'date_of_birth'

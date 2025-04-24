@@ -21,42 +21,29 @@
             <div class="overview-cards">
                 <div class="appoinement-requests">
                     <h1>Requests</h1>
-                        <!-- Each card will have its own appointment details -->
-                        <div class="card" id="appointmentreq1">
-                        <h3>Request 1</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Max', '2024-11-20', '2024-11-25', 'appointmentreq1')">View Details</button>
-                    </div>
+                    <?php if (!empty($appointments)): ?>
+                        <?php foreach ($appointments as $appointment): ?>
+                            <div class="card" id="appointment-<?= $appointment->appointment_id ?>">
+                                <h3>Request for <?= htmlspecialchars($appointment->pet_name) ?></h3>
+                                <p>Date: <?= date('Y-m-d', strtotime($appointment->day_of_appointment)) ?></p>
+                                <button class="btn-dashboard" onclick="openPopup(<?= $appointment->appointment_id ?>, '<?= htmlspecialchars($appointment->pet_name) ?>', '<?= $appointment->day_of_appointment ?>')">
+                                    View Details
+                                </button>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No pending requests found.</p>
+                    <?php endif; ?>
 
-                    <div class="card" id="appointmentreq2">
-                        <h3>Request 2</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Bella', '2024-11-21', '2024-11-25', 'appointmentreq2')">View Details</button>
-                    </div>
-
-                    <div class="card" id="appointmentreq3">
-                        <h3>Request 3</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Rex', '2024-11-22', '2024-11-25', 'appointmentreq3')">View Details</button>
-                    </div>
-
-                    <div class="card" id="appointmentreq4">
-                        <h3>Request 4</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Luna', '2024-11-23', '2024-11-29', 'appointmentreq4')">View Details</button>
-                    </div>
-
-                    <div class="card" id="appointmentreq5">
-                        <h3>Request 5</h3>
-                        <button class="btn-dashboard" onclick="openPopup('Liya', '2024-11-25', '2024-11-30', 'appointmentreq5')">View Details</button>
-                    </div>
-
-                        <!-- Popup structure -->
-                        <div id="appointmentPopup" class="popup">
-                            <div class="popup-content">
-                                <h3>Booking Details</h3>
-                                <p><strong>Pet Name:</strong> <span id="petName">Max</span></p>
-                                <p><strong>From:</strong> <span id="from">2024-11-20</span></p>
-                                <p><strong>To:</strong> <span id="to">2024-11-20</span></p>
-
+                    <!-- Popup structure -->
+                    <div id="appointmentPopup" class="popup">
+                        <div class="popup-content">
+                            <h3>Booking Details</h3>
+                            <p><strong>Pet Name:</strong> <span id="petName"></span></p>
+                            <p><strong>Appointment Date:</strong> <span id="appointmentDate"></span></p>
+                            <input type="hidden" id="currentAppointmentId">
                             <div class="popup-buttons">
-                                <button class="btn-accept" >Accept</button>
+                                <button class="btn-accept" onclick="acceptAppointment()">Accept</button>
                                 <button class="btn-decline" onclick="declineAppointment()">Decline</button>
                             </div>
                         </div>
@@ -75,39 +62,61 @@
     <script src="<?=ROOT?>/assets/js/script.js"></script> -->
 
     <script>
-        let currentAppointmentId = null;
-
-        // Function to open the popup with dynamic details
-        function openPopup(petName, from, to, appointmentId) {
+        function openPopup(appointmentId, petName, appointmentDate) {
             document.getElementById("petName").textContent = petName;
-            document.getElementById("from").textContent = from;
-            document.getElementById("to").textContent = to;
+            document.getElementById("appointmentDate").textContent = appointmentDate;
+            document.getElementById("currentAppointmentId").value = appointmentId;
             document.getElementById("appointmentPopup").style.display = "flex";
-
-            currentAppointmentId = appointmentId; // Set the correct current appointment ID
         }
 
         function closePopup() {
             document.getElementById("appointmentPopup").style.display = "none";
         }
 
-        function declineAppointment() {
-            if (currentAppointmentId) {
-                const card = document.getElementById(currentAppointmentId);
-                if (card) {
-                    card.remove(); // Remove the appointment card from the dashboard
-                }
-                closePopup(); // Close the popup after marking as completed
-            }
+        function acceptAppointment() {
+            const appointmentId = document.getElementById("currentAppointmentId").value;
+            updateAppointmentStatus(appointmentId, 'confirmed');
         }
 
-        // Optional: Close the popup when clicking outside the popup content
+        function declineAppointment() {
+            const appointmentId = document.getElementById("currentAppointmentId").value;
+            updateAppointmentStatus(appointmentId, 'declined');
+        }
+
+        function updateAppointmentStatus(appointmentId, status) {
+            const formData = new FormData();
+            formData.append('appointment_id', appointmentId);
+            formData.append('status', status);
+
+            fetch('<?= ROOT ?>/PetSitterRequest/updateStatus', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const card = document.getElementById(`appointment-${appointmentId}`);
+                    if (card) {
+                        card.remove();
+                    }
+                    closePopup();
+                    alert('Appointment status updated successfully');
+                } else {
+                    alert(data.message || 'Failed to update appointment status');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating the appointment status');
+            });
+        }
+
+        // Close popup when clicking outside
         window.onclick = function(event) {
             if (event.target == document.getElementById("appointmentPopup")) {
                 closePopup();
             }
         }
-
     </script>
    
 </body>

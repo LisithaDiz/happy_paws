@@ -17,14 +17,15 @@ class App
 
                     ],
         '1' => ['PetOwnerDashboard' => ['index'], 
-               'PetDetails' => ['index', 'deletePet'],
+               'PetDetails' => ['index', 'deletePet'], 
                'PetUpdate' => ['index', 'updatePetDetails'],
                'PetAdd' => ['index', 'createPet'],
                'PetOwnerProfile' => ['index'],
+               'PetOwnerAppointments' => ['index', 'delete'],
                'VetSearch' => ['index'],
                'PetOwnerGuardians' => ['index'],
                'PetsitterSearch' => ['index'],
-               'PetOwnerSitterSelection' => ['index'],
+               'PetOwnerSitterSelection' => ['index', 'placeOrder'],
                'PetcareSearch' => ['index'],
                'PharmSearch' => ['index'],
                'Reviews' =>['index','edit','delete','add','insert'],
@@ -48,7 +49,6 @@ class App
                
                'PlaceOrder' => ['index', 'create', 'getPrescriptions'],
                'Orders' => ['createOrder'],
-               'PetOwnerDash'=>['index']
             ], 
 
         
@@ -65,7 +65,6 @@ class App
                 'VetView_PetOwnerProfile' =>['index'],
                 'VetView_PetProfile' =>['index','issueprescription','updatemedicalrecord','insertmedicalrecord','deletemedicalrecord'],
                 'ChatBox' =>['index']
-                
         ],
 
         '3' => ['PetSitterDashboard' => ['index'],
@@ -73,9 +72,9 @@ class App
                 'PetSitterAccepted' => ['index'], 
                 'PetSitterPet' => ['index'], 
                 'PetSitterAvailability' => ['index'], 
-                'PetSitterRequest' => ['index'], 
+                'PetSitterRequest' => ['index', 'updateStatus'], 
+                'PetSitterAvailabilityUpdate' => ['index', 'updateAvailability'],
                 'ChatBox' =>['index'],
-
             ], 
 
         '4' => ['CareCenterDashboard' => ['index'],
@@ -108,6 +107,7 @@ class App
         'Admin' =>['adminLogin'],
         'ContactUs' =>['index'],
         'Prescription' => ['view'],
+
     ];
 
     private function splitURL()
@@ -118,6 +118,9 @@ class App
 
     private function checkAccess($controller, $method)
     {
+        //checking
+        // var_dump($_SESSION['user_id']);
+        // var_dump($_SESSION['user_role']);
         if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
             return false; 
         }
@@ -151,11 +154,13 @@ class App
             $this->controller = ucfirst($URL[0]);
             unset($URL[0]);
         } else {
+            // Load 404 controller for invalid URLs
             require "../app/controllers/_404.php";
             $this->controller = "_404";
         }
 
         $controller = new $this->controller;
+
         $this->method = $URL[1] ?? $this->method;
 
         /** Check Access **/
@@ -168,6 +173,19 @@ class App
             }
         } else {
             redirect('_404');
+
+
+        /** Select method **/
+        // if (!empty($URL[1])) {
+        //     if (method_exists($controller, $URL[1])) {
+        //         $this->method = $URL[1];
+        //         unset($URL[1]);
+        //     }
+        // }
+        // var_dump($this->isPublic($this->controller, $this->method));
+        // var_dump($this->checkAccess($this->controller, $this->method));
+
+        
         }
     }
 }

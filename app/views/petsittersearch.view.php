@@ -74,8 +74,8 @@
                             <input type="hidden" name="sitter_id" id="view_sitter_id_<?= $petSitter['sitter_id'] ?>">
                         </form>
                     
-                    <button class="book-button" onclick="location.href='<?=ROOT?>/PetOwnerSitterSelection'"> 
-                                                                                                                       <!-- <?=$petSitter['sitter_id']?> -->
+                        <button class="book-button" onclick="location.href='<?=ROOT?>/PetOwnerSitterSelection?sitter_id=<?=$petSitter['sitter_id']?>'">
+                        <!-- <?=$petSitter['sitter_id']?> -->
                         Book Now
                     </button>
                 </div>

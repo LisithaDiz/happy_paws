@@ -137,7 +137,6 @@ class User
         // Authenticate user
         $user = $this->userModel->authenticate($username, $password, $user_role);
 
-
         if (empty($user)) {
             $error = "Invalid username, password, or user role.";
             $this->view('login', ['error' => $error]);

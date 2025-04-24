@@ -80,6 +80,27 @@ class VetAppointmentModel
 		$result = $this->query($query, $params);
 		
 		
+	}
+
+
+	public function getAppointmentDetails()
+	{
+		$userid = $_SESSION['user_id'];
+		
+
+		$query="SELECT appointments.appointment_id,appointments.pet_id, appointments.startTime, appointments.endTime, pets.pet_name
+				FROM appointments
+				JOIN pets ON appointments.pet_id = pets.pet_id
+				JOIN veterinary_surgeon ON veterinary_surgeon.vet_id = appointments.vet_id
+				JOIN user ON user.user_id = veterinary_surgeon.user_id
+				WHERE user.user_id = :userid  AND appointment_status = '0'";
+
+			
+
+		$params = ['userid'=> $userid];
+
+		$result = $this->query($query, $params);
+		
 		return $result;
 
 	}

@@ -61,6 +61,20 @@ class PetcareSearch
             $petCareCenters = []; // Default to an empty array if not valid
         }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['clear'])) {
+                $petCareCenters = $this->petCareModel->getAllCenters();
+            } 
+            elseif (isset($_POST['search'])) {
+                $name = trim($_POST['name'] ?? '');
+                $location = trim($_POST['location'] ?? '');
+                $petCareCenters = $this->petCareModel->searchCenters($name, $location);
+            }
+        } else {
+            // Default: show all pet care centers
+            $petCareCenters = $this->petCareModel->getAllCenters();
+        }
+
         // Format the data for display
         $formattedCenters = [];
         foreach ($petCareCenters as $center) {
@@ -89,6 +103,7 @@ class PetcareSearch
         // Load the view with data
         $this->view('petcaresearch', [
             'petCareCenters' => $petCareCenters
+            // 'petCareCenters' => $formattedCenters
         ]);
     }
 }
