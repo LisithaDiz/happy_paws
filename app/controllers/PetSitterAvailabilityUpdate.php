@@ -33,69 +33,84 @@ class PetSitterAvailabilityUpdate
     }
 
     public function updateAvailability()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
-                $sitter_id = $_SESSION['sitter_id'] ?? null;
-                $date = $_POST['date'] ?? null;
-                $slots = $_POST['slots'] ?? null;
-                $price = $_POST['price'] ?? null;
-
-                // Log the received data
-                error_log("Received update request:");
-                error_log("Sitter ID: " . $sitter_id);
-                error_log("Date: " . $date);
-                error_log("Slots: " . $slots);
-                error_log("Price: " . $price);
-                error_log("POST data: " . print_r($_POST, true));
-
-                if (!$sitter_id || !$date || !$slots || !$price) {
-                    error_log("Missing required parameters");
-                    echo json_encode(['success' => false, 'message' => 'Missing required parameters']);
-                    return;
-                }
-
-                // Validate date format (YYYY-MM-DD)
-                $dateParts = explode('-', $date);
-                if (count($dateParts) !== 3 || 
-                    !checkdate($dateParts[1], $dateParts[2], $dateParts[0])) {
-                    error_log("Invalid date format: " . $date);
-                    echo json_encode(['success' => false, 'message' => 'Invalid date format']);
-                    return;
-                }
-
-                // Validate slots
-                if (!is_numeric($slots) || $slots < 1 || $slots > 10) {
-                    error_log("Invalid slots value: " . $slots);
-                    echo json_encode(['success' => false, 'message' => 'Invalid number of slots']);
-                    return;
-                }
-
-                // Validate price
-                if (!is_numeric($price) || $price < 0) {
-                    error_log("Invalid price value: " . $price);
-                    echo json_encode(['success' => false, 'message' => 'Invalid price']);
-                    return;
-                }
-
-                // Update or insert availability
-                $result = $this->sitterAvailability->updateAvailability($sitter_id, $date, $slots, $price);
-
-                if ($result) {
-                    error_log("Availability update successful");
-                    echo json_encode(['success' => true, 'message' => 'Availability updated successfully']);
-                } else {
-                    error_log("Availability update failed");
-                    echo json_encode(['success' => false, 'message' => 'Failed to update availability']);
-                }
-            } catch (Exception $e) {
-                error_log("Error in updateAvailability: " . $e->getMessage());
-                error_log("Stack trace: " . $e->getTraceAsString());
-                echo json_encode(['success' => false, 'message' => 'An error occurred while updating availability']);
-            }
-        } else {
-            error_log("Invalid request method: " . $_SERVER['REQUEST_METHOD']);
+{
+    // Turn off PHP error output to prevent HTML error messages in the response
+    ini_set('display_errors', 0);
+    
+    // Set content type to JSON
+    header('Content-Type: application/json');
+    
+    try {
+        // Check if the request is POST
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+            return;
         }
+
+        // Get the sitter_id from session
+        $sitter_id = $_SESSION['sitter_id'] ?? null;
+        
+        if (!$sitter_id) {
+            echo json_encode(['success' => false, 'message' => 'Not logged in']);
+            return;
+        }
+
+        // Get form data
+        $date = $_POST['date'] ?? '';
+        $slots = $_POST['slots'] ?? '';
+        $price = $_POST['price'] ?? '';
+
+        // Validate the data
+        if (empty($date) || empty($slots) || !is_numeric($slots) || $slots <= 0 || empty($price) || !is_numeric($price) || $price < 0) {
+            echo json_encode(['success' => false, 'message' => 'Please provide valid values for all fields']);
+            return;
+        }
+
+        // Debug log
+        error_log("Updating availability: sitter_id=$sitter_id, date=$date, slots=$slots, price=$price");
+
+        // Check if this date already has an entry
+        $existingAvailability = $this->sitterAvailability->first(['sitter_id' => $sitter_id, 'day' => $date]);
+        
+        $result = false;
+
+        if ($existingAvailability) {
+            // Update existing record
+            error_log("Updating existing record: avl_id=" . $existingAvailability->avl_id);
+            $result = $this->sitterAvailability->update(
+                $existingAvailability->avl_id, 
+                [
+                    'number_of_slots' => $slots,
+                    'price_per_slot' => $price
+                ],
+                'avl_id'
+            );
+        } else {
+            // Insert new record
+            error_log("Inserting new record");
+            $result = $this->sitterAvailability->insert([
+                'sitter_id' => $sitter_id,
+                'day' => $date,
+                'number_of_slots' => $slots,
+                'price_per_slot' => $price
+            ]);
+        }
+
+        error_log("Result of operation: " . ($result ? "success" : "failure"));
+
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'Availability updated successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update availability']);
+        }
+    } catch (Exception $e) {
+        // Log the exception but return a clean JSON error
+        error_log("Exception in updateAvailability: " . $e->getMessage());
+        echo json_encode(['success' => false, 'message' => 'An error occurred while updating availability']);
     }
+    
+    // Make sure to exit to prevent any additional output
+    exit;
+}
+
 } 
