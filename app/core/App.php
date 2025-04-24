@@ -90,7 +90,7 @@ class App
                 'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
-                'ChatBox' =>['index']
+                'ChatBox' =>['index'],
                 'Report' => ['index', 'download'],
             ],
         
