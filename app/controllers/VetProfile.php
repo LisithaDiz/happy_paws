@@ -36,30 +36,30 @@ class VetProfile
                 echo "Failed to update some details.<br>";
             }
         } else {
-            $this->loadView();
+            echo "Failed to update some details";
         }
     }
 
 
 
-    public function loadView()
-    {
-        // Load data for the profile view
-        $vetModel = new VetModel();
-        $userModel = new UserModel();
+    // public function loadView()
+    // {
+    //     // Load data for the profile view
+    //     $vetModel = new VetModel();
+    //     $userModel = new UserModel();
 
-        $userid = $_SESSION['user_id'];
+    //     $userid = $_SESSION['user_id'];
         
 
-        // Get vet details
-        $vetDetails = $vetModel->getById($userid, 'user_id');
+    //     // Get vet details
+    //     $vetDetails = $vetModel->getById($userid, 'user_id');
 
-        // Get user details
-        $userDetails = $userModel->getById($userid, 'user_id');
+    //     // Get user details
+    //     $userDetails = $userModel->getById($userid, 'user_id');
 
-        // Pass both vet and user data to the view
-        require_once '../app/views/vetprofile.view.php';
-    }
+    //     // Pass both vet and user data to the view
+    //     require_once '../app/views/vetprofile.view.php';
+    // }
 
 
     public function __construct()
@@ -83,15 +83,14 @@ class VetProfile
                 'district'    => $_POST['district'],
                 'city'        => $_POST['city'],
                 'contact_no'  => $_POST['contact_no'],
-                'years_exp'   => $_POST['years_exp']
+                'years_exp'   => $_POST['years_exp'],
+                'consultation_fee' => $_POST['consultation_fee'],
+                'about_us' => $_POST['about_us'],
+
             ];
 
-            // You may want to validate the data here, e.g., check if required fields are filled
 
-            // // Get the vet's ID, for example from the session or passed as a parameter
-            // $id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
-            // $vetid = 1;
-            // Load the Vet model
+            
             $userid = $_SESSION['user_id'];
            
             // var_dump($userid);

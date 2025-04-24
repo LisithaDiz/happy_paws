@@ -76,7 +76,7 @@ class PlaceOrder
         }
 
         $prescription = new PrescriptionModel();
-        $prescriptionDetails = $prescription->getPrescriptionDetails($prescription_id);
+        $prescriptionDetails = $prescription->getPrescriptionDetailsForm($prescription_id);
 
         if (!$prescriptionDetails) {
             header('Content-Type: application/json');

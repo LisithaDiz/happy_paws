@@ -16,23 +16,19 @@ class PetOwnerModel
             'city',
             'street',
             'contact_no',
-            'num_pets'
+            'num_pets',
+			'activity_status'
 	];
 
 
-	public function getPetOwnerDetails()    
+	public function getPetOwnerDetails($ownerid=null)    
 	{
+		if ($ownerid === null) {
+			$ownerid = $_SESSION['owner_id'];
+		}
 		// Define the SQL query
-		$query = "SELECT user.username, user.email, veterinary_surgeon.license_no, 
-						veterinary_surgeon.f_name, veterinary_surgeon.l_name, 
-						veterinary_surgeon.age, veterinary_surgeon.gender, 
-						veterinary_surgeon.district, veterinary_surgeon.city, 
-						veterinary_surgeon.contact_no, 
-						veterinary_surgeon.years_exp
-				FROM user
-				JOIN veterinary_surgeon 
-				ON user.user_id = veterinary_surgeon.user_id 
-				LIMIT 1";
+		$query = "SELECT * FROM pet_owner o
+				JOIN user u ON u.user_id = o.user_id";
 
 		// Execute the query and store the result
 		$result = $this->query($query);

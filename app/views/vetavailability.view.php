@@ -37,7 +37,7 @@
     </div>
 
     <!-- hidden form for view profile -->
-    <form id="viewProfileForm" action="<?= ROOT ?>/vetview_petownerprofile/index" method="POST" style="display: none;">
+    <form id="viewProfileForm" action="<?= ROOT ?>/petownerprofile/index" method="POST" style="display: none;">
         <input type="hidden" name="owner_id" id="owner_id">
     </form>
 
@@ -47,11 +47,11 @@
     </form>
 
     <!-- hidden form for cancel appointment -->
-    <form id="cancelAppointmentForm" action="<?= ROOT ?>/VetAvailability/cancelAppointment" method="POST" style="display: none;" onsubmit="return >
+    <form id="cancelAppointmentForm" action="<?= ROOT ?>/VetAvailability/cancelAppointment" method="POST" style="display: none;" >
         <input type="hidden" name="appointment_id" id="cancel_appointment_id">
     </form>
 
-    <?php include('components/footer.php'); ?>
+    <!-- <?php include('components/footer.php'); ?> -->
 
     <script>
         let appointmentsData = <?= json_encode($vetAppointmentDetails ?? []); ?>;
@@ -146,7 +146,7 @@
                                 <div class="appointment-actions">
                                     <button class="complete-btn" onclick="viewOwnerProfile('${app.owner_id}')">view profile</button>
                                     <button class="complete-btn" onclick="markAsCompleted('${app.appointment_id}')">Completed</button>
-                                    <button class="cancel-btn" onclick="cancelAppointment('${app.appointment_id}')">Cancel</button>
+                                    <button class="complete-btn" onclick="cancelAppointment('${app.appointment_id}')">Cancel</button>
                                 </div>
                             `;
                         }

@@ -70,6 +70,7 @@
                         <h3><i class="fas fa-user-md"></i> Professional Information</h3>
                         <p><strong>License No:</strong> <?= htmlspecialchars($vet->license_no) ?></p>
                         <p><strong>Years of Experience:</strong> <?= htmlspecialchars($vet->years_exp) ?></p>
+                        <p><strong>Consultation Fee:</strong> Rs. <?= htmlspecialchars($vet->consultation_fee) ?></p>
                         <p><strong>Specializations:</strong> General Practice, Surgery</p>
                     </div>
                     
@@ -151,6 +152,12 @@
                     <div class="form-group">
                         <label for="years_exp">Years of Experience</label>
                         <input type="number" id="years_exp" name="years_exp" value="<?= htmlspecialchars($vet->years_exp) ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="years_exp">Consultation Fee</label>
+                        <input type="number" id="consultation_fee" name="consultation_fee" value="<?= htmlspecialchars($vet->consultation_fee) ?>" required>
+                        <span id="consultationFeeError" class="error-message" style="color:red; font-size: 0.9em;"></span>
                     </div>
                     
                     <div class="form-group">
@@ -235,6 +242,21 @@
                 });
             });
         });
+
+        document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+            const feeInput = document.getElementById('consultation_fee');
+            const errorSpan = document.getElementById('consultationFeeError');
+            const feeValue = parseFloat(feeInput.value);
+
+            if (isNaN(feeValue) || feeValue <= 0) {
+                e.preventDefault(); // stop form from submitting
+                errorSpan.textContent = 'Consultation fee must be positive.';
+                feeInput.focus();
+            } else {
+                errorSpan.textContent = '';
+            }
+        });
+
     </script>
     
     <?php include ('components/footer.php'); ?>

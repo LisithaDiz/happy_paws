@@ -18,7 +18,7 @@
 
         <!-- Main content area -->
         <div class="main-content">
-            <h1>Welcome, Dr. [Vet Name]!</h1>
+            <h1>Welcome, Dr. <?= htmlspecialchars($vetDetails[0]->f_name) ?> <?= htmlspecialchars($vetDetails[0]->l_name) ?>!</h1>
             <p>We're glad to have you back. Your dashboard provides you with all the tools you need to manage appointments, pets records, prescriptions, and more.</p>
 
             <!-- Dashboard Overview Section -->

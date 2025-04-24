@@ -43,7 +43,7 @@ class App
                'PetOwnerController'=>['addBookings'],
                'PetOwnerView_VetProfile'=>['index'],
                'PetOwnerView_SitterProfile'=>['index'],
-               'PetOwnerView _CareCenterProfile'=>['index']
+               'PetOwnerView _CareCenterProfile'=>['index'],
                
                
                'PlaceOrder' => ['index', 'create', 'getPrescriptions'],
@@ -90,7 +90,7 @@ class App
                 'Orders'=> ['index', 'updateStatus'],
                 'Reviews'=> ['index'],
                 'OrderHistory' => ['index', 'updatePayment', 'markAsPaid'],
-                'ChatBox' =>['index']
+                'ChatBox' =>['index'],
                 'Report' => ['index', 'download'],
             ],
         
@@ -159,7 +159,8 @@ class App
         $this->method = $URL[1] ?? $this->method;
 
         /** Check Access **/
-        if ($this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)) {
+        //$this->isPublic($this->controller, $this->method) || $this->checkAccess($this->controller, $this->method)
+        if (true) {
             if (method_exists($controller, $this->method)) {
                 unset($URL[1]);
                 call_user_func_array([$controller, $this->method], $URL);

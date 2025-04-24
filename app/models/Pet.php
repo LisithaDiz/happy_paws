@@ -3,7 +3,7 @@
 class Pet {
     use Model;
 
-    protected $table = 'pet';
+    protected $table = 'pets';
     protected $allowedColumns = [
         'pet_id', 'owner_id', 'pet_name', 'pet_type', 'breed', 
         'age', 'color', 'weight', 'vaccinations', 'date_of_birth'
@@ -184,10 +184,21 @@ class Pet {
 
     }
 
-    //owner pofile vet-view
-    public function petDetailsVetView()
+    public function getpetDetails($ownerid)
     {
-        $ownerid = 1;
+        if ($ownerid === null) {
+			$ownerid = $_SESSION['owner_id'];
+		}
+        $query = "SELECT * FROM pets
+                WHERE owner_id = :ownerid";
+
+        $result = $this->query($query,['ownerid'=>$ownerid]);
+        return $result;
+    }
+
+    //owner pofile vet-view
+    public function petDetailsVetView($ownerid)
+    {
         $query = "SELECT * FROM pets
                 WHERE owner_id = :ownerid";
 
@@ -210,7 +221,7 @@ class Pet {
     public function getPetsByOwner($owner_id)
     {
         try {
-            $query = "SELECT * FROM pet WHERE owner_id = :owner_id ORDER BY pet_name";
+            $query = "SELECT * FROM pets WHERE owner_id = :owner_id ORDER BY pet_name";
             return $this->query($query, [':owner_id' => $owner_id]);
         } catch (Exception $e) {
             error_log("Error in getPetsByOwner: " . $e->getMessage());
@@ -221,7 +232,7 @@ class Pet {
     public function getPetById($pet_id)
     {
         try {
-            $query = "SELECT * FROM pet WHERE pet_id = :pet_id LIMIT 1";
+            $query = "SELECT * FROM pets WHERE pet_id = :pet_id LIMIT 1";
             $result = $this->query($query, [':pet_id' => $pet_id]);
             return $result ? $result[0] : null;
         } catch (Exception $e) {

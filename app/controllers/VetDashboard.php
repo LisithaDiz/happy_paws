@@ -6,7 +6,9 @@ class VetDashboard
 
     public function index()
     {
-        $this->view('vetdashboard');
+        $vetModel = new VetModel;
+        $vetDetails = $vetModel->getVetDetails();
+        $this->view('vetdashboard',['vetDetails'=>$vetDetails]);
     }
 }
 

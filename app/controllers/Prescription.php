@@ -14,7 +14,7 @@ class Prescription
         }
 
         $prescription = new PrescriptionModel();
-        $result = $prescription->getPrescriptionDetails($prescription_id);
+        $result = $prescription->getPrescriptionDetailsForm($prescription_id);
 
         if (!$result) {
             header('Content-Type: application/json');

@@ -1,6 +1,6 @@
 <?php
 
-class VetView_PetProfile
+class PetProfile
 {
     use Controller;
 
@@ -27,7 +27,7 @@ class VetView_PetProfile
         $prescriptionDetails = $prescriptionModel->getPrescriptionsDetails($petid);
 
         
-        $this->view('vetview_petprofile',['petDetails'=>$petDetails,'medicineDetails'=>$medicineDetails,'medicalHistoryDetails'=>$medicalhistoryDetails, 'prescriptionDetails'=>$prescriptionDetails]);
+        $this->view('petprofile',['petDetails'=>$petDetails,'medicineDetails'=>$medicineDetails,'medicalHistoryDetails'=>$medicalhistoryDetails, 'prescriptionDetails'=>$prescriptionDetails]);
     }
 
 
@@ -57,7 +57,8 @@ class VetView_PetProfile
                         $prescription_id,
                         $medicine['id'],
                         $medicine['dosage'],
-                        $medicine['frequency']
+                        $medicine['frequency'],
+                        $medicine['quantity']
                     );
                 }
                 
@@ -68,7 +69,7 @@ class VetView_PetProfile
 
         }
 
-        header("Location: " . ROOT . "/vetview_vetavailability");
+        header("Location: " . ROOT . "/vetview_petprofile");
         exit;
     }
 
