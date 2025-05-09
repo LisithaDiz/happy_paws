@@ -1,0 +1,99 @@
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 20px;
+}
+
+.monthyear{
+    color: rgb(77, 77, 77);
+
+}
+
+.calendar-day {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-height: 100px;
+    position: relative;
+}
+
+.calendar-day.available {
+    background-color:#fae3e3; /* Light green for available */
+    color:rgb(77, 77, 77);
+}
+
+.calendar-day.unavailable {
+    background-color: #c35b64; /* Light red for unavailable */
+    color: #721c24;
+}
+
+.calendar-day:hover {
+    opacity: 0.8;
+}
+
+.availability-info {
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: #666;
+}
+
+.calendar-header {
+    grid-column: span 7;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fae3e3;
+    color: rgb(77, 77, 77);
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #f5c6cb;
+    color: rgb(77, 77, 77);
+}
+
+.availability-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #f5c6cb;
+}
+

@@ -1,0 +1,267 @@
+:root {
+    --primary-color: #d8544c;
+    --background-color: #f4f7f6;
+    --text-color: #333;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    line-height: 1.6;
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* Hero Section with Dynamic Gradient and Parallax Effect */
+#hero {
+    position: relative;
+    height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); */
+    background-image: url('../../assets/images/pet-owner.jpg');
+    background-size: cover;
+
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+#hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: 
+        radial-gradient(circle at 0% 10%, #d8544c, transparent 30%),
+        radial-gradient(circle at 100% 10%, white, transparent 30%); */
+    animation: backgroundShift 10s ease infinite;
+    z-index: 1;
+}
+
+@keyframes backgroundShift {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+#hero .hero-content {
+   
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+    /* transform: translateZ(-1px) scale(2); */
+    text-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+    animation: slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    
+}
+
+#hero p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 1.5s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
+}
+
+.signup-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: white;
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all var(--transition-speed) ease;
+}
+
+.signup-button:hover::before {
+    left: 100%;
+}
+
+.signup-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+}
+
+/* Services Section with Card Hover Effects */
+#services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 4rem 10%;
+    background: white;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+    transform: perspective(1000px);
+    transform-style: preserve-3d;
+    
+}
+
+.card:hover {
+    transform: scale(1.05) rotateX(10deg);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform var(--transition-speed) ease;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.card-content h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    transition: color var(--transition-speed) ease;
+}
+
+.card:hover .card-content h2 {
+    color: var(--secondary-color);
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    #hero {
+        height: auto;
+        padding: 4rem 2rem;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+
+    #hero p {
+        font-size: 1.2rem;
+    }
+
+    #services {
+        grid-template-columns: 1fr;
+        padding: 2rem 5%;
+    }
+}
+
+/* Smooth Scroll and Interaction Enhancements */
+/* html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 20px;
+} */
+
+.card-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.card:hover .card-video {
+    opacity: 1;
+}
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fc9191; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f95b5b; /* Darker color on hover */
+}

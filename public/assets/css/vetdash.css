@@ -1,0 +1,187 @@
+
+/* Sidebar */
+.sidebar {
+    color: #000000;
+    top: 60px; /* Adjust this if navbar height is different */
+    left: 0;
+    width: 250px; /* Width of the sidebar */
+    height: calc(100vh - 40px); /* Full height minus navbar and footer */
+    background-color: #f8d7da; /* Adjust color as needed */
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 2000px;
+}
+
+/* Sidebar content styling */
+.sidebar h3 {
+    font-size: 18px;
+    color: #d8544c;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+/* Style the sidebar links (buttons) */
+.sidebar ul li a {
+    display: block;
+    width: 100%; /* Ensures all buttons are the same width */
+    padding: 12px 0; /* Adjust vertical padding for button height */
+    text-align: center; /* Center the text inside the button */
+    background-color: #fae3e3; /* Light pink background */
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for 3D effect */
+    transition: all 0.3s ease-in-out;
+    margin: 5px 0; /* Even spacing between buttons */
+}
+
+/* 3D button effect on hover */
+.sidebar ul li a:hover {
+    background-color: #f5c6cb; /* Slightly darker pink on hover */
+    color: #fff; /* White text on hover */
+    transform: translateY(-2px); /* Slightly lift the button */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+
+
+
+/* Dashboard container to display sidebar and main content side by side */
+.dashboard-container {
+    display: flex;
+    flex-direction: row; /* Ensures sidebar and main content are aligned horizontally */
+    height: 100vh; /* Full viewport height */
+}
+
+
+.main-content {
+    max-width: 1200px; /* Increased maximum width for more space */
+    width: 90%; /* Makes the div responsive by taking up most of the screen width */
+    margin: 20px auto; /* Centered with space at the top and bottom */
+    padding: 40px; /* Increased padding for more content spacing */
+    border-radius: 10px; /* Rounded corners */
+    animation: fadeIn 2s ease-in-out;
+    height: auto; /* Adjusts dynamically based on content */
+    overflow: visible; /* Ensures no clipping */
+    background-color: transparent; /* No background color */
+    backdrop-filter: none; /* No blur effect */
+    margin-top: 120px;
+}
+
+
+
+/* Dashboard Overview */
+.dashboard-overview {
+    margin-bottom: 30px;
+}
+
+.dashboard-overview h2 {
+    color: #d8544c;
+    margin-bottom: 20px;
+}
+
+.overview-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.card .btn-dashboard {
+    background-color: #fae3e3;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card .btn-dashboard:hover {
+    background-color: #f5c6cb;
+}
+
+
+
+/* Contact Section */
+.contact {
+    margin-bottom: 30px;
+}
+
+.contact h2 {
+    color: #d8544c;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.contact a {
+    display: inline-block;
+    background-color: #fae3e3;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact a:hover {
+    background-color: #f5c6cb;
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f5c6cb; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fae3e3; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f5c6cb; /* Darker color on hover */
+}
+
+
+
+
+
+
+
+

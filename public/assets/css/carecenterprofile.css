@@ -1,0 +1,193 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.dashboard-container {
+    margin: 100px;
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content{
+    margin-top: 300px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 2s ease-in-out;
+    background-color: rgb(255, 255, 255);
+    max-height: auto; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrolling */
+    margin-right: 40px;
+    margin-left: 170px;
+}
+
+#profile {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    margin: 20px auto;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cover-image {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: -75px;
+    border: 5px solid white;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Cage Management Table */
+#cage-management {
+    width: 90%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th, td {
+    padding: 10px;
+}
+
+th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.book-btn {
+    background-color: #27ae60;
+    padding: 8px 15px;
+}
+
+.book-btn:hover {
+    background-color: #219150;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background: #2a2a2a;
+    color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+.modal-actions button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal-actions button:hover {
+    background-color: #0056b3;
+}
+
+/* Calendar Styling */
+.flatpickr-calendar {
+    background: #2a2a2a !important;
+    color: white !important;
+}
+
+.flatpickr-day {
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.flatpickr-day:hover {
+    background: #007bff !important;
+    color: white !important;
+}
+
+.flatpickr-day.selected {
+    background: #007bff !important;
+    color: white !important;
+}
+
+.flatpickr-month {
+    color: white !important;
+}
+
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: none; /* Hidden by default */
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
